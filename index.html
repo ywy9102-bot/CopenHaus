@@ -22,17 +22,17 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Serif+KR:wght@700&amp;display=swap">
 <script>
 /* 언어: 처음에는 항상 한국어. 주소에 ?lang=en 이 있으면 영어로 열려요 */
 (function(){var l=(location.search.match(/[?&]lang=(ko|en)/)||[])[1]||'ko';document.documentElement.lang=l;document.documentElement.dataset.lang=l})();
 </script>
 <style>
-:root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#a54d33;--paper:#fff;--sep:#c9cdb8;--ctl:#7f8d73;--ctl-bg:#fff;--lift:0 1px 0 rgba(38,51,31,.1),0 3px 8px rgba(38,51,31,.14);--serif:"Source Serif 4",Georgia,"Noto Serif KR","Apple SD Gothic Neo",serif}
+:root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#a54d33;--paper:#fff;--sep:#c9cdb8;--ctl:#7f8d73;--ctl-bg:#fff;--lift:0 1px 0 rgba(38,51,31,.1),0 3px 8px rgba(38,51,31,.14);--serif:"Noto Serif KR","Noto Serif CJK KR","AppleMyungjo","Batang",Georgia,serif;--sans:"Noto Sans KR","Noto Sans CJK KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif}
 @media (prefers-color-scheme:dark){:root{--bg:#121a11;--card:#1d2a1b;--card2:#1a2418;--field:#26331f;--line:#3b4434;--ink:#eef2e6;--mute:#a9b79c;--green:#9db683;--brick:#e08a68;--paper:#1d2a1b;--sep:#4a5642;--ctl:#7d8c70;--ctl-bg:#2a3126;--lift:0 1px 0 rgba(0,0,0,.4),0 3px 8px rgba(0,0,0,.35)}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",sans-serif;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere}
 main{max-width:520px;margin:0 auto;padding:16px 16px 64px}
 p{margin:0}
 ::selection{background:var(--green);color:var(--bg)}
@@ -49,7 +49,7 @@ html[data-lang=ko] .en,html[data-lang=en] .ko{display:none!important}
 /* 머리말 */
 .top{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:0 0 14px}
 .back{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px 0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);font-size:14px;font-weight:700;text-decoration:none;color:var(--ink)}
-.lang{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:3px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--mute);font:700 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo",sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lang{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:3px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--mute);font:700 14px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .lang i{display:grid;place-items:center;min-width:44px;height:36px;padding:0 10px;border-radius:99px;font-style:normal;color:var(--ink);transition:background .15s,color .15s}
 html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{background:var(--green);color:var(--bg)}
 .lang:active{transform:translateY(1px) scale(.985);box-shadow:none}
@@ -57,7 +57,7 @@ html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{back
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,10,0) 20%,rgba(14,20,10,.82) 78%,rgba(14,20,10,.95))}
 .hero .t{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:18px 20px 56px;color:#fff}
-h1{margin:0 0 6px;font:600 clamp(34px,10vw,46px)/1.04 var(--serif);letter-spacing:-.015em}
+h1{margin:0 0 6px;font:700 clamp(30px,8.6vw,44px)/1.12 var(--serif);letter-spacing:-.02em;text-wrap:balance}
 .hero p.d{font-size:15px;line-height:1.45;max-width:34ch}
 
 /* 탭 내비 */
@@ -65,7 +65,7 @@ h1{margin:0 0 6px;font:600 clamp(34px,10vw,46px)/1.04 var(--serif);letter-spacin
 .tabs.stuck{border-bottom-color:var(--sep)}
 .tabs{display:flex;align-items:center;gap:8px}
 .tabs ul{flex:1;min-width:0}
-.lang-mini{flex:none;display:none;place-items:center;min-width:44px;min-height:44px;padding:0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo",sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lang-mini{flex:none;display:none;place-items:center;min-width:44px;min-height:44px;padding:0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font:700 13px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .tabs.stuck .lang-mini{display:grid}
 html[data-lang=ko] .lang-mini::after{content:"EN"}html[data-lang=en] .lang-mini::after{content:"한"}
 .tabs ul{list-style:none;margin:0;padding:0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
@@ -79,7 +79,7 @@ section.s+section.s{border-top:1px solid var(--sep);margin-top:28px}
 h2{position:relative;margin:0 0 6px;padding-bottom:12px;font:700 30px/1.15 var(--serif);letter-spacing:-.012em;text-wrap:balance}
 h2::after{content:"";position:absolute;left:0;bottom:0;width:44px;height:3px;border-radius:3px;background:var(--brick)}
 .intro{margin:14px 0 18px;font-size:16px;color:var(--ink)}
-h3{margin:26px 0 10px;font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+h3{margin:26px 0 10px;font:700 13px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
 .small{font-size:13px;color:var(--mute)}
 .note{margin-top:12px;font-size:13px;color:var(--mute)}
 .warn{margin-top:12px;padding:10px 14px;border-radius:14px;background:var(--card);background:color-mix(in srgb,var(--brick) 12%,transparent);color:var(--ink);font-size:14px}
@@ -114,7 +114,7 @@ h3{margin:26px 0 10px;font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe 
 /* 단계 목록 */
 .steps{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:16px}
 .steps li{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
-.steps .n{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--green);color:var(--bg);font:700 15px/1 sans-serif}
+.steps .n{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--green);color:var(--bg);font:700 15px/1 var(--sans)}
 .steps b{display:block;font-size:16px}
 .steps p{font-size:14px;color:var(--mute)}
 
@@ -144,7 +144,7 @@ details.dev[open] .chev{transform:rotate(180deg)}
 .dev .lede{margin:14px 0 12px;font-size:15px}
 .keys{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
 .keys li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:14px;line-height:1.5}
-.keys i{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--green);color:var(--bg);font:700 12px/1 sans-serif;font-style:normal}
+.keys i{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--green);color:var(--bg);font:700 12px/1 var(--sans);font-style:normal}
 .keys i.h{background:var(--brick)}
 .keys b{font-weight:700}
 .most{margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--card2)}
@@ -165,7 +165,7 @@ details.dev[open] .chev{transform:rotate(180deg)}
 /* 규칙 */
 ol.rules{list-style:none;margin:0;padding:0;display:grid;gap:14px}
 ol.rules li{display:flex;gap:12px;align-items:flex-start}
-ol.rules li i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);font:700 14px/28px sans-serif;text-align:center;font-style:normal}
+ol.rules li i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);font:700 14px/28px var(--sans);text-align:center;font-style:normal}
 ol.rules li span{padding-top:2px}
 
 /* 체크리스트 */
@@ -252,7 +252,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 .howto ul{list-style:none;margin:0;padding:2px 16px 16px;display:grid;gap:12px}
 .howto li{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:center;font-size:14px;line-height:1.5}
 .howto li b{display:block;font-size:15px}
-.demo{display:flex;align-items:center;justify-content:center;gap:4px;height:40px;border:1.5px solid var(--ctl);border-radius:12px;background:var(--ctl-bg);color:var(--ink);font:700 12px/1 sans-serif;pointer-events:none}
+.demo{display:flex;align-items:center;justify-content:center;gap:4px;height:40px;border:1.5px solid var(--ctl);border-radius:12px;background:var(--ctl-bg);color:var(--ink);font:700 12px/1 var(--sans);pointer-events:none}
 .demo .ic{width:18px;height:18px;color:var(--green)}
 .demo.pill{border-radius:99px}
 .demo i{font-style:normal;padding:4px 5px;border-radius:99px;white-space:nowrap}
@@ -261,7 +261,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 
 /* 그림 위 "누르면 크게" 표시 */
 .zoom{position:relative}
-.zh{display:flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:0 12px;background:rgba(28,42,25,.86);color:#fff;font:700 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo",sans-serif;pointer-events:none}
+.zh{display:flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:0 12px;background:rgba(28,42,25,.86);color:#fff;font:700 12px/1 var(--sans);pointer-events:none}
 .zh .ic{width:15px;height:15px}
 .chip .cpy,.btn .cpy{width:16px;height:16px;color:var(--green)}
 
