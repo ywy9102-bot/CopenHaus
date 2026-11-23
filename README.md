@@ -5,8 +5,10 @@ Static site (no build step). Open `index.html` in a browser to preview.
 ## Pages
 | URL | Page |
 |---|---|
-| `/` (`index.html`) | Guest guidebook: house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency. Korean / English toggle (`?lang=ko` or `?lang=en`). |
-| `/brochure/` (`brochure/index.html`) | One-page arrival brochure: check-in, directions, Wi-Fi QR, host contact. |
+| `/` (`index.html`) | Guest guidebook (the main page guests get): house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency, Wi-Fi QR and host contacts. Opens in Korean; English with `?lang=en`. |
+| `/brochure/` (`brochure/index.html`) | One-page arrival brochure: check-in, directions, Wi-Fi QR, host contact. Opens in English; Korean with `?lang=ko`. Not linked from the guidebook. |
+
+The 한/ENG button on either page updates `?lang=` in the address, so a shared link or a reload keeps the language, and the brochure's Guidebook link opens the guidebook in the same language.
 
 Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`.
 
@@ -17,7 +19,7 @@ Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#micr
 | `brochure/index.html` | Arrival brochure page (all CSS/JS inline) |
 | `img/` | Guidebook diagrams and building photos (from the printed 1F guidebook) |
 | `hero.jpg` | Hero photo |
-| `qr.png` | Wi-Fi QR code |
+| `qr.png` | Wi-Fi QR code (guidebook and brochure) |
 | `og.jpg` | Link preview image (KakaoTalk, LINE, etc.) |
 | `favicon.png`, `apple-touch-icon.png` | Browser tab / home-screen icons |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is |
