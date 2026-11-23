@@ -24,7 +24,7 @@ Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#micr
 |---|---|
 | `index.html` | Guidebook page (all CSS/JS inline) |
 | `brochure/index.html` | Arrival brochure page (all CSS/JS inline) |
-| `img/` | Guidebook diagrams and building photos (from the printed 1F guidebook) |
+| `img/` | Guidebook diagrams and building photos (from the printed 1F guidebook); `img/en/` and `img/ja/` hold the same diagrams relettered in English and Japanese |
 | `hero.jpg` | Hero photo |
 | `qr.png` | Wi-Fi QR code (guidebook) |
 | `og.jpg` | Link preview image (KakaoTalk, LINE, etc.) |
