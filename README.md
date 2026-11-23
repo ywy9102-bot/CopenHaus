@@ -5,7 +5,7 @@ Static site (no build step). Open `index.html` in a browser to preview.
 ## Pages
 | URL | Page |
 |---|---|
-| `/` (`index.html`) | Guest guidebook (the main page guests get): house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency, Wi-Fi QR and host contacts. Opens in Korean; English with `?lang=en`. |
+| `/` (`index.html`) | Guest guidebook (the main page guests get): house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency, Wi-Fi QR and host contacts. Opens in `?lang=` if present; otherwise the language last picked with 한/ENG on that phone; otherwise Korean if the phone's language is Korean, English for everything else. |
 | `/brochure/` (`brochure/index.html`) | One-page arrival brochure: check-in, directions, Wi-Fi QR, host contact. Opens in English; Korean with `?lang=ko`. Not linked from the guidebook. |
 
 The 한/ENG button on either page updates `?lang=` in the address, so a shared link or a reload keeps the language, and the brochure's Guidebook link opens the guidebook in the same language.

@@ -25,7 +25,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Serif+KR:wght@700&amp;display=swap">
 <script>
 /* 언어: 처음에는 항상 한국어. 주소에 ?lang=en 이 있으면 영어로 열려요 */
-(function(){var m=location.search.match(/[?&]lang=(ko|en)/),l=(m||[])[1]||'ko';document.documentElement.lang=l;document.documentElement.dataset.lang=l})();
+// 첫 언어: 1) 주소의 ?lang= 2) 한/ENG 버튼으로 직접 고른 언어(이 휴대폰에 기억) 3) 휴대폰·브라우저 언어가 한국어면 한국어, 아니면 영어
+(function(){var m=location.search.match(/[?&]lang=(ko|en)/),l=(m||[])[1],s;
+  if(!l){try{s=localStorage.getItem('ch-lang')}catch(e){}if(s==='ko'||s==='en')l=s}
+  if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'';l=/^ko\b/i.test(n)?'ko':'en'}
+  document.documentElement.lang=l;document.documentElement.dataset.lang=l})();
 </script>
 <style>
 :root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#a54d33;--paper:#fff;--sep:#c9cdb8;--ctl:#7f8d73;--ctl-bg:#fff;--lift:0 1px 0 rgba(38,51,31,.1),0 3px 8px rgba(38,51,31,.14);--serif:"Noto Serif KR","Noto Serif CJK KR","AppleMyungjo","Batang",Georgia,serif;--sans:"Noto Sans KR","Noto Sans CJK KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif}
@@ -1006,7 +1010,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     document.querySelectorAll('a[data-keep-lang]').forEach(function(a){var u=new URL(a.getAttribute('href'),location.href);u.searchParams.set('lang',l);a.href=u.pathname+u.search+u.hash});
     try{var u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}}
   applyLang(root.dataset.lang);
-  document.querySelectorAll('[data-lang-toggle]').forEach(function(btn){btn.addEventListener('click',function(){var l=root.dataset.lang==='ko'?'en':'ko';applyLang(l);
+  document.querySelectorAll('[data-lang-toggle]').forEach(function(btn){btn.addEventListener('click',function(){var l=root.dataset.lang==='ko'?'en':'ko';applyLang(l);try{localStorage.setItem('ch-lang',l)}catch(e){}
     say(l==='ko'?'한국어로 바꿨어요':'Switched to English',1400)})});
   // 복사
   function say(t,ms){toast.textContent=t;toast.classList.remove('stay');toast.onclick=null;toast.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on')},ms||2400)}
