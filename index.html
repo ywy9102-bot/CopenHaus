@@ -372,7 +372,7 @@ details.howto[open] summary{width:fit-content;max-width:calc(100% - 226px)}
 @keyframes howto-glow{0%,100%{box-shadow:var(--lift),0 0 0 0 color-mix(in srgb,var(--green) 0%,transparent)}50%{box-shadow:var(--lift),0 0 0 5px color-mix(in srgb,var(--green) 28%,transparent)}}
 details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s infinite}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}details.howto{animation:none!important}}
-@media (min-width:600px){.tabs ul{flex-wrap:wrap;overflow:visible;-webkit-mask-image:none;mask-image:none}.tabs ul::after{display:none}section.s,details.dev,.host,#checkout,#trash{scroll-margin-top:128px!important}}
+@media (min-width:600px){.tabs{margin-left:calc(50% - min(50vw - 16px,480px));margin-right:calc(50% - min(50vw - 16px,480px))}.tabs ul{flex-wrap:wrap;justify-content:center;overflow:visible;-webkit-mask-image:none;mask-image:none}.tabs ul::after{display:none}section.s,details.dev,.host,#checkout,#trash{scroll-margin-top:var(--tabs-h,128px)!important}}
 @media print{.tabs,#top,.lang,.back,.now,.inapp{display:none}details.dev .body{display:block}}
 </style>
 </head>
@@ -426,14 +426,14 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
 
   <nav class="tabs" aria-label="섹션 메뉴" data-label-ko="섹션 메뉴" data-label-en="Sections">
     <ul>
-      <li><a href="#getting"><span class="ko">찾아오기</span><span class="en">Getting here</span></a></li>
-      <li><a href="#basics"><span class="ko">체크인</span><span class="en">Check-in</span></a></li>
-      <li><a href="#rules"><span class="ko">와이파이·생활</span><span class="en">Wi-Fi &amp; house</span></a></li>
-      <li><a href="#house"><span class="ko">집 사용법</span><span class="en">House manual</span></a></li>
-      <li><a href="#eat"><span class="ko">맛집·카페</span><span class="en">Eat &amp; drink</span></a></li>
+      <li><a href="#getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></a></li>
+      <li><a href="#basics"><span class="ko">체크인 · 체크아웃</span><span class="en">Check-in &amp; check-out</span></a></li>
+      <li><a href="#rules"><span class="ko">와이파이 · 생활 안내</span><span class="en">Wi-Fi &amp; house</span></a></li>
+      <li><a href="#house"><span class="ko">집 사용법</span><span class="en">Using the house</span></a></li>
+      <li><a href="#eat"><span class="ko">주변 맛집 · 카페</span><span class="en">Food &amp; coffee nearby</span></a></li>
       <li><a href="#explore"><span class="ko">둘러보기</span><span class="en">Explore</span></a></li>
-      <li><a href="#services"><span class="ko">픽업·투어</span><span class="en">Pick-up &amp; tours</span></a></li>
-      <li><a href="#help"><span class="ko">앱·비상</span><span class="en">Apps &amp; help</span></a></li>
+      <li><a href="#services"><span class="ko">공항 픽업 · 밴 투어</span><span class="en">Pick-up &amp; van tours</span></a></li>
+      <li><a href="#help"><span class="ko">유용한 앱 · 비상 연락처</span><span class="en">Apps &amp; emergencies</span></a></li>
     </ul>
     <button class="lang-mini" type="button" data-lang-toggle aria-label="ENG, 영어로 바꾸기"></button>
   </nav>
@@ -1034,6 +1034,8 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   var cur=null;function mark(id){if(id===cur)return;cur=id;links.forEach(function(a){var on=a.getAttribute('href')==='#'+id;if(on)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');if(on){var ul=a.closest('ul');var ar=a.getBoundingClientRect(),ur=ul.getBoundingClientRect();ul.scrollTo({left:ul.scrollLeft+ar.left-ur.left-(ul.clientWidth-ar.width)/2,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}})}
   function onScroll(){tabs.classList.toggle('stuck',tabs.getBoundingClientRect().top<=0);var y=innerHeight*.3,id=null;secs.forEach(function(s){if(s.getBoundingClientRect().top<y)id=s.id});mark(id);
     document.getElementById('top').classList.toggle('on',scrollY>innerHeight*.8)}
+  // 넓은 화면에서 메뉴가 여러 줄이 되면, 메뉴로 이동했을 때 제목이 가리지 않게 그 높이만큼 띄워요
+  function tabsH(){root.style.setProperty('--tabs-h',(tabs.offsetHeight+12)+'px')}tabsH();if(window.ResizeObserver)new ResizeObserver(tabsH).observe(tabs);else addEventListener('resize',tabsH);
   var tk=0;addEventListener('scroll',function(){if(!tk)tk=requestAnimationFrame(function(){tk=0;onScroll()})},{passive:true});onScroll();
   document.getElementById('top').addEventListener('click',function(){scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
     var h1=document.querySelector('h1');h1.setAttribute('tabindex','-1');h1.focus({preventScroll:true})});   // 키보드 사용자의 포커스가 사라지지 않게 맨 위 제목으로 옮겨요
