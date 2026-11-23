@@ -1,11 +1,21 @@
 # Copen Haus – guest guide
 
-Static one-page site (no build step). Open `index.html` in a browser to preview.
+Static site (no build step). Open `index.html` in a browser to preview.
+
+## Pages
+| URL | Page |
+|---|---|
+| `/` (`index.html`) | Guest guidebook: house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency. Korean / English toggle (`?lang=ko` or `?lang=en`). |
+| `/brochure/` (`brochure/index.html`) | One-page arrival brochure: check-in, directions, Wi-Fi QR, host contact. |
+
+Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`.
 
 ## Files
 | File | Used for |
 |---|---|
-| `index.html` | The page (all CSS/JS inline) |
+| `index.html` | Guidebook page (all CSS/JS inline) |
+| `brochure/index.html` | Arrival brochure page (all CSS/JS inline) |
+| `img/` | Guidebook diagrams and building photos (from the printed 1F guidebook) |
 | `hero.jpg` | Hero photo |
 | `qr.png` | Wi-Fi QR code |
 | `og.jpg` | Link preview image (KakaoTalk, LINE, etc.) |
@@ -15,10 +25,9 @@ Static one-page site (no build step). Open `index.html` in a browser to preview.
 ## Publish on GitHub Pages
 1. Upload all files to the repository root.
 2. Settings → Pages → Source: *Deploy from a branch* → Branch `main` / `(root)` → Save.
-3. Replace `YOUR-USERNAME` and `YOUR-REPO` in the `og:image` line of `index.html`
-   (for a `username.github.io` repository the URL is `https://username.github.io/og.jpg`).
+3. Link previews use `https://ywy9102-bot.github.io/CopenHaus/og.jpg` (set in the `og:image` line of both pages).
 
 ## Before sharing publicly
 The page contains the host's phone number, Wi-Fi password and the house address.
-`index.html` has `<meta name="robots" content="noindex,nofollow,noarchive">` so search engines skip it,
-but anyone with the link can read it. Remove that meta tag if you want the page to be searchable.
+Both pages have `<meta name="robots" content="noindex,nofollow,noarchive">` so search engines skip them,
+but anyone with the link can read them. Remove that meta tag if you want the pages to be searchable.
