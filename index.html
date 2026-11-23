@@ -84,11 +84,12 @@ h3{margin:26px 0 10px;font:700 13px/1.2 var(--sans);letter-spacing:.08em;text-tr
 .note{margin-top:12px;font-size:13px;color:var(--mute)}
 .warn{margin-top:12px;padding:10px 14px;border-radius:14px;background:var(--card);background:color-mix(in srgb,var(--brick) 12%,transparent);color:var(--ink);font-size:14px}
 .warn b{color:var(--brick)}
+@media (prefers-color-scheme:dark){.warn b{color:#f2a283}}
 
 /* 정보 표(항목 · 내용) */
 .facts{margin:0;padding:4px 16px;border-radius:20px;background:var(--card2)}
-.facts div{display:grid;grid-template-columns:7.2em 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--sep)}
-.facts div:first-child{border-top:0}
+.facts>div{display:grid;grid-template-columns:7.2em 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--sep)}
+.facts>div:first-child{border-top:0}
 .facts dt{font-size:14px;font-weight:700;color:var(--mute)}
 .facts dd{margin:0;font-size:15px}
 .facts dd b{font-size:17px}
@@ -140,7 +141,7 @@ details.dev summary::-webkit-details-marker{display:none}
 .dev .tt small{display:block;font-size:13px;color:var(--mute);line-height:1.35}
 .dev .chev{flex:none;width:20px;height:20px;color:var(--mute);transition:transform .2s}
 details.dev[open] .chev{transform:rotate(180deg)}
-.dev .body{padding:4px 14px 18px;border-top:1px solid var(--sep)}
+.dev .body{padding:8px 14px 18px;border-top:1px solid var(--sep)}
 .dev .lede{margin:14px 0 12px;font-size:15px}
 .keys{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
 .keys li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:14px;line-height:1.5}
@@ -195,7 +196,7 @@ ol.rules li span{padding-top:2px}
 .price th:first-child,.price td:first-child{text-align:left;padding-left:0}
 .price thead th{border-top:0;font-size:12px;color:var(--mute);font-weight:700}
 .price td b{font-size:15px;white-space:nowrap}
-.price thead th small{display:block;font-weight:600}
+.price thead th small{display:block;font-weight:600;font-size:12px}
 .price th:not(:first-child),.price td:not(:first-child){width:6.6em}
 .price td small{display:block;color:var(--mute);font-size:12px}
 .tbl{padding:6px 16px 10px;border-radius:20px;background:var(--card2)}
@@ -261,7 +262,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 
 /* 그림 위 "누르면 크게" 표시 */
 .zoom{position:relative}
-.zh{display:flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:0 12px;background:rgba(28,42,25,.86);color:#fff;font:700 12px/1 var(--sans);pointer-events:none}
+.zh{display:flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:8px 14px;background:rgba(28,42,25,.86);color:#fff;font:700 12px/1 var(--sans);pointer-events:none}
 .zh .ic{width:15px;height:15px}
 .chip .cpy,.btn .cpy{width:16px;height:16px;color:var(--green)}
 
@@ -276,7 +277,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 #toast{z-index:20;position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:min(92vw,360px);text-align:center;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
 #toast.on{opacity:1}
 @media (hover:hover){.btn:hover,.chip:hover,.back:hover,.place a:hover,.call:hover,details.dev summary:hover{filter:brightness(1.04)}}
-@media (max-width:380px){.bins,.vans,.flow{grid-template-columns:1fr}.facts div{grid-template-columns:1fr;gap:2px}h2{font-size:27px}.place{grid-template-columns:1fr}.place a{justify-self:start}}
+@media (max-width:380px){.bins,.vans,.flow{grid-template-columns:1fr}.facts>div{grid-template-columns:1fr;gap:2px}h2{font-size:27px}.place{grid-template-columns:1fr}.place a{justify-self:start}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 @media print{.tabs,#top,.lang,.back{display:none}details.dev .body{display:block}}
 </style>
@@ -348,7 +349,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div><dt><span class="ko">출입 방법</span><span class="en">Getting in</span></dt><dd><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요.</span><span class="en">We send the door lock code by Airbnb message on check-in day.</span></dd></div>
       <div><dt><span class="ko">입구·층</span><span class="en">Entrance</span></dt><dd><span class="ko">건물 1층</span><span class="en">Ground floor (1F)</span></dd></div>
       <div><dt><span class="ko">짐 보관</span><span class="en">Luggage</span></dt><dd><span class="ko">미리 알려주시면 안내해 드려요.</span><span class="en">Let us know in advance and we'll help you arrange it.</span></dd></div>
-      <div><dt>Wi-Fi</dt><dd><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button> <button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><p class="small" style="margin-top:6px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
+      <div><dt>Wi-Fi</dt><dd><div class="chips" style="margin-top:0"><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div><p class="small" style="margin-top:8px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
     </dl>
     <figure class="photos">
       <div><img src="img/entrance.jpg" width="600" height="900" loading="lazy" alt="건물 입구와 계단" data-alt-ko="건물 입구와 계단" data-alt-en="Copen Haus building entrance and stairs"><figcaption><span class="ko">건물 입구 · 계단</span><span class="en">Building entrance &amp; stairs</span></figcaption></div>
