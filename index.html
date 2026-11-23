@@ -60,13 +60,14 @@ html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{back
 .lang:active{transform:translateY(1px) scale(.985);box-shadow:none}
 .hero{position:relative;border-radius:26px;overflow:hidden;background:var(--card);aspect-ratio:4/4;max-height:62vh;max-height:62svh;min-height:320px;max-width:100%}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,10,0) 20%,rgba(14,20,10,.82) 78%,rgba(14,20,10,.95))}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,10,0) 10%,rgba(14,20,10,.6) 36%,rgba(14,20,10,.86) 66%,rgba(14,20,10,.95))}
+.hero .t{text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 12px rgba(0,0,0,.35)}
 .hero .t{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:18px 20px 56px;color:#fff}
 h1{margin:0 0 6px;font:700 clamp(30px,8.6vw,44px)/1.12 var(--serif);letter-spacing:-.02em;text-wrap:balance}
 .hero p.d{font-size:15px;line-height:1.45;max-width:34ch}
-.hero .loc{position:absolute;top:14px;left:14px;z-index:1;display:inline-flex;align-items:center;gap:6px;padding:8px 12px 8px 9px;border-radius:99px;background:rgba(14,20,10,.45);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font:700 12.5px/1 var(--sans);letter-spacing:.04em}
+.hero .loc{position:absolute;top:14px;left:14px;z-index:1;display:inline-flex;align-items:center;gap:6px;padding:8px 12px 8px 9px;border-radius:99px;background:rgba(14,20,10,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font:700 12.5px/1 var(--sans);letter-spacing:.04em}
 .hero .loc .ic{width:15px;height:15px}
-.hero .eb{display:block;margin:0 0 8px;font:700 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#f6c9ad}
+.hero .eb{display:block;margin:0 0 8px;font:700 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#ffd9c2}
 
 /* 섹션 장면(작은 히어로): 그림은 장식, 글은 실제 텍스트 */
 :root{--scene-bg:#2f4a2a;--scene-ink:#fbf6ee;--scene-acc:#f3ad8a}
@@ -251,7 +252,7 @@ ul.dots{margin:8px 0 0;padding-left:20px;font-size:14px;display:grid;gap:2px}
 /* 크게 보기 */
 dialog{max-width:min(96vw,900px);max-height:92vh;padding:0;border:0;border-radius:18px;background:#f3ecdc;overflow:auto}
 dialog::backdrop{background:rgba(10,14,8,.78)}
-dialog img{display:block;width:100%;height:auto;min-width:640px}
+dialog img{display:block;width:100%;height:auto;min-width:0;touch-action:pinch-zoom pan-x pan-y}
 dialog form{position:sticky;top:0;display:flex;justify-content:flex-end;padding:8px;background:#f3ecdc}
 dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;background:#3a5533;color:#fff;font-weight:700;font-size:14px;line-height:1;font-family:inherit}
 
@@ -289,6 +290,7 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 .now li a{display:flex;align-items:center;gap:10px;min-height:46px;padding:9px 12px;border-radius:14px;background:rgba(255,255,255,.12);color:inherit;font-size:14px;line-height:1.4;text-decoration:none;-webkit-tap-highlight-color:transparent}
 @media (prefers-color-scheme:dark){.now li a{background:rgba(0,0,0,.12)}}
 .now li a:active{transform:translateY(1px)}
+.now a:focus-visible{outline-color:var(--bg)}
 .now .dot{flex:none;width:10px;height:10px;border-radius:50%;border:2px solid currentColor;opacity:.75}
 .now .ok .dot{background:var(--dot-ok);border-color:var(--dot-ok);opacity:1}
 .now .no .dot{background:var(--dot-no);border-color:var(--dot-no);opacity:1}
@@ -315,14 +317,21 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 /* 이 가이드 사용법 */
 /* 상단 왼쪽: 접힌 상태는 알약 버튼, 펼치면 전체 폭 카드(아래 내용을 밀어내며 가리지 않음). 한/ENG는 오른쪽 위에 고정 */
 .top{position:relative;min-height:50px;justify-content:flex-start;align-items:flex-start}
-.top .lang{position:absolute;top:0;right:0;z-index:1}
-details.howto{width:fit-content;max-width:calc(100% - 128px);border:1.5px solid var(--ctl);border-radius:24px;background:var(--ctl-bg);box-shadow:var(--lift);overflow:hidden}
+.top .side{position:absolute;top:0;right:0;z-index:1;display:flex;gap:6px}
+.reach{display:grid;place-items:center;width:44px;height:44px;border:1.5px solid var(--ctl);border-radius:50%;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--green);-webkit-tap-highlight-color:transparent}
+.reach .ic{width:19px;height:19px}
+.reach:active{transform:translateY(1px) scale(.97);box-shadow:none}
+details.howto{width:fit-content;max-width:calc(100% - 226px);border:1.5px solid var(--ctl);border-radius:24px;background:var(--ctl-bg);box-shadow:var(--lift);overflow:hidden}
 details.howto[open]{width:100%;max-width:none;border-color:transparent;border-radius:20px;background:var(--card);box-shadow:none}
 details.howto summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px;cursor:pointer;list-style:none;font-weight:700;font-size:14px;line-height:1.25;-webkit-tap-highlight-color:transparent}
 details.howto summary::-webkit-details-marker{display:none}
 details.howto summary .ic{flex:none;width:18px;height:18px;color:var(--green)}
 details.howto summary .chev{flex:none;color:var(--mute);transition:transform .2s}
 details.howto[open] summary .chev{transform:rotate(180deg)}
+details.howto[open] summary{padding-right:226px}
+.howto .sh{display:none}
+@media (max-width:429px){.howto .lg{display:none}.howto .sh{display:inline}}
+@media (max-width:359px){.howto .hl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}details.howto[open] summary{padding-right:14px}}
 .howto ul{list-style:none;margin:0;padding:8px 16px 16px;display:grid;gap:12px}
 .howto li{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:center;font-size:14px;line-height:1.5}
 .howto li b{display:block;font-size:15px}
@@ -352,6 +361,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 #top svg{width:22px;height:22px}
 #toast{z-index:20;position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:min(92vw,360px);text-align:center;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
 #toast.on{opacity:1}
+#toast .big{display:block;margin-top:6px;font:700 24px/1.2 var(--sans);letter-spacing:.02em;user-select:all;-webkit-user-select:all}
 @media (hover:hover){.btn:hover,.chip:hover,.back:hover,.place a:hover,.call:hover,details.dev summary:hover{filter:brightness(1.04)}}
 @media (max-width:380px){.bins,.vans,.flow{grid-template-columns:1fr}.facts>div{grid-template-columns:1fr;gap:2px}h2{font-size:27px}.place{grid-template-columns:1fr}.place a{justify-self:start}}
 /* '이 가이드 사용법' 은은한 깜빡임: 테두리 둘레의 옅은 빛만 천천히 밝아졌다 어두워짐(글자는 그대로) */
@@ -369,7 +379,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   </div>
   <div class="top">
     <details class="howto" id="howto">
-      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17h.01"/></svg><span class="ko">이 가이드 사용법</span><span class="en">How to use this guide</span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17h.01"/></svg><span class="hl"><span class="ko"><span class="lg">이 가이드 </span>사용법</span><span class="en"><span class="lg">How to use this guide</span><span class="sh">Help</span></span></span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
       <ul>
         <li><span class="demo pill"><i class="on">한</i>/<i>ENG</i></span><span class="ko"><b>언어 바꾸기</b>오른쪽 위 ‘한/ENG’ 버튼을 누를 때마다 한국어와 영어가 바뀌어요.</span><span class="en"><b>Switch language</b>Tap the “한/ENG” button at the top right to switch between Korean and English.</span></li>
         <li><span class="demo pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M16 8l4 4-4 4M8 8l-4 4 4 4"/></svg></span><span class="ko"><b>메뉴로 이동</b>화면 위 메뉴를 누르면 그 내용으로 바로 가요. 메뉴는 옆으로 밀면 더 있어요.</span><span class="en"><b>Jump with the menu</b>Tap a menu item at the top to jump there. Swipe the menu sideways to see more.</span></li>
@@ -380,7 +390,11 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
         <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span><span class="ko"><b>체크리스트</b>체크아웃 목록은 직접 체크할 수 있고, 이 휴대폰에 기억돼요.</span><span class="en"><b>Checklist</b>Tick off the check-out list as you go. Your ticks are saved on this phone.</span></li>
       </ul>
     </details>
-    <button class="lang" type="button" id="lang" data-lang-toggle aria-label="언어: 한국어. 눌러서 영어로 바꾸기"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
+    <div class="side">
+      <a class="reach" href="tel:+821093280969" data-label-ko="호스트 Lisa에게 전화" data-label-en="Call your host Lisa" aria-label="호스트 Lisa에게 전화"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></a>
+      <a class="reach" href="#host" data-label-ko="호스트에게 메시지 (카카오톡 · LINE · WhatsApp)" data-label-en="Message your host (KakaoTalk, LINE, WhatsApp)" aria-label="호스트에게 메시지 (카카오톡 · LINE · WhatsApp)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg></a>
+      <button class="lang" type="button" id="lang" data-lang-toggle aria-label="언어: 한국어. 눌러서 영어로 바꾸기"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
+    </div>
   </div>
 
   <header class="hero">
@@ -401,7 +415,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     </div>
     <p class="first-t"><span class="ko">처음 오셨다면 이 순서로</span><span class="en">Just arrived? Start here</span></p>
     <ol class="go">
-      <li><a href="#basics"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요</small><small class="en">The door code comes by Airbnb message on check-in day</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+      <li><a href="#host"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요</small><small class="en">The door code comes by Airbnb message on check-in day</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
       <li><button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><span class="n">2</span><span><b class="ko">Wi-Fi 연결</b><b class="en">Join the Wi-Fi</b><small class="ko">Copen_Green · 누르면 비밀번호가 복사돼요</small><small class="en">Copen_Green · tap to copy the password</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></li>
       <li><a href="#heating"><span class="n">3</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat right of the entrance</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
       <li><a href="#rules"><span class="n">4</span><span><b class="ko">쓰레기·하우스 룰 보기</b><b class="en">Read trash &amp; house rules</b><small class="ko">쓰레기는 일~금 저녁 7시~자정, 토요일은 안 돼요</small><small class="en">Trash goes out Sun–Fri 7 PM to midnight, never Saturday</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
@@ -475,7 +489,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
         <div class="most">
           <b class="h ko">주로 쓰는 기능</b><b class="h en">What you'll use most</b>
           <ol class="ko"><li><b>전원</b>: 보일러를 켜고 끌 때 눌러요.</li><li><b>외출</b>: 집을 비울 때 눌러요.</li><li><b>난방</b>: 난방 버튼을 누르고 다이얼을 왼쪽으로 돌리면 온도가 내려가고, 오른쪽으로 돌리면 올라가요.</li></ol>
-          <ol class="en"><li><b>Power</b>: turns the boiler on and off.</li><li><b>Away</b>: press when you go out.</li><li><b>Heating</b>: press it, then turn the dial right to warm up or left to cool down.</li></ol>
+          <ol class="en"><li><b>Power (전원)</b>: turns the boiler on and off.</li><li><b>Away (외출)</b>: press when you go out.</li><li><b>Heating (난방)</b>: press it, then turn the dial right to warm up or left to cool down.</li></ol>
         </div>
         <ul class="keys ko">
           <li><i>화면</i><span>왼쪽 숫자는 실내온도, <span class="nw">오른쪽 숫자는 온수온도예요</span>.</span></li>
@@ -485,9 +499,9 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
         </ul>
         <ul class="keys en">
           <li><i>Screen</i><span>Left number is the room temperature, right number is the <span class="nw">hot-water temperature</span>.</span></li>
-          <li><i>Hot water</i><span>Press it, then turn the dial to set the <span class="nw">water temperature</span>.</span></li>
-          <li><i>Timer</i><span>Set a schedule.</span></li>
-          <li><i>Ondol</i><span>Underfloor heating mode.</span></li>
+          <li><i>Hot water (온수)</i><span>Press it, then turn the dial to set the <span class="nw">water temperature</span>.</span></li>
+          <li><i>Timer (예약)</i><span>Set a schedule.</span></li>
+          <li><i>Ondol (온돌)</i><span>Underfloor heating mode.</span></li>
         </ul>
       </div>
     </details>
@@ -524,18 +538,18 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
           <li><i>12</i><span><b>어린이보호</b>: 세탁온도 + 헹굼횟수를 함께 3초 누르면 잠겨요</span></li>
         </ul>
         <ul class="keys en">
-          <li><i>1</i><span><b>Course dial</b>: turn to pick a course (Standard is the default)</span></li>
-          <li><i>2</i><span><b>Temperature</b>: cold to 90°C</span></li>
-          <li><i>3</i><span><b>Rinses</b>: 1 to 5</span></li>
-          <li><i>4</i><span><b>Spin</b>: delicate to max</span></li>
-          <li><i>5</i><span><b>Soil level</b>: low, normal or high</span></li>
-          <li><i>6</i><span><b>Finish timer</b>: set when the wash should end</span></li>
-          <li><i>7</i><span><b>Bubble soak</b>: soaks tough dirt with foam</span></li>
-          <li><i>8</i><span><b>Add laundry</b>: press to add items <span class="nw">mid-cycle</span></span></li>
-          <li><i>9</i><span><b>Smart control</b>: control it with the SmartThings app</span></li>
+          <li><i>1</i><span><b>Course dial (코스)</b>: turn to pick a course (Standard 표준세탁 is the default)</span></li>
+          <li><i>2</i><span><b>Temperature (세탁온도)</b>: cold to 90°C</span></li>
+          <li><i>3</i><span><b>Rinses (헹굼횟수)</b>: 1 to 5</span></li>
+          <li><i>4</i><span><b>Spin (탈수세기)</b>: delicate to max</span></li>
+          <li><i>5</i><span><b>Soil level (오염도)</b>: low, normal or high</span></li>
+          <li><i>6</i><span><b>Finish timer (종료예약)</b>: set when the wash should end</span></li>
+          <li><i>7</i><span><b>Bubble soak (버블불림)</b>: soaks tough dirt with foam</span></li>
+          <li><i>8</i><span><b>Add laundry (세탁물추가)</b>: press to add items <span class="nw">mid-cycle</span></span></li>
+          <li><i>9</i><span><b>Smart control (스마트컨트롤)</b>: control it with the SmartThings app</span></li>
           <li><i>10</i><span><b>Power</b>: on and off</span></li>
           <li><i>11</i><span><b>Start / Pause</b>: hold to start, press to pause</span></li>
-          <li><i>12</i><span><b>Child lock</b>: hold Temperature + Rinses together for 3 seconds</span></li>
+          <li><i>12</i><span><b>Child lock (어린이보호)</b>: hold Temperature + Rinses together for 3 seconds</span></li>
         </ul>
       </div>
     </details>
@@ -562,20 +576,20 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
         </ul>
         <p class="note ko">이불털기/패딩케어 코스는 에어워시 코스예요.</p>
         <ul class="keys en">
-          <li><i>1</i><span><b>Course dial</b>: turn to pick a course (Standard is the default)</span></li>
-          <li><i>2</i><span><b>Dryness</b>: levels 1 to 4 (3 is standard)</span></li>
-          <li><i>3</i><span><b>Dry time</b>: 20, 40, 60 or 90+ minutes (Timed and Rack courses)</span></li>
-          <li><i>4</i><span><b>Iron alert</b>: beeps when clothes are just right for ironing</span></li>
-          <li><i>5</i><span><b>Wrinkle care</b>: reduces creases after drying</span></li>
-          <li><i>6</i><span><b>Hot-air sanitize</b>: sanitizes the drum with hot air</span></li>
-          <li><i>7</i><span><b>Drum light</b>: light inside on/off</span></li>
-          <li><i>8</i><span><b>Sound off</b>: turns off the beeps</span></li>
-          <li><i>9</i><span><b>Smart control</b>: control it with the SmartThings app</span></li>
+          <li><i>1</i><span><b>Course dial (코스)</b>: turn to pick a course (Standard 표준건조 is the default)</span></li>
+          <li><i>2</i><span><b>Dryness (건조정도)</b>: levels 1 to 4 (3 is standard)</span></li>
+          <li><i>3</i><span><b>Dry time (건조시간)</b>: 20, 40, 60 or 90+ minutes (Timed and Rack courses)</span></li>
+          <li><i>4</i><span><b>Iron alert (다림질알림)</b>: beeps when clothes are just right for ironing</span></li>
+          <li><i>5</i><span><b>Wrinkle care (구김방지)</b>: reduces creases after drying</span></li>
+          <li><i>6</i><span><b>Hot-air sanitize (열풍내부살균)</b>: sanitizes the drum with hot air</span></li>
+          <li><i>7</i><span><b>Drum light (드럼라이트)</b>: light inside on/off</span></li>
+          <li><i>8</i><span><b>Sound off (소리 끔)</b>: turns off the beeps</span></li>
+          <li><i>9</i><span><b>Smart control (스마트컨트롤)</b>: control it with the SmartThings app</span></li>
           <li><i>10</i><span><b>Power</b>: on and off</span></li>
           <li><i>11</i><span><b>Start / Pause</b>: hold to start, press to pause</span></li>
-          <li><i>12</i><span><b>Child lock</b>: hold Dryness + Dry time together for 3 seconds</span></li>
+          <li><i>12</i><span><b>Child lock (어린이보호)</b>: hold Dryness + Dry time together for 3 seconds</span></li>
         </ul>
-        <p class="note en">The Bedding Refresh / Padding Care course is an Air Wash course.</p>
+        <p class="note en">The Bedding Refresh / Padding Care (이불털기/패딩케어) course is an Air Wash course.</p>
       </div>
     </details>
 
@@ -593,8 +607,8 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
         </ol>
         <ol class="steps en">
           <li><span class="n">1</span><div><b>Put the food in and close the door</b></div></li>
-          <li><span class="n">2</span><div><b>Turn the <span class="nw">Mode dial</span></b><p>Low · Medium · High = power level (higher heats faster). Warm = reheat leftovers. Defrost = thaw frozen food.</p></div></li>
-          <li><span class="n">3</span><div><b>Turn the <span class="nw">Minutes dial</span> clockwise</b><p>Up to 30 minutes</p></div></li>
+          <li><span class="n">2</span><div><b>Turn the <span class="nw">Mode dial (선택모드)</span></b><p>Low · Medium · High (약 · 중 · 강) = power level (higher heats faster). Warm (데우기) = reheat leftovers. Defrost (해동) = thaw frozen food.</p></div></li>
+          <li><span class="n">3</span><div><b>Turn the <span class="nw">Minutes dial (분)</span> clockwise</b><p>Up to 30 minutes</p></div></li>
           <li><span class="n">4</span><div><b>When it stops, open the door and take it out</b></div></li>
         </ol>
         <p class="warn ko"><b>주의</b> · 금속 그릇, 알루미늄 호일, 밀폐 용기는 넣지 마세요.</p>
@@ -621,7 +635,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
         <ul class="keys en">
           <li><i>9</i><span><b>Power</b>: on and off</span></li>
           <li><i>1·2·4</i><span><b>Heat − / +</b>: for burners 1, 2 and 3</span></li>
-          <li><i>5</i><span><b>Burner select</b>: choose which active burner to adjust</span></li>
+          <li><i>5</i><span><b>Burner select (화구 선택)</b>: choose which active burner to adjust</span></li>
           <li><i>6</i><span><b>Start / Pause</b></span></li>
           <li><i>3</i><span><b>Timer − / +</b>: up to 60 minutes</span></li>
           <li><i>7</i><span><b>Turbo</b>: max heat on burner 3 (drops back after 10 minutes)</span></li>
@@ -659,8 +673,8 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
           <li><i>5</i><span><b>Back</b></span></li>
           <li><i>6</i><span><b>Home</b></span></li>
           <li><i>7</i><span><b>Live TV</b>: watch broadcast TV</span></li>
-          <li><i>8</i><span><b>Volume + / −</b>: sound up or down</span></li>
-          <li><i>9</i><span><b>Channel + / −</b>: change channels</span></li>
+          <li><i>8</i><span><b>Volume (음량) + / −</b>: sound up or down</span></li>
+          <li><i>9</i><span><b>Channel (채널) + / −</b>: change channels</span></li>
           <li><i>10</i><span><b>Input</b>: switch to a connected device</span></li>
           <li><i>11</i><span><b>App buttons</b>: Netflix, YouTube, Prime Video, Disney+</span></li>
           <li><i>12</i><span><b>Playback</b>: rewind, play/pause, <span class="nw">fast-forward</span></span></li>
@@ -984,8 +998,11 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   // 복사
   function say(t,ms){toast.textContent=t;toast.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on')},ms||2400)}
   document.addEventListener('click',function(e){var b=e.target.closest('[data-copy]');if(!b)return;var v=b.dataset.copy;
-    (navigator.clipboard?navigator.clipboard.writeText(v):Promise.reject()).catch(function(){var t=document.createElement('textarea');t.value=v;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,v.length);try{document.execCommand('copy')}catch(_){}t.remove()});
-    say(b.dataset['toast'+(root.dataset.lang==='ko'?'Ko':'En')]||v,3200)});
+    var ok=function(){say(b.dataset['toast'+(root.dataset.lang==='ko'?'Ko':'En')]||v,3200)};
+    // 복사가 안 되면(카카오톡·LINE 안 브라우저 등) '복사됨' 대신 글자를 크게 보여 줘요
+    var fail=function(){toast.textContent='';var m=document.createElement('span');m.textContent=root.dataset.lang==='ko'?'복사가 안 됐어요. 직접 입력해 주세요':'Couldn\u2019t copy. Please type it in';var big=document.createElement('b');big.className='big';big.textContent=v;toast.appendChild(m);toast.appendChild(big);toast.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on')},9000)};
+    var legacy=function(){var t=document.createElement('textarea'),r=false;t.value=v;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,v.length);try{r=document.execCommand('copy')}catch(_){}t.remove();b.focus&&b.focus({preventScroll:true});r?ok():fail()};
+    if(navigator.clipboard&&window.isSecureContext!==false){navigator.clipboard.writeText(v).then(ok,legacy)}else legacy()});
   // iOS Safari에서 버튼 눌림(:active) 반응이 보이게
   document.addEventListener('touchstart',function(){},{passive:true});
   // '이 가이드 사용법'은 처음엔 접혀 있고, 펼쳐 두면 다음에도 펼친 채로
@@ -1058,7 +1075,9 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     else if(h>=11&&h<15)a.push(item('info','체크인은 오후 3시부터예요. 짐 보관은 미리 물어봐 주세요','Check-in starts at 3 PM. Ask us ahead about luggage','#basics'));
     if(d===1&&h<21)a.push(item('info','월요일은 남산골한옥마을 한옥이 쉬어요. 정원 길은 열려 있어요','Namsangol\'s hanok houses close on Mondays. The garden stays open','#explore'));
     if(d===0&&h<20)a.push(item('info','일요일은 필동면옥이 쉬어요','Pildong Myeonok is closed on Sundays','#eat'));
-    nowList.innerHTML=a.slice(0,3).join('')}
+    var html=a.slice(0,3).join('');
+    // 내용이 바뀔 때만, 그리고 카드 안에 포커스가 없을 때만 목록을 다시 그려요
+    if(html!==nowList._h&&!nowList.contains(document.activeElement)){nowList.innerHTML=html;nowList._h=html}}
   renderNow();setInterval(renderNow,30000);
   document.addEventListener('visibilitychange',function(){if(!document.hidden)renderNow()});
 
