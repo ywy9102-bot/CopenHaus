@@ -64,6 +64,19 @@ html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{back
 .hero .t{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:18px 20px 56px;color:#fff}
 h1{margin:0 0 6px;font:700 clamp(30px,8.6vw,44px)/1.12 var(--serif);letter-spacing:-.02em;text-wrap:balance}
 .hero p.d{font-size:15px;line-height:1.45;max-width:34ch}
+.hero .loc{position:absolute;top:14px;left:14px;z-index:1;display:inline-flex;align-items:center;gap:6px;padding:8px 12px 8px 9px;border-radius:99px;background:rgba(14,20,10,.45);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font:700 12.5px/1 var(--sans);letter-spacing:.04em}
+.hero .loc .ic{width:15px;height:15px}
+.hero .eb{display:block;margin:0 0 8px;font:700 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#f6c9ad}
+
+/* 섹션 장면(작은 히어로): 그림은 장식, 글은 실제 텍스트 */
+:root{--scene-bg:#2f4a2a;--scene-ink:#fbf6ee;--scene-acc:#f3ad8a}
+@media (prefers-color-scheme:dark){:root{--scene-bg:#1d2b1a}}
+.scene{position:relative;overflow:hidden;height:180px;margin:16px 0 2px;border-radius:22px;background:var(--scene-bg);color:var(--scene-ink)}
+@media (prefers-color-scheme:dark){.scene{box-shadow:inset 0 0 0 1px var(--line)}}
+.scene svg{position:absolute;inset:0;width:100%;height:100%;color:var(--scene-ink)}
+.scene .st{position:relative;z-index:1;max-width:58%;padding:18px 0 0 20px}
+.scene small{display:block;font:700 11.5px/1.35 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--scene-acc)}
+.scene .sh{margin-top:6px;font:700 clamp(20px,5.4vw,24px)/1.22 var(--serif);letter-spacing:-.01em;text-wrap:balance}
 
 /* 탭 내비 */
 .tabs{position:sticky;top:0;z-index:9;margin:14px -16px 0;padding:10px 16px;background:var(--bg);background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
@@ -372,7 +385,9 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
 
   <header class="hero">
     <img src="hero.jpg" width="960" height="1200" alt="" fetchpriority="high">
+    <p class="loc"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">서울 · 남산 자락 필동</span><span class="en">Seoul · Pildong, by Namsan</span></p>
     <div class="t">
+      <p class="eb"><span class="ko">Welcome</span><span class="en" lang="ko">환영합니다 · <span lang="en">Welcome</span></span></p>
       <h1><span class="ko">게스트 가이드북</span><span class="en">Guest guidebook</span></h1>
       <p class="d ko"><span class="u">남산 자락 조용한 동네 필동,</span> <span class="u">Copen Haus에 오신 것을 환영합니다.</span></p>
       <p class="d en"><span class="u">Welcome to Copen Haus in Pildong,</span> <span class="u">a quiet neighborhood</span> <span class="u">at the foot of Namsan.</span></p>
@@ -748,6 +763,24 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   <!-- 5. 맛집·카페 -->
   <section class="s" id="eat" aria-labelledby="h-eat">
     <h2 id="h-eat"><span class="ko">주변 맛집 · 카페</span><span class="en">Food &amp; coffee nearby</span></h2>
+    <div class="scene">
+      <svg viewBox="0 0 400 180" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <g stroke-width="3.2" opacity=".85"><path d="M300 18L338 92"/><path d="M314 14L346 90"/></g>
+        <path d="M246 104Q251 156 300 164H336Q385 156 390 104" fill="currentColor" fill-opacity=".08" stroke-width="2"/>
+        <path d="M300 164L304 174H332L336 164" stroke-width="2"/>
+        <ellipse cx="318" cy="104" rx="72" ry="15" fill="currentColor" fill-opacity=".06" stroke-width="2"/>
+        <ellipse cx="318" cy="105" rx="62" ry="10" fill="#000" fill-opacity=".16" stroke="none"/>
+        <path d="M268 104q8-13 19-4q9-14 21-3q10-14 22-2q10-12 20 3" stroke-width="1.6" opacity=".75"/>
+        <path d="M280 108q9-10 18-2q9-10 20-1q10-10 20 1" stroke-width="1.4" opacity=".5"/>
+        <path d="M326 92q10-9 22-3" stroke="var(--scene-acc)" stroke-width="3"/>
+        <path d="M330 99q9-7 19-2" stroke="var(--scene-acc)" stroke-width="3" opacity=".8"/>
+        <ellipse cx="306" cy="88" rx="11" ry="8" fill="currentColor" stroke="none"/>
+        <circle cx="306" cy="88" r="4.6" fill="#f2c46d" stroke="none"/>
+        <rect x="262" y="94" width="11" height="11" rx="2" transform="rotate(-14 267 99)" fill="currentColor" fill-opacity=".18" stroke-width="1.4" opacity=".8"/>
+        <rect x="358" y="96" width="10" height="10" rx="2" transform="rotate(12 363 101)" fill="currentColor" fill-opacity=".18" stroke-width="1.4" opacity=".8"/>
+      </svg>
+      <div class="st"><small class="ko">미쉐린 빕구르망 평양냉면</small><small class="en">Michelin Bib Gourmand</small><p class="sh ko">대표 맛집, 필동면옥</p><p class="sh en">The local star: Pildong Myeonok</p></div>
+    </div>
     <p class="intro ko">대표 맛집은 미쉐린 빕구르망 평양냉면집 <b>필동면옥</b>. 점심엔 줄이 길어 조금 일찍 가세요.</p>
     <p class="intro en">The local star is <b>Pildong Myeonok</b>, a Michelin Bib Gourmand spot for Pyongyang-style cold noodles. Go a little early at lunch to beat the queue.</p>
     <h3><span class="ko">맛집</span><span class="en">Restaurants</span></h3>
@@ -771,6 +804,28 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   <!-- 6. 둘러보기 -->
   <section class="s" id="explore" aria-labelledby="h-explore">
     <h2 id="h-explore"><span class="ko">둘러보기</span><span class="en">Explore</span></h2>
+    <div class="scene">
+      <svg viewBox="0 0 400 180" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="372" cy="38" r="10" fill="currentColor" fill-opacity=".85" stroke="none"/>
+        <g fill="currentColor" stroke="none" opacity=".5"><circle cx="236" cy="30" r="1.3"/><circle cx="262" cy="56" r="1"/><circle cx="350" cy="72" r="1.1"/></g>
+        <path d="M150 180C196 154 238 122 280 108C300 101 318 100 336 106C362 115 384 128 400 136V180Z" fill="currentColor" fill-opacity=".07" stroke="none"/>
+        <path d="M168 170C206 150 242 122 280 108C300 101 318 100 336 106C362 115 384 128 400 136" stroke-width="1.6" opacity=".45"/>
+        <g stroke-width="1.8" opacity=".9"><path d="M303 104L306 66M315 104L312 66"/><path d="M307 54L308 36M311 54L310 36"/><path d="M309 33V14"/></g>
+        <rect x="298" y="54" width="22" height="12" rx="3" fill="var(--scene-bg)" stroke-width="1.8"/>
+        <path d="M300 60H318" stroke-width="1.2" opacity=".6"/>
+        <rect x="305" y="31" width="8" height="4" rx="1" fill="var(--scene-bg)" stroke-width="1.5"/>
+        <circle cx="309" cy="12" r="2.4" fill="var(--scene-acc)" stroke="none"/>
+        <g fill="currentColor" fill-opacity=".09" stroke="none"><rect x="0" y="150" width="22" height="30"/><rect x="26" y="140" width="18" height="40"/><rect x="48" y="156" width="28" height="24"/><rect x="230" y="146" width="20" height="34"/><rect x="254" y="156" width="34" height="24"/><rect x="292" y="144" width="18" height="36"/><rect x="314" y="152" width="30" height="28"/><rect x="348" y="142" width="22" height="38"/><rect x="374" y="154" width="26" height="26"/></g>
+        <path d="M66 156H196V180H66Z" fill="currentColor" fill-opacity=".06" stroke="none"/>
+        <path d="M70 156V180M110 156V180M152 156V180M192 156V180" stroke-width="1.6" opacity=".6"/>
+        <path d="M120 162H144V176H120ZM132 162V176M120 169H144" stroke-width="1.2" opacity=".55"/>
+        <path d="M48 142Q60 154 82 154H180Q202 154 214 142Q194 146 178 134Q131 124 84 134Q68 146 48 142Z" fill="#000" fill-opacity=".18" stroke-width="2"/>
+        <path d="M84 134Q131 124 178 134" stroke-width="2.6"/>
+        <path d="M78 133q2-5 8-6M184 133q-2-5-8-6" stroke-width="2"/>
+        <path d="M98 133V151M112 131V152M126 130V152M140 130V152M154 131V152M168 133V151" stroke-width="1.1" opacity=".4"/>
+      </svg>
+      <div class="st"><small class="ko">남산 · 한옥마을 · 명동</small><small class="en">Namsan · Hanok · Myeongdong</small><p class="sh ko">명동까지 걸어서 약 10분</p><p class="sh en">Myeongdong, a 10-minute walk</p></div>
+    </div>
     <p class="intro ko" style="margin-top:14px"><b>명동까지 걸어서 <span class="nw">약 10분</span>.</b> 쇼핑 · 길거리 음식 · 카페. 지하철 탈 필요 없이 산책하듯 다녀오세요. 밤늦게 돌아올 때도 가까워요.</p>
     <p class="intro en" style="margin-top:14px"><b>Myeongdong is about a <span class="nw">10-minute walk</span>.</b> Shopping, street food and cafés, no subway needed, and an easy walk back late at night.</p>
     <a class="btn" href="https://map.naver.com/p/search/%EB%AA%85%EB%8F%99"><span class="ko">명동 길찾기</span><span class="en">Directions to Myeongdong</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
