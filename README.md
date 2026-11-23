@@ -6,9 +6,9 @@ Static site (no build step). Open `index.html` in a browser to preview.
 | URL | Page |
 |---|---|
 | `/` (`index.html`) | Guest guidebook (the main page guests get): house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency, Wi-Fi QR and host contacts. Opens in `?lang=` if present; otherwise the language last picked with 한/ENG on that phone; otherwise Korean if the phone's language is Korean, English for everything else. |
-| `/brochure/` (`brochure/index.html`) | One-page arrival brochure: check-in, directions, Wi-Fi QR, host contact. Opens in English; Korean with `?lang=ko`. Not linked from the guidebook. |
+| `/brochure/` (`brochure/index.html`) | Short arrival guide in the same design as the guidebook: check-in & check-out, getting here, Wi-Fi QR, the 7 house rules, host contacts and emergency numbers, with buttons to the full guidebook. Picks its language the same way as the guidebook and shares the remembered 한/ENG choice and the check-out ticks with it. Not linked from the guidebook. |
 
-The 한/ENG button on either page updates `?lang=` in the address, so a shared link or a reload keeps the language, and the brochure's Guidebook link opens the guidebook in the same language.
+The 한/ENG button on either page updates `?lang=` in the address, so a shared link or a reload keeps the language, and the brochure's guidebook links open the guidebook in the same language.
 
 Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`.
 
