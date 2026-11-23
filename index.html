@@ -224,6 +224,14 @@ ul.dots{margin:8px 0 0;padding-left:20px;font-size:14px;display:grid;gap:2px}
 .host{scroll-margin-top:70px;margin-top:30px;padding:20px;border-radius:22px;background:var(--card);text-align:center}
 .host p.w{font:600 22px/1.25 var(--serif)}
 .host .chips{justify-content:center}
+/* 연락: 전화는 위 가운데 큰 버튼, 메신저 3개는 아래에 같은 폭으로 */
+.host-tel{display:flex;justify-content:center;margin-top:14px}
+.chip.tel{min-height:56px;padding:0 24px;font-size:18px;font-variant-numeric:tabular-nums}
+.chip.tel .ic{width:20px;height:20px}
+.msgr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.msgr .chip .ic{width:16px;height:16px}
+.msgr .chip{flex-direction:column;justify-content:center;gap:4px;min-height:64px;padding:8px 4px;border-radius:16px;font-size:13px;line-height:1.2;text-align:center}
+
 .foot{margin-top:22px;font-size:12px;color:var(--mute);text-align:center}
 
 /* 크게 보기 */
@@ -808,8 +816,10 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <p class="w ko">어렵거나 궁금하면 언제든 연락 주세요</p>
       <p class="w en">Stuck or curious? Message us anytime</p>
       <p class="small" style="margin-top:6px"><span class="ko">호스트 Lisa · 카카오톡 · LINE · WhatsApp 어디로 보내셔도 괜찮아요</span><span class="en">Your host Lisa · KakaoTalk, LINE or WhatsApp, whichever you like</span></p>
-      <div class="chips">
-        <a class="chip" href="tel:+821093280969" data-label-ko="Lisa에게 전화 010 9328 0969" data-label-en="Call Lisa +82 10 9328 0969" aria-label="Lisa에게 전화 010 9328 0969"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="ko">010-9328-0969</span><span class="en">+82-10-9328-0969</span></a>
+      <div class="host-tel">
+        <a class="chip tel" href="tel:+821093280969" data-label-ko="Lisa에게 전화 010 9328 0969" data-label-en="Call Lisa +82 10 9328 0969" aria-label="Lisa에게 전화 010 9328 0969"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="ko">010-9328-0969</span><span class="en">+82-10-9328-0969</span></a>
+      </div>
+      <div class="msgr">
         <button class="chip" type="button" data-copy="free01270" data-toast-ko="ID 복사됨 · 카카오톡 ▸ 친구 추가 ▸ ID로 추가 ▸ 붙여넣기" data-toast-en="ID copied · KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste" data-label-ko="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가" data-label-en="KakaoTalk: copy ID free01270, then add friend by ID in the app" aria-label="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가"><span class="ko">카카오톡</span><span class="en">KakaoTalk</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
         <a class="chip" href="https://line.me/R/ti/p/~free01270" data-copy="free01270" data-toast-ko="LINE ID 복사됨 · LINE이 안 열리면 친구 추가에서 이 ID를 검색하세요" data-toast-en="LINE ID copied · if LINE doesn't open, search this ID under Add friend" data-label-ko="LINE으로 Lisa 친구 추가 (ID도 복사돼요)" data-label-en="Add Lisa on LINE (the ID is copied too)" aria-label="LINE으로 Lisa 친구 추가 (ID도 복사돼요)">LINE<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
         <a class="chip" href="https://api.whatsapp.com/send?phone=821093280969" data-copy="+821093280969" data-toast-ko="번호 복사됨 · WhatsApp이 안 열리면 +82 10 9328 0969를 새 연락처로 추가하세요" data-toast-en="Number copied · if WhatsApp doesn't open, add +82 10 9328 0969 as a new contact" data-label-ko="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)" data-label-en="Chat with Lisa on WhatsApp (the number is copied too)" aria-label="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)">WhatsApp<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
