@@ -5,10 +5,10 @@ Static site (no build step). Open `index.html` in a browser to preview.
 ## Pages
 | URL | Page |
 |---|---|
-| `/` (`index.html`) | Guest guidebook (the main page guests get): house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency, Wi-Fi QR and host contacts. Opens in `?lang=` if present; otherwise the language last picked with 한/ENG on that phone; otherwise Korean if the phone's language is Korean, English for everything else. |
-| `/brochure/` (`brochure/index.html`) | Short arrival guide in the same design as the guidebook: check-in & check-out, getting here, the 7 house rules, host contacts and emergency numbers. No links to the guidebook. Meant as quick info for guests before check-in. Picks its language the same way as the guidebook (shared 한/ENG memory). Not linked from the guidebook. |
+| `/` (`index.html`) | Guest guidebook (the main page guests get): house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency, Wi-Fi QR and host contacts. Korean, English and Japanese. Opens in `?lang=` (`ko`, `en`, `ja`) if present; otherwise the language last picked with the 한 / A / あ buttons on that phone; otherwise Korean or Japanese if the phone is set to that language, English for everything else. |
+| `/brochure/` (`brochure/index.html`) | Short arrival guide in the same design as the guidebook: check-in & check-out, getting here, the 7 house rules, host contacts and emergency numbers. No links to the guidebook. Meant as quick info for guests before check-in. Korean and English only; picks its language the same way as the guidebook (shared language memory; a Japanese pick shows English here). Not linked from the guidebook. |
 
-The 한/ENG button on either page updates `?lang=` in the address, so a shared link or a reload keeps the language.
+The 한 / A / あ buttons on the guidebook (한/ENG on the brochure) update `?lang=` in the address, so a shared link or a reload keeps the language. Share `?lang=ja` with Japanese guests.
 
 Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`.
 
@@ -23,7 +23,7 @@ Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#micr
 |---|---|
 | `index.html` | Guidebook page (all CSS/JS inline) |
 | `brochure/index.html` | Arrival brochure page (all CSS/JS inline) |
-| `img/` | Guidebook diagrams and building photos (from the printed 1F guidebook) |
+| `img/` | Guidebook diagrams and building photos (from the printed 1F guidebook); `img/en/` and `img/ja/` hold the same diagrams relettered in English and Japanese |
 | `hero.jpg` | Hero photo |
 | `qr.png` | Wi-Fi QR code (guidebook) |
 | `og.jpg` | Link preview image (KakaoTalk, LINE, etc.) |
