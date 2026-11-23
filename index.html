@@ -10,11 +10,6 @@
 <title>Copen Haus Guidebook</title>
 <link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Copen Haus">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#fcf7ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#161b15" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
@@ -296,15 +291,6 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 .apps dd .get{display:inline-flex;align-items:center;gap:4px;min-height:36px;margin-top:6px;padding:0 12px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font-size:13px;font-weight:700;text-decoration:none}
 .apps dd .get .ic{width:14px;height:14px;color:var(--green)}
 
-/* 홈 화면에 추가 */
-.install{scroll-margin-top:70px;margin-top:30px;padding:18px 18px 20px;border-radius:22px;background:var(--card2)}
-.install .w{font:700 21px/1.3 var(--serif)}
-.install p.small{margin-top:6px}
-.seg{display:inline-flex;gap:2px;margin-top:14px;padding:3px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg)}
-.seg button{min-height:40px;padding:0 16px;border:0;border-radius:99px;background:none;color:var(--ink);font:700 14px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
-.seg button[aria-pressed=true]{background:var(--green);color:var(--bg)}
-.install .steps{margin-top:14px}
-.install .btn{margin-top:14px}
 
 /* 카카오톡·LINE 등 앱 안 브라우저 안내 */
 .inapp{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0 0 12px;padding:12px 14px;border-radius:16px;background:var(--card);font-size:14px;line-height:1.45}
@@ -359,7 +345,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 @keyframes howto-glow{0%,100%{box-shadow:var(--lift),0 0 0 0 color-mix(in srgb,var(--green) 0%,transparent)}50%{box-shadow:var(--lift),0 0 0 5px color-mix(in srgb,var(--green) 28%,transparent)}}
 details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s infinite}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}details.howto{animation:none!important}}
-@media print{.tabs,#top,.lang,.back,.now,.install,.inapp{display:none}details.dev .body{display:block}}
+@media print{.tabs,#top,.lang,.back,.now,.inapp{display:none}details.dev .body{display:block}}
 </style>
 </head>
 <body>
@@ -898,34 +884,6 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
       <div class="place"><div><b><span class="ko">응급실</span><span class="en">Emergency room</span></b><span class="meta"><span class="ko">국립중앙의료원 · 중구 을지로 245</span><span class="en">National Medical Center · 245 Eulji-ro</span></span></div><span class="small"><span class="ko">택시 <span class="nw">약 10분</span></span><span class="en">10 min by taxi</span></span></div>
     </div>
 
-    <div class="install" id="install">
-      <p class="w ko">이 가이드를 홈 화면에 추가하세요</p>
-      <p class="w en">Add this guide to your home screen</p>
-      <p class="small"><span class="ko">머무는 동안 앱처럼 바로 열려요. 한 번 열어 본 내용은 인터넷이 안 될 때도 보여요.</span><span class="en">It opens like an app during your stay, and pages you've opened still show without internet.</span></p>
-      <div class="seg" role="group" aria-label="휴대폰 종류" data-label-ko="휴대폰 종류" data-label-en="Phone type"><button type="button" data-os="ios" aria-pressed="true">iPhone</button><button type="button" data-os="and" aria-pressed="false">Android</button></div>
-      <ol class="steps ko" data-os="ios">
-        <li><span class="n">1</span><div><b>Safari 아래쪽 공유 버튼을 눌러요</b><p>네모에 위 화살표가 있는 모양이에요</p></div></li>
-        <li><span class="n">2</span><div><b>목록을 올려 ‘홈 화면에 추가’를 눌러요</b></div></li>
-        <li><span class="n">3</span><div><b>오른쪽 위 ‘추가’를 눌러요</b></div></li>
-      </ol>
-      <ol class="steps en" data-os="ios">
-        <li><span class="n">1</span><div><b>Tap the Share button in Safari</b><p>The square with an arrow pointing up</p></div></li>
-        <li><span class="n">2</span><div><b>Scroll down and tap “Add to Home Screen”</b></div></li>
-        <li><span class="n">3</span><div><b>Tap “Add” at the top right</b></div></li>
-      </ol>
-      <ol class="steps ko" data-os="and" hidden>
-        <li><span class="n">1</span><div><b>Chrome 오른쪽 위 ⋮ 메뉴를 눌러요</b><p>삼성 인터넷은 아래쪽 ≡ 메뉴예요</p></div></li>
-        <li><span class="n">2</span><div><b>‘홈 화면에 추가’ 또는 ‘앱 설치’를 눌러요</b><p>삼성 인터넷은 ‘현재 페이지 추가’ → ‘홈 화면’</p></div></li>
-        <li><span class="n">3</span><div><b>‘추가’ 또는 ‘설치’를 눌러요</b></div></li>
-      </ol>
-      <ol class="steps en" data-os="and" hidden>
-        <li><span class="n">1</span><div><b>Tap the ⋮ menu at the top right of Chrome</b><p>In Samsung Internet, it's the ≡ menu at the bottom</p></div></li>
-        <li><span class="n">2</span><div><b>Tap “Add to Home screen” or “Install app”</b><p>Samsung Internet: “Add page to” → “Home screen”</p></div></li>
-        <li><span class="n">3</span><div><b>Tap “Add” or “Install”</b></div></li>
-      </ol>
-      <button class="btn primary" type="button" id="install-btn" hidden><span class="ko">홈 화면에 추가</span><span class="en">Add to home screen</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M8 7l4-4 4 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg></button>
-    </div>
-
     <div class="host" id="host">
       <p class="w ko">어렵거나 궁금하면 언제든 연락 주세요</p>
       <p class="w en">Stuck or curious? Message us anytime</p>
@@ -999,7 +957,6 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
 
   // ── 휴대폰 종류 (iPhone·iPad / Android) ──
   var ua=navigator.userAgent||'',isIOS=/iP(hone|ad|od)/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),isAnd=/Android/i.test(ua);
-  var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
   // 앱 받기 링크: iPhone은 App Store, 그 밖은 Google Play
   document.querySelectorAll('a.get').forEach(function(a){a.href=isIOS?'https://apps.apple.com/app/'+a.dataset.ios:'https://play.google.com/store/apps/details?id='+a.dataset.and;
     a.insertAdjacentHTML('afterbegin','<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>')});
@@ -1040,19 +997,6 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   // 메뉴·바로가기로 기기 카드에 갈 때는 카드를 펼쳐요 (같은 주소를 다시 눌러도)
   document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var t=document.querySelector(a.getAttribute('href'));if(t&&t.tagName==='DETAILS')t.open=true});
 
-  // ── 홈 화면에 추가 ──
-  var ins=document.getElementById('install');
-  if(standalone)ins.hidden=true;
-  function showOS(os){ins.querySelectorAll('.seg button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.os===os)});ins.querySelectorAll('ol[data-os]').forEach(function(o){o.hidden=o.dataset.os!==os})}
-  showOS(isAnd?'and':'ios');
-  ins.querySelectorAll('.seg button').forEach(function(b){b.addEventListener('click',function(){showOS(b.dataset.os)})});
-  var deferred=null,ib=document.getElementById('install-btn');
-  addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;ib.hidden=false});
-  ib.addEventListener('click',function(){if(!deferred)return;deferred.prompt();deferred.userChoice.then(function(){deferred=null;ib.hidden=true})});
-  addEventListener('appinstalled',function(){ins.hidden=true;say(root.dataset.lang==='ko'?'홈 화면에 추가했어요':'Added to your home screen')});
-
-  // 오프라인에서도 열리도록 (https에서만)
-  if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});
 })();
 </script>
 </body>

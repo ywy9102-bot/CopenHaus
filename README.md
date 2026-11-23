@@ -28,8 +28,6 @@ Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#micr
 | `qr.png` | Wi-Fi QR code (guidebook and brochure) |
 | `og.jpg` | Link preview image (KakaoTalk, LINE, etc.) |
 | `favicon.png`, `apple-touch-icon.png` | Browser tab / home-screen icons |
-| `manifest.webmanifest`, `icon-192.png`, `icon-512.png` | "Add to home screen" on Android and iPhone |
-| `sw.js` | Offline support: always fetches the latest page when online, shows the saved copy when offline |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is |
 
 ## Publish on GitHub Pages
