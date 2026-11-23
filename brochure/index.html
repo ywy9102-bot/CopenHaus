@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -7,6 +7,10 @@
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <title>Copen Haus</title>
+<script>
+/* 언어: 처음에는 영어. 주소에 ?lang=ko 가 있으면 한국어로 열려요 (가이드북과 서로 이어져요) */
+(function(){var l=(location.search.match(/[?&]lang=(ko|en)/)||[])[1]||'en';document.documentElement.lang=l;document.documentElement.dataset.lang=l})();
+</script>
 <link rel="icon" type="image/png" sizes="48x48" href="../favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <meta name="theme-color" content="#fcf7ef" media="(prefers-color-scheme: light)">
@@ -21,15 +25,23 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap">
 <style>
-:root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#b0553a;--paper:#fff;--white:#fff;--serif:"Source Serif 4",Georgia,"Noto Serif KR","Apple SD Gothic Neo",serif}
+:root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#a54d33;--paper:#fff;--white:#fff;--serif:"Source Serif 4",Georgia,"Noto Serif KR","Apple SD Gothic Neo",serif}
 @media (prefers-color-scheme:dark){:root{--bg:#121a11;--card:#1d2a1b;--card2:#1a2418;--field:#26331f;--line:#3b4434;--ink:#eef2e6;--mute:#a9b79c;--green:#9db683;--brick:#e08a68;--paper:#1d2a1b;--white:#2a3126}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",sans-serif;-webkit-text-size-adjust:100%}
 main{max-width:480px;margin:0 auto;padding:16px 16px 56px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* 언어 전환: .ko / .en 요소 중 현재 언어만 보여요 */
+html[data-lang=ko] .en,html[data-lang=en] .ko{display:none!important}
+body{word-break:keep-all;overflow-wrap:anywhere}
+.lang{position:absolute;top:14px;right:14px;z-index:2;display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:3px;border:1px solid rgba(255,255,255,.34);border-radius:99px;background:rgba(14,20,10,.74);color:#fff;font:700 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo",sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lang i{display:grid;place-items:center;min-width:40px;height:36px;padding:0 9px;border-radius:99px;font-style:normal;transition:background .15s,color .15s}
+html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{background:#fff;color:#1c2a19}
+.lang:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.lang:active{transform:translateY(1px) scale(.985)}
 ::selection{background:var(--green);color:var(--bg)}
 
 /* hero */
@@ -93,7 +105,7 @@ p{margin:0}
 .field{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--field);color:var(--ink);border-radius:14px;padding:8px 14px;font:inherit;cursor:pointer;min-height:56px;-webkit-tap-highlight-color:transparent}
 .field .fx>span{display:block;font-size:12px;color:var(--mute)}
 .field b{display:block;font-size:18px;overflow-wrap:anywhere}
-.field.ko b{font-size:16px}
+.field.kr b{font-size:16px}
 .wifi-grid{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
 .fields{display:grid;gap:10px;min-width:0}
 .qr{width:132px;height:132px;border-radius:11%;display:block}
@@ -119,7 +131,7 @@ li span{padding-top:2px}
 #top.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 #top:active{filter:brightness(.94)}
 #top svg{width:22px;height:22px}
-#toast{z-index:20;position:fixed;left:50%;bottom:24px;transform:translateX(-50%);width:max-content;max-width:min(92vw,360px);text-align:center;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast{z-index:20;position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:min(92vw,360px);text-align:center;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
 #toast.on{opacity:1}
 @media (max-width:420px){.wifi-grid{grid-template-columns:1fr}.qr{width:156px;height:156px;margin:0 auto}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.photo .g{transition:none}#top{transition:none}.photo img,.photo-txt>*{animation:none}#toast{transition:none}}
@@ -201,52 +213,56 @@ h3.sub:first-of-type{margin-top:4px}
 <body>
 <main>
   <header class="photo">
-    <img src="../hero.jpg" width="960" height="1200" alt="Copen Haus: a three-storey brick house with white terraces and a pine garden, seen from the street under a clear blue sky" fetchpriority="high">
+    <img src="../hero.jpg" width="960" height="1200" alt="Copen Haus: a three-storey brick house with white terraces and a pine garden, seen from the street under a clear blue sky" data-alt-ko="Copen Haus: 하얀 테라스와 소나무 정원이 있는 3층 벽돌집. 맑은 하늘 아래 길에서 본 모습" data-alt-en="Copen Haus: a three-storey brick house with white terraces and a pine garden, seen from the street under a clear blue sky" fetchpriority="high">
     <i class="g g-dawn" aria-hidden="true"></i><i class="g g-dusk" aria-hidden="true"></i><i class="g g-night" aria-hidden="true"></i>
     <button id="clock" class="clock" type="button" aria-label="Seoul time">
       <svg id="clkIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
       <span class="ct"><b id="clkT">--:--</b><small id="clkP">Seoul</small></span><svg class="ic hint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0113.5-5.8L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 01-13.5 5.8L4 15.5M4 20v-4.5h4.5"/></svg>
     </button>
+    <button class="lang" type="button" id="lang" aria-label="Language: English. Tap to switch to Korean"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
     <div class="photo-txt">
-      <h1><span class="sr">Welcome to </span>Copen Haus</h1>
-      <p class="tag"><span lang="ko">환영합니다</span> · Your stay in Pildong, Seoul</p>
-      <button class="addr addr-btn" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast="Address copied" aria-label="Copy address: 32-14, Pildong-ro 8-gil, Jung-gu, Seoul"><span class="t">32-14, <span class="nb">Pildong-ro 8-gil</span>, <span class="nb">Jung-gu</span>, Seoul</span><span class="cp"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>Copy</span></button>
-      <p class="addr-ko" lang="ko">서울특별시 중구 필동로8길 32-14</p>
+      <h1><span class="sr"><span class="ko">환영합니다, </span><span class="en">Welcome to </span></span>Copen Haus</h1>
+      <p class="tag"><span class="en"><span lang="ko">환영합니다</span> · Your stay in Pildong, Seoul</span><span class="ko">환영합니다 · 서울 필동에서 편히 머무세요</span></p>
+      <button class="addr addr-btn en" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-en="Address copied" data-toast-ko="영문 주소 복사됨" aria-label="Copy address: 32-14, Pildong-ro 8-gil, Jung-gu, Seoul"><span class="t">32-14, <span class="nb">Pildong-ro 8-gil</span>, <span class="nb">Jung-gu</span>, Seoul</span><span class="cp"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>Copy</span></button>
+      <button class="addr addr-btn ko" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨" data-toast-en="Address copied" aria-label="주소 복사: 서울특별시 중구 필동로8길 32-14"><span class="t" lang="ko">서울특별시 중구 <span class="nb">필동로8길 32-14</span></span><span class="cp"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>복사</span></button>
+      <p class="addr-ko en" lang="ko">서울특별시 중구 필동로8길 32-14</p>
+      <p class="addr-ko ko">32-14, Pildong-ro 8-gil, Jung-gu, Seoul</p>
     </div>
   </header>
 
-  <section class="arrive" aria-label="Check-in, check-out and directions">
+  <section class="arrive" aria-label="Check-in, check-out and directions" data-label-ko="체크인·체크아웃과 길찾기" data-label-en="Check-in, check-out and directions">
     <div class="slots">
-      <div class="slot"><svg class="ic big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small>Check-in</small><b>After 3 PM</b></div></div>
-      <div class="slot"><svg class="ic big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small>Check-out</small><b>Before 11 AM</b></div></div>
+      <div class="slot"><svg class="ic big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small><span class="ko">체크인</span><span class="en">Check-in</span></small><b><span class="ko">오후 3시 이후</span><span class="en">After 3 PM</span></b></div></div>
+      <div class="slot"><svg class="ic big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small><span class="ko">체크아웃</span><span class="en">Check-out</span></small><b><span class="ko">오전 11시 이전</span><span class="en">Before 11 AM</span></b></div></div>
     </div>
-    <a class="go" href="https://www.google.com/maps/dir/?api=1&amp;destination=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14&amp;travelmode=walking"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.5" r="1.8"/><path d="M9 21l2-6-2-2 1-5 3 1 2 4 3 1M11 15l4 2 1 4M9.5 8L7 11"/></svg>Walking directions<svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a class="go" href="https://www.google.com/maps/dir/?api=1&amp;destination=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14&amp;travelmode=walking"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.5" r="1.8"/><path d="M9 21l2-6-2-2 1-5 3 1 2 4 3 1M11 15l4 2 1 4M9.5 8L7 11"/></svg><span class="ko">걸어서 오는 길</span><span class="en">Walking directions</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </section>
 
-  <nav class="jump" aria-label="Jump to a section">
-    <a href="#directions">Directions<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#wifi">Wi-Fi<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#host">Host<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#seoul">Seoul<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#rules">Rules<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a class="gb" href="../">Guidebook<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <nav class="jump" aria-label="Jump to a section" data-label-ko="바로가기" data-label-en="Jump to a section">
+    <a href="#directions"><span class="ko">오는 길</span><span class="en">Directions</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#wifi">Wi-Fi<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#host"><span class="ko">호스트</span><span class="en">Host</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#seoul"><span class="ko">서울 팁</span><span class="en">Seoul</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#rules"><span class="ko">규칙</span><span class="en">Rules</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a class="gb" href="../?lang=en" data-keep-lang><span class="ko">가이드북</span><span class="en">Guidebook</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </nav>
 
   <section class="s" id="arrive" aria-labelledby="h-enter">
-    <h2 id="h-enter">Arrive in three steps</h2>
+    <h2 id="h-enter"><span class="ko">세 단계로 도착하기</span><span class="en">Arrive in three steps</span></h2>
     <ol class="steps">
-      <li><span class="n" aria-hidden="true">1</span><div><b>Find us</b><p>Follow the walking route from your hotel or the nearest station.</p><p class="links"><a href="#directions">See directions<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p></div></li>
-      <li><span class="n" aria-hidden="true">2</span><div><b>Get in</b><p>We'll send the door lock code by Airbnb message on check-in day.</p></div></li>
-      <li><span class="n" aria-hidden="true">3</span><div><b>Settle in</b><p>Join the Wi-Fi, and take a quick look at the house rules.</p><p class="links"><a href="#wifi">Wi-Fi details<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a href="#rules">House rules<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a href="../">Guidebook<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p></div></li>
+      <li><span class="n" aria-hidden="true">1</span><div><b><span class="ko">찾아오기</span><span class="en">Find us</span></b><p><span class="ko">숙소나 가까운 역에서 걷는 길을 따라오세요.</span><span class="en">Follow the walking route from your hotel or the nearest station.</span></p><p class="links"><a href="#directions"><span class="ko">오는 길 보기</span><span class="en">See directions</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p></div></li>
+      <li><span class="n" aria-hidden="true">2</span><div><b><span class="ko">들어가기</span><span class="en">Get in</span></b><p><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요.</span><span class="en">We'll send the door lock code by Airbnb message on check-in day.</span></p></div></li>
+      <li><span class="n" aria-hidden="true">3</span><div><b><span class="ko">자리 잡기</span><span class="en">Settle in</span></b><p><span class="ko">Wi-Fi에 연결하고 하우스 룰을 한번 훑어봐 주세요.</span><span class="en">Join the Wi-Fi, and take a quick look at the house rules.</span></p><p class="links"><a href="#wifi"><span class="ko">Wi-Fi 정보</span><span class="en">Wi-Fi details</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a href="#rules"><span class="ko">하우스 룰</span><span class="en">House rules</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a href="../?lang=en" data-keep-lang><span class="ko">가이드북</span><span class="en">Guidebook</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p></div></li>
     </ol>
   </section>
 
   <section class="s" id="directions" aria-labelledby="h-dir">
-    <h2 id="h-dir">Getting here</h2>
-    <div class="map"><iframe title="Map showing Copen Haus" src="https://www.google.com/maps?q=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14&amp;output=embed&amp;hl=en" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe></div>
+    <h2 id="h-dir"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></h2>
+    <div class="map"><iframe title="Map showing Copen Haus" data-label-ko="Copen Haus 위치 지도" data-label-en="Map showing Copen Haus" src="https://www.google.com/maps?q=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14&amp;output=embed&amp;hl=en" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe></div>
     <div class="btns">
-      <a class="btn primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14&amp;travelmode=walking"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.5" r="1.8"/><path d="M9 21l2-6-2-2 1-5 3 1 2 4 3 1M11 15l4 2 1 4M9.5 8L7 11"/></svg>Walking directions<svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14">Open in Google Maps<svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-      <button class="btn" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast="Address copied"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>Copy address</button>
+      <a class="btn primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14&amp;travelmode=walking"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.5" r="1.8"/><path d="M9 21l2-6-2-2 1-5 3 1 2 4 3 1M11 15l4 2 1 4M9.5 8L7 11"/></svg><span class="ko">걸어서 오는 길</span><span class="en">Walking directions</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14"><span class="ko">구글 지도에서 열기</span><span class="en">Open in Google Maps</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      <button class="btn en" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-en="Address copied" data-toast-ko="영문 주소 복사됨"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>Copy address</button>
+      <button class="btn ko" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨" data-toast-en="Address copied"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>주소 복사</button>
     </div>
-    <p class="small tip">Walking directions start from your current location. Starting from a station instead:</p>
-    <p class="links"><a href="https://www.google.com/maps/dir/?api=1&amp;origin=Dongguk%20University%20Station%2C%20Seoul&amp;destination=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14&amp;travelmode=walking">Dongguk Univ. Station<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a href="https://www.google.com/maps/dir/?api=1&amp;origin=Chungmuro%20Station%2C%20Seoul&amp;destination=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14&amp;travelmode=walking">Chungmuro Station<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
-    <button class="field ko" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast="Korean address copied · show it to a taxi driver" aria-label="Copy Korean address for taxi, 서울특별시 중구 필동로8길 32-14"><span class="fx"><span>Korean address · tap to copy for taxi</span><b lang="ko">서울특별시 중구 필동로8길 32-14</b></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+    <p class="small tip"><span class="ko">걷는 길은 지금 내 위치에서 시작해요. 역에서 출발하려면:</span><span class="en">Walking directions start from your current location. Starting from a station instead:</span></p>
+    <p class="links"><a href="https://www.google.com/maps/dir/?api=1&amp;origin=Dongguk%20University%20Station%2C%20Seoul&amp;destination=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14&amp;travelmode=walking"><span class="ko">동대입구역</span><span class="en">Dongguk Univ. Station</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a href="https://www.google.com/maps/dir/?api=1&amp;origin=Chungmuro%20Station%2C%20Seoul&amp;destination=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14&amp;travelmode=walking"><span class="ko">충무로역</span><span class="en">Chungmuro Station</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+    <button class="field kr" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-en="Korean address copied · show it to a taxi driver" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여주세요" aria-label="Copy Korean address for taxi, 서울특별시 중구 필동로8길 32-14" data-label-ko="택시용 한글 주소 복사, 서울특별시 중구 필동로8길 32-14" data-label-en="Copy Korean address for taxi, 서울특별시 중구 필동로8길 32-14"><span class="fx"><span><span class="ko">택시용 한글 주소 · 눌러서 복사</span><span class="en">Korean address · tap to copy for taxi</span></span><b lang="ko">서울특별시 중구 필동로8길 32-14</b></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
   </section>
 
   <section class="s" id="wifi" aria-labelledby="h-wifi">
@@ -254,45 +270,49 @@ h3.sub:first-of-type{margin-top:4px}
     <div class="panel">
       <div class="wifi-grid">
         <div class="fields">
-          <button class="field" type="button" data-copy="Copen_Green" aria-label="Network Copen_Green, tap to copy"><span class="fx"><span>Network</span><b>Copen_Green</b></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-          <button class="field" type="button" data-copy="Copen_0077" aria-label="Password Copen_0077, tap to copy"><span class="fx"><span>Password</span><b>Copen_0077</b></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+          <button class="field" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied" aria-label="Network Copen_Green, tap to copy" data-label-ko="네트워크 Copen_Green, 눌러서 복사" data-label-en="Network Copen_Green, tap to copy"><span class="fx"><span><span class="ko">네트워크</span><span class="en">Network</span></span><b>Copen_Green</b></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+          <button class="field" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied" aria-label="Password Copen_0077, tap to copy" data-label-ko="비밀번호 Copen_0077, 눌러서 복사" data-label-en="Password Copen_0077, tap to copy"><span class="fx"><span><span class="ko">비밀번호</span><span class="en">Password</span></span><b>Copen_0077</b></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
         </div>
-        <img class="qr" src="../qr.png" width="560" height="560" alt="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network." loading="lazy" decoding="async">
+        <img class="qr" src="../qr.png" width="560" height="560" alt="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network." loading="lazy" decoding="async">
       </div>
-      <p class="cap">Scan the QR code with your camera to connect<br>or tap a field to copy it</p>
+      <p class="cap"><span class="ko">카메라로 QR 코드를 찍으면 연결돼요<br>또는 칸을 눌러 복사하세요</span><span class="en">Scan the QR code with your camera to connect<br>or tap a field to copy it</span></p>
     </div>
   </section>
 
   <section class="s" id="host" aria-labelledby="h-host">
-    <h2 id="h-host">Your host</h2>
+    <h2 id="h-host"><span class="ko">호스트</span><span class="en">Your host</span></h2>
     <p class="who">Lisa</p>
-    <a class="tel" href="tel:+821093280969" aria-label="Call Lisa +82 10 9328 0969"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>+82-10-9328-0969</a>
+    <a class="tel" href="tel:+821093280969" aria-label="Call Lisa +82 10 9328 0969" data-label-ko="Lisa에게 전화 010 9328 0969" data-label-en="Call Lisa +82 10 9328 0969"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="en">+82-10-9328-0969</span><span class="ko">010-9328-0969</span></a>
     <div class="chips">
-      <button class="chip" type="button" data-copy="free01270" data-toast="ID copied · KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste" aria-label="KakaoTalk: copy ID free01270, then add friend by ID in the app">KakaoTalk<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-      <a class="chip" href="https://line.me/R/ti/p/~free01270" data-copy="free01270" data-toast="LINE ID copied · if LINE doesn't open, search this ID under Add friend" aria-label="Add Lisa on LINE (opens LINE in the app or on the web, and copies the ID)">LINE<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-      <a class="chip" href="https://api.whatsapp.com/send?phone=821093280969" data-copy="+821093280969" data-toast="Number copied · if WhatsApp doesn't open, add +82 10 9328 0969 as a new contact" aria-label="Chat with Lisa on WhatsApp (opens WhatsApp in the app or on the web, and copies the number)">WhatsApp<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      <button class="chip" type="button" data-copy="free01270" data-toast-en="ID copied · KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste" data-toast-ko="ID 복사됨 · 카카오톡 ▸ 친구 추가 ▸ ID로 추가 ▸ 붙여넣기" aria-label="KakaoTalk: copy ID free01270, then add friend by ID in the app" data-label-ko="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가" data-label-en="KakaoTalk: copy ID free01270, then add friend by ID in the app"><span class="ko">카카오톡</span><span class="en">KakaoTalk</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+      <a class="chip" href="https://line.me/R/ti/p/~free01270" data-copy="free01270" data-toast-en="LINE ID copied · if LINE doesn't open, search this ID under Add friend" data-toast-ko="LINE ID 복사됨 · LINE이 안 열리면 친구 추가에서 이 ID를 검색하세요" aria-label="Add Lisa on LINE (opens LINE in the app or on the web, and copies the ID)" data-label-ko="LINE으로 Lisa 친구 추가 (앱이나 웹에서 열리고 ID도 복사돼요)" data-label-en="Add Lisa on LINE (opens LINE in the app or on the web, and copies the ID)">LINE<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      <a class="chip" href="https://api.whatsapp.com/send?phone=821093280969" data-copy="+821093280969" data-toast-en="Number copied · if WhatsApp doesn't open, add +82 10 9328 0969 as a new contact" data-toast-ko="번호 복사됨 · WhatsApp이 안 열리면 +82 10 9328 0969를 새 연락처로 추가하세요" aria-label="Chat with Lisa on WhatsApp (opens WhatsApp in the app or on the web, and copies the number)" data-label-ko="WhatsApp으로 Lisa와 대화 (앱이나 웹에서 열리고 번호도 복사돼요)" data-label-en="Chat with Lisa on WhatsApp (opens WhatsApp in the app or on the web, and copies the number)">WhatsApp<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
     </div>
     <p class="small">ID: free01270</p>
     <ul class="hints">
-      <li><b>KakaoTalk</b> – tap to copy the ID, then open KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste.</li>
-      <li><b>LINE</b> – tap to add Lisa as a friend. It opens in the LINE app, or on the web page if you don't have the app (the ID is copied too).</li>
-      <li><b>WhatsApp</b> – tap to start a chat with Lisa. It opens in the WhatsApp app or WhatsApp Web (the number is copied too).</li>
+      <li class="en"><b>KakaoTalk</b> – tap to copy the ID, then open KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste.</li>
+      <li class="ko"><b>카카오톡</b> – 눌러서 ID를 복사한 뒤, 카카오톡 ▸ 친구 추가 ▸ ID로 추가 ▸ 붙여넣기.</li>
+      <li class="en"><b>LINE</b> – tap to add Lisa as a friend. It opens in the LINE app, or on the web page if you don't have the app (the ID is copied too).</li>
+      <li class="ko"><b>LINE</b> – 누르면 Lisa를 친구로 추가해요. LINE 앱이 없으면 웹 페이지로 열려요 (ID도 복사돼요).</li>
+      <li class="en"><b>WhatsApp</b> – tap to start a chat with Lisa. It opens in the WhatsApp app or WhatsApp Web (the number is copied too).</li>
+      <li class="ko"><b>WhatsApp</b> – 누르면 Lisa와 대화가 열려요. WhatsApp 앱이나 WhatsApp 웹으로 열려요 (번호도 복사돼요).</li>
     </ul>
-    <p class="small" style="margin-top:12px">Buttons not opening an app? Open this page in Safari or Chrome instead of an in-app browser (KakaoTalk, Instagram, etc.), or paste the copied ID/number into the app.</p>
+    <p class="small" style="margin-top:12px"><span class="ko">버튼을 눌러도 앱이 안 열리나요? 카카오톡·인스타그램 같은 앱 안 브라우저 대신 Safari나 Chrome에서 이 페이지를 열거나, 복사한 ID·번호를 앱에 붙여넣으세요.</span><span class="en">Buttons not opening an app? Open this page in Safari or Chrome instead of an in-app browser (KakaoTalk, Instagram, etc.), or paste the copied ID/number into the app.</span></p>
   </section>
 
   <section class="s" id="seoul" aria-labelledby="h-seoul">
-    <h2 id="h-seoul">Handy in Seoul</h2>
-    <h3 class="sub">Taking a taxi</h3>
-    <button class="field ko" type="button" data-copy="이 주소로 가 주세요. 서울특별시 중구 필동로8길 32-14" data-toast="Copied · show it to your driver" aria-label="Copy taxi phrase: Please take me to this address, with the Korean address"><span class="fx"><span>Show this to your driver</span><b lang="ko">이 주소로 가 주세요</b><em>“Please take me to this address” · <i>i juso-ro ga juseyo</i></em></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-    <h3 class="sub">In an emergency</h3>
+    <h2 id="h-seoul"><span class="ko">서울에서 알아두면 좋아요</span><span class="en">Handy in Seoul</span></h2>
+    <h3 class="sub"><span class="ko">택시 탈 때</span><span class="en">Taking a taxi</span></h3>
+    <button class="field kr" type="button" data-copy="이 주소로 가 주세요. 서울특별시 중구 필동로8길 32-14" data-toast-en="Copied · show it to your driver" data-toast-ko="복사됨 · 기사님께 보여주세요" aria-label="Copy taxi phrase: Please take me to this address, with the Korean address" data-label-ko="택시 문장 복사: 이 주소로 가 주세요, 한글 주소 포함" data-label-en="Copy taxi phrase: Please take me to this address, with the Korean address"><span class="fx"><span><span class="ko">기사님께 보여주세요</span><span class="en">Show this to your driver</span></span><b lang="ko">이 주소로 가 주세요</b><em class="en">“Please take me to this address” · <i>i juso-ro ga juseyo</i></em><em class="ko">서울특별시 중구 필동로8길 32-14</em></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+    <h3 class="sub"><span class="ko">긴급 상황</span><span class="en">In an emergency</span></h3>
     <div class="sos">
-      <a class="call" href="tel:112"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>112</b><small>Police</small></span></a>
-      <a class="call" href="tel:119"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>119</b><small>Fire &amp; ambulance</small></span></a>
-      <a class="call wide" href="tel:1330"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>1330</b><small>Korea Travel Helpline · English, 24 hours</small></span></a>
+      <a class="call" href="tel:112"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>112</b><small class="ko">경찰</small><small class="en">Police</small></span></a>
+      <a class="call" href="tel:119"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>119</b><small class="ko">화재 · 구급차</small><small class="en">Fire &amp; ambulance</small></span></a>
+      <a class="call" href="tel:1330"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>1330</b><small class="ko">관광 통역·안내 (24시간)</small><small class="en">Travel helpline, 24 h, English</small></span></a>
+      <a class="call" href="tel:120"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>120</b><small class="ko">서울시 생활 문의</small><small class="en">Seoul city help line</small></span></a>
     </div>
-    <h3 class="sub">A few Korean words</h3>
-    <dl class="words">
+    <h3 class="sub en">A few Korean words</h3>
+    <dl class="words en">
       <div><dt lang="ko">안녕하세요</dt><dd>Hello <i>annyeonghaseyo</i></dd></div>
       <div><dt lang="ko">감사합니다</dt><dd>Thank you <i>gamsahamnida</i></dd></div>
       <div><dt lang="ko">저기요</dt><dd>Excuse me <i>jeogiyo</i></dd></div>
@@ -300,32 +320,49 @@ h3.sub:first-of-type{margin-top:4px}
   </section>
 
   <section class="s" id="rules" aria-labelledby="h-rules">
-    <h2 id="h-rules">House rules</h2>
+    <h2 id="h-rules"><span class="ko">하우스 룰</span><span class="en">House rules</span></h2>
     <ol>
-      <li><i>1</i><span>No smoking indoors, and please don't smoke in front of the building or on the stairs either.</span></li>
-      <li><i>2</i><span>Quiet hours are 10 PM – 8 AM. Voices carry in the alley and stairwell.</span></li>
-      <li><i>3</i><span>No parties or events.</span></li>
-      <li><i>4</i><span>Please ask us first before inviting anyone not on the booking.</span></li>
-      <li><i>5</i><span>Please take off your shoes indoors.</span></li>
-      <li><i>6</i><span>No pets.</span></li>
-      <li><i>7</i><span>If anything is broken, tell us right away. Being honest is all we ask.</span></li>
+      <li><i>1</i><span><span class="ko">실내 금연입니다. 건물 앞·계단에서도 흡연하지 말아주세요.</span><span class="en">No smoking indoors, and please don't smoke in front of the building or on the stairs either.</span></span></li>
+      <li><i>2</i><span><span class="ko">밤 10시~아침 8시는 조용히 해주세요. 골목과 계단의 대화도 잘 울립니다.</span><span class="en">Quiet hours are 10 PM – 8 AM. Voices carry in the alley and stairwell.</span></span></li>
+      <li><i>3</i><span><span class="ko">파티·행사는 불가합니다.</span><span class="en">No parties or events.</span></span></li>
+      <li><i>4</i><span><span class="ko">예약 인원 외 방문객은 미리 문의해 주세요.</span><span class="en">Please ask us first before inviting anyone not on the booking.</span></span></li>
+      <li><i>5</i><span><span class="ko">실내에서는 신발을 벗어주세요.</span><span class="en">Please take off your shoes indoors.</span></span></li>
+      <li><i>6</i><span><span class="ko">반려동물은 허용이 불가합니다.</span><span class="en">No pets.</span></span></li>
+      <li><i>7</i><span><span class="ko">파손된 물건이 있으면 바로 알려주세요. 솔직하게 말씀해 주시면 됩니다.</span><span class="en">If anything is broken, tell us right away. Being honest is all we ask.</span></span></li>
     </ol>
   </section>
 </main>
-<button id="top" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<button id="top" type="button" aria-label="Back to top" data-label-ko="맨 위로" data-label-en="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
 document.addEventListener('click',async e=>{
   const b=e.target.closest('[data-copy]');if(!b)return;
   const v=b.dataset.copy;
   try{await navigator.clipboard.writeText(v)}catch(_){const t=document.createElement('textarea');t.value=v;t.setAttribute('readonly','');t.style.cssText='position:fixed;opacity:0';document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(__){}t.remove()}
-  const o=document.getElementById('toast');o.textContent=b.dataset.toast||('Copied: '+v);o.classList.add('on');clearTimeout(o._t);o._t=setTimeout(()=>o.classList.remove('on'),b.dataset.toast?3600:1600);
+  const ko=document.documentElement.dataset.lang==='ko',msg=b.dataset[ko?'toastKo':'toastEn'];
+  say(msg||((ko?'복사됨: ':'Copied: ')+v),msg?3600:1600);
 });
+function say(t,ms){const o=document.getElementById('toast');o.textContent=t;o.classList.add('on');clearTimeout(o._t);o._t=setTimeout(()=>o.classList.remove('on'),ms||2400)}
+
+// 언어 전환: 화면 글자 + 화면 낭독기용 이름·그림 설명·탭 제목·주소(?lang=)·가이드북 링크까지 함께 바꿔요
+(function(){
+  const root=document.documentElement;
+  function applyLang(l){root.lang=l;root.dataset.lang=l;const ko=l==='ko';
+    document.title=ko?'Copen Haus 도착 안내':'Copen Haus';
+    document.querySelectorAll('[data-label-ko]').forEach(e=>{const v=e.dataset[ko?'labelKo':'labelEn'];e.tagName==='IFRAME'?e.title=v:e.setAttribute('aria-label',v)});
+    document.querySelectorAll('[data-alt-ko]').forEach(e=>e.alt=e.dataset[ko?'altKo':'altEn']);
+    document.getElementById('lang').setAttribute('aria-label',ko?'언어: 한국어. 눌러서 영어로 바꾸기':'Language: English. Tap to switch to Korean');
+    document.querySelectorAll('a[data-keep-lang]').forEach(a=>{const u=new URL(a.getAttribute('href'),location.href);u.searchParams.set('lang',l);a.href=u.pathname+u.search+u.hash});
+    try{const u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}
+    document.dispatchEvent(new Event('langchange'))}
+  applyLang(root.dataset.lang);
+  document.getElementById('lang').addEventListener('click',()=>{const l=root.dataset.lang==='ko'?'en':'ko';applyLang(l);say(l==='ko'?'한국어로 바꿨어요':'Switched to English',1400)});
+})();
 
 (function(){
   // 서울 시각에 맞춰 사진 분위기가 바뀌어요(새벽·낮·노을·밤). 시각 칩을 누르면 다른 시간대를 미리 볼 수 있어요
   const photo=document.querySelector('.photo'),clk=document.getElementById('clock'),T=document.getElementById('clkT'),P=document.getElementById('clkP'),I=document.getElementById('clkIcon');
-  const NAME={dawn:'Dawn',day:'Daytime',dusk:'Sunset',night:'Night'},ORDER=['dawn','day','dusk','night'];
+  const NAMES={en:{dawn:'Dawn',day:'Daytime',dusk:'Sunset',night:'Night'},ko:{dawn:'새벽',day:'낮',dusk:'노을',night:'밤'}},ORDER=['dawn','day','dusk','night'];
   const SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/>',MOON='<path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/>',RISE='<path d="M5 17a7 7 0 0114 0M12 5v4M7.5 8.5L9 10M16.5 8.5L15 10M2 20h20"/>',SET='<path d="M5 17a7 7 0 0114 0M12 9V5M9 7l3 3 3-3M2 20h20"/>';
   const ICON={dawn:RISE,day:SUN,dusk:SET,night:MOON};
   function sunMin(y,m,d){const lat=37.5665,lon=126.978,rad=Math.PI/180,N=Math.round((Date.UTC(y,m-1,d)-Date.UTC(y,0,0))/864e5),g=2*Math.PI/365*(N-1),
@@ -338,10 +375,14 @@ document.addEventListener('click',async e=>{
   function phaseOf(s){const {rise,set}=sunMin(s.y,s.m,s.d),x=s.min;
     if(x>=rise-30&&x<rise+60)return'dawn';if(x>=rise+60&&x<set-60)return'day';if(x>=set-60&&x<set+45)return'dusk';return'night'}
   let pv=-1,cur='';   // pv: -1이면 실시간, 0~3이면 미리보기
-  function paint(){const s=seoul(),live=phaseOf(s),ph=pv<0?live:ORDER[pv];
+  function paint(){const s=seoul(),live=phaseOf(s),ph=pv<0?live:ORDER[pv],ko=document.documentElement.dataset.lang==='ko',NAME=NAMES[ko?'ko':'en'];
     if(ph!==cur){cur=ph;photo.dataset.phase=ph;I.innerHTML=ICON[ph]}
-    T.textContent=s.hh+':'+s.mm;P.textContent='Seoul · '+NAME[ph]+(pv<0?'':' (preview)');
-    clk.setAttribute('aria-label','Seoul time '+s.hh+':'+s.mm+', '+NAME[ph].toLowerCase()+(pv<0?'':', preview')+'. Tap to preview the house at another time of day.')}
+    T.textContent=s.hh+':'+s.mm;
+    if(ko){P.textContent='서울 · '+NAME[ph]+(pv<0?'':' (미리보기)');
+      clk.setAttribute('aria-label','서울 시각 '+s.hh+':'+s.mm+', '+NAME[ph]+(pv<0?'':', 미리보기')+'. 누르면 다른 시간대의 집 모습을 볼 수 있어요.')}
+    else{P.textContent='Seoul · '+NAME[ph]+(pv<0?'':' (preview)');
+      clk.setAttribute('aria-label','Seoul time '+s.hh+':'+s.mm+', '+NAME[ph].toLowerCase()+(pv<0?'':', preview')+'. Tap to preview the house at another time of day.')}}
+  document.addEventListener('langchange',paint);
   clk.addEventListener('click',()=>{const live=ORDER.indexOf(phaseOf(seoul()));pv=pv<0?(live+1)%4:(pv+1)%4;if(pv===live)pv=-1;paint()});
   paint();setInterval(paint,30000);
 })();

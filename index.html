@@ -22,13 +22,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap">
 <script>
 /* 언어: 처음에는 항상 한국어. 주소에 ?lang=en 이 있으면 영어로 열려요 */
 (function(){var l=(location.search.match(/[?&]lang=(ko|en)/)||[])[1]||'ko';document.documentElement.lang=l;document.documentElement.dataset.lang=l})();
 </script>
 <style>
-:root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#b0553a;--paper:#fff;--sep:#c9cdb8;--ctl:#7f8d73;--ctl-bg:#fff;--lift:0 1px 0 rgba(38,51,31,.1),0 3px 8px rgba(38,51,31,.14);--serif:"Source Serif 4",Georgia,"Noto Serif KR","Apple SD Gothic Neo",serif}
+:root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#a54d33;--paper:#fff;--sep:#c9cdb8;--ctl:#7f8d73;--ctl-bg:#fff;--lift:0 1px 0 rgba(38,51,31,.1),0 3px 8px rgba(38,51,31,.14);--serif:"Source Serif 4",Georgia,"Noto Serif KR","Apple SD Gothic Neo",serif}
 @media (prefers-color-scheme:dark){:root{--bg:#121a11;--card:#1d2a1b;--card2:#1a2418;--field:#26331f;--line:#3b4434;--ink:#eef2e6;--mute:#a9b79c;--green:#9db683;--brick:#e08a68;--paper:#1d2a1b;--sep:#4a5642;--ctl:#7d8c70;--ctl-bg:#2a3126;--lift:0 1px 0 rgba(0,0,0,.4),0 3px 8px rgba(0,0,0,.35)}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -47,7 +47,7 @@ html[data-lang=ko] .en,html[data-lang=en] .ko{display:none!important}
 .ic{flex:none;width:18px;height:18px}
 
 /* 머리말 */
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}
+.top{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:0 0 14px}
 .back{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px 0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);font-size:14px;font-weight:700;text-decoration:none;color:var(--ink)}
 .lang{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:3px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--mute);font:700 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo",sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .lang i{display:grid;place-items:center;min-width:44px;height:36px;padding:0 10px;border-radius:99px;font-style:normal;color:var(--ink);transition:background .15s,color .15s}
@@ -63,10 +63,15 @@ h1{margin:0 0 6px;font:600 clamp(34px,10vw,46px)/1.04 var(--serif);letter-spacin
 /* 탭 내비 */
 .tabs{position:sticky;top:0;z-index:9;margin:14px -16px 0;padding:10px 16px;background:var(--bg);background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
 .tabs.stuck{border-bottom-color:var(--sep)}
+.tabs{display:flex;align-items:center;gap:8px}
+.tabs ul{flex:1;min-width:0}
+.lang-mini{flex:none;display:none;place-items:center;min-width:44px;min-height:44px;padding:0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo",sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tabs.stuck .lang-mini{display:grid}
+html[data-lang=ko] .lang-mini::after{content:"EN"}html[data-lang=en] .lang-mini::after{content:"한"}
 .tabs ul{list-style:none;margin:0;padding:0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
 .tabs ul::-webkit-scrollbar{display:none}
-.tabs a{display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:0 14px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font-size:14px;font-weight:700;white-space:nowrap;text-decoration:none;scroll-snap-align:start;-webkit-tap-highlight-color:transparent}
-.tabs a[aria-current=true]{background:var(--green);border-color:var(--green);color:var(--bg)}
+.tabs a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font-size:14px;font-weight:700;white-space:nowrap;text-decoration:none;scroll-snap-align:start;-webkit-tap-highlight-color:transparent}
+.tabs a[aria-current=location]{background:var(--green);border-color:var(--green);color:var(--bg)}
 
 /* 섹션 */
 section.s{padding:34px 0 4px;scroll-margin-top:66px}
@@ -97,6 +102,7 @@ h3{margin:26px 0 10px;font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe 
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font-weight:700;font-size:14px;line-height:1;font-family:inherit;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .chip .ic{width:16px;height:16px;color:var(--green)}
+.facts .qr{display:block;width:132px;height:132px;margin-top:10px;border-radius:11%}
 
 /* 교통 표 → 카드 */
 .routes{display:grid;gap:10px}
@@ -210,7 +216,7 @@ ul.dots{margin:8px 0 0;padding-left:20px;font-size:14px;display:grid;gap:2px}
 .apps div:first-child{border-top:0}
 .apps dt{font-weight:700}
 .apps dd{margin:0;color:var(--mute)}
-.host{margin-top:30px;padding:20px;border-radius:22px;background:var(--card);text-align:center}
+.host{scroll-margin-top:70px;margin-top:30px;padding:20px;border-radius:22px;background:var(--card);text-align:center}
 .host p.w{font:600 22px/1.25 var(--serif)}
 .host .chips{justify-content:center}
 .foot{margin-top:22px;font-size:12px;color:var(--mute);text-align:center}
@@ -255,7 +261,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 
 /* 그림 위 "누르면 크게" 표시 */
 .zoom{position:relative}
-.zh{position:absolute;right:8px;top:8px;display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 12px;border-radius:99px;background:rgba(28,42,25,.86);color:#fff;font:700 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo",sans-serif;pointer-events:none}
+.zh{display:flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:0 12px;background:rgba(28,42,25,.86);color:#fff;font:700 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo",sans-serif;pointer-events:none}
 .zh .ic{width:15px;height:15px}
 .chip .cpy,.btn .cpy{width:16px;height:16px;color:var(--green)}
 
@@ -267,7 +273,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 #top{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:10;width:48px;height:48px;border:0;border-radius:50%;background:var(--green);color:var(--bg);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(14,20,10,.28);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s,transform .25s,visibility 0s .25s}
 #top.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 #top svg{width:22px;height:22px}
-#toast{z-index:20;position:fixed;left:50%;bottom:24px;transform:translateX(-50%);width:max-content;max-width:min(92vw,360px);text-align:center;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast{z-index:20;position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:min(92vw,360px);text-align:center;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
 #toast.on{opacity:1}
 @media (hover:hover){.btn:hover,.chip:hover,.back:hover,.place a:hover,.call:hover,details.dev summary:hover{filter:brightness(1.04)}}
 @media (max-width:380px){.bins,.vans,.flow{grid-template-columns:1fr}.facts div{grid-template-columns:1fr;gap:2px}h2{font-size:27px}.place{grid-template-columns:1fr}.place a{justify-self:start}}
@@ -278,8 +284,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 <body>
 <main>
   <div class="top">
-    <a class="back" href="brochure/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg><span class="ko">도착 안내 브로슈어</span><span class="en">Arrival brochure</span></a>
-    <button class="lang" type="button" id="lang" aria-label="언어 바꾸기 · Switch language (한/ENG)"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
+    <button class="lang" type="button" id="lang" data-lang-toggle aria-label="언어: 한국어. 눌러서 영어로 바꾸기"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
   </div>
 
   <header class="hero">
@@ -291,20 +296,20 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     </div>
   </header>
 
-  <section class="arrive" aria-label="Check-in, check-out and shortcuts">
+  <section class="arrive" aria-label="체크인·체크아웃과 바로가기" data-label-ko="체크인·체크아웃과 바로가기" data-label-en="Check-in, check-out and shortcuts">
     <div class="slots">
       <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크인</small><small class="en">Check-in</small><b class="ko">오후 3시 이후</b><b class="en">After 3 PM</b></div></div>
       <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크아웃</small><small class="en">Check-out</small><b class="ko">오전 11시 이전</b><b class="en">Before 11 AM</b></div></div>
     </div>
     <div class="quick">
-      <button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9a14 14 0 0119 0M5.5 12.5a9.5 9.5 0 0113 0M8.7 16a5 5 0 016.6 0"/><circle cx="12" cy="19.2" r=".9" fill="currentColor"/></svg><span><span class="ko">Wi-Fi 비밀번호</span><span class="en">Wi-Fi password</span><small class="ko">눌러서 복사</small><small class="en">Tap to copy</small></span></button>
+      <button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9a14 14 0 0119 0M5.5 12.5a9.5 9.5 0 0113 0M8.7 16a5 5 0 016.6 0"/><circle cx="12" cy="19.2" r=".9" fill="currentColor"/></svg><span>Wi-Fi<small class="ko">비밀번호 복사</small><small class="en">Copy password</small></span></button>
       <a href="#heating"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg><span><span class="ko">난방 · 온수</span><span class="en">Heating</span><small class="ko">온도조절기 사용법</small><small class="en">Using the thermostat</small></span></a>
-      <a href="#trash"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13M10 11v5.5M14 11v5.5"/></svg><span><span class="ko">쓰레기 버리기</span><span class="en">Trash</span><small class="ko">요일·시간·종류</small><small class="en">When and how</small></span></a>
+      <a href="#trash"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13M10 11v5.5M14 11v5.5"/></svg><span><span class="ko">쓰레기</span><span class="en">Trash</span><small class="ko">요일·시간·종류</small><small class="en">When and how</small></span></a>
       <a href="#checkout"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h8M14 3l5 2v14l-5 2zM11.5 12h.01"/></svg><span><span class="ko">체크아웃 전</span><span class="en">Check-out</span><small class="ko">4가지 체크리스트</small><small class="en">4-step checklist</small></span></a>
     </div>
   </section>
 
-  <nav class="tabs" aria-label="Sections">
+  <nav class="tabs" aria-label="섹션 메뉴" data-label-ko="섹션 메뉴" data-label-en="Sections">
     <ul>
       <li><a href="#basics"><span class="ko">기본 정보</span><span class="en">Basics</span></a></li>
       <li><a href="#house"><span class="ko">집 사용법</span><span class="en">House manual</span></a></li>
@@ -315,6 +320,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <li><a href="#services"><span class="ko">픽업·투어</span><span class="en">Pick-up &amp; tours</span></a></li>
       <li><a href="#help"><span class="ko">앱·비상</span><span class="en">Apps &amp; help</span></a></li>
     </ul>
+    <button class="lang-mini" type="button" data-lang-toggle aria-label="눌러서 영어로 바꾸기"></button>
   </nav>
 
   <details class="howto" id="howto" open>
@@ -340,11 +346,11 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div><dt><span class="ko">출입 방법</span><span class="en">Getting in</span></dt><dd><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요.</span><span class="en">We send the door lock code by Airbnb message on check-in day.</span></dd></div>
       <div><dt><span class="ko">입구·층</span><span class="en">Entrance</span></dt><dd><span class="ko">건물 1층</span><span class="en">Ground floor (1F)</span></dd></div>
       <div><dt><span class="ko">짐 보관</span><span class="en">Luggage</span></dt><dd><span class="ko">미리 알려주시면 안내해 드려요.</span><span class="en">Let us know in advance and we'll help you arrange it.</span></dd></div>
-      <div><dt>Wi-Fi</dt><dd><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button> <button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><p class="small" style="margin-top:6px"><span class="ko">눌러서 복사 · QR은 도착 안내 브로슈어에 있어요</span><span class="en">Tap to copy · the QR code is in the arrival brochure</span></p></dd></div>
+      <div><dt>Wi-Fi</dt><dd><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button> <button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><p class="small" style="margin-top:6px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
     </dl>
     <figure class="photos">
-      <div><img src="img/entrance.jpg" width="600" height="900" loading="lazy" alt="Copen Haus building entrance and stairs / 건물 입구와 계단"><figcaption><span class="ko">건물 입구 · 계단</span><span class="en">Building entrance &amp; stairs</span></figcaption></div>
-      <div><img src="img/alley.jpg" width="600" height="748" loading="lazy" alt="Copen Haus seen from the alley / 골목에서 본 Copen Haus"><figcaption><span class="ko">골목에서 본 Copen Haus</span><span class="en">Copen Haus from the alley</span></figcaption></div>
+      <div><img src="img/entrance.jpg" width="600" height="900" loading="lazy" alt="건물 입구와 계단" data-alt-ko="건물 입구와 계단" data-alt-en="Copen Haus building entrance and stairs"><figcaption><span class="ko">건물 입구 · 계단</span><span class="en">Building entrance &amp; stairs</span></figcaption></div>
+      <div><img src="img/alley.jpg" width="600" height="748" loading="lazy" alt="골목에서 본 Copen Haus" data-alt-ko="골목에서 본 Copen Haus" data-alt-en="Copen Haus seen from the alley"><figcaption><span class="ko">골목에서 본 Copen Haus</span><span class="en">Copen Haus from the alley</span></figcaption></div>
     </figure>
   </section>
 
@@ -359,7 +365,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div class="body">
         <p class="lede ko">현관 오른쪽 벽에 있는 온도조절기로 난방과 온수를 조절해요.</p>
         <p class="lede en">Use the thermostat on the wall to the right of the entrance for both heating and hot water.</p>
-        <figure class="fig"><button class="zoom" type="button" data-zoom="img/boiler.png"><img src="img/boiler.png" width="1000" height="844" loading="lazy" alt="Boiler thermostat diagram / 온도조절기 그림"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <figure class="fig"><button class="zoom" type="button" data-zoom="img/boiler.png"><img src="img/boiler.png" width="1000" height="844" loading="lazy" alt="온도조절기 그림" data-alt-ko="온도조절기 그림" data-alt-en="Boiler thermostat diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
         <div class="most">
           <b class="h ko">주로 쓰는 기능</b><b class="h en">What you'll use most</b>
           <ol class="ko"><li><b>전원</b>: 보일러를 켜고 끌 때 눌러요.</li><li><b>외출</b>: 집을 비울 때 눌러요.</li><li><b>난방</b>: 난방 버튼을 누르고 다이얼을 왼쪽으로 돌리면 온도가 내려가고, 오른쪽으로 돌리면 올라가요.</li></ol>
@@ -386,7 +392,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div class="body">
         <p class="lede ko">에어컨 사용법은 곧 추가할게요. 그전에 사용법이 궁금하면 언제든 호스트에게 연락 주세요.</p>
         <p class="lede en">We're adding a guide for the air conditioner soon. Until then, message your host anytime if you need help with it.</p>
-        <div class="chips"><a class="chip" href="brochure/#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">호스트 연락처 보기</span><span class="en">Contact the host</span></a></div>
+        <div class="chips"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">호스트 연락처 보기</span><span class="en">Contact the host</span></a></div>
       </div>
     </details>
     -->
@@ -396,7 +402,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div class="body">
         <p class="lede ko">전원을 켜고 <b>코스를 고른 뒤 동작 버튼을 길게</b> 누르면 시작돼요.</p>
         <p class="lede en">Turn it on, <b>choose a course, then press and hold Start</b>.</p>
-        <figure class="fig"><button class="zoom" type="button" data-zoom="img/washer.png"><img src="img/washer.png" width="1000" height="665" loading="lazy" alt="Washing machine control panel diagram / 세탁기 조작부 그림"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <figure class="fig"><button class="zoom" type="button" data-zoom="img/washer.png"><img src="img/washer.png" width="1000" height="665" loading="lazy" alt="세탁기 조작부 그림" data-alt-ko="세탁기 조작부 그림" data-alt-en="Washing machine control panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
         <ul class="keys ko">
           <li><i>1</i><span><b>코스 다이얼</b>: 돌려서 코스를 골라요 (표준세탁이 기본)</span></li>
           <li><i>2</i><span><b>세탁온도</b>: 물 온도 선택 (냉수~90도)</span></li>
@@ -433,7 +439,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div class="body">
         <p class="lede ko">전원을 켜고 <b>코스를 고른 뒤 동작 버튼을 길게</b> 누르면 시작돼요.</p>
         <p class="lede en">Turn it on, <b>choose a course, then press and hold Start</b>.</p>
-        <figure class="fig"><button class="zoom" type="button" data-zoom="img/dryer.png"><img src="img/dryer.png" width="1000" height="696" loading="lazy" alt="Dryer control panel diagram / 건조기 조작부 그림"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <figure class="fig"><button class="zoom" type="button" data-zoom="img/dryer.png"><img src="img/dryer.png" width="1000" height="696" loading="lazy" alt="건조기 조작부 그림" data-alt-ko="건조기 조작부 그림" data-alt-en="Dryer control panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
         <ul class="keys ko">
           <li><i>1</i><span><b>코스 다이얼</b>: 돌려서 코스를 골라요 (표준건조가 기본)</span></li>
           <li><i>2</i><span><b>건조정도</b>: 1~4단계 (3이 표준)</span></li>
@@ -470,7 +476,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div class="body">
         <p class="lede ko">다이얼 2개만 돌리면 돼요. 모드를 고르고 시간을 맞춰 주세요.</p>
         <p class="lede en">Just two dials: pick a mode, then set the time.</p>
-        <figure class="fig"><button class="zoom" type="button" data-zoom="img/microwave.png"><img src="img/microwave.png" width="1000" height="534" loading="lazy" alt="Microwave dials diagram / 전자레인지 다이얼 그림"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <figure class="fig"><button class="zoom" type="button" data-zoom="img/microwave.png"><img src="img/microwave.png" width="1000" height="534" loading="lazy" alt="전자레인지 다이얼 그림" data-alt-ko="전자레인지 다이얼 그림" data-alt-en="Microwave dials diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
         <ol class="steps ko">
           <li><span class="n">1</span><div><b>음식을 넣고 문을 닫아요</b></div></li>
           <li><span class="n">2</span><div><b>선택모드 다이얼을 돌려 모드를 맞춰요</b><p>약 · 중 · 강은 화력 세기, 데우기는 식은 음식, 해동은 얼린 음식</p></div></li>
@@ -493,7 +499,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div class="body">
         <p class="lede ko">조작부의 번호와 아래 설명을 함께 확인해 주세요.</p>
         <p class="lede en">Match the numbers on the touch panel with the list below.</p>
-        <figure class="fig"><button class="zoom" type="button" data-zoom="img/induction.png"><img src="img/induction.png" width="1000" height="627" loading="lazy" alt="Induction cooktop and touch panel diagram / 인덕션 조작부 그림"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <figure class="fig"><button class="zoom" type="button" data-zoom="img/induction.png"><img src="img/induction.png" width="1000" height="627" loading="lazy" alt="인덕션 조작부 그림" data-alt-ko="인덕션 조작부 그림" data-alt-en="Induction cooktop and touch panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
         <ul class="keys ko">
           <li><i>9</i><span><b>전원</b>: 전원을 켜고 꺼요</span></li>
           <li><i>1·2·4</i><span><b>화력 − / +</b>: 1번 · 2번 · 3번 화구의 불 세기를 조절해요</span></li>
@@ -522,7 +528,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div class="body">
         <p class="lede ko">자주 쓰는 버튼만 번호로 알려 드릴게요.</p>
         <p class="lede en">Here are the buttons you'll actually use.</p>
-        <figure class="fig tall"><button class="zoom" type="button" data-zoom="img/remote.png"><img src="img/remote.png" width="555" height="1225" loading="lazy" alt="TV remote diagram / TV 리모컨 그림"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <figure class="fig tall"><button class="zoom" type="button" data-zoom="img/remote.png"><img src="img/remote.png" width="555" height="1225" loading="lazy" alt="TV 리모컨 그림" data-alt-ko="TV 리모컨 그림" data-alt-en="TV remote diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
         <ul class="keys ko">
           <li><i>1</i><span><b>전원</b>: TV를 켜고 꺼요</span></li>
           <li><i>2</i><span><b>음소거</b>: 소리를 잠시 꺼요</span></li>
@@ -593,7 +599,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 
     <h3 id="checkout" style="scroll-margin-top:70px"><span class="ko">체크아웃 전에 부탁드려요</span><span class="en">Before you check out</span></h3>
     <div class="check" data-store="ch-checkout">
-      <label><input type="checkbox"><span><span class="ko">쓰레기는 분리해 집에 두시면 정리해 드려요</span><span class="en">Sort your trash and leave it inside; we'll take care of it</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">마지막 날 쓰레기는 밖에 내놓지 말고, 분리해서 집 안에 두세요. 저희가 정리해요</span><span class="en">On your last day, don't put trash outside. Sort it and leave it inside; we'll take care of it</span></span></label>
       <label><input type="checkbox"><span><span class="ko">에어컨 · 난방 · 조명 끄기</span><span class="en">Turn off the AC, heating and lights</span></span></label>
       <label><input type="checkbox"><span><span class="ko">창문 닫고 문이 잠겼는지 확인</span><span class="en">Close the windows and check the door is locked</span></span></label>
       <label><input type="checkbox"><span><span class="ko">에어비앤비 메시지로 체크아웃 알려주기</span><span class="en">Let us know by Airbnb message that you've left</span></span></label>
@@ -621,7 +627,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     </div>
 
     <h3><span class="ko">충무로역 3번 출구 → Copen Haus</span><span class="en">Walking route from Exit 3</span></h3>
-    <figure class="fig"><button class="zoom" type="button" data-zoom="img/route.png"><img src="img/route.png" width="1000" height="995" loading="lazy" alt="Walking route map from Chungmuro Station exit 3 through Namsangol Hanok Village to Copen Haus / 충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+    <figure class="fig"><button class="zoom" type="button" data-zoom="img/route.png"><img src="img/route.png" width="1000" height="995" loading="lazy" alt="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-ko="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-en="Walking route map from Chungmuro Station exit 3 through Namsangol Hanok Village to Copen Haus"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
     <p class="small" style="margin-top:8px"><span class="ko">약도이며 실제 축척과 달라요.</span><span class="en">Sketch map, not to scale.</span></p>
     <ol class="steps ko">
       <li><span class="n">1</span><div><b>3번 출구로 나오기</b><p>극동빌딩 맞은편, 퇴계로34길로 진입</p></div></li>
@@ -781,27 +787,41 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div class="place"><div><b><span class="ko">응급실</span><span class="en">Emergency room</span></b><span class="meta"><span class="ko">국립중앙의료원 · 중구 을지로 245</span><span class="en">National Medical Center · 245 Eulji-ro</span></span></div><span class="small"><span class="ko">택시 약 10분</span><span class="en">10 min by taxi</span></span></div>
     </div>
 
-    <div class="host">
+    <div class="host" id="host">
       <p class="w ko">어렵거나 궁금하면 언제든 연락 주세요</p>
       <p class="w en">Stuck or curious? Message us anytime</p>
       <p class="small" style="margin-top:6px"><span class="ko">호스트 Lisa · 카카오톡 · LINE · WhatsApp 어디로 보내셔도 괜찮아요</span><span class="en">Your host Lisa · KakaoTalk, LINE or WhatsApp, whichever you like</span></p>
       <div class="chips">
-        <a class="chip" href="brochure/#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">호스트 연락처 보기</span><span class="en">Contact the host</span></a>
+        <a class="chip" href="tel:+821093280969" data-label-ko="Lisa에게 전화 010 9328 0969" data-label-en="Call Lisa +82 10 9328 0969" aria-label="Lisa에게 전화 010 9328 0969"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="ko">010-9328-0969</span><span class="en">+82-10-9328-0969</span></a>
+        <button class="chip" type="button" data-copy="free01270" data-toast-ko="ID 복사됨 · 카카오톡 ▸ 친구 추가 ▸ ID로 추가 ▸ 붙여넣기" data-toast-en="ID copied · KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste" data-label-ko="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가" data-label-en="KakaoTalk: copy ID free01270, then add friend by ID in the app" aria-label="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가"><span class="ko">카카오톡</span><span class="en">KakaoTalk</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+        <a class="chip" href="https://line.me/R/ti/p/~free01270" data-copy="free01270" data-toast-ko="LINE ID 복사됨 · LINE이 안 열리면 친구 추가에서 이 ID를 검색하세요" data-toast-en="LINE ID copied · if LINE doesn't open, search this ID under Add friend" data-label-ko="LINE으로 Lisa 친구 추가 (ID도 복사돼요)" data-label-en="Add Lisa on LINE (the ID is copied too)" aria-label="LINE으로 Lisa 친구 추가 (ID도 복사돼요)">LINE<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+        <a class="chip" href="https://api.whatsapp.com/send?phone=821093280969" data-copy="+821093280969" data-toast-ko="번호 복사됨 · WhatsApp이 안 열리면 +82 10 9328 0969를 새 연락처로 추가하세요" data-toast-en="Number copied · if WhatsApp doesn't open, add +82 10 9328 0969 as a new contact" data-label-ko="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)" data-label-en="Chat with Lisa on WhatsApp (the number is copied too)" aria-label="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)">WhatsApp<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
       </div>
+      <p class="small" style="margin-top:10px">ID: free01270 · <span class="ko">앱이 안 열리면 Safari나 Chrome에서 이 페이지를 열어 주세요</span><span class="en">If an app doesn't open, open this page in Safari or Chrome</span></p>
     </div>
     <p class="foot ko">즐거운 여행 되세요! · 2026년 11월 기준</p>
     <p class="foot en">Enjoy your stay! · Information as of November 2026</p>
   </section>
 </main>
-<dialog id="zoom" aria-label="Diagram"><form method="dialog"><button type="submit"><span class="ko">닫기</span><span class="en">Close</span></button></form><img alt=""></dialog>
-<button id="top" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<dialog id="zoom" aria-label="그림 크게 보기" data-label-ko="그림 크게 보기" data-label-en="Diagram, full size"><form method="dialog"><button type="submit"><span class="ko">닫기</span><span class="en">Close</span></button></form><img alt=""></dialog>
+<button id="top" type="button" aria-label="맨 위로" data-label-ko="맨 위로" data-label-en="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
 (function(){
   var root=document.documentElement,toast=document.getElementById('toast');
-  // 언어 전환
-  document.getElementById('lang').addEventListener('click',function(){var l=root.dataset.lang==='ko'?'en':'ko';root.lang=l;root.dataset.lang=l;
-    say(l==='ko'?'한국어로 바꿨어요':'Switched to English',1400)});
+  // 언어 전환: 화면 글자 + 화면 낭독기용 이름(aria-label)·그림 설명(alt)·탭 제목·주소(?lang=)까지 함께 바꿔요
+  function applyLang(l){root.lang=l;root.dataset.lang=l;var ko=l==='ko';
+    document.title=ko?'Copen Haus 게스트 가이드북':'Copen Haus Guidebook';
+    document.querySelectorAll('[data-label-ko]').forEach(function(e){e.setAttribute('aria-label',e.dataset['label'+(ko?'Ko':'En')])});
+    document.querySelectorAll('[data-alt-ko]').forEach(function(e){e.alt=e.dataset['alt'+(ko?'Ko':'En')]});
+    document.querySelectorAll('[data-lang-toggle]').forEach(function(b){b.setAttribute('aria-label',b.id==='lang'?(ko?'언어: 한국어. 눌러서 영어로 바꾸기':'Language: English. Tap to switch to Korean'):(ko?'영어로 바꾸기':'Switch to Korean'))});
+    document.querySelectorAll('.place').forEach(function(p){var a=p.querySelector('a');if(!a)return;var b=p.querySelector('b'),em=b.querySelector('em');
+      var name=ko?(b.firstChild.textContent||'').trim():(em?em.textContent:b.textContent).trim();a.setAttribute('aria-label',ko?name+' 네이버지도에서 보기':name+' on Naver Map')});
+    document.querySelectorAll('a[data-keep-lang]').forEach(function(a){var u=new URL(a.getAttribute('href'),location.href);u.searchParams.set('lang',l);a.href=u.pathname+u.search+u.hash});
+    try{var u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}}
+  applyLang(root.dataset.lang);
+  document.querySelectorAll('[data-lang-toggle]').forEach(function(btn){btn.addEventListener('click',function(){var l=root.dataset.lang==='ko'?'en':'ko';applyLang(l);
+    say(l==='ko'?'한국어로 바꿨어요':'Switched to English',1400)})});
   // 복사
   function say(t,ms){toast.textContent=t;toast.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on')},ms||2400)}
   document.addEventListener('click',function(e){var b=e.target.closest('[data-copy]');if(!b)return;var v=b.dataset.copy;
@@ -826,11 +846,12 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
   // 탭: 현재 섹션 표시
   var tabs=document.querySelector('.tabs'),links=[].slice.call(tabs.querySelectorAll('a')),secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
   var tul=tabs.querySelector('ul');function tend(){tabs.classList.toggle('end',tul.scrollLeft+tul.clientWidth>=tul.scrollWidth-4)}tul.addEventListener('scroll',tend,{passive:true});tend();
-  var cur=null;function mark(id){if(id===cur)return;cur=id;links.forEach(function(a){var on=a.getAttribute('href')==='#'+id;a.setAttribute('aria-current',on?'true':'false');if(on){var ul=a.closest('ul');ul.scrollTo({left:a.offsetLeft-16,behavior:'smooth'})}})}
+  var cur=null;function mark(id){if(id===cur)return;cur=id;links.forEach(function(a){var on=a.getAttribute('href')==='#'+id;if(on)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');if(on){var ul=a.closest('ul');ul.scrollTo({left:a.offsetLeft-16,behavior:'smooth'})}})}
   function onScroll(){tabs.classList.toggle('stuck',tabs.getBoundingClientRect().top<=0);var y=innerHeight*.3,id=null;secs.forEach(function(s){if(s.getBoundingClientRect().top<y)id=s.id});mark(id);
     document.getElementById('top').classList.toggle('on',scrollY>innerHeight*.8)}
   var tk=0;addEventListener('scroll',function(){if(!tk)tk=requestAnimationFrame(function(){tk=0;onScroll()})},{passive:true});onScroll();
-  document.getElementById('top').addEventListener('click',function(){scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})});
+  document.getElementById('top').addEventListener('click',function(){scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    var h1=document.querySelector('h1');h1.setAttribute('tabindex','-1');h1.focus({preventScroll:true})});   // 키보드 사용자의 포커스가 사라지지 않게 맨 위 제목으로 옮겨요
 })();
 </script>
 </body>
