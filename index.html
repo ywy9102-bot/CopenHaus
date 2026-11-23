@@ -122,6 +122,8 @@ h3{margin:26px 0 10px;font:700 13px/1.2 var(--sans);letter-spacing:.08em;text-tr
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font-weight:700;font-size:14px;line-height:1;font-family:inherit;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .chip .ic{width:16px;height:16px;color:var(--green)}
+.wifi{display:flex;flex-wrap:wrap;gap:10px 10px}
+.wifi .wl{display:block;margin:0 0 4px 6px;font-size:12px;font-weight:700;color:var(--mute);line-height:1.3}
 .facts .qr{display:block;width:132px;height:132px;margin-top:10px;border-radius:11%}
 
 /* 교통 표 → 카드 */
@@ -333,10 +335,11 @@ details.howto summary::-webkit-details-marker{display:none}
 details.howto summary .ic{flex:none;width:18px;height:18px;color:var(--green)}
 details.howto summary .chev{flex:none;color:var(--mute);transition:transform .2s}
 details.howto[open] summary .chev{transform:rotate(180deg)}
-details.howto[open] summary{padding-right:226px}
+details.howto[open] summary{width:fit-content;max-width:calc(100% - 226px)}
+.howto .close{display:flex;justify-content:center;padding:0 16px 16px}
 .howto .sh{display:none}
 @media (max-width:429px){.howto .lg{display:none}.howto .sh{display:inline}}
-@media (max-width:359px){.howto .hl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}details.howto[open] summary{padding-right:14px}}
+@media (max-width:359px){.howto .hl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}details.howto[open] summary{max-width:calc(100% - 226px)}}
 .howto ul{list-style:none;margin:0;padding:8px 16px 16px;display:grid;gap:12px}
 .howto li{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:center;font-size:14px;line-height:1.5}
 .howto li b{display:block;font-size:15px}
@@ -395,6 +398,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
         <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="ko"><b>지도 열기</b>‘지도’ 버튼은 네이버지도에서 그 장소를 열어요.</span><span class="en"><b>Open the map</b>“Map” buttons open the place in Naver Map, the best map app in Korea.</span></li>
         <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span><span class="ko"><b>체크리스트</b>체크아웃 목록은 직접 체크할 수 있고, 이 휴대폰에 기억돼요.</span><span class="en"><b>Checklist</b>Tick off the check-out list as you go. Your ticks are saved on this phone.</span></li>
       </ul>
+      <div class="close"><button class="chip" type="button" id="howto-close"><span class="ko">사용법 닫기</span><span class="en">Close help</span></button></div>
     </details>
     <div class="side">
       <a class="reach" href="tel:+821093280969" data-label-ko="호스트 Lisa에게 전화" data-label-en="Call your host Lisa" aria-label="호스트 Lisa에게 전화"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></a>
@@ -495,7 +499,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     <p class="first-t"><span class="ko">처음 오셨다면 이 순서로</span><span class="en">Just arrived? Start here</span></p>
     <ol class="go">
       <li><a href="#host"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요</small><small class="en">The door code comes by Airbnb message on check-in day</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
-      <li><button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><span class="n">2</span><span><b class="ko">Wi-Fi 연결</b><b class="en">Join the Wi-Fi</b><small class="ko">Copen_Green · 누르면 비밀번호가 복사돼요</small><small class="en">Copen_Green · tap to copy the password</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></li>
+      <li><button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><span class="n">2</span><span><b class="ko">Wi-Fi 연결</b><b class="en">Join the Wi-Fi</b><small class="ko">네트워크 Copen_Green · 누르면 비밀번호 복사</small><small class="en">Network Copen_Green · tap to copy the password</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></li>
       <li><a href="#heating"><span class="n">3</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat right of the entrance</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
       <li><a href="#rules"><span class="n">4</span><span><b class="ko">쓰레기·하우스 룰 보기</b><b class="en">Read trash &amp; house rules</b><small class="ko">쓰레기는 일~금 저녁 7시~자정, 토요일은 안 돼요</small><small class="en">Trash goes out Sun–Fri 7 PM to midnight, never Saturday</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
     </ol>
@@ -525,7 +529,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   <section class="s" id="rules" aria-labelledby="h-rules">
     <h2 id="h-rules"><span class="ko">와이파이 · 생활 안내</span><span class="en">Wi-Fi &amp; house</span></h2>
     <dl class="facts" style="margin-bottom:8px">
-      <div><dt>Wi-Fi</dt><dd><div class="chips" style="margin-top:0"><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div><p class="small" style="margin-top:8px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
+      <div><dt>Wi-Fi</dt><dd><div class="wifi"><div><span class="wl"><span class="ko">네트워크</span><span class="en">Network</span></span><button class="chip" type="button" data-label-ko="네트워크 이름 Copen_Green 복사" data-label-en="Copy network name Copen_Green" aria-label="네트워크 이름 Copen_Green 복사" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div><div><span class="wl"><span class="ko">비밀번호</span><span class="en">Password</span></span><button class="chip" type="button" data-label-ko="비밀번호 Copen_0077 복사" data-label-en="Copy password Copen_0077" aria-label="비밀번호 Copen_0077 복사" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></div><p class="small" style="margin-top:8px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
     </dl>
     <h3 id="trash" style="scroll-margin-top:70px"><span class="ko">쓰레기 버리는 법</span><span class="en">Trash &amp; recycling</span></h3>
     <div class="when"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><b class="ko">일~금요일 저녁 7시 ~ 자정</b><b class="en">Sun–Fri, 7 PM to midnight</b><span class="ko">집 앞에 내놓아요 · 토요일은 배출 금지</span><span class="en">Put it out in front of the house · never on Saturday</span></div></div>
@@ -924,6 +928,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     </div>
     <p class="note ko">드라이버가 항공편 지연도 확인하고 있어요. 드라이버가 안 보이면 공항 무료 와이파이로 WhatsApp 연락 주세요.</p>
     <p class="note en">Your driver tracks flight delays. If you can't find them, message on WhatsApp using the free airport Wi-Fi.</p>
+    <div class="btns" style="margin-top:14px"><a class="btn" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">호스트에게 연락</span><span class="en">Contact your host</span></a></div>
   </section>
 
   <!-- 8. 앱·비상 -->
@@ -953,9 +958,9 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     <h3><span class="ko">가까운 시설</span><span class="en">Nearby essentials</span></h3>
     <div class="places">
       <div class="place"><div><b><span class="ko">편의점</span><span class="en">Convenience stores</span></b><span class="meta">CU · <span class="ko">중구 필동로 56</span><span class="en">56 Pildong-ro</span><br>GS25 · <span class="ko">중구 필동로 52</span><span class="en">52 Pildong-ro</span></span></div><span class="small"><span class="ko">도보 2분</span><span class="en">2 min walk</span></span></div>
-      <div class="place"><div><b><span class="ko">약국</span><span class="en">Pharmacy</span></b><span class="meta"><span class="ko">셀메드필 · 중구 필동로 14</span><span class="en">Cellmed Pil · 14 Pildong-ro</span></span></div><span class="small"><span class="ko">도보 7분</span><span class="en">7 min walk</span></span></div>
+      <div class="place"><div><b><span class="ko">약국</span><span class="en">Pharmacy</span></b><span class="meta"><span class="ko">셀메드필 · 중구 필동로 14 · 도보 7분</span><span class="en">Cellmed Pil · 14 Pildong-ro · 7 min walk</span></span></div><a href="https://map.naver.com/p/search/%EC%85%80%EB%A9%94%EB%93%9C%ED%95%84%20%EC%95%BD%EA%B5%AD" data-label-ko="셀메드필 약국 네이버지도에서 보기" data-label-en="Cellmed Pil pharmacy on Naver Map" aria-label="셀메드필 약국 네이버지도에서 보기"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
       <div class="place"><div><b><span class="ko">마트</span><span class="en">Grocery</span></b><span class="meta"><span class="ko">선미네마트 · 필동로 31-1 (도보 5분)<br>가자마트 · 중구 서애로 15 (도보 9분)</span><span class="en">Sunmine Mart · 31-1 Pildong-ro (5 min)<br>Gaja Mart · 15 Seoae-ro (9 min)</span></span></div></div>
-      <div class="place"><div><b><span class="ko">응급실</span><span class="en">Emergency room</span></b><span class="meta"><span class="ko">국립중앙의료원 · 중구 을지로 245</span><span class="en">National Medical Center · 245 Eulji-ro</span></span></div><span class="small"><span class="ko">택시 <span class="nw">약 10분</span></span><span class="en">10 min by taxi</span></span></div>
+      <div class="place"><div><b><span class="ko">응급실</span><span class="en">Emergency room</span></b><span class="meta"><span class="ko">국립중앙의료원 · 중구 을지로 245 · 택시 <span class="nw">약 10분</span></span><span class="en">National Medical Center · 245 Eulji-ro · 10 min by taxi</span></span></div><a href="https://map.naver.com/p/search/%EA%B5%AD%EB%A6%BD%EC%A4%91%EC%95%99%EC%9D%98%EB%A3%8C%EC%9B%90" data-label-ko="국립중앙의료원 응급실 네이버지도에서 보기" data-label-en="National Medical Center emergency room on Naver Map" aria-label="국립중앙의료원 응급실 네이버지도에서 보기"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
     </div>
 
     <div class="host" id="host">
@@ -993,7 +998,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     document.querySelectorAll('[data-src-ko]').forEach(function(e){var v=e.dataset['src'+(ko?'Ko':'En')];if(e.getAttribute('src')!==v)e.setAttribute('src',v)});
     document.querySelectorAll('[data-zoom-ko]').forEach(function(e){e.dataset.zoom=e.dataset['zoom'+(ko?'Ko':'En')]});
     document.querySelectorAll('[data-lang-toggle]').forEach(function(b){b.setAttribute('aria-label',b.id==='lang'?(ko?'언어: 한국어. 눌러서 영어로 바꾸기':'Language: English. Tap to switch to Korean'):(ko?'영어로 바꾸기':'Switch to Korean'))});
-    document.querySelectorAll('.place').forEach(function(p){var a=p.querySelector('a');if(!a)return;var b=p.querySelector('b'),em=b.querySelector('em');
+    document.querySelectorAll('.place').forEach(function(p){var a=p.querySelector('a');if(!a||a.dataset.labelKo)return;var b=p.querySelector('b'),em=b.querySelector('em');
       var name=ko?(b.firstChild.textContent||'').trim():(em?em.textContent:b.textContent).trim();a.setAttribute('aria-label',ko?name+' 네이버지도에서 보기':name+' on Naver Map')});
     document.querySelectorAll('a[data-keep-lang]').forEach(function(a){var u=new URL(a.getAttribute('href'),location.href);u.searchParams.set('lang',l);a.href=u.pathname+u.search+u.hash});
     try{var u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}}
@@ -1013,6 +1018,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   // '이 가이드 사용법'은 처음엔 접혀 있고, 펼쳐 두면 다음에도 펼친 채로
   // 처음엔 늘 접힌 상태. 한 번 눌러 보기 전까지만 은은하게 깜빡이고, 누른 뒤엔(다음 방문에도) 멈춰요
   var how=document.getElementById('howto');try{if(localStorage.getItem('ch-howto-seen'))how.classList.add('seen')}catch(e){}
+  document.getElementById('howto-close').addEventListener('click',function(){how.open=false;how.querySelector('summary').focus()});
   how.addEventListener('toggle',function(){if(how.open){how.classList.add('seen');try{localStorage.setItem('ch-howto-seen','1')}catch(e){}}});
   // 그림 크게 보기
   var dlg=document.getElementById('zoom'),dimg=dlg.querySelector('img');
