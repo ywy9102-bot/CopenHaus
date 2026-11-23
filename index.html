@@ -243,15 +243,17 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 
 
 /* 히어로 아래 카드: 체크인·아웃 + 자주 찾는 것 */
-.arrive{position:relative;z-index:3;margin:-38px 12px 0;padding:14px;border-radius:22px;background:var(--paper);box-shadow:0 2px 0 rgba(28,42,25,.06),0 14px 30px rgba(28,42,25,.22)}
-.slots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.slot{display:flex;align-items:center;gap:10px;min-width:0;padding:2px}
-.slot .ic{width:26px;height:26px;color:var(--brick)}
+.arrive{position:relative;z-index:3;margin:-38px 0 0;padding:14px;border-radius:22px;background:var(--paper);box-shadow:0 2px 0 rgba(28,42,25,.06),0 14px 30px rgba(28,42,25,.22)}
+.slots{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-bottom:12px}
+.slot{display:flex;align-items:center;gap:8px;min-width:0;padding:2px 13.5px}
+.slot>div{min-width:0}
+.slot .ic{flex:none;width:20px;height:20px;color:var(--brick)}
 .slot small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);line-height:1.2}
-.slot b{display:block;font-size:17px;line-height:1.25;white-space:nowrap}
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.slot b{display:block;font-size:clamp(14px,3.9vw,17px);line-height:1.25;text-wrap:balance}
+.quick{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
 .quick a,.quick button{display:flex;width:100%;align-items:center;gap:10px;min-height:52px;padding:8px 12px;border:1.5px solid var(--ctl);border-radius:14px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font-weight:700;font-size:14px;line-height:1.25;font-family:inherit;text-align:left;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.quick .ic{width:20px;height:20px;color:var(--green)}
+.quick .ic{flex:none;width:20px;height:20px;color:var(--green)}
+.quick a>span,.quick button>span{min-width:0}
 .quick a:active,.quick button:active{transform:translateY(1px) scale(.985);box-shadow:none}
 .quick small{display:block;font-weight:500;font-size:12px;color:var(--mute)}
 
@@ -289,7 +291,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 .tabs.mid.end ul{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%);mask-image:linear-gradient(90deg,transparent,#000 12%)}
 .tabs ul::after{content:"";flex:none;width:40px}
 .tabs.end ul{-webkit-mask-image:none;mask-image:none}
-@media (max-width:359px){.slots,.quick{grid-template-columns:1fr}.arrive{margin-inline:6px}.howto li{grid-template-columns:1fr}}
+@media (max-width:359px){.slots,.quick{grid-template-columns:1fr}.howto li{grid-template-columns:1fr}}
 #top{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:10;width:48px;height:48px;border:0;border-radius:50%;background:var(--green);color:var(--bg);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(14,20,10,.28);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s,transform .25s,visibility 0s .25s}
 #top.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 #top svg{width:22px;height:22px}
@@ -297,7 +299,10 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 #toast.on{opacity:1}
 @media (hover:hover){.btn:hover,.chip:hover,.back:hover,.place a:hover,.call:hover,details.dev summary:hover{filter:brightness(1.04)}}
 @media (max-width:380px){.bins,.vans,.flow{grid-template-columns:1fr}.facts>div{grid-template-columns:1fr;gap:2px}h2{font-size:27px}.place{grid-template-columns:1fr}.place a{justify-self:start}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+/* '이 가이드 사용법' 은은한 깜빡임: 테두리 둘레의 옅은 빛만 천천히 밝아졌다 어두워짐(글자는 그대로) */
+@keyframes howto-glow{0%,100%{box-shadow:var(--lift),0 0 0 0 color-mix(in srgb,var(--green) 0%,transparent)}50%{box-shadow:var(--lift),0 0 0 5px color-mix(in srgb,var(--green) 28%,transparent)}}
+details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s infinite}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}details.howto{animation:none!important}}
 @media print{.tabs,#top,.lang,.back{display:none}details.dev .body{display:block}}
 </style>
 </head>
@@ -335,7 +340,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     </div>
     <div class="quick">
       <button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9a14 14 0 0119 0M5.5 12.5a9.5 9.5 0 0113 0M8.7 16a5 5 0 016.6 0"/><circle cx="12" cy="19.2" r=".9" fill="currentColor"/></svg><span>Wi-Fi<small class="ko">비밀번호 복사</small><small class="en">Copy password</small></span></button>
-      <a href="#heating"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg><span><span class="ko">난방 · 온수</span><span class="en">Heating</span><small class="ko">온도조절기 사용법</small><small class="en"><span class="nw">Using the thermostat</span></small></span></a>
+      <a href="#heating"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg><span><span class="ko">난방 · 온수</span><span class="en">Heating</span><small class="ko">온도조절기 사용법</small><small class="en">Using the thermostat</small></span></a>
       <a href="#trash"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13M10 11v5.5M14 11v5.5"/></svg><span><span class="ko">쓰레기</span><span class="en">Trash</span><small class="ko">요일·시간·종류</small><small class="en">When and how</small></span></a>
       <a href="#checkout"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h8M14 3l5 2v14l-5 2zM11.5 12h.01"/></svg><span><span class="ko">체크아웃 전</span><span class="en">Check-out</span><small class="ko">4가지 체크리스트</small><small class="en">4-step checklist</small></span></a>
     </div>
@@ -862,8 +867,9 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
   // iOS Safari에서 버튼 눌림(:active) 반응이 보이게
   document.addEventListener('touchstart',function(){},{passive:true});
   // '이 가이드 사용법'은 처음엔 접혀 있고, 펼쳐 두면 다음에도 펼친 채로
-  var how=document.getElementById('howto');try{if(localStorage.getItem('ch-howto')==='open')how.open=true}catch(e){}
-  how.addEventListener('toggle',function(){try{localStorage.setItem('ch-howto',how.open?'open':'closed')}catch(e){}});
+  // 처음엔 늘 접힌 상태. 한 번 눌러 보기 전까지만 은은하게 깜빡이고, 누른 뒤엔(다음 방문에도) 멈춰요
+  var how=document.getElementById('howto');try{if(localStorage.getItem('ch-howto-seen'))how.classList.add('seen')}catch(e){}
+  how.addEventListener('toggle',function(){if(how.open){how.classList.add('seen');try{localStorage.setItem('ch-howto-seen','1')}catch(e){}}});
   // 그림 크게 보기
   var dlg=document.getElementById('zoom'),dimg=dlg.querySelector('img');
   document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){if(!dlg.showModal){location.href=b.dataset.zoom;return}dimg.src=b.dataset.zoom;dimg.alt=b.querySelector('img').alt;dlg.showModal()})});
