@@ -60,13 +60,14 @@ html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{back
 .lang:active{transform:translateY(1px) scale(.985);box-shadow:none}
 .hero{position:relative;border-radius:26px;overflow:hidden;background:var(--card);aspect-ratio:4/4;max-height:62vh;max-height:62svh;min-height:320px;max-width:100%}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,10,0) 20%,rgba(14,20,10,.82) 78%,rgba(14,20,10,.95))}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,10,0) 10%,rgba(14,20,10,.6) 36%,rgba(14,20,10,.86) 66%,rgba(14,20,10,.95))}
+.hero .t{text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 12px rgba(0,0,0,.35)}
 .hero .t{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:18px 20px 56px;color:#fff}
 h1{margin:0 0 6px;font:700 clamp(30px,8.6vw,44px)/1.12 var(--serif);letter-spacing:-.02em;text-wrap:balance}
 .hero p.d{font-size:15px;line-height:1.45;max-width:34ch}
-.hero .loc{position:absolute;top:14px;left:14px;z-index:1;display:inline-flex;align-items:center;gap:6px;padding:8px 12px 8px 9px;border-radius:99px;background:rgba(14,20,10,.45);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font:700 12.5px/1 var(--sans);letter-spacing:.04em}
+.hero .loc{position:absolute;top:14px;left:14px;z-index:1;display:inline-flex;align-items:center;gap:6px;padding:8px 12px 8px 9px;border-radius:99px;background:rgba(14,20,10,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font:700 12.5px/1 var(--sans);letter-spacing:.04em}
 .hero .loc .ic{width:15px;height:15px}
-.hero .eb{display:block;margin:0 0 8px;font:700 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#f6c9ad}
+.hero .eb{display:block;margin:0 0 8px;font:700 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#ffd9c2}
 
 /* 섹션 장면(작은 히어로): 그림은 장식, 글은 실제 텍스트 */
 :root{--scene-bg:#2f4a2a;--scene-ink:#fbf6ee;--scene-acc:#f3ad8a}
@@ -251,13 +252,18 @@ ul.dots{margin:8px 0 0;padding-left:20px;font-size:14px;display:grid;gap:2px}
 /* 크게 보기 */
 dialog{max-width:min(96vw,900px);max-height:92vh;padding:0;border:0;border-radius:18px;background:#f3ecdc;overflow:auto}
 dialog::backdrop{background:rgba(10,14,8,.78)}
-dialog img{display:block;width:100%;height:auto;min-width:640px}
+dialog img{display:block;width:100%;height:auto;min-width:0;touch-action:pinch-zoom pan-x pan-y}
 dialog form{position:sticky;top:0;display:flex;justify-content:flex-end;padding:8px;background:#f3ecdc}
 dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;background:#3a5533;color:#fff;font-weight:700;font-size:14px;line-height:1;font-family:inherit}
 
 
 /* 히어로 아래 카드: 체크인·아웃 + 자주 찾는 것 */
 .arrive{position:relative;z-index:3;margin:-38px 0 0;padding:14px;border-radius:22px;background:var(--paper);box-shadow:0 2px 0 rgba(28,42,25,.06),0 14px 30px rgba(28,42,25,.22)}
+.welcome .wh{margin:2px 4px 0;font-size:24px;line-height:1.2}
+.welcome .wi{margin:8px 4px 14px;font-size:15px;line-height:1.6;color:var(--ink)}
+.welcome .facts{background:var(--card2)}
+.welcome .facts>div{grid-template-columns:1fr;gap:4px}
+#basics .slots{margin-top:4px}
 .slots{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-bottom:12px}
 .slot{display:flex;align-items:center;gap:8px;min-width:0;padding:2px 13.5px}
 .slot>div{min-width:0}
@@ -289,6 +295,7 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 .now li a{display:flex;align-items:center;gap:10px;min-height:46px;padding:9px 12px;border-radius:14px;background:rgba(255,255,255,.12);color:inherit;font-size:14px;line-height:1.4;text-decoration:none;-webkit-tap-highlight-color:transparent}
 @media (prefers-color-scheme:dark){.now li a{background:rgba(0,0,0,.12)}}
 .now li a:active{transform:translateY(1px)}
+.now a:focus-visible{outline-color:var(--bg)}
 .now .dot{flex:none;width:10px;height:10px;border-radius:50%;border:2px solid currentColor;opacity:.75}
 .now .ok .dot{background:var(--dot-ok);border-color:var(--dot-ok);opacity:1}
 .now .no .dot{background:var(--dot-no);border-color:var(--dot-no);opacity:1}
@@ -315,14 +322,21 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 /* 이 가이드 사용법 */
 /* 상단 왼쪽: 접힌 상태는 알약 버튼, 펼치면 전체 폭 카드(아래 내용을 밀어내며 가리지 않음). 한/ENG는 오른쪽 위에 고정 */
 .top{position:relative;min-height:50px;justify-content:flex-start;align-items:flex-start}
-.top .lang{position:absolute;top:0;right:0;z-index:1}
-details.howto{width:fit-content;max-width:calc(100% - 128px);border:1.5px solid var(--ctl);border-radius:24px;background:var(--ctl-bg);box-shadow:var(--lift);overflow:hidden}
+.top .side{position:absolute;top:0;right:0;z-index:1;display:flex;gap:6px}
+.reach{display:grid;place-items:center;width:44px;height:44px;border:1.5px solid var(--ctl);border-radius:50%;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--green);-webkit-tap-highlight-color:transparent}
+.reach .ic{width:19px;height:19px}
+.reach:active{transform:translateY(1px) scale(.97);box-shadow:none}
+details.howto{width:fit-content;max-width:calc(100% - 226px);border:1.5px solid var(--ctl);border-radius:24px;background:var(--ctl-bg);box-shadow:var(--lift);overflow:hidden}
 details.howto[open]{width:100%;max-width:none;border-color:transparent;border-radius:20px;background:var(--card);box-shadow:none}
 details.howto summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px;cursor:pointer;list-style:none;font-weight:700;font-size:14px;line-height:1.25;-webkit-tap-highlight-color:transparent}
 details.howto summary::-webkit-details-marker{display:none}
 details.howto summary .ic{flex:none;width:18px;height:18px;color:var(--green)}
 details.howto summary .chev{flex:none;color:var(--mute);transition:transform .2s}
 details.howto[open] summary .chev{transform:rotate(180deg)}
+details.howto[open] summary{padding-right:226px}
+.howto .sh{display:none}
+@media (max-width:429px){.howto .lg{display:none}.howto .sh{display:inline}}
+@media (max-width:359px){.howto .hl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}details.howto[open] summary{padding-right:14px}}
 .howto ul{list-style:none;margin:0;padding:8px 16px 16px;display:grid;gap:12px}
 .howto li{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:center;font-size:14px;line-height:1.5}
 .howto li b{display:block;font-size:15px}
@@ -352,6 +366,8 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 #top svg{width:22px;height:22px}
 #toast{z-index:20;position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:min(92vw,360px);text-align:center;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
 #toast.on{opacity:1}
+#toast.on.stay{pointer-events:auto;cursor:pointer}
+#toast .big{display:block;margin-top:6px;font:700 24px/1.2 var(--sans);letter-spacing:.02em;user-select:all;-webkit-user-select:all}
 @media (hover:hover){.btn:hover,.chip:hover,.back:hover,.place a:hover,.call:hover,details.dev summary:hover{filter:brightness(1.04)}}
 @media (max-width:380px){.bins,.vans,.flow{grid-template-columns:1fr}.facts>div{grid-template-columns:1fr;gap:2px}h2{font-size:27px}.place{grid-template-columns:1fr}.place a{justify-self:start}}
 /* '이 가이드 사용법' 은은한 깜빡임: 테두리 둘레의 옅은 빛만 천천히 밝아졌다 어두워짐(글자는 그대로) */
@@ -369,7 +385,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   </div>
   <div class="top">
     <details class="howto" id="howto">
-      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17h.01"/></svg><span class="ko">이 가이드 사용법</span><span class="en">How to use this guide</span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17h.01"/></svg><span class="hl"><span class="ko"><span class="lg">이 가이드 </span>사용법</span><span class="en"><span class="lg">How to use this guide</span><span class="sh">Help</span></span></span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
       <ul>
         <li><span class="demo pill"><i class="on">한</i>/<i>ENG</i></span><span class="ko"><b>언어 바꾸기</b>오른쪽 위 ‘한/ENG’ 버튼을 누를 때마다 한국어와 영어가 바뀌어요.</span><span class="en"><b>Switch language</b>Tap the “한/ENG” button at the top right to switch between Korean and English.</span></li>
         <li><span class="demo pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M16 8l4 4-4 4M8 8l-4 4 4 4"/></svg></span><span class="ko"><b>메뉴로 이동</b>화면 위 메뉴를 누르면 그 내용으로 바로 가요. 메뉴는 옆으로 밀면 더 있어요.</span><span class="en"><b>Jump with the menu</b>Tap a menu item at the top to jump there. Swipe the menu sideways to see more.</span></li>
@@ -380,7 +396,11 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
         <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span><span class="ko"><b>체크리스트</b>체크아웃 목록은 직접 체크할 수 있고, 이 휴대폰에 기억돼요.</span><span class="en"><b>Checklist</b>Tick off the check-out list as you go. Your ticks are saved on this phone.</span></li>
       </ul>
     </details>
-    <button class="lang" type="button" id="lang" data-lang-toggle aria-label="언어: 한국어. 눌러서 영어로 바꾸기"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
+    <div class="side">
+      <a class="reach" href="tel:+821093280969" data-label-ko="호스트 Lisa에게 전화" data-label-en="Call your host Lisa" aria-label="호스트 Lisa에게 전화"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></a>
+      <a class="reach" href="#host" data-label-ko="호스트에게 메시지 (카카오톡 · LINE · WhatsApp)" data-label-en="Message your host (KakaoTalk, LINE, WhatsApp)" aria-label="호스트에게 메시지 (카카오톡 · LINE · WhatsApp)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg></a>
+      <button class="lang" type="button" id="lang" data-lang-toggle aria-label="언어: 한국어. 눌러서 영어로 바꾸기"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
+    </div>
   </div>
 
   <header class="hero">
@@ -394,35 +414,22 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     </div>
   </header>
 
-  <section class="arrive" aria-label="체크인·체크아웃과 바로가기" data-label-ko="체크인·체크아웃과 바로가기" data-label-en="Check-in, check-out and shortcuts">
-    <div class="slots">
-      <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크인</small><small class="en">Check-in</small><b class="ko">오후 3시 이후</b><b class="en">After 3 PM</b></div></div>
-      <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크아웃</small><small class="en">Check-out</small><b class="ko">오전 11시 이전</b><b class="en">Before 11 AM</b></div></div>
-    </div>
-    <p class="first-t"><span class="ko">처음 오셨다면 이 순서로</span><span class="en">Just arrived? Start here</span></p>
-    <ol class="go">
-      <li><a href="#basics"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요</small><small class="en">The door code comes by Airbnb message on check-in day</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
-      <li><button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><span class="n">2</span><span><b class="ko">Wi-Fi 연결</b><b class="en">Join the Wi-Fi</b><small class="ko">Copen_Green · 누르면 비밀번호가 복사돼요</small><small class="en">Copen_Green · tap to copy the password</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></li>
-      <li><a href="#heating"><span class="n">3</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat right of the entrance</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
-      <li><a href="#rules"><span class="n">4</span><span><b class="ko">쓰레기·하우스 룰 보기</b><b class="en">Read trash &amp; house rules</b><small class="ko">쓰레기는 일~금 저녁 7시~자정, 토요일은 안 돼요</small><small class="en">Trash goes out Sun–Fri 7 PM to midnight, never Saturday</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
-    </ol>
-    <p class="first-t"><span class="ko">떠나는 날</span><span class="en">On your last day</span></p>
-    <ul class="go">
-      <li class="leave"><a href="#checkout"><span class="n"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h8M14 3l5 2v14l-5 2zM11.5 12h.01"/></svg></span><span><b class="ko">체크아웃 체크리스트</b><b class="en">Check-out checklist</b><small class="ko">오전 11시 전에 4가지만 확인해 주세요</small><small class="en">Four quick things before 11 AM</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
-    </ul>
-  </section>
-
-  <section class="now" id="now" aria-labelledby="now-h">
-    <p class="now-h" id="now-h"><small class="ko">지금 필동은</small><small class="en">Right now in Pildong</small><b class="clock" id="now-clock"></b><small id="now-day"></small></p>
-    <ul id="now-list"></ul>
+  <section class="arrive welcome" id="welcome" aria-labelledby="h-welcome">
+    <h2 class="wh" id="h-welcome"><span class="ko">환영합니다</span><span class="en">Welcome</span></h2>
+    <p class="intro wi ko">명동까지 걸어서 <span class="nw">약 10분</span>. 남산골한옥마을과 충무로역이 가깝고, 서울역·광화문까지 대중교통으로 쉽게 다닐 수 있어요.</p>
+    <p class="intro wi en">Myeongdong is about a <span class="nw">10-minute walk</span> away. Namsangol Hanok Village and Chungmuro Station are close by, and Seoul Station and Gwanghwamun are an easy ride.</p>
+    <dl class="facts">
+      <div><dt><span class="ko">주소</span><span class="en">Address</span></dt><dd><span class="ko">서울특별시 중구 필동로8길 32-14</span><span class="en">32-14, Pildong-ro 8-gil, Jung-gu, Seoul</span><div class="chips" style="margin-top:8px"><button class="chip" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">한글 주소 복사</span><span class="en">Copy Korean address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-ko="영문 주소 복사됨" data-toast-en="Address copied"><span class="ko">영문 주소 복사</span><span class="en">Copy English address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></dd></div>
+      <div><dt><span class="ko">호스트</span><span class="en">Host</span></dt><dd>Lisa · +82-10-9328-0969<br><span class="ko">카카오톡 · LINE · WhatsApp (ID: free01270)</span><span class="en">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><div class="chips" style="margin-top:8px"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">연락하기</span><span class="en">Contact Lisa</span></a></div></dd></div>
+    </dl>
   </section>
 
   <nav class="tabs" aria-label="섹션 메뉴" data-label-ko="섹션 메뉴" data-label-en="Sections">
     <ul>
-      <li><a href="#basics"><span class="ko">기본 정보</span><span class="en">Basics</span></a></li>
-      <li><a href="#house"><span class="ko">집 사용법</span><span class="en">House manual</span></a></li>
-      <li><a href="#rules"><span class="ko">쓰레기·규칙</span><span class="en">Trash &amp; rules</span></a></li>
       <li><a href="#getting"><span class="ko">찾아오기</span><span class="en">Getting here</span></a></li>
+      <li><a href="#basics"><span class="ko">체크인</span><span class="en">Check-in</span></a></li>
+      <li><a href="#rules"><span class="ko">와이파이·생활</span><span class="en">Wi-Fi &amp; house</span></a></li>
+      <li><a href="#house"><span class="ko">집 사용법</span><span class="en">House manual</span></a></li>
       <li><a href="#eat"><span class="ko">맛집·카페</span><span class="en">Eat &amp; drink</span></a></li>
       <li><a href="#explore"><span class="ko">둘러보기</span><span class="en">Explore</span></a></li>
       <li><a href="#services"><span class="ko">픽업·투어</span><span class="en">Pick-up &amp; tours</span></a></li>
@@ -432,289 +439,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   </nav>
 
 
-
-  <!-- 1. 기본 정보 -->
-  <section class="s" id="basics" aria-labelledby="h-basics">
-    <h2 id="h-basics"><span class="ko">기본 정보</span><span class="en">The basics</span></h2>
-    <p class="intro ko">명동까지 걸어서 <span class="nw">약 10분</span>. 남산골한옥마을과 충무로역이 가깝고, 서울역·광화문까지 대중교통으로 쉽게 다닐 수 있어요.</p>
-    <p class="intro en">Myeongdong is about a <span class="nw">10-minute walk</span> away. Namsangol Hanok Village and Chungmuro Station are close by, and Seoul Station and Gwanghwamun are an easy ride.</p>
-    <dl class="facts">
-      <div><dt><span class="ko">주소</span><span class="en">Address</span></dt><dd><span class="ko">서울특별시 중구 필동로8길 32-14</span><span class="en">32-14, Pildong-ro 8-gil, Jung-gu, Seoul</span><div class="chips" style="margin-top:8px"><button class="chip" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">한글 주소 복사</span><span class="en">Copy Korean address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-ko="영문 주소 복사됨" data-toast-en="Address copied"><span class="ko">영문 주소 복사</span><span class="en">Copy English address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></dd></div>
-      <div><dt><span class="ko">호스트</span><span class="en">Host</span></dt><dd>Lisa · +82-10-9328-0969<br><span class="ko">카카오톡 · LINE · WhatsApp (ID: free01270)</span><span class="en">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><div class="chips" style="margin-top:8px"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">연락하기</span><span class="en">Contact Lisa</span></a></div></dd></div>
-      <div><dt><span class="ko">출입 방법</span><span class="en">Getting in</span></dt><dd><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요.</span><span class="en">We send the door lock code by Airbnb message on check-in day.</span></dd></div>
-      <div><dt><span class="ko">입구·층</span><span class="en">Entrance</span></dt><dd><span class="ko">건물 1층</span><span class="en">Ground floor (1F)</span></dd></div>
-      <div><dt><span class="ko">짐 보관</span><span class="en">Luggage</span></dt><dd><span class="ko">미리 알려주시면 안내해 드려요.</span><span class="en">Let us know in advance and we'll help you arrange it.</span></dd></div>
-      <div><dt>Wi-Fi</dt><dd><div class="chips" style="margin-top:0"><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div><p class="small" style="margin-top:8px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
-    </dl>
-    <figure class="photos">
-      <div><img src="img/entrance.jpg" width="600" height="900" loading="lazy" alt="건물 입구와 계단" data-alt-ko="건물 입구와 계단" data-alt-en="Copen Haus building entrance and stairs"><figcaption><span class="ko">건물 입구 · 계단</span><span class="en">Building entrance &amp; stairs</span></figcaption></div>
-      <div><img src="img/alley.jpg" width="600" height="748" loading="lazy" alt="골목에서 본 Copen Haus" data-alt-ko="골목에서 본 Copen Haus" data-alt-en="Copen Haus seen from the alley"><figcaption><span class="ko">골목에서 본 Copen Haus</span><span class="en">Copen Haus from the alley</span></figcaption></div>
-    </figure>
-  </section>
-
-  <!-- 2. 집 사용법 -->
-  <section class="s" id="house" aria-labelledby="h-house">
-    <h2 id="h-house"><span class="ko">집 사용법</span><span class="en">Using the house</span></h2>
-    <p class="intro ko">기기를 누르면 그림과 번호별 설명이 펼쳐져요. 그림을 누르면 크게 볼 수 있어요.</p>
-    <p class="intro en">Tap an appliance to open its guide. Tap a diagram to see it larger. (Labels on the appliances are in Korean, so match them by number.)</p>
-    <nav class="devgrid" aria-label="기기 바로가기" data-label-ko="기기 바로가기" data-label-en="Appliances">
-      <a href="#heating"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg><span class="ko">난방·온수</span><span class="en">Heating</span></a>
-      <a href="#washer"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M7.5 6.5h2"/></svg><span class="ko">세탁기</span><span class="en">Washer</span></a>
-      <a href="#dryer"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M10 11.5c1 .8 3 .8 4 0M10 14.5c1 .8 3 .8 4 0"/></svg><span class="ko">건조기</span><span class="en">Dryer</span></a>
-      <a href="#microwave"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="6" y="8" width="9" height="8" rx="1"/><path d="M18 9v.01M18 12v.01M18 15v.01"/></svg><span class="ko">전자레인지</span><span class="en">Microwave</span></a>
-      <a href="#induction"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="2.5"/><circle cx="15.5" cy="10" r="2.5"/><path d="M7 16.5h10"/></svg><span class="ko">인덕션</span><span class="en">Cooktop</span></a>
-      <a href="#tv"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span class="ko">TV 리모컨</span><span class="en">TV remote</span></a>
-    </nav>
-
-    <details class="dev" id="heating">
-      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg></span><span class="tt"><b class="ko">난방 · 온수</b><b class="en">Heating &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat on the wall, right of the entrance</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="body">
-        <p class="lede ko">현관 오른쪽 벽에 있는 온도조절기로 난방과 온수를 조절해요.</p>
-        <p class="lede en">Use the thermostat on the wall to the right of the entrance for both heating and hot water.</p>
-        <figure class="fig"><button class="zoom" type="button" data-zoom="img/boiler.png" data-zoom-ko="img/boiler.png" data-zoom-en="img/en/boiler.png"><img src="img/boiler.png" data-src-ko="img/boiler.png" data-src-en="img/en/boiler.png" width="1000" height="844" loading="lazy" alt="온도조절기 그림" data-alt-ko="온도조절기 그림" data-alt-en="Boiler thermostat diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-        <div class="most">
-          <b class="h ko">주로 쓰는 기능</b><b class="h en">What you'll use most</b>
-          <ol class="ko"><li><b>전원</b>: 보일러를 켜고 끌 때 눌러요.</li><li><b>외출</b>: 집을 비울 때 눌러요.</li><li><b>난방</b>: 난방 버튼을 누르고 다이얼을 왼쪽으로 돌리면 온도가 내려가고, 오른쪽으로 돌리면 올라가요.</li></ol>
-          <ol class="en"><li><b>Power</b>: turns the boiler on and off.</li><li><b>Away</b>: press when you go out.</li><li><b>Heating</b>: press it, then turn the dial right to warm up or left to cool down.</li></ol>
-        </div>
-        <ul class="keys ko">
-          <li><i>화면</i><span>왼쪽 숫자는 실내온도, <span class="nw">오른쪽 숫자는 온수온도예요</span>.</span></li>
-          <li><i>온수</i><span>온수 버튼을 누르고 다이얼로 온수 온도를 맞춰요.</span></li>
-          <li><i>예약</i><span>시간 예약을 설정해요.</span></li>
-          <li><i>온돌</i><span>바닥 난방(온돌) 기능을 설정해요.</span></li>
-        </ul>
-        <ul class="keys en">
-          <li><i>Screen</i><span>Left number is the room temperature, right number is the <span class="nw">hot-water temperature</span>.</span></li>
-          <li><i>Hot water</i><span>Press it, then turn the dial to set the <span class="nw">water temperature</span>.</span></li>
-          <li><i>Timer</i><span>Set a schedule.</span></li>
-          <li><i>Ondol</i><span>Underfloor heating mode.</span></li>
-        </ul>
-      </div>
-    </details>
-
-    <!-- 에어컨 카드: 리모컨 사진·설명을 받으면 주석을 풀고 내용을 채워요
-    <details class="dev" id="aircon">
-      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M4.9 7l14.2 10M4.9 17L19.1 7M9 4l3 2 3-2M9 20l3-2 3 2"/></svg></span><span class="tt"><b class="ko">에어컨</b><b class="en">Air conditioner</b><small class="ko">사용법 준비 중</small><small class="en">Guide coming soon</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="body">
-        <p class="lede ko">에어컨 사용법은 곧 추가할게요. 그전에 사용법이 궁금하면 언제든 호스트에게 연락 주세요.</p>
-        <p class="lede en">We're adding a guide for the air conditioner soon. Until then, message your host anytime if you need help with it.</p>
-        <div class="chips"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">호스트 연락처 보기</span><span class="en">Contact the host</span></a></div>
-      </div>
-    </details>
-    -->
-
-    <details class="dev" id="washer">
-      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M7.5 6.5h2"/></svg></span><span class="tt"><b class="ko">세탁기</b><b class="en">Washing machine</b><small class="ko">코스 선택 → 동작 버튼 길게</small><small class="en">Pick a course, then hold Start</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="body">
-        <p class="lede ko">전원을 켜고 <b>코스를 고른 뒤 동작 <span class="nw">버튼을 길게</span></b> 누르면 시작돼요.</p>
-        <p class="lede en">Turn it on, <b>choose a course, then press and hold Start</b>.</p>
-        <figure class="fig"><button class="zoom" type="button" data-zoom="img/washer.png" data-zoom-ko="img/washer.png" data-zoom-en="img/en/washer.png"><img src="img/washer.png" data-src-ko="img/washer.png" data-src-en="img/en/washer.png" width="1000" height="665" loading="lazy" alt="세탁기 조작부 그림" data-alt-ko="세탁기 조작부 그림" data-alt-en="Washing machine control panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-        <ul class="keys ko">
-          <li><i>1</i><span><b>코스 다이얼</b>: 돌려서 코스를 골라요 (표준세탁이 기본)</span></li>
-          <li><i>2</i><span><b>세탁온도</b>: 물 온도 선택 (냉수~90도)</span></li>
-          <li><i>3</i><span><b>헹굼횟수</b>: 헹굼 횟수 선택 (1~5회)</span></li>
-          <li><i>4</i><span><b>탈수세기</b>: 탈수 세기 선택 (섬세~최강)</span></li>
-          <li><i>5</i><span><b>오염도</b>: 낮음 · 보통 · 높음 중 선택</span></li>
-          <li><i>6</i><span><b>종료예약</b>: 세탁이 끝나는 시간을 예약해요</span></li>
-          <li><i>7</i><span><b>버블불림</b>: 거품으로 찌든 때를 불려서 세탁해요</span></li>
-          <li><i>8</i><span><b>세탁물추가</b>: 작동 중 빨래를 더 넣고 싶을 때 눌러요</span></li>
-          <li><i>9</i><span><b>스마트컨트롤</b>: 스마트폰 <span class="nw">앱(SmartThings)으로</span> 조작해요</span></li>
-          <li><i>10</i><span><b>전원</b>: 세탁기를 켜고 꺼요</span></li>
-          <li><i>11</i><span><b>동작/일시정지</b>: 길게 눌러 시작, 누르면 잠시 멈춰요</span></li>
-          <li><i>12</i><span><b>어린이보호</b>: 세탁온도 + 헹굼횟수를 함께 3초 누르면 잠겨요</span></li>
-        </ul>
-        <ul class="keys en">
-          <li><i>1</i><span><b>Course dial</b>: turn to pick a course (Standard is the default)</span></li>
-          <li><i>2</i><span><b>Temperature</b>: cold to 90°C</span></li>
-          <li><i>3</i><span><b>Rinses</b>: 1 to 5</span></li>
-          <li><i>4</i><span><b>Spin</b>: delicate to max</span></li>
-          <li><i>5</i><span><b>Soil level</b>: low, normal or high</span></li>
-          <li><i>6</i><span><b>Finish timer</b>: set when the wash should end</span></li>
-          <li><i>7</i><span><b>Bubble soak</b>: soaks tough dirt with foam</span></li>
-          <li><i>8</i><span><b>Add laundry</b>: press to add items <span class="nw">mid-cycle</span></span></li>
-          <li><i>9</i><span><b>Smart control</b>: control it with the SmartThings app</span></li>
-          <li><i>10</i><span><b>Power</b>: on and off</span></li>
-          <li><i>11</i><span><b>Start / Pause</b>: hold to start, press to pause</span></li>
-          <li><i>12</i><span><b>Child lock</b>: hold Temperature + Rinses together for 3 seconds</span></li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="dev" id="dryer">
-      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M10 11.5c1 .8 3 .8 4 0M10 14.5c1 .8 3 .8 4 0"/></svg></span><span class="tt"><b class="ko">건조기</b><b class="en">Dryer</b><small class="ko">코스 선택 → 동작 버튼 길게</small><small class="en">Pick a course, then hold Start</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="body">
-        <p class="lede ko">전원을 켜고 <b>코스를 고른 뒤 동작 <span class="nw">버튼을 길게</span></b> 누르면 시작돼요.</p>
-        <p class="lede en">Turn it on, <b>choose a course, then press and hold Start</b>.</p>
-        <figure class="fig"><button class="zoom" type="button" data-zoom="img/dryer.png" data-zoom-ko="img/dryer.png" data-zoom-en="img/en/dryer.png"><img src="img/dryer.png" data-src-ko="img/dryer.png" data-src-en="img/en/dryer.png" width="1000" height="696" loading="lazy" alt="건조기 조작부 그림" data-alt-ko="건조기 조작부 그림" data-alt-en="Dryer control panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-        <ul class="keys ko">
-          <li><i>1</i><span><b>코스 다이얼</b>: 돌려서 코스를 골라요 (표준건조가 기본)</span></li>
-          <li><i>2</i><span><b>건조정도</b>: 1~4단계 (3이 표준)</span></li>
-          <li><i>3</i><span><b>건조시간</b>: 20 · 40 · 60 · 90분 이상 (시간건조 · 선반건조 코스)</span></li>
-          <li><i>4</i><span><b>다림질알림</b>: 다림질하기 좋은 상태일 때 알려줘요</span></li>
-          <li><i>5</i><span><b>구김방지</b>: 건조 후 구김을 줄여줘요</span></li>
-          <li><i>6</i><span><b>열풍내부살균</b>: 열풍으로 건조기 안을 살균해요</span></li>
-          <li><i>7</i><span><b>드럼라이트</b>: 건조기 안 불을 켜고 꺼요</span></li>
-          <li><i>8</i><span><b>소리 끔</b>: 알림음을 꺼요</span></li>
-          <li><i>9</i><span><b>스마트컨트롤</b>: 스마트폰 <span class="nw">앱(SmartThings)으로</span> 조작해요</span></li>
-          <li><i>10</i><span><b>전원</b>: 건조기를 켜고 꺼요</span></li>
-          <li><i>11</i><span><b>동작/일시정지</b>: 길게 눌러 시작, 누르면 잠시 멈춰요</span></li>
-          <li><i>12</i><span><b>어린이보호</b>: 건조정도 + 건조시간을 함께 3초 누르면 잠겨요</span></li>
-        </ul>
-        <p class="note ko">이불털기/패딩케어 코스는 에어워시 코스예요.</p>
-        <ul class="keys en">
-          <li><i>1</i><span><b>Course dial</b>: turn to pick a course (Standard is the default)</span></li>
-          <li><i>2</i><span><b>Dryness</b>: levels 1 to 4 (3 is standard)</span></li>
-          <li><i>3</i><span><b>Dry time</b>: 20, 40, 60 or 90+ minutes (Timed and Rack courses)</span></li>
-          <li><i>4</i><span><b>Iron alert</b>: beeps when clothes are just right for ironing</span></li>
-          <li><i>5</i><span><b>Wrinkle care</b>: reduces creases after drying</span></li>
-          <li><i>6</i><span><b>Hot-air sanitize</b>: sanitizes the drum with hot air</span></li>
-          <li><i>7</i><span><b>Drum light</b>: light inside on/off</span></li>
-          <li><i>8</i><span><b>Sound off</b>: turns off the beeps</span></li>
-          <li><i>9</i><span><b>Smart control</b>: control it with the SmartThings app</span></li>
-          <li><i>10</i><span><b>Power</b>: on and off</span></li>
-          <li><i>11</i><span><b>Start / Pause</b>: hold to start, press to pause</span></li>
-          <li><i>12</i><span><b>Child lock</b>: hold Dryness + Dry time together for 3 seconds</span></li>
-        </ul>
-        <p class="note en">The Bedding Refresh / Padding Care course is an Air Wash course.</p>
-      </div>
-    </details>
-
-    <details class="dev" id="microwave">
-      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="6" y="8" width="9" height="8" rx="1"/><path d="M18 9v.01M18 12v.01M18 15v.01"/></svg></span><span class="tt"><b class="ko">전자레인지</b><b class="en">Microwave</b><small class="ko">다이얼 2개: 모드 → 시간</small><small class="en">Two dials: mode, then time</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="body">
-        <p class="lede ko">다이얼 2개만 돌리면 돼요. 모드를 고르고 시간을 맞춰 주세요.</p>
-        <p class="lede en">Just two dials: pick a mode, then set the time.</p>
-        <figure class="fig"><button class="zoom" type="button" data-zoom="img/microwave.png" data-zoom-ko="img/microwave.png" data-zoom-en="img/en/microwave.png"><img src="img/microwave.png" data-src-ko="img/microwave.png" data-src-en="img/en/microwave.png" width="1000" height="534" loading="lazy" alt="전자레인지 다이얼 그림" data-alt-ko="전자레인지 다이얼 그림" data-alt-en="Microwave dials diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-        <ol class="steps ko">
-          <li><span class="n">1</span><div><b>음식을 넣고 문을 닫아요</b></div></li>
-          <li><span class="n">2</span><div><b>선택모드 다이얼을 돌려 모드를 맞춰요</b><p>약 · 중 · 강은 화력 세기(강할수록 빨리 데워져요), 데우기는 남은 음식이나 식은 음식, 해동은 얼린 음식</p></div></li>
-          <li><span class="n">3</span><div><b>분(min) 다이얼을 시계 방향으로 돌려 시간을 맞춰요</b><p>최대 30분</p></div></li>
-          <li><span class="n">4</span><div><b>시간이 다 되면 문을 열고 꺼내요</b></div></li>
-        </ol>
-        <ol class="steps en">
-          <li><span class="n">1</span><div><b>Put the food in and close the door</b></div></li>
-          <li><span class="n">2</span><div><b>Turn the <span class="nw">Mode dial</span></b><p>Low · Medium · High = power level (higher heats faster). Warm = reheat leftovers. Defrost = thaw frozen food.</p></div></li>
-          <li><span class="n">3</span><div><b>Turn the <span class="nw">Minutes dial</span> clockwise</b><p>Up to 30 minutes</p></div></li>
-          <li><span class="n">4</span><div><b>When it stops, open the door and take it out</b></div></li>
-        </ol>
-        <p class="warn ko"><b>주의</b> · 금속 그릇, 알루미늄 호일, 밀폐 용기는 넣지 마세요.</p>
-        <p class="warn en"><b>Careful</b> · No metal dishes, foil or sealed containers.</p>
-      </div>
-    </details>
-
-    <details class="dev" id="induction">
-      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="2.5"/><circle cx="15.5" cy="10" r="2.5"/><path d="M7 16.5h10"/></svg></span><span class="tt"><b class="ko">인덕션 (3구)</b><b class="en">Induction cooktop</b><small class="ko">전원 → 화구 화력 조절</small><small class="en">Power on, then set each burner</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="body">
-        <p class="lede ko">조작부의 번호와 아래 설명을 함께 확인해 주세요.</p>
-        <p class="lede en">Match the numbers on the touch panel with the list below.</p>
-        <figure class="fig"><button class="zoom" type="button" data-zoom="img/induction.png" data-zoom-ko="img/induction.png" data-zoom-en="img/en/induction.png"><img src="img/induction.png" data-src-ko="img/induction.png" data-src-en="img/en/induction.png" width="1000" height="627" loading="lazy" alt="인덕션 조작부 그림" data-alt-ko="인덕션 조작부 그림" data-alt-en="Induction cooktop and touch panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-        <ul class="keys ko">
-          <li><i>9</i><span><b>전원</b>: 전원을 켜고 꺼요</span></li>
-          <li><i>1·2·4</i><span><b>화력 − / +</b>: 1번 · 2번 · 3번 화구의 불 세기를 조절해요</span></li>
-          <li><i>5</i><span><b>화구 선택</b>: 작동 중인 화구를 골라요</span></li>
-          <li><i>6</i><span><b>작동 / 일시정지</b></span></li>
-          <li><i>3</i><span><b>타이머 − / +</b>: 최대 60분</span></li>
-          <li><i>7</i><span><b>터보</b>: 3번 화구를 최대 화력으로 (10분 뒤 원래 단계로)</span></li>
-          <li><i>8</i><span><b>잠금</b>: 잠금 상태를 보여줘요</span></li>
-          <li><i class="h">H</i><span><b>H 표시</b>: 화면에 H가 보이면 아직 뜨거워요. 조심하세요.</span></li>
-        </ul>
-        <ul class="keys en">
-          <li><i>9</i><span><b>Power</b>: on and off</span></li>
-          <li><i>1·2·4</i><span><b>Heat − / +</b>: for burners 1, 2 and 3</span></li>
-          <li><i>5</i><span><b>Burner select</b>: choose which active burner to adjust</span></li>
-          <li><i>6</i><span><b>Start / Pause</b></span></li>
-          <li><i>3</i><span><b>Timer − / +</b>: up to 60 minutes</span></li>
-          <li><i>7</i><span><b>Turbo</b>: max heat on burner 3 (drops back after 10 minutes)</span></li>
-          <li><i>8</i><span><b>Lock</b>: shows when the panel is locked</span></li>
-          <li><i class="h">H</i><span><b>H on the display</b>: the surface is still hot. Be careful.</span></li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="dev" id="tv">
-      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span class="tt"><b class="ko">TV 리모컨</b><b class="en">TV remote</b><small class="ko">넷플릭스·유튜브 바로가기 버튼</small><small class="en">Netflix and YouTube shortcut buttons</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="body">
-        <p class="lede ko">자주 쓰는 버튼만 번호로 알려 드릴게요.</p>
-        <p class="lede en">Here are the buttons you'll actually use.</p>
-        <figure class="fig tall"><button class="zoom" type="button" data-zoom="img/remote.png" data-zoom-ko="img/remote.png" data-zoom-en="img/en/remote.png"><img src="img/remote.png" data-src-ko="img/remote.png" data-src-en="img/en/remote.png" width="555" height="1225" loading="lazy" alt="TV 리모컨 그림" data-alt-ko="TV 리모컨 그림" data-alt-en="TV remote diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-        <ul class="keys ko">
-          <li><i>1</i><span><b>전원</b>: TV를 켜고 꺼요</span></li>
-          <li><i>2</i><span><b>음소거</b>: 소리를 잠시 꺼요</span></li>
-          <li><i>3</i><span><b>숫자 버튼</b>: 채널 번호를 눌러요</span></li>
-          <li><i>4</i><span><b>방향키 · 확인</b>: 이동하고 선택해요</span></li>
-          <li><i>5</i><span><b>이전</b>: 이전 화면으로 가요</span></li>
-          <li><i>6</i><span><b>홈</b>: 홈 화면으로 가요</span></li>
-          <li><i>7</i><span><b>Live TV</b>: TV 방송을 봐요</span></li>
-          <li><i>8</i><span><b>음량 + / −</b>: 소리를 키우고 줄여요</span></li>
-          <li><i>9</i><span><b>채널 + / −</b>: 채널을 바꿔요</span></li>
-          <li><i>10</i><span><b>외부입력</b>: 연결한 기기 화면으로 바꿔요</span></li>
-          <li><i>11</i><span><b>앱 버튼</b>: 넷플릭스 · 유튜브 · 프라임 · 디즈니+ 바로 열기</span></li>
-          <li><i>12</i><span><b>재생 버튼</b>: 되감기 · 재생/멈춤 · 빨리감기</span></li>
-        </ul>
-        <ul class="keys en">
-          <li><i>1</i><span><b>Power</b></span></li>
-          <li><i>2</i><span><b>Mute</b></span></li>
-          <li><i>3</i><span><b>Number keys</b>: enter a channel</span></li>
-          <li><i>4</i><span><b>Arrows · OK</b>: move and select</span></li>
-          <li><i>5</i><span><b>Back</b></span></li>
-          <li><i>6</i><span><b>Home</b></span></li>
-          <li><i>7</i><span><b>Live TV</b>: watch broadcast TV</span></li>
-          <li><i>8</i><span><b>Volume + / −</b>: sound up or down</span></li>
-          <li><i>9</i><span><b>Channel + / −</b>: change channels</span></li>
-          <li><i>10</i><span><b>Input</b>: switch to a connected device</span></li>
-          <li><i>11</i><span><b>App buttons</b>: Netflix, YouTube, Prime Video, Disney+</span></li>
-          <li><i>12</i><span><b>Playback</b>: rewind, play/pause, <span class="nw">fast-forward</span></span></li>
-        </ul>
-        <p class="note ko">넷플릭스, 디즈니+ 등은 개인 계정으로 로그인해 이용하실 수 있어요.</p>
-        <p class="note en">Sign in with your own account for Netflix, Disney+ and others.</p>
-      </div>
-    </details>
-  </section>
-
-  <!-- 3. 쓰레기·규칙·체크아웃 -->
-  <section class="s" id="rules" aria-labelledby="h-rules">
-    <h2 id="h-rules"><span class="ko">쓰레기 · 하우스 룰</span><span class="en">Trash &amp; house rules</span></h2>
-    <h3 id="trash" style="scroll-margin-top:70px"><span class="ko">쓰레기 버리는 법</span><span class="en">Trash &amp; recycling</span></h3>
-    <div class="when"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><b class="ko">일~금요일 저녁 7시 ~ 자정</b><b class="en">Sun–Fri, 7 PM to midnight</b><span class="ko">집 앞에 내놓아요 · 토요일은 배출 금지</span><span class="en">Put it out in front of the house · never on Saturday</span></div></div>
-    <div class="bins">
-      <div class="bin" style="--c:#8b8b7a"><b class="ko">일반 쓰레기</b><b class="en">General waste</b><span class="ko">중구 종량제 봉투(흰색)</span><span class="en">White Jung-gu <span class="nw">pay-as-you-throw bag</span></span></div>
-      <div class="bin" style="--c:#c98a3a"><b class="ko">음식물</b><b class="en">Food waste</b><span class="ko">물기 빼고 전용 봉투·용기</span><span class="en">Drain it, then use the <span class="nw">food-waste bag</span> or bin</span></div>
-      <div class="bin" style="--c:#3a7bb0"><b class="ko">재활용</b><b class="en">Recycling</b><span class="ko">캔·병·플라스틱·비닐을 헹궈 투명 봉지에</span><span class="en">Rinse cans, bottles, plastic and vinyl, then put them in a clear bag</span></div>
-      <div class="bin" style="--c:#a0784c"><b class="ko">종이·상자</b><b class="en">Paper &amp; boxes</b><span class="ko">펼쳐서 묶어 배출</span><span class="en">Flatten and tie together</span></div>
-    </div>
-    <p class="note ko">봉투 위치와 내놓는 자리: <b>1층 현관문 옆</b>. 시간·장소를 어기면 과태료 10~30만원이 부과돼요.</p>
-    <p class="note en">Bags are kept, and trash goes out, <b>next to the <span class="nw">ground-floor front door</span></b>. Wrong day, time or place can mean a <span class="nw">₩100,000–300,000 fine</span>.</p>
-
-    <h3><span class="ko">하우스 룰</span><span class="en">House rules</span></h3>
-    <ol class="rules ko">
-      <li><i>1</i><span>실내 금연입니다. 건물 앞·계단에서도 흡연하지 말아주세요.</span></li>
-      <li><i>2</i><span>밤 10시~아침 8시는 조용히 해주세요. 골목과 계단의 대화도 잘 울립니다.</span></li>
-      <li><i>3</i><span>파티·행사는 불가합니다.</span></li>
-      <li><i>4</i><span>예약 인원 외 방문객은 미리 문의해 주세요.</span></li>
-      <li><i>5</i><span>실내에서는 신발을 벗어주세요.</span></li>
-      <li><i>6</i><span>반려동물은 허용이 불가합니다.</span></li>
-      <li><i>7</i><span>파손된 물건이 있으면 바로 알려주세요. 솔직하게 말씀해 주시면 됩니다.</span></li>
-    </ol>
-    <ol class="rules en">
-      <li><i>1</i><span>No smoking indoors, and please don't smoke in front of the building or on the stairs either.</span></li>
-      <li><i>2</i><span>Quiet hours are 10 PM – 8 AM. Voices carry in the alley and stairwell.</span></li>
-      <li><i>3</i><span>No parties or events.</span></li>
-      <li><i>4</i><span>Please ask us first before inviting anyone not on the booking.</span></li>
-      <li><i>5</i><span>Please take off your shoes indoors.</span></li>
-      <li><i>6</i><span>No pets.</span></li>
-      <li><i>7</i><span>If anything is broken, tell us right away. Being honest is all we ask.</span></li>
-    </ol>
-
-    <h3 id="checkout" style="scroll-margin-top:70px"><span class="ko">체크아웃 전에 부탁드려요</span><span class="en">Before you check out</span></h3>
-    <div class="check" data-store="ch-checkout">
-      <label><input type="checkbox"><span><span class="ko">쓰레기는 분리해 집에 두시면 정리해 드립니다</span><span class="en">Sort your trash and leave it inside; we'll take care of it</span></span></label>
-      <label><input type="checkbox"><span><span class="ko">에어컨 · 난방 · 조명 끄기</span><span class="en">Turn off the AC, heating and lights</span></span></label>
-      <label><input type="checkbox"><span><span class="ko">창문 닫고 문이 잠겼는지 확인</span><span class="en">Close the windows and check the door is locked</span></span></label>
-      <label><input type="checkbox"><span><span class="ko">에어비앤비 메시지로 체크아웃 알려주기</span><span class="en">Let us know by Airbnb message that you've left</span></span></label>
-    </div>
-  </section>
-
-  <!-- 4. 찾아오기 -->
+  <!-- 1. 찾아오기 -->
   <section class="s" id="getting" aria-labelledby="h-getting">
     <h2 id="h-getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></h2>
     <p class="intro ko">가장 가까운 역은 지하철 3·4호선 <b>충무로역</b>이에요. 남산 쪽 오르막이라 큰 캐리어가 있다면 택시를 권해요.</p>
@@ -758,6 +483,300 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
       <li><span class="n">4</span><div><b>Through the traditional garden toward Pildong</b><p>Exit the garden onto Pildong-ro</p></div></li>
       <li><span class="n">5</span><div><b>Turn into Pildong-ro 8-gil, and you're here</b><p>32-14, Pildong-ro 8-gil, Jung-gu, Seoul</p></div></li>
     </ol>
+  </section>
+
+  <!-- 2. 체크인·체크아웃 -->
+  <section class="s" id="basics" aria-labelledby="h-basics">
+    <h2 id="h-basics"><span class="ko">체크인 · 체크아웃</span><span class="en">Check-in &amp; check-out</span></h2>
+    <div class="slots">
+      <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크인</small><small class="en">Check-in</small><b class="ko">오후 3시 이후</b><b class="en">After 3 PM</b></div></div>
+      <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크아웃</small><small class="en">Check-out</small><b class="ko">오전 11시 이전</b><b class="en">Before 11 AM</b></div></div>
+    </div>
+    <p class="first-t"><span class="ko">처음 오셨다면 이 순서로</span><span class="en">Just arrived? Start here</span></p>
+    <ol class="go">
+      <li><a href="#host"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요</small><small class="en">The door code comes by Airbnb message on check-in day</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+      <li><button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><span class="n">2</span><span><b class="ko">Wi-Fi 연결</b><b class="en">Join the Wi-Fi</b><small class="ko">Copen_Green · 누르면 비밀번호가 복사돼요</small><small class="en">Copen_Green · tap to copy the password</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></li>
+      <li><a href="#heating"><span class="n">3</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat right of the entrance</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+      <li><a href="#rules"><span class="n">4</span><span><b class="ko">쓰레기·하우스 룰 보기</b><b class="en">Read trash &amp; house rules</b><small class="ko">쓰레기는 일~금 저녁 7시~자정, 토요일은 안 돼요</small><small class="en">Trash goes out Sun–Fri 7 PM to midnight, never Saturday</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    </ol>
+    <section class="now" id="now" aria-labelledby="now-h">
+      <p class="now-h" id="now-h"><small class="ko">지금 필동은</small><small class="en">Right now in Pildong</small><b class="clock" id="now-clock"></b><small id="now-day"></small></p>
+      <ul id="now-list"></ul>
+    </section>
+    <dl class="facts" style="margin-top:16px">
+      <div><dt><span class="ko">출입 방법</span><span class="en">Getting in</span></dt><dd><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요.</span><span class="en">We send the door lock code by Airbnb message on check-in day.</span></dd></div>
+      <div><dt><span class="ko">입구·층</span><span class="en">Entrance</span></dt><dd><span class="ko">건물 1층</span><span class="en">Ground floor (1F)</span></dd></div>
+      <div><dt><span class="ko">짐 보관</span><span class="en">Luggage</span></dt><dd><span class="ko">미리 알려주시면 안내해 드려요.</span><span class="en">Let us know in advance and we'll help you arrange it.</span></dd></div>
+    </dl>
+    <figure class="photos">
+      <div><img src="img/entrance.jpg" width="600" height="900" loading="lazy" alt="건물 입구와 계단" data-alt-ko="건물 입구와 계단" data-alt-en="Copen Haus building entrance and stairs"><figcaption><span class="ko">건물 입구 · 계단</span><span class="en">Building entrance &amp; stairs</span></figcaption></div>
+      <div><img src="img/alley.jpg" width="600" height="748" loading="lazy" alt="골목에서 본 Copen Haus" data-alt-ko="골목에서 본 Copen Haus" data-alt-en="Copen Haus seen from the alley"><figcaption><span class="ko">골목에서 본 Copen Haus</span><span class="en">Copen Haus from the alley</span></figcaption></div>
+    </figure>
+    <h3 id="checkout" style="scroll-margin-top:70px"><span class="ko">체크아웃 전에 부탁드려요</span><span class="en">Before you check out</span></h3>
+    <div class="check" data-store="ch-checkout">
+      <label><input type="checkbox"><span><span class="ko">쓰레기는 분리해 집에 두시면 정리해 드립니다</span><span class="en">Sort your trash and leave it inside; we'll take care of it</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">에어컨 · 난방 · 조명 끄기</span><span class="en">Turn off the AC, heating and lights</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">창문 닫고 문이 잠겼는지 확인</span><span class="en">Close the windows and check the door is locked</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">에어비앤비 메시지로 체크아웃 알려주기</span><span class="en">Let us know by Airbnb message that you've left</span></span></label>
+    </div>
+  </section>
+
+  <!-- 3. 와이파이·생활 -->
+  <section class="s" id="rules" aria-labelledby="h-rules">
+    <h2 id="h-rules"><span class="ko">와이파이 · 생활 안내</span><span class="en">Wi-Fi &amp; house</span></h2>
+    <dl class="facts" style="margin-bottom:8px">
+      <div><dt>Wi-Fi</dt><dd><div class="chips" style="margin-top:0"><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div><p class="small" style="margin-top:8px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
+    </dl>
+    <h3 id="trash" style="scroll-margin-top:70px"><span class="ko">쓰레기 버리는 법</span><span class="en">Trash &amp; recycling</span></h3>
+    <div class="when"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><b class="ko">일~금요일 저녁 7시 ~ 자정</b><b class="en">Sun–Fri, 7 PM to midnight</b><span class="ko">집 앞에 내놓아요 · 토요일은 배출 금지</span><span class="en">Put it out in front of the house · never on Saturday</span></div></div>
+    <div class="bins">
+      <div class="bin" style="--c:#8b8b7a"><b class="ko">일반 쓰레기</b><b class="en">General waste</b><span class="ko">중구 종량제 봉투(흰색)</span><span class="en">White Jung-gu <span class="nw">pay-as-you-throw bag</span></span></div>
+      <div class="bin" style="--c:#c98a3a"><b class="ko">음식물</b><b class="en">Food waste</b><span class="ko">물기 빼고 전용 봉투·용기</span><span class="en">Drain it, then use the <span class="nw">food-waste bag</span> or bin</span></div>
+      <div class="bin" style="--c:#3a7bb0"><b class="ko">재활용</b><b class="en">Recycling</b><span class="ko">캔·병·플라스틱·비닐을 헹궈 투명 봉지에</span><span class="en">Rinse cans, bottles, plastic and vinyl, then put them in a clear bag</span></div>
+      <div class="bin" style="--c:#a0784c"><b class="ko">종이·상자</b><b class="en">Paper &amp; boxes</b><span class="ko">펼쳐서 묶어 배출</span><span class="en">Flatten and tie together</span></div>
+    </div>
+    <p class="note ko">봉투 위치와 내놓는 자리: <b>1층 현관문 옆</b>. 시간·장소를 어기면 과태료 10~30만원이 부과돼요.</p>
+    <p class="note en">Bags are kept, and trash goes out, <b>next to the <span class="nw">ground-floor front door</span></b>. Wrong day, time or place can mean a <span class="nw">₩100,000–300,000 fine</span>.</p>
+
+    <h3><span class="ko">하우스 룰</span><span class="en">House rules</span></h3>
+    <ol class="rules ko">
+      <li><i>1</i><span>실내 금연입니다. 건물 앞·계단에서도 흡연하지 말아주세요.</span></li>
+      <li><i>2</i><span>밤 10시~아침 8시는 조용히 해주세요. 골목과 계단의 대화도 잘 울립니다.</span></li>
+      <li><i>3</i><span>파티·행사는 불가합니다.</span></li>
+      <li><i>4</i><span>예약 인원 외 방문객은 미리 문의해 주세요.</span></li>
+      <li><i>5</i><span>실내에서는 신발을 벗어주세요.</span></li>
+      <li><i>6</i><span>반려동물은 허용이 불가합니다.</span></li>
+      <li><i>7</i><span>파손된 물건이 있으면 바로 알려주세요. 솔직하게 말씀해 주시면 됩니다.</span></li>
+    </ol>
+    <ol class="rules en">
+      <li><i>1</i><span>No smoking indoors, and please don't smoke in front of the building or on the stairs either.</span></li>
+      <li><i>2</i><span>Quiet hours are 10 PM – 8 AM. Voices carry in the alley and stairwell.</span></li>
+      <li><i>3</i><span>No parties or events.</span></li>
+      <li><i>4</i><span>Please ask us first before inviting anyone not on the booking.</span></li>
+      <li><i>5</i><span>Please take off your shoes indoors.</span></li>
+      <li><i>6</i><span>No pets.</span></li>
+      <li><i>7</i><span>If anything is broken, tell us right away. Being honest is all we ask.</span></li>
+    </ol>
+
+  </section>
+
+  <!-- 4. 집 사용법 -->
+  <section class="s" id="house" aria-labelledby="h-house">
+    <h2 id="h-house"><span class="ko">집 사용법</span><span class="en">Using the house</span></h2>
+    <p class="intro ko">기기를 누르면 그림과 번호별 설명이 펼쳐져요. 그림을 누르면 크게 볼 수 있어요.</p>
+    <p class="intro en">Tap an appliance to open its guide. Tap a diagram to see it larger. (Labels on the appliances are in Korean, so match them by number.)</p>
+    <nav class="devgrid" aria-label="기기 바로가기" data-label-ko="기기 바로가기" data-label-en="Appliances">
+      <a href="#heating"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg><span class="ko">난방·온수</span><span class="en">Heating</span></a>
+      <a href="#washer"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M7.5 6.5h2"/></svg><span class="ko">세탁기</span><span class="en">Washer</span></a>
+      <a href="#dryer"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M10 11.5c1 .8 3 .8 4 0M10 14.5c1 .8 3 .8 4 0"/></svg><span class="ko">건조기</span><span class="en">Dryer</span></a>
+      <a href="#microwave"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="6" y="8" width="9" height="8" rx="1"/><path d="M18 9v.01M18 12v.01M18 15v.01"/></svg><span class="ko">전자레인지</span><span class="en">Microwave</span></a>
+      <a href="#induction"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="2.5"/><circle cx="15.5" cy="10" r="2.5"/><path d="M7 16.5h10"/></svg><span class="ko">인덕션</span><span class="en">Cooktop</span></a>
+      <a href="#tv"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span class="ko">TV 리모컨</span><span class="en">TV remote</span></a>
+    </nav>
+
+    <details class="dev" id="heating">
+      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg></span><span class="tt"><b class="ko">난방 · 온수</b><b class="en">Heating &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat on the wall, right of the entrance</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body">
+        <p class="lede ko">현관 오른쪽 벽에 있는 온도조절기로 난방과 온수를 조절해요.</p>
+        <p class="lede en">Use the thermostat on the wall to the right of the entrance for both heating and hot water.</p>
+        <figure class="fig"><button class="zoom" type="button" data-zoom="img/boiler.png" data-zoom-ko="img/boiler.png" data-zoom-en="img/en/boiler.png"><img src="img/boiler.png" data-src-ko="img/boiler.png" data-src-en="img/en/boiler.png" width="1000" height="844" loading="lazy" alt="온도조절기 그림" data-alt-ko="온도조절기 그림" data-alt-en="Boiler thermostat diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <div class="most">
+          <b class="h ko">주로 쓰는 기능</b><b class="h en">What you'll use most</b>
+          <ol class="ko"><li><b>전원</b>: 보일러를 켜고 끌 때 눌러요.</li><li><b>외출</b>: 집을 비울 때 눌러요.</li><li><b>난방</b>: 난방 버튼을 누르고 다이얼을 왼쪽으로 돌리면 온도가 내려가고, 오른쪽으로 돌리면 올라가요.</li></ol>
+          <ol class="en"><li><b>Power (전원)</b>: turns the boiler on and off.</li><li><b>Away (외출)</b>: press when you go out.</li><li><b>Heating (난방)</b>: press it, then turn the dial right to warm up or left to cool down.</li></ol>
+        </div>
+        <ul class="keys ko">
+          <li><i>화면</i><span>왼쪽 숫자는 실내온도, <span class="nw">오른쪽 숫자는 온수온도예요</span>.</span></li>
+          <li><i>온수</i><span>온수 버튼을 누르고 다이얼로 온수 온도를 맞춰요.</span></li>
+          <li><i>예약</i><span>시간 예약을 설정해요.</span></li>
+          <li><i>온돌</i><span>바닥 난방(온돌) 기능을 설정해요.</span></li>
+        </ul>
+        <ul class="keys en">
+          <li><i>Screen</i><span>Left number is the room temperature, right number is the <span class="nw">hot-water temperature</span>.</span></li>
+          <li><i>Hot water (온수)</i><span>Press it, then turn the dial to set the <span class="nw">water temperature</span>.</span></li>
+          <li><i>Timer (예약)</i><span>Set a schedule.</span></li>
+          <li><i>Ondol (온돌)</i><span>Underfloor heating mode.</span></li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 에어컨 카드: 리모컨 사진·설명을 받으면 주석을 풀고 내용을 채워요
+    <details class="dev" id="aircon">
+      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M4.9 7l14.2 10M4.9 17L19.1 7M9 4l3 2 3-2M9 20l3-2 3 2"/></svg></span><span class="tt"><b class="ko">에어컨</b><b class="en">Air conditioner</b><small class="ko">사용법 준비 중</small><small class="en">Guide coming soon</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body">
+        <p class="lede ko">에어컨 사용법은 곧 추가할게요. 그전에 사용법이 궁금하면 언제든 호스트에게 연락 주세요.</p>
+        <p class="lede en">We're adding a guide for the air conditioner soon. Until then, message your host anytime if you need help with it.</p>
+        <div class="chips"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">호스트 연락처 보기</span><span class="en">Contact the host</span></a></div>
+      </div>
+    </details>
+    -->
+
+    <details class="dev" id="washer">
+      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M7.5 6.5h2"/></svg></span><span class="tt"><b class="ko">세탁기</b><b class="en">Washing machine</b><small class="ko">코스 선택 → 동작 버튼 길게</small><small class="en">Pick a course, then hold Start</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body">
+        <p class="lede ko">전원을 켜고 <b>코스를 고른 뒤 동작 <span class="nw">버튼을 길게</span></b> 누르면 시작돼요.</p>
+        <p class="lede en">Turn it on, <b>choose a course, then press and hold Start</b>.</p>
+        <figure class="fig"><button class="zoom" type="button" data-zoom="img/washer.png" data-zoom-ko="img/washer.png" data-zoom-en="img/en/washer.png"><img src="img/washer.png" data-src-ko="img/washer.png" data-src-en="img/en/washer.png" width="1000" height="665" loading="lazy" alt="세탁기 조작부 그림" data-alt-ko="세탁기 조작부 그림" data-alt-en="Washing machine control panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <ul class="keys ko">
+          <li><i>1</i><span><b>코스 다이얼</b>: 돌려서 코스를 골라요 (표준세탁이 기본)</span></li>
+          <li><i>2</i><span><b>세탁온도</b>: 물 온도 선택 (냉수~90도)</span></li>
+          <li><i>3</i><span><b>헹굼횟수</b>: 헹굼 횟수 선택 (1~5회)</span></li>
+          <li><i>4</i><span><b>탈수세기</b>: 탈수 세기 선택 (섬세~최강)</span></li>
+          <li><i>5</i><span><b>오염도</b>: 낮음 · 보통 · 높음 중 선택</span></li>
+          <li><i>6</i><span><b>종료예약</b>: 세탁이 끝나는 시간을 예약해요</span></li>
+          <li><i>7</i><span><b>버블불림</b>: 거품으로 찌든 때를 불려서 세탁해요</span></li>
+          <li><i>8</i><span><b>세탁물추가</b>: 작동 중 빨래를 더 넣고 싶을 때 눌러요</span></li>
+          <li><i>9</i><span><b>스마트컨트롤</b>: 스마트폰 <span class="nw">앱(SmartThings)으로</span> 조작해요</span></li>
+          <li><i>10</i><span><b>전원</b>: 세탁기를 켜고 꺼요</span></li>
+          <li><i>11</i><span><b>동작/일시정지</b>: 길게 눌러 시작, 누르면 잠시 멈춰요</span></li>
+          <li><i>12</i><span><b>어린이보호</b>: 세탁온도 + 헹굼횟수를 함께 3초 누르면 잠겨요</span></li>
+        </ul>
+        <ul class="keys en">
+          <li><i>1</i><span><b>Course dial (코스)</b>: turn to pick a course (Standard 표준세탁 is the default)</span></li>
+          <li><i>2</i><span><b>Temperature (세탁온도)</b>: cold to 90°C</span></li>
+          <li><i>3</i><span><b>Rinses (헹굼횟수)</b>: 1 to 5</span></li>
+          <li><i>4</i><span><b>Spin (탈수세기)</b>: delicate to max</span></li>
+          <li><i>5</i><span><b>Soil level (오염도)</b>: low, normal or high</span></li>
+          <li><i>6</i><span><b>Finish timer (종료예약)</b>: set when the wash should end</span></li>
+          <li><i>7</i><span><b>Bubble soak (버블불림)</b>: soaks tough dirt with foam</span></li>
+          <li><i>8</i><span><b>Add laundry (세탁물추가)</b>: press to add items <span class="nw">mid-cycle</span></span></li>
+          <li><i>9</i><span><b>Smart control (스마트컨트롤)</b>: control it with the SmartThings app</span></li>
+          <li><i>10</i><span><b>Power</b>: on and off</span></li>
+          <li><i>11</i><span><b>Start / Pause</b>: hold to start, press to pause</span></li>
+          <li><i>12</i><span><b>Child lock (어린이보호)</b>: hold Temperature + Rinses together for 3 seconds</span></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="dev" id="dryer">
+      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M10 11.5c1 .8 3 .8 4 0M10 14.5c1 .8 3 .8 4 0"/></svg></span><span class="tt"><b class="ko">건조기</b><b class="en">Dryer</b><small class="ko">코스 선택 → 동작 버튼 길게</small><small class="en">Pick a course, then hold Start</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body">
+        <p class="lede ko">전원을 켜고 <b>코스를 고른 뒤 동작 <span class="nw">버튼을 길게</span></b> 누르면 시작돼요.</p>
+        <p class="lede en">Turn it on, <b>choose a course, then press and hold Start</b>.</p>
+        <figure class="fig"><button class="zoom" type="button" data-zoom="img/dryer.png" data-zoom-ko="img/dryer.png" data-zoom-en="img/en/dryer.png"><img src="img/dryer.png" data-src-ko="img/dryer.png" data-src-en="img/en/dryer.png" width="1000" height="696" loading="lazy" alt="건조기 조작부 그림" data-alt-ko="건조기 조작부 그림" data-alt-en="Dryer control panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <ul class="keys ko">
+          <li><i>1</i><span><b>코스 다이얼</b>: 돌려서 코스를 골라요 (표준건조가 기본)</span></li>
+          <li><i>2</i><span><b>건조정도</b>: 1~4단계 (3이 표준)</span></li>
+          <li><i>3</i><span><b>건조시간</b>: 20 · 40 · 60 · 90분 이상 (시간건조 · 선반건조 코스)</span></li>
+          <li><i>4</i><span><b>다림질알림</b>: 다림질하기 좋은 상태일 때 알려줘요</span></li>
+          <li><i>5</i><span><b>구김방지</b>: 건조 후 구김을 줄여줘요</span></li>
+          <li><i>6</i><span><b>열풍내부살균</b>: 열풍으로 건조기 안을 살균해요</span></li>
+          <li><i>7</i><span><b>드럼라이트</b>: 건조기 안 불을 켜고 꺼요</span></li>
+          <li><i>8</i><span><b>소리 끔</b>: 알림음을 꺼요</span></li>
+          <li><i>9</i><span><b>스마트컨트롤</b>: 스마트폰 <span class="nw">앱(SmartThings)으로</span> 조작해요</span></li>
+          <li><i>10</i><span><b>전원</b>: 건조기를 켜고 꺼요</span></li>
+          <li><i>11</i><span><b>동작/일시정지</b>: 길게 눌러 시작, 누르면 잠시 멈춰요</span></li>
+          <li><i>12</i><span><b>어린이보호</b>: 건조정도 + 건조시간을 함께 3초 누르면 잠겨요</span></li>
+        </ul>
+        <p class="note ko">이불털기/패딩케어 코스는 에어워시 코스예요.</p>
+        <ul class="keys en">
+          <li><i>1</i><span><b>Course dial (코스)</b>: turn to pick a course (Standard 표준건조 is the default)</span></li>
+          <li><i>2</i><span><b>Dryness (건조정도)</b>: levels 1 to 4 (3 is standard)</span></li>
+          <li><i>3</i><span><b>Dry time (건조시간)</b>: 20, 40, 60 or 90+ minutes (Timed and Rack courses)</span></li>
+          <li><i>4</i><span><b>Iron alert (다림질알림)</b>: beeps when clothes are just right for ironing</span></li>
+          <li><i>5</i><span><b>Wrinkle care (구김방지)</b>: reduces creases after drying</span></li>
+          <li><i>6</i><span><b>Hot-air sanitize (열풍내부살균)</b>: sanitizes the drum with hot air</span></li>
+          <li><i>7</i><span><b>Drum light (드럼라이트)</b>: light inside on/off</span></li>
+          <li><i>8</i><span><b>Sound off (소리 끔)</b>: turns off the beeps</span></li>
+          <li><i>9</i><span><b>Smart control (스마트컨트롤)</b>: control it with the SmartThings app</span></li>
+          <li><i>10</i><span><b>Power</b>: on and off</span></li>
+          <li><i>11</i><span><b>Start / Pause</b>: hold to start, press to pause</span></li>
+          <li><i>12</i><span><b>Child lock (어린이보호)</b>: hold Dryness + Dry time together for 3 seconds</span></li>
+        </ul>
+        <p class="note en">The Bedding Refresh / Padding Care (이불털기/패딩케어) course is an Air Wash course.</p>
+      </div>
+    </details>
+
+    <details class="dev" id="microwave">
+      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="6" y="8" width="9" height="8" rx="1"/><path d="M18 9v.01M18 12v.01M18 15v.01"/></svg></span><span class="tt"><b class="ko">전자레인지</b><b class="en">Microwave</b><small class="ko">다이얼 2개: 모드 → 시간</small><small class="en">Two dials: mode, then time</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body">
+        <p class="lede ko">다이얼 2개만 돌리면 돼요. 모드를 고르고 시간을 맞춰 주세요.</p>
+        <p class="lede en">Just two dials: pick a mode, then set the time.</p>
+        <figure class="fig"><button class="zoom" type="button" data-zoom="img/microwave.png" data-zoom-ko="img/microwave.png" data-zoom-en="img/en/microwave.png"><img src="img/microwave.png" data-src-ko="img/microwave.png" data-src-en="img/en/microwave.png" width="1000" height="534" loading="lazy" alt="전자레인지 다이얼 그림" data-alt-ko="전자레인지 다이얼 그림" data-alt-en="Microwave dials diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <ol class="steps ko">
+          <li><span class="n">1</span><div><b>음식을 넣고 문을 닫아요</b></div></li>
+          <li><span class="n">2</span><div><b>선택모드 다이얼을 돌려 모드를 맞춰요</b><p>약 · 중 · 강은 화력 세기(강할수록 빨리 데워져요), 데우기는 남은 음식이나 식은 음식, 해동은 얼린 음식</p></div></li>
+          <li><span class="n">3</span><div><b>분(min) 다이얼을 시계 방향으로 돌려 시간을 맞춰요</b><p>최대 30분</p></div></li>
+          <li><span class="n">4</span><div><b>시간이 다 되면 문을 열고 꺼내요</b></div></li>
+        </ol>
+        <ol class="steps en">
+          <li><span class="n">1</span><div><b>Put the food in and close the door</b></div></li>
+          <li><span class="n">2</span><div><b>Turn the <span class="nw">Mode dial (선택모드)</span></b><p>Low · Medium · High (약 · 중 · 강) = power level (higher heats faster). Warm (데우기) = reheat leftovers. Defrost (해동) = thaw frozen food.</p></div></li>
+          <li><span class="n">3</span><div><b>Turn the <span class="nw">Minutes dial (분)</span> clockwise</b><p>Up to 30 minutes</p></div></li>
+          <li><span class="n">4</span><div><b>When it stops, open the door and take it out</b></div></li>
+        </ol>
+        <p class="warn ko"><b>주의</b> · 금속 그릇, 알루미늄 호일, 밀폐 용기는 넣지 마세요.</p>
+        <p class="warn en"><b>Careful</b> · No metal dishes, foil or sealed containers.</p>
+      </div>
+    </details>
+
+    <details class="dev" id="induction">
+      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="2.5"/><circle cx="15.5" cy="10" r="2.5"/><path d="M7 16.5h10"/></svg></span><span class="tt"><b class="ko">인덕션 (3구)</b><b class="en">Induction cooktop</b><small class="ko">전원 → 화구 화력 조절</small><small class="en">Power on, then set each burner</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body">
+        <p class="lede ko">조작부의 번호와 아래 설명을 함께 확인해 주세요.</p>
+        <p class="lede en">Match the numbers on the touch panel with the list below.</p>
+        <figure class="fig"><button class="zoom" type="button" data-zoom="img/induction.png" data-zoom-ko="img/induction.png" data-zoom-en="img/en/induction.png"><img src="img/induction.png" data-src-ko="img/induction.png" data-src-en="img/en/induction.png" width="1000" height="627" loading="lazy" alt="인덕션 조작부 그림" data-alt-ko="인덕션 조작부 그림" data-alt-en="Induction cooktop and touch panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <ul class="keys ko">
+          <li><i>9</i><span><b>전원</b>: 전원을 켜고 꺼요</span></li>
+          <li><i>1·2·4</i><span><b>화력 − / +</b>: 1번 · 2번 · 3번 화구의 불 세기를 조절해요</span></li>
+          <li><i>5</i><span><b>화구 선택</b>: 작동 중인 화구를 골라요</span></li>
+          <li><i>6</i><span><b>작동 / 일시정지</b></span></li>
+          <li><i>3</i><span><b>타이머 − / +</b>: 최대 60분</span></li>
+          <li><i>7</i><span><b>터보</b>: 3번 화구를 최대 화력으로 (10분 뒤 원래 단계로)</span></li>
+          <li><i>8</i><span><b>잠금</b>: 잠금 상태를 보여줘요</span></li>
+          <li><i class="h">H</i><span><b>H 표시</b>: 화면에 H가 보이면 아직 뜨거워요. 조심하세요.</span></li>
+        </ul>
+        <ul class="keys en">
+          <li><i>9</i><span><b>Power</b>: on and off</span></li>
+          <li><i>1·2·4</i><span><b>Heat − / +</b>: for burners 1, 2 and 3</span></li>
+          <li><i>5</i><span><b>Burner select (화구 선택)</b>: choose which active burner to adjust</span></li>
+          <li><i>6</i><span><b>Start / Pause</b></span></li>
+          <li><i>3</i><span><b>Timer − / +</b>: up to 60 minutes</span></li>
+          <li><i>7</i><span><b>Turbo</b>: max heat on burner 3 (drops back after 10 minutes)</span></li>
+          <li><i>8</i><span><b>Lock</b>: shows when the panel is locked</span></li>
+          <li><i class="h">H</i><span><b>H on the display</b>: the surface is still hot. Be careful.</span></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="dev" id="tv">
+      <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span class="tt"><b class="ko">TV 리모컨</b><b class="en">TV remote</b><small class="ko">넷플릭스·유튜브 바로가기 버튼</small><small class="en">Netflix and YouTube shortcut buttons</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body">
+        <p class="lede ko">자주 쓰는 버튼만 번호로 알려 드릴게요.</p>
+        <p class="lede en">Here are the buttons you'll actually use.</p>
+        <figure class="fig tall"><button class="zoom" type="button" data-zoom="img/remote.png" data-zoom-ko="img/remote.png" data-zoom-en="img/en/remote.png"><img src="img/remote.png" data-src-ko="img/remote.png" data-src-en="img/en/remote.png" width="555" height="1225" loading="lazy" alt="TV 리모컨 그림" data-alt-ko="TV 리모컨 그림" data-alt-en="TV remote diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+        <ul class="keys ko">
+          <li><i>1</i><span><b>전원</b>: TV를 켜고 꺼요</span></li>
+          <li><i>2</i><span><b>음소거</b>: 소리를 잠시 꺼요</span></li>
+          <li><i>3</i><span><b>숫자 버튼</b>: 채널 번호를 눌러요</span></li>
+          <li><i>4</i><span><b>방향키 · 확인</b>: 이동하고 선택해요</span></li>
+          <li><i>5</i><span><b>이전</b>: 이전 화면으로 가요</span></li>
+          <li><i>6</i><span><b>홈</b>: 홈 화면으로 가요</span></li>
+          <li><i>7</i><span><b>Live TV</b>: TV 방송을 봐요</span></li>
+          <li><i>8</i><span><b>음량 + / −</b>: 소리를 키우고 줄여요</span></li>
+          <li><i>9</i><span><b>채널 + / −</b>: 채널을 바꿔요</span></li>
+          <li><i>10</i><span><b>외부입력</b>: 연결한 기기 화면으로 바꿔요</span></li>
+          <li><i>11</i><span><b>앱 버튼</b>: 넷플릭스 · 유튜브 · 프라임 · 디즈니+ 바로 열기</span></li>
+          <li><i>12</i><span><b>재생 버튼</b>: 되감기 · 재생/멈춤 · 빨리감기</span></li>
+        </ul>
+        <ul class="keys en">
+          <li><i>1</i><span><b>Power</b></span></li>
+          <li><i>2</i><span><b>Mute</b></span></li>
+          <li><i>3</i><span><b>Number keys</b>: enter a channel</span></li>
+          <li><i>4</i><span><b>Arrows · OK</b>: move and select</span></li>
+          <li><i>5</i><span><b>Back</b></span></li>
+          <li><i>6</i><span><b>Home</b></span></li>
+          <li><i>7</i><span><b>Live TV</b>: watch broadcast TV</span></li>
+          <li><i>8</i><span><b>Volume (음량) + / −</b>: sound up or down</span></li>
+          <li><i>9</i><span><b>Channel (채널) + / −</b>: change channels</span></li>
+          <li><i>10</i><span><b>Input</b>: switch to a connected device</span></li>
+          <li><i>11</i><span><b>App buttons</b>: Netflix, YouTube, Prime Video, Disney+</span></li>
+          <li><i>12</i><span><b>Playback</b>: rewind, play/pause, <span class="nw">fast-forward</span></span></li>
+        </ul>
+        <p class="note ko">넷플릭스, 디즈니+ 등은 개인 계정으로 로그인해 이용하실 수 있어요.</p>
+        <p class="note en">Sign in with your own account for Netflix, Disney+ and others.</p>
+      </div>
+    </details>
   </section>
 
   <!-- 5. 맛집·카페 -->
@@ -982,10 +1001,13 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   document.querySelectorAll('[data-lang-toggle]').forEach(function(btn){btn.addEventListener('click',function(){var l=root.dataset.lang==='ko'?'en':'ko';applyLang(l);
     say(l==='ko'?'한국어로 바꿨어요':'Switched to English',1400)})});
   // 복사
-  function say(t,ms){toast.textContent=t;toast.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on')},ms||2400)}
+  function say(t,ms){toast.textContent=t;toast.classList.remove('stay');toast.onclick=null;toast.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on')},ms||2400)}
   document.addEventListener('click',function(e){var b=e.target.closest('[data-copy]');if(!b)return;var v=b.dataset.copy;
-    (navigator.clipboard?navigator.clipboard.writeText(v):Promise.reject()).catch(function(){var t=document.createElement('textarea');t.value=v;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,v.length);try{document.execCommand('copy')}catch(_){}t.remove()});
-    say(b.dataset['toast'+(root.dataset.lang==='ko'?'Ko':'En')]||v,3200)});
+    var ok=function(){say(b.dataset['toast'+(root.dataset.lang==='ko'?'Ko':'En')]||v,3200)};
+    // 복사가 안 되면(카카오톡·LINE 안 브라우저 등) '복사됨' 대신 글자를 크게 보여 줘요
+    var fail=function(){toast.textContent='';var m=document.createElement('span');m.textContent=root.dataset.lang==='ko'?'복사가 안 됐어요. 직접 입력해 주세요':'Couldn\u2019t copy. Please type it in';var big=document.createElement('b');big.className='big';big.textContent=v;toast.appendChild(m);toast.appendChild(big);toast.classList.add('on','stay');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on','stay')},15000);toast.onclick=function(){clearTimeout(toast._t);toast.classList.remove('on','stay');toast.onclick=null}};
+    var legacy=function(){var t=document.createElement('textarea'),r=false;t.value=v;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,v.length);try{r=document.execCommand('copy')}catch(_){}t.remove();b.focus&&b.focus({preventScroll:true});r?ok():fail()};
+    if(navigator.clipboard&&window.isSecureContext!==false){navigator.clipboard.writeText(v).then(ok,legacy)}else legacy()});
   // iOS Safari에서 버튼 눌림(:active) 반응이 보이게
   document.addEventListener('touchstart',function(){},{passive:true});
   // '이 가이드 사용법'은 처음엔 접혀 있고, 펼쳐 두면 다음에도 펼친 채로
@@ -1058,7 +1080,9 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     else if(h>=11&&h<15)a.push(item('info','체크인은 오후 3시부터예요. 짐 보관은 미리 물어봐 주세요','Check-in starts at 3 PM. Ask us ahead about luggage','#basics'));
     if(d===1&&h<21)a.push(item('info','월요일은 남산골한옥마을 한옥이 쉬어요. 정원 길은 열려 있어요','Namsangol\'s hanok houses close on Mondays. The garden stays open','#explore'));
     if(d===0&&h<20)a.push(item('info','일요일은 필동면옥이 쉬어요','Pildong Myeonok is closed on Sundays','#eat'));
-    nowList.innerHTML=a.slice(0,3).join('')}
+    var html=a.slice(0,3).join('');
+    // 내용이 바뀔 때만, 그리고 카드 안에 포커스가 없을 때만 목록을 다시 그려요
+    if(html!==nowList._h&&!nowList.contains(document.activeElement)){nowList.innerHTML=html;nowList._h=html}}
   renderNow();setInterval(renderNow,30000);
   document.addEventListener('visibilitychange',function(){if(!document.hidden)renderNow()});
 
