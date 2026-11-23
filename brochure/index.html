@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Serif+KR:wght@700&amp;display=swap">
 <script>
-/* 언어: 가이드북과 같은 규칙이에요. 1) 주소의 ?lang= 2) 한/ENG로 직접 고른 언어(이 휴대폰에 기억, 가이드북과 함께 써요) 3) 휴대폰 언어가 한국어면 한국어, 아니면 영어 */
+/* 언어: 1) 주소의 ?lang= 2) 한/ENG로 직접 고른 언어(이 휴대폰에 기억) 3) 휴대폰 언어가 한국어면 한국어, 아니면 영어 */
 (function(){var m=location.search.match(/[?&]lang=(ko|en)/),l=(m||[])[1],s;
   if(!l){try{s=localStorage.getItem('ch-lang')}catch(e){}if(s==='ko'||s==='en')l=s}
   if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'';l=/^ko\b/i.test(n)?'ko':'en'}
@@ -304,11 +304,9 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
 @media print{.tabs,#top,.lang,.back,.now,.inapp{display:none}details.dev .body{display:block}}
 
 /* ── 도착 안내(브로셔) 전용 ── */
-.welcome .btns{margin-top:12px}
 .btn .lead{position:absolute;left:16px;width:20px;height:20px}
 .btn.primary .lead,.btn.primary .trail{color:var(--bg)}
-.link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:700;color:var(--green);text-decoration:none}
-.link .ic{width:16px;height:16px}
+.go .g{display:grid;grid-template-columns:30px minmax(0,1fr) 18px;align-items:center;gap:12px;min-height:58px;padding:8px 12px;border-radius:14px;background:var(--card2)}
 </style>
 </head>
 <body>
@@ -326,7 +324,6 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
         <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg></span><span class="ko"><b>그림 크게 보기</b>약도를 누르면 크게 열려요. 두 손가락으로 확대하고, 다 보면 ‘닫기’를 눌러요.</span><span class="en"><b>Zoom the map</b>Tap the walking map to open it full size. Pinch to zoom, then tap “Close”.</span></li>
         <li><span class="demo pill"><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></span><span class="ko"><b>눌러서 복사</b>복사 아이콘이 있는 버튼은 누르면 바로 복사돼요. 화면 아래에 ‘복사됨’이 잠깐 떠요.</span><span class="en"><b>Tap to copy</b>Buttons with a copy icon copy their text. You’ll see a short “copied” note at the bottom.</span></li>
         <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="ko"><b>지도 열기</b>‘네이버지도 길찾기’ 버튼은 네이버지도에서 숙소 위치를 열어요.</span><span class="en"><b>Open the map</b>“Naver Map” and “Google Maps” buttons open the house in that app. Naver Map gives the best directions in Korea.</span></li>
-        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4.5A1.5 1.5 0 016.5 3H19v15H6.5A1.5 1.5 0 005 19.5zM5 19.5A1.5 1.5 0 006.5 21H19M9 7h6M9 10.5h4"/></svg></span><span class="ko"><b>전체 가이드북</b>집 사용법, 맛집, 공항 픽업 같은 더 많은 안내는 ‘전체 가이드북 보기’에 있어요.</span><span class="en"><b>Full guidebook</b>Appliances, food nearby, airport pick-up and more are in the full guidebook.</span></li>
       </ul>
       <div class="close"><button class="chip" type="button" data-howto-close><span class="ko">닫기</span><span class="en">Close</span></button></div>
     </details>
@@ -356,9 +353,6 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
       <div><dt><span class="ko">주소</span><span class="en">Address</span></dt><dd><span class="ko">서울특별시 중구 필동로8길 32-14</span><span class="en">32-14, <span class="nw">Pildong-ro 8-gil,</span> <span class="nw">Jung-gu,</span> Seoul</span><div class="chips" style="margin-top:8px"><button class="chip" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">한글 주소 복사</span><span class="en">Copy Korean address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-ko="영문 주소 복사됨" data-toast-en="Address copied"><span class="ko">영문 주소 복사</span><span class="en">Copy English address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></dd></div>
       <div><dt><span class="ko">호스트</span><span class="en">Host</span></dt><dd>Lisa · +82-10-9328-0969<br><span class="ko">카카오톡 · LINE · WhatsApp (ID: free01270)</span><span class="en">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><div class="chips" style="margin-top:8px"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">연락하기</span><span class="en">Contact Lisa</span></a></div></dd></div>
     </dl>
-    <div class="btns">
-      <a class="btn" href="../" data-keep-lang><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4.5A1.5 1.5 0 016.5 3H19v15H6.5A1.5 1.5 0 005 19.5zM5 19.5A1.5 1.5 0 006.5 21H19M9 7h6M9 10.5h4"/></svg><span class="ko">전체 가이드북 보기</span><span class="en">Open the guidebook</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
   </section>
 
   <nav class="tabs" aria-label="섹션 메뉴" data-label-ko="섹션 메뉴" data-label-en="Sections">
@@ -404,7 +398,6 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
       <li><span class="n">4</span><div><b>Through the traditional garden toward Pildong</b><p>Exit the garden onto Pildong-ro</p></div></li>
       <li><span class="n">5</span><div><b>Turn into Pildong-ro 8-gil, and you’re here</b><p>32-14, <span class="nw">Pildong-ro 8-gil,</span> <span class="nw">Jung-gu,</span> Seoul</p></div></li>
     </ol>
-    <p class="note"><a class="link" href="../#getting" data-keep-lang><span class="ko">공항·서울역에서 오는 방법은 가이드북에서</span><span class="en">Coming from the airport or Seoul Station? See the guidebook</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </section>
 
   <!-- 2. 체크인·체크아웃 -->
@@ -417,7 +410,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
     <p class="first-t"><span class="ko">처음 오셨다면 이 순서로</span><span class="en">Just arrived? Start here</span></p>
     <ol class="go">
       <li><a href="#host"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내 드려요. 못 받으셨다면 눌러서 Lisa에게 연락하세요</small><small class="en">The door code comes by Airbnb message on check-in day. Didn’t get it? Tap to contact Lisa</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
-      <li><a href="../#heating" data-keep-lang><span class="n">2</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기 · 가이드북에서 사용법 보기</small><small class="en">Thermostat on the wall, right of the entrance · see how in the guidebook</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+      <li><div class="g"><span class="n">2</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat on the wall, right of the entrance</small></span><span aria-hidden="true"></span></div></li>
       <li><a href="#rules"><span class="n">3</span><span><b class="ko">하우스 룰 보기</b><b class="en">Read the house rules</b><small class="ko">실내 금연 · 밤 10시~아침 8시는 조용히</small><small class="en">No smoking indoors · <span class="nw">quiet hours 10 PM – 8 AM</span></small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
     </ol>
     <dl class="facts" style="margin-top:16px">
@@ -450,7 +443,8 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
       <li><i>6</i><span>Please don’t bring pets.</span></li>
       <li><i>7</i><span>If anything is broken, tell us right away. Being honest is all we ask.</span></li>
     </ol>
-    <p class="note"><a class="link" href="../#trash" data-keep-lang><span class="ko">쓰레기 버리는 법은 가이드북에서</span><span class="en">How to sort and put out trash: see the guidebook</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+    <p class="note ko">쓰레기는 <b>일~금요일 저녁 7시~자정</b>에 <span class="nw">1층 현관문 옆에</span> 내놓아 주세요. 토요일에는 내놓을 수 없어요.</p>
+    <p class="note en">Trash goes out <b>Sun–Fri, 7 PM to midnight</b>, next to the <span class="nw">ground-floor front door</span>. Never on Saturday.</p>
   </section>
 
   <!-- 4. 연락처 -->
@@ -487,7 +481,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
 <script>
 (function(){
   var root=document.documentElement,toast=document.getElementById('toast');
-  // 언어 전환: 화면 글자 + 화면 낭독기용 이름(aria-label)·그림 설명(alt)·탭 제목·주소(?lang=)·가이드북 링크까지 함께 바꿔요
+  // 언어 전환: 화면 글자 + 화면 낭독기용 이름(aria-label)·그림 설명(alt)·탭 제목·주소(?lang=)까지 함께 바꿔요
   function applyLang(l){root.lang=l;root.dataset.lang=l;var ko=l==='ko';
     document.title=ko?'Copen Haus 도착 안내':'Copen Haus Arrival guide';
     document.querySelectorAll('[data-label-ko]').forEach(function(e){e.setAttribute('aria-label',e.dataset['label'+(ko?'Ko':'En')])});
@@ -496,7 +490,6 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
     document.querySelectorAll('[data-src-ko]').forEach(function(e){var v=e.dataset['src'+(ko?'Ko':'En')];if(e.getAttribute('src')!==v)e.setAttribute('src',v)});
     document.querySelectorAll('[data-zoom-ko]').forEach(function(e){e.dataset.zoom=e.dataset['zoom'+(ko?'Ko':'En')]});
     document.querySelectorAll('[data-lang-toggle]').forEach(function(b){b.setAttribute('aria-label',b.id==='lang'?(ko?'한 ENG, 언어 바꾸기. 지금 한국어':'한 ENG, switch language. Now English'):(ko?'ENG, 영어로 바꾸기':'한, switch to Korean'))});
-    document.querySelectorAll('a[data-keep-lang]').forEach(function(a){var u=new URL(a.getAttribute('href'),location.href);u.searchParams.set('lang',l);a.href=u.pathname+u.search+u.hash});
     try{var u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}}
   applyLang(root.dataset.lang);
   document.querySelectorAll('[data-lang-toggle]').forEach(function(btn){btn.addEventListener('click',function(){var l=root.dataset.lang==='ko'?'en':'ko';applyLang(l);try{localStorage.setItem('ch-lang',l)}catch(e){}
@@ -511,7 +504,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
     if(navigator.clipboard&&window.isSecureContext!==false){navigator.clipboard.writeText(v).then(ok,legacy)}else legacy()});
   // iOS Safari에서 버튼 눌림(:active) 반응이 보이게
   document.addEventListener('touchstart',function(){},{passive:true});
-  // '이 안내 사용법': 처음엔 접혀 있고, 한 번 눌러 보기 전까지만 은은하게 깜빡여요 (가이드북에서 이미 봤다면 깜빡이지 않아요)
+  // '이 안내 사용법': 처음엔 접혀 있고, 한 번 눌러 보기 전까지만 은은하게 깜빡여요
   var how=document.getElementById('howto');try{if(localStorage.getItem('ch-howto-seen'))how.classList.add('seen')}catch(e){}
   document.querySelectorAll('[data-howto-close]').forEach(function(b){b.addEventListener('click',function(){how.open=false;how.querySelector('summary').focus()})});
   how.addEventListener('toggle',function(){if(how.open){how.classList.add('seen');try{localStorage.setItem('ch-howto-seen','1')}catch(e){}}});
