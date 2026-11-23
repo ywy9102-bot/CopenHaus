@@ -5,11 +5,11 @@ Static site (no build step). Open `index.html` in a browser to preview.
 ## Pages
 | URL | Page |
 |---|---|
-| `/` (`index.html`) | Guest guidebook (the main page guests get): house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency, Wi-Fi QR and host contacts. Korean, English and Japanese (`?lang=ko|en|ja`). Opens in `?lang=` if present; otherwise the language last picked with the language button on that phone; otherwise the phone's language (Korean → Korean, Japanese → Japanese, everything else → English). |
+| `/` (`index.html`) | Guest guidebook (the main page guests get): house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency, Wi-Fi QR and host contacts. Korean, English, Japanese, Simplified Chinese and Traditional Chinese (`?lang=ko|en|ja|zh-CN|zh-TW`). Opens in `?lang=` if present; otherwise the language last picked with the language button on that phone; otherwise the phone's language (Korean → Korean, Japanese → Japanese, zh-CN/zh-SG/zh-Hans → Simplified, zh-TW/zh-HK/zh-MO/zh-Hant → Traditional, everything else → English). |
 | `/brochure/` (`brochure/index.html`) | Short arrival guide in the same design as the guidebook: check-in & check-out, getting here, the 7 house rules, host contacts and emergency numbers. No links to the guidebook. Meant as quick info for guests before check-in. Picks its language the same way as the guidebook (shared 한/ENG memory). Not linked from the guidebook. |
 
 The 한/ENG button on either page updates `?lang=` in the address, so a shared link or a reload keeps the language.
-The guidebook's language button (globe icon, top right and in the sticky menu bar) opens a list: 한국어 / English / 日本語. The brochure is still Korean/English only; it ignores `ja` and falls back to the phone's language.
+The guidebook's language button (globe icon, top right and in the sticky menu bar) opens a list: 한국어 / English / 日本語 / 简体中文 / 繁體中文. Simplified Chinese uses mainland wording, Traditional Chinese uses Taiwan wording. `?lang=zh-hans` / `zh-hant` / `zh-HK` also work; the address always shows `zh-CN` or `zh-TW`. The brochure is still Korean/English only; it ignores `ja`/Chinese and falls back to the phone's language.
 
 Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`.
 
@@ -24,7 +24,7 @@ Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#micr
 |---|---|
 | `index.html` | Guidebook page (all CSS/JS inline) |
 | `brochure/index.html` | Arrival brochure page (all CSS/JS inline) |
-| `img/` | Guidebook diagrams and building photos (from the printed 1F guidebook); `img/en/` and `img/ja/` hold the same diagrams relettered in English and Japanese |
+| `img/` | Guidebook diagrams and building photos (from the printed 1F guidebook); `img/en/`, `img/ja/`, `img/zh-hans/` and `img/zh-hant/` hold the same diagrams relettered in English, Japanese, Simplified and Traditional Chinese |
 | `hero.jpg` | Hero photo |
 | `qr.png` | Wi-Fi QR code (guidebook) |
 | `og.jpg` | Link preview image (KakaoTalk, LINE, etc.) |
@@ -41,11 +41,10 @@ The page contains the host's phone number, Wi-Fi password and the house address.
 Both pages have `<meta name="robots" content="noindex,nofollow,noarchive">` so search engines skip them,
 but anyone with the link can read them. Remove that meta tag if you want the pages to be searchable.
 
-## Adding a language (e.g. Chinese)
-The guidebook is built so a new language is mostly translation work. For Simplified (`zh-hans`) and Traditional (`zh-hant`) Chinese:
-1. `index.html` head script: add the code to `CH_LANGS` (the phone-language detection already maps `zh-CN/zh-SG/zh-Hans` → `zh-hans` and `zh-TW/zh-HK/zh-MO/zh-Hant` → `zh-hant`), and add its Google Fonts family to `CH_FONT` (Noto Sans SC / Noto Sans TC).
-2. CSS: add `html:not([data-lang=zh-hans]) .zh-hans` to the hide rule, plus a font/line-break block like the `html[lang=ja]` one.
-3. Text: next to every `class="ja"` element add a `class="zh-hans"` one; next to every `data-label-ja` / `data-toast-ja` / `data-alt-ja` add `data-label-zh-hans` etc. Anything missing falls back to English.
-4. Script: add a row to the `LANG` table (tab title, "switched" message, screen-reader text), and the `zh-hans` strings in the "지금 필동" card, copy-failed and in-app messages.
+## Adding a language
+The guidebook is built so a new language is mostly translation work (Chinese was added this way, as `zh-hans` / `zh-hant`):
+1. `index.html` head script: add the code to `CH_LANGS` and its Google Fonts family to `CH_FONT`.
+2. CSS: add `html:not([data-lang=xx]) .xx` to the hide rule, plus a font/line-break block like the `html[lang=ja]` / `html[lang|=zh]` ones.
+3. Text: next to every `class="ja"` element add a `class="xx"` one; next to every `data-label-ja` / `data-toast-ja` / `data-alt-ja` add `data-label-xx` etc. Anything missing falls back to English.
+4. Script: add a row to the `LANG` table (tab title, "switched" message, screen-reader text), and the strings in the "지금 필동" card, copy-failed and in-app messages.
 5. Language list (`#langmenu`) and the language button labels: one more row / span each.
-Diagrams (`img/en/`) are reused for every non-Korean language unless you add `data-src-zh-hans`.
