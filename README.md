@@ -13,7 +13,6 @@ The 한/ENG button on either page updates `?lang=` in the address, so a shared l
 Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`.
 
 ## First-time guest features
-- First visit shows a language picker (skipped when the link has `?lang=`).
 - "처음 오셨다면 이 순서로" steps under the hero: door, Wi-Fi, heating, trash & rules, and the check-out checklist.
 - "지금 필동은" card: Seoul time plus what matters right now (quiet hours, trash days, check-out/check-in, Monday/Sunday closures).
 - Appliance grid at the top of the house manual; app download buttons open the App Store on iPhone and Google Play on Android.
