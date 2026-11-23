@@ -2,7 +2,7 @@
 <html lang="ko" data-lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Serif+KR:wght@700&amp;display=swap">
 <script>
 /* 언어: 처음에는 항상 한국어. 주소에 ?lang=en 이 있으면 영어로 열려요 */
-(function(){var l=(location.search.match(/[?&]lang=(ko|en)/)||[])[1]||'ko';document.documentElement.lang=l;document.documentElement.dataset.lang=l})();
+(function(){var m=location.search.match(/[?&]lang=(ko|en)/),l=(m||[])[1]||'ko';document.documentElement.lang=l;document.documentElement.dataset.lang=l})();
 </script>
 <style>
 :root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#a54d33;--paper:#fff;--sep:#c9cdb8;--ctl:#7f8d73;--ctl-bg:#fff;--lift:0 1px 0 rgba(38,51,31,.1),0 3px 8px rgba(38,51,31,.14);--serif:"Noto Serif KR","Noto Serif CJK KR","AppleMyungjo","Batang",Georgia,serif;--sans:"Noto Sans KR","Noto Sans CJK KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif}
@@ -37,13 +37,14 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-w
 h1,h2,h3,h4,summary,button,.chip,.btn,figcaption,.d,th,dt,.tabs a{text-wrap:balance}
 .u{display:inline-block}
 .nw{white-space:nowrap}
-main{max-width:520px;margin:0 auto;padding:16px 16px 64px}
+main{max-width:520px;margin:0 auto;padding:16px 16px 64px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 p{margin:0}
 ::selection{background:var(--green);color:var(--bg)}
 html{accent-color:var(--green);scrollbar-color:var(--ctl) var(--bg)}
 .price td b,.facts dd b{font-variant-numeric:tabular-nums}
 a{color:inherit}
 a:focus-visible,button:focus-visible,summary:focus-visible,label:focus-within{outline:3px solid var(--green);outline-offset:2px}
+[hidden]{display:none!important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* 언어 전환: .ko / .en 요소 중 현재 언어만 보여요 */
@@ -57,7 +58,7 @@ html[data-lang=ko] .en,html[data-lang=en] .ko{display:none!important}
 .lang i{display:grid;place-items:center;min-width:44px;height:36px;padding:0 10px;border-radius:99px;font-style:normal;color:var(--ink);transition:background .15s,color .15s}
 html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{background:var(--green);color:var(--bg)}
 .lang:active{transform:translateY(1px) scale(.985);box-shadow:none}
-.hero{position:relative;border-radius:26px;overflow:hidden;background:var(--card);aspect-ratio:4/4.4;max-height:72svh;min-height:340px;max-width:100%}
+.hero{position:relative;border-radius:26px;overflow:hidden;background:var(--card);aspect-ratio:4/4;max-height:62vh;max-height:62svh;min-height:320px;max-width:100%}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,10,0) 20%,rgba(14,20,10,.82) 78%,rgba(14,20,10,.95))}
 .hero .t{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:18px 20px 56px;color:#fff}
@@ -250,12 +251,53 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 .slot .ic{flex:none;width:20px;height:20px;color:var(--brick)}
 .slot small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);line-height:1.2}
 .slot b{display:block;font-size:clamp(14px,3.9vw,17px);line-height:1.25;text-wrap:balance}
-.quick{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
-.quick a,.quick button{display:flex;width:100%;align-items:center;gap:10px;min-height:52px;padding:8px 12px;border:1.5px solid var(--ctl);border-radius:14px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font-weight:700;font-size:14px;line-height:1.25;font-family:inherit;text-align:left;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.quick .ic{flex:none;width:20px;height:20px;color:var(--green)}
-.quick a>span,.quick button>span{min-width:0}
-.quick a:active,.quick button:active{transform:translateY(1px) scale(.985);box-shadow:none}
-.quick small{display:block;font-weight:500;font-size:12px;color:var(--mute)}
+
+
+/* 처음 오셨다면: 도착 순서 */
+.first-t{margin:4px 4px 8px;font-size:13px;font-weight:700;color:var(--mute)}
+.first-t+.go{margin-bottom:12px}
+.go{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.go a,.go button{display:grid;grid-template-columns:30px minmax(0,1fr) 18px;align-items:center;gap:12px;width:100%;min-height:58px;padding:8px 12px;border:1.5px solid var(--ctl);border-radius:14px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font:inherit;text-align:left;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.go a:active,.go button:active{transform:translateY(1px) scale(.985);box-shadow:none}
+.go .n{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);font:700 14px/1 var(--sans)}
+.go .n .ic{width:16px;height:16px}
+.go .leave .n{background:var(--brick)}
+.go b{display:block;font-size:15px;line-height:1.3}
+.go small{display:block;font-size:13px;color:var(--mute);line-height:1.35}
+.go .end{width:18px;height:18px;color:var(--mute)}
+
+/* 지금 필동: 서울 시간 기준으로 지금 알아 두면 좋은 것 */
+.now{--dot-ok:#cfe8b8;--dot-no:#f6ad8f;margin-top:12px;padding:16px;border-radius:22px;background:var(--green);color:var(--bg)}
+@media (prefers-color-scheme:dark){.now{--dot-ok:#2c4a22;--dot-no:#8c3c25}}
+.now-h{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px;row-gap:2px;padding:0 4px}
+.now-h .clock{font:700 30px/1.1 var(--serif);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.now-h small{font-size:13px;opacity:.88}
+.now ul{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.now li a{display:flex;align-items:center;gap:10px;min-height:46px;padding:9px 12px;border-radius:14px;background:rgba(255,255,255,.12);color:inherit;font-size:14px;line-height:1.4;text-decoration:none;-webkit-tap-highlight-color:transparent}
+@media (prefers-color-scheme:dark){.now li a{background:rgba(0,0,0,.12)}}
+.now li a:active{transform:translateY(1px)}
+.now .dot{flex:none;width:10px;height:10px;border-radius:50%;border:2px solid currentColor;opacity:.75}
+.now .ok .dot{background:var(--dot-ok);border-color:var(--dot-ok);opacity:1}
+.now .no .dot{background:var(--dot-no);border-color:var(--dot-no);opacity:1}
+.now li span{flex:1;min-width:0}
+
+/* 집 사용법: 기기 한눈에 보기 */
+.devgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 8px}
+.devgrid a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:84px;padding:10px 4px;border-radius:16px;background:var(--card2);color:var(--ink);font-size:13px;font-weight:700;line-height:1.25;text-align:center;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.devgrid a:active{transform:translateY(1px) scale(.985)}
+.devgrid .ic{width:26px;height:26px;color:var(--green)}
+
+/* 앱 설치 링크 */
+.apps dd .get{display:inline-flex;align-items:center;gap:4px;min-height:36px;margin-top:6px;padding:0 12px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font-size:13px;font-weight:700;text-decoration:none}
+.apps dd .get .ic{width:14px;height:14px;color:var(--green)}
+
+
+/* 카카오톡·LINE 등 앱 안 브라우저 안내 */
+.inapp{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0 0 12px;padding:12px 14px;border-radius:16px;background:var(--card);font-size:14px;line-height:1.45}
+.inapp[hidden]{display:none}
+.inapp p{flex:1 1 200px}
+.inapp .chip{box-shadow:none}
+
 
 /* 이 가이드 사용법 */
 /* 상단 왼쪽: 접힌 상태는 알약 버튼, 펼치면 전체 폭 카드(아래 내용을 밀어내며 가리지 않음). 한/ENG는 오른쪽 위에 고정 */
@@ -291,8 +333,8 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 .tabs.mid.end ul{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%);mask-image:linear-gradient(90deg,transparent,#000 12%)}
 .tabs ul::after{content:"";flex:none;width:40px}
 .tabs.end ul{-webkit-mask-image:none;mask-image:none}
-@media (max-width:359px){.slots,.quick{grid-template-columns:1fr}.howto li{grid-template-columns:1fr}}
-#top{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:10;width:48px;height:48px;border:0;border-radius:50%;background:var(--green);color:var(--bg);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(14,20,10,.28);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s,transform .25s,visibility 0s .25s}
+@media (max-width:359px){.slots{grid-template-columns:1fr}.howto li{grid-template-columns:1fr}.devgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#top{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:calc(20px + env(safe-area-inset-bottom));z-index:10;width:48px;height:48px;border:0;border-radius:50%;background:var(--green);color:var(--bg);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(14,20,10,.28);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s,transform .25s,visibility 0s .25s}
 #top.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 #top svg{width:22px;height:22px}
 #toast{z-index:20;position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:min(92vw,360px);text-align:center;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
@@ -303,11 +345,15 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 @keyframes howto-glow{0%,100%{box-shadow:var(--lift),0 0 0 0 color-mix(in srgb,var(--green) 0%,transparent)}50%{box-shadow:var(--lift),0 0 0 5px color-mix(in srgb,var(--green) 28%,transparent)}}
 details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s infinite}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}details.howto{animation:none!important}}
-@media print{.tabs,#top,.lang,.back{display:none}details.dev .body{display:block}}
+@media print{.tabs,#top,.lang,.back,.now,.inapp{display:none}details.dev .body{display:block}}
 </style>
 </head>
 <body>
 <main>
+  <div class="inapp" id="inapp" hidden>
+    <p><span class="ko"><b id="inapp-name">앱</b> 안에서 열려 있어요. 복사나 전화가 잘 안 되면 휴대폰 브라우저로 열어 주세요.</span><span class="en">You're viewing this inside <b id="inapp-name-en">an app</b>. If copying or calling doesn't work, open it in your phone's browser.</span></p>
+    <button class="chip" type="button" id="inapp-open"><span class="ko">브라우저로 열기</span><span class="en">Open in browser</span></button>
+  </div>
   <div class="top">
     <details class="howto" id="howto">
       <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17h.01"/></svg><span class="ko">이 가이드 사용법</span><span class="en">How to use this guide</span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
@@ -338,12 +384,22 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
       <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크인</small><small class="en">Check-in</small><b class="ko">오후 3시 이후</b><b class="en">After 3 PM</b></div></div>
       <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크아웃</small><small class="en">Check-out</small><b class="ko">오전 11시 이전</b><b class="en">Before 11 AM</b></div></div>
     </div>
-    <div class="quick">
-      <button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9a14 14 0 0119 0M5.5 12.5a9.5 9.5 0 0113 0M8.7 16a5 5 0 016.6 0"/><circle cx="12" cy="19.2" r=".9" fill="currentColor"/></svg><span>Wi-Fi<small class="ko">비밀번호 복사</small><small class="en">Copy password</small></span></button>
-      <a href="#heating"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg><span><span class="ko">난방 · 온수</span><span class="en">Heating</span><small class="ko">온도조절기 사용법</small><small class="en">Using the thermostat</small></span></a>
-      <a href="#trash"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13M10 11v5.5M14 11v5.5"/></svg><span><span class="ko">쓰레기</span><span class="en">Trash</span><small class="ko">요일·시간·종류</small><small class="en">When and how</small></span></a>
-      <a href="#checkout"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h8M14 3l5 2v14l-5 2zM11.5 12h.01"/></svg><span><span class="ko">체크아웃 전</span><span class="en">Check-out</span><small class="ko">4가지 체크리스트</small><small class="en">4-step checklist</small></span></a>
-    </div>
+    <p class="first-t"><span class="ko">처음 오셨다면 이 순서로</span><span class="en">Just arrived? Start here</span></p>
+    <ol class="go">
+      <li><a href="#basics"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요</small><small class="en">The door code comes by Airbnb message on check-in day</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+      <li><button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><span class="n">2</span><span><b class="ko">Wi-Fi 연결</b><b class="en">Join the Wi-Fi</b><small class="ko">Copen_Green · 누르면 비밀번호가 복사돼요</small><small class="en">Copen_Green · tap to copy the password</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></li>
+      <li><a href="#heating"><span class="n">3</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat right of the entrance</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+      <li><a href="#rules"><span class="n">4</span><span><b class="ko">쓰레기·하우스 룰 보기</b><b class="en">Read trash &amp; house rules</b><small class="ko">쓰레기는 일~금 저녁 7시~자정, 토요일은 안 돼요</small><small class="en">Trash goes out Sun–Fri 7 PM to midnight, never Saturday</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    </ol>
+    <p class="first-t"><span class="ko">떠나는 날</span><span class="en">On your last day</span></p>
+    <ul class="go">
+      <li class="leave"><a href="#checkout"><span class="n"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h8M14 3l5 2v14l-5 2zM11.5 12h.01"/></svg></span><span><b class="ko">체크아웃 체크리스트</b><b class="en">Check-out checklist</b><small class="ko">오전 11시 전에 4가지만 확인해 주세요</small><small class="en">Four quick things before 11 AM</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    </ul>
+  </section>
+
+  <section class="now" id="now" aria-labelledby="now-h">
+    <p class="now-h" id="now-h"><small class="ko">지금 필동은</small><small class="en">Right now in Pildong</small><b class="clock" id="now-clock"></b><small id="now-day"></small></p>
+    <ul id="now-list"></ul>
   </section>
 
   <nav class="tabs" aria-label="섹션 메뉴" data-label-ko="섹션 메뉴" data-label-en="Sections">
@@ -386,6 +442,14 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     <h2 id="h-house"><span class="ko">집 사용법</span><span class="en">Using the house</span></h2>
     <p class="intro ko">기기를 누르면 그림과 번호별 설명이 펼쳐져요. 그림을 누르면 크게 볼 수 있어요.</p>
     <p class="intro en">Tap an appliance to open its guide. Tap a diagram to see it larger. (Labels on the appliances are in Korean, so match them by number.)</p>
+    <nav class="devgrid" aria-label="기기 바로가기" data-label-ko="기기 바로가기" data-label-en="Appliances">
+      <a href="#heating"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg><span class="ko">난방·온수</span><span class="en">Heating</span></a>
+      <a href="#washer"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M7.5 6.5h2"/></svg><span class="ko">세탁기</span><span class="en">Washer</span></a>
+      <a href="#dryer"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M10 11.5c1 .8 3 .8 4 0M10 14.5c1 .8 3 .8 4 0"/></svg><span class="ko">건조기</span><span class="en">Dryer</span></a>
+      <a href="#microwave"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="6" y="8" width="9" height="8" rx="1"/><path d="M18 9v.01M18 12v.01M18 15v.01"/></svg><span class="ko">전자레인지</span><span class="en">Microwave</span></a>
+      <a href="#induction"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="2.5"/><circle cx="15.5" cy="10" r="2.5"/><path d="M7 16.5h10"/></svg><span class="ko">인덕션</span><span class="en">Cooktop</span></a>
+      <a href="#tv"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span class="ko">TV 리모컨</span><span class="en">TV remote</span></a>
+    </nav>
 
     <details class="dev" id="heating">
       <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg></span><span class="tt"><b class="ko">난방 · 온수</b><b class="en">Heating &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat on the wall, right of the entrance</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
@@ -640,6 +704,10 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     <h2 id="h-getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></h2>
     <p class="intro ko">가장 가까운 역은 지하철 3·4호선 <b>충무로역</b>이에요. 남산 쪽 오르막이라 큰 캐리어가 있다면 택시를 권해요.</p>
     <p class="intro en">The nearest station is <b>Chungmuro</b> (Lines 3 &amp; 4). It's uphill toward Namsan, so take a taxi if you have big suitcases.</p>
+    <div class="btns" style="margin:0 0 18px">
+      <a class="btn primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14"><span class="ko">네이버지도 길찾기</span><span class="en">Directions in Naver Map</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      <button class="btn" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">택시용 한글 주소 복사</span><span class="en">Copy Korean address for taxi</span><svg class="ic cpy trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+    </div>
     <div class="routes ko">
       <div class="route"><small>인천공항</small><b>공항버스 6015 → <span class="nw">‘충무로역·호텔피제이’ 하차</span></b><span>성인 17,000원 · T1 1층 5B / T2 B1 28번</span></div>
       <div class="route"><small>인천공항</small><b>공항철도 → 서울역 → 4호선 충무로역</b><span>서울역에서 진접·당고개 방면 3정거장</span></div>
@@ -660,7 +728,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
 
     <h3><span class="ko">충무로역 3번 출구 → Copen Haus</span><span class="en">Walking route from Exit 3</span></h3>
     <figure class="fig"><button class="zoom" type="button" data-zoom="img/route.png"><img src="img/route.png" width="1000" height="995" loading="lazy" alt="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-ko="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-en="Walking route map from Chungmuro Station exit 3 through Namsangol Hanok Village to Copen Haus"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-    <p class="small" style="margin-top:8px"><span class="ko">약도이며 실제 축척과 달라요. 정확한 길찾기는 아래 네이버지도 버튼을 이용하세요. 큰 캐리어가 있다면 오르막이 적은 택시를 권해요.</span><span class="en">Sketch map, not to scale. For exact directions, use the Naver Map button below. With big suitcases, a taxi saves you the uphill walk.</span></p>
+    <p class="small" style="margin-top:8px"><span class="ko">약도이며 실제 축척과 달라요. 정확한 길찾기는 위 네이버지도 버튼을 이용하세요. 큰 캐리어가 있다면 오르막이 적은 택시를 권해요.</span><span class="en">Sketch map, not to scale. For exact directions, use the Naver Map button above. With big suitcases, a taxi saves you the uphill walk.</span></p>
     <ol class="steps ko">
       <li><span class="n">1</span><div><b>3번 출구로 나오기</b><p>극동빌딩 맞은편, 퇴계로34길로 진입</p></div></li>
       <li><span class="n">2</span><div><b>남산골한옥마을 정문</b><p>출구에서 도보 3~4분, 입장 무료</p></div></li>
@@ -675,10 +743,6 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
       <li><span class="n">4</span><div><b>Through the traditional garden toward Pildong</b><p>Exit the garden onto Pildong-ro</p></div></li>
       <li><span class="n">5</span><div><b>Turn into Pildong-ro 8-gil, and you're here</b><p>32-14, Pildong-ro 8-gil, Jung-gu, Seoul</p></div></li>
     </ol>
-    <div class="btns">
-      <a class="btn primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14"><span class="ko">네이버지도 길찾기</span><span class="en">Directions in Naver Map</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-      <button class="btn" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">택시용 한글 주소 복사</span><span class="en">Copy Korean address for taxi</span><svg class="ic cpy trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-    </div>
   </section>
 
   <!-- 5. 맛집·카페 -->
@@ -794,15 +858,15 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     <p class="intro ko">한국에서는 구글지도보다 <b>네이버지도 · 카카오맵</b>의 길찾기가 훨씬 정확해요.</p>
     <p class="intro en">In Korea, <b>Naver Map and KakaoMap</b> give far better directions than Google Maps.</p>
     <dl class="apps ko">
-      <div><dt>네이버지도 / 카카오맵</dt><dd>길찾기, 대중교통, 영업시간</dd></div>
-      <div><dt>카카오 T</dt><dd>택시 호출</dd></div>
-      <div><dt>파파고</dt><dd>번역 (메뉴판 사진 번역 가능)</dd></div>
+      <div><dt>네이버지도 / 카카오맵</dt><dd>길찾기, 대중교통, 영업시간<br><a class="get" data-ios="id311867728" data-and="com.nhn.android.nmap">네이버지도 받기</a> <a class="get" data-ios="id304608425" data-and="net.daum.android.map">카카오맵 받기</a></dd></div>
+      <div><dt>카카오 T</dt><dd>택시 호출<br><a class="get" data-ios="id981110422" data-and="com.kakao.taxi">카카오 T 받기</a></dd></div>
+      <div><dt>파파고</dt><dd>번역 (메뉴판 사진 번역 가능)<br><a class="get" data-ios="id1147874819" data-and="com.naver.labs.translator">파파고 받기</a></dd></div>
       <div><dt>티머니 카드</dt><dd>지하철·버스 요금, 편의점에서 <span class="nw">구입·충전</span></dd></div>
     </dl>
     <dl class="apps en">
-      <div><dt>Naver Map / KakaoMap</dt><dd>Directions, transit, opening hours</dd></div>
-      <div><dt>Kakao T</dt><dd>Call a taxi</dd></div>
-      <div><dt>Papago</dt><dd>Translation, including photos of menus</dd></div>
+      <div><dt>Naver Map / KakaoMap</dt><dd>Directions, transit, opening hours<br><a class="get" data-ios="id311867728" data-and="com.nhn.android.nmap">Get Naver Map</a> <a class="get" data-ios="id304608425" data-and="net.daum.android.map">Get KakaoMap</a></dd></div>
+      <div><dt>Kakao T</dt><dd>Call a taxi<br><a class="get" data-ios="id981110422" data-and="com.kakao.taxi">Get Kakao T</a></dd></div>
+      <div><dt>Papago</dt><dd>Translation, including photos of menus<br><a class="get" data-ios="id1147874819" data-and="com.naver.labs.translator">Get Papago</a></dd></div>
       <div><dt>T-money card</dt><dd>Subway and bus fares; buy and top up at convenience stores</dd></div>
     </dl>
     <h3><span class="ko">비상 연락처</span><span class="en">Emergency numbers</span></h3>
@@ -890,6 +954,49 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   var tk=0;addEventListener('scroll',function(){if(!tk)tk=requestAnimationFrame(function(){tk=0;onScroll()})},{passive:true});onScroll();
   document.getElementById('top').addEventListener('click',function(){scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
     var h1=document.querySelector('h1');h1.setAttribute('tabindex','-1');h1.focus({preventScroll:true})});   // 키보드 사용자의 포커스가 사라지지 않게 맨 위 제목으로 옮겨요
+
+  // ── 휴대폰 종류 (iPhone·iPad / Android) ──
+  var ua=navigator.userAgent||'',isIOS=/iP(hone|ad|od)/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),isAnd=/Android/i.test(ua);
+  // 앱 받기 링크: iPhone은 App Store, 그 밖은 Google Play
+  document.querySelectorAll('a.get').forEach(function(a){a.href=isIOS?'https://apps.apple.com/app/'+a.dataset.ios:'https://play.google.com/store/apps/details?id='+a.dataset.and;
+    a.insertAdjacentHTML('afterbegin','<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>')});
+
+  // ── 카카오톡·LINE·인스타그램 등 앱 안 브라우저면 바깥 브라우저로 여는 버튼 ──
+  var inapp=/KAKAOTALK/i.test(ua)?'KakaoTalk':/ Line\//i.test(ua)?'LINE':/Instagram/i.test(ua)?'Instagram':/FBAN|FBAV/i.test(ua)?'Facebook':/NAVER\(inapp/i.test(ua)?'NAVER':/whatsapp/i.test(ua)?'WhatsApp':'';
+  if(inapp){var bar=document.getElementById('inapp');bar.hidden=false;
+    var kn={KakaoTalk:'카카오톡',LINE:'LINE',Instagram:'인스타그램',Facebook:'페이스북',NAVER:'네이버 앱',WhatsApp:'WhatsApp'}[inapp];
+    document.getElementById('inapp-name').textContent=kn;document.getElementById('inapp-name-en').textContent=inapp;
+    document.getElementById('inapp-open').addEventListener('click',function(){var here=location.href;
+      if(inapp==='KakaoTalk'){location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(here);return}
+      if(inapp==='LINE'){var u=new URL(here);u.searchParams.set('openExternalBrowser','1');location.href=u.href;return}
+      if(isAnd){location.href='intent://'+here.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;end';return}
+      say(root.dataset.lang==='ko'?'오른쪽 위(또는 아래) ⋯ 메뉴에서 ‘브라우저로 열기’를 눌러 주세요':'Tap the ⋯ menu, then “Open in browser”',4200)})}
+
+  // ── 지금 필동: 서울 시간 기준으로 지금 알아 두면 좋은 것 ──
+  var nowList=document.getElementById('now-list'),nowClock=document.getElementById('now-clock'),nowDay=document.getElementById('now-day');
+  function seoul(){var o={};try{new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Seoul',weekday:'short',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date()).forEach(function(p){o[p.type]=p.value})}catch(e){var d=new Date(Date.now()+(new Date().getTimezoneOffset()+540)*6e4);return{d:d.getDay(),h:d.getHours(),m:d.getMinutes()}}
+    return{d:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday),h:(+o.hour)%24,m:+o.minute}}
+  function item(k,ko,en,href){return'<li class="'+k+'"><a href="'+href+'"><i class="dot" aria-hidden="true"></i><span><span class="ko">'+ko+'</span><span class="en">'+en+'</span></span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>'}
+  function renderNow(){var t=seoul(),d=t.d,h=t.h,a=[];
+    var ko12=(h<12?'오전 ':'오후 ')+((h%12)||12)+':'+('0'+t.m).slice(-2),en12=((h%12)||12)+':'+('0'+t.m).slice(-2)+(h<12?' AM':' PM');
+    var kd=['일','월','화','수','목','금','토'][d]+'요일',ed=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d];
+    nowClock.innerHTML='<span class="ko">'+ko12+'</span><span class="en">'+en12+'</span>';nowDay.innerHTML='<span class="ko">'+kd+'</span><span class="en">'+ed+'</span>';
+    if(h>=22||h<8)a.push(item('no','지금은 조용히 쉬는 시간이에요. 아침 8시까지 소리를 줄여 주세요','Quiet hours now. Please keep it down until 8 AM','#rules'));
+    else if(h>=20)a.push(item('info','밤 10시부터 조용히 쉬는 시간이에요','Quiet hours start at 10 PM','#rules'));
+    if(d===6)a.push(item('no','오늘은 토요일이라 쓰레기를 내놓을 수 없어요','It\'s Saturday, so no trash goes out today','#trash'));
+    else if(h>=19)a.push(item('ok','지금 쓰레기를 내놓을 수 있어요. 자정까지예요','You can put trash out now, until midnight','#trash'));
+    else a.push(item('info','쓰레기는 오늘 저녁 7시부터 내놓을 수 있어요','Trash can go out from 7 PM today','#trash'));
+    if(h>=6&&h<11)a.push(item('info','떠나는 날이면 오전 11시 전에 체크아웃해 주세요','Leaving today? Please check out by 11 AM','#checkout'));
+    else if(h>=11&&h<15)a.push(item('info','체크인은 오후 3시부터예요. 짐 보관은 미리 물어봐 주세요','Check-in starts at 3 PM. Ask us ahead about luggage','#basics'));
+    if(d===1&&h<21)a.push(item('info','월요일은 남산골한옥마을 한옥이 쉬어요. 정원 길은 열려 있어요','Namsangol\'s hanok houses close on Mondays. The garden stays open','#explore'));
+    if(d===0&&h<20)a.push(item('info','일요일은 필동면옥이 쉬어요','Pildong Myeonok is closed on Sundays','#eat'));
+    nowList.innerHTML=a.slice(0,3).join('')}
+  renderNow();setInterval(renderNow,30000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)renderNow()});
+
+  // 메뉴·바로가기로 기기 카드에 갈 때는 카드를 펼쳐요 (같은 주소를 다시 눌러도)
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var t=document.querySelector(a.getAttribute('href'));if(t&&t.tagName==='DETAILS')t.open=true});
+
 })();
 </script>
 </body>
