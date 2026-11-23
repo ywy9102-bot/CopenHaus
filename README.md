@@ -12,6 +12,13 @@ The 한/ENG button on either page updates `?lang=` in the address, so a shared l
 
 Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`.
 
+## First-time guest features
+- First visit shows a language picker (skipped when the link has `?lang=`).
+- "처음 오셨다면 이 순서로" steps under the hero: door, Wi-Fi, heating, trash & rules, and the check-out checklist.
+- "지금 필동은" card: Seoul time plus what matters right now (quiet hours, trash days, check-out/check-in, Monday/Sunday closures).
+- Appliance grid at the top of the house manual; app download buttons open the App Store on iPhone and Google Play on Android.
+- KakaoTalk/LINE in-app browsers get an "Open in browser" button.
+
 ## Files
 | File | Used for |
 |---|---|
@@ -22,6 +29,8 @@ Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#micr
 | `qr.png` | Wi-Fi QR code (guidebook and brochure) |
 | `og.jpg` | Link preview image (KakaoTalk, LINE, etc.) |
 | `favicon.png`, `apple-touch-icon.png` | Browser tab / home-screen icons |
+| `manifest.webmanifest`, `icon-192.png`, `icon-512.png` | "Add to home screen" on Android and iPhone |
+| `sw.js` | Offline support: always fetches the latest page when online, shows the saved copy when offline |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is |
 
 ## Publish on GitHub Pages
