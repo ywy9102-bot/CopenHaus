@@ -1,22 +1,19 @@
 <!doctype html>
-<html lang="en" data-lang="en">
+<html lang="ko" data-lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
-<title>Copen Haus</title>
-<script>
-/* 언어: 처음에는 영어. 주소에 ?lang=ko 가 있으면 한국어로 열려요 (가이드북과 서로 이어져요) */
-(function(){var l=(location.search.match(/[?&]lang=(ko|en)/)||[])[1]||'en';document.documentElement.lang=l;document.documentElement.dataset.lang=l})();
-</script>
+<meta name="format-detection" content="telephone=no">
+<title>Copen Haus Arrival guide</title>
 <link rel="icon" type="image/png" sizes="48x48" href="../favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <meta name="theme-color" content="#fcf7ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#161b15" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Copen Haus – Welcome">
+<meta property="og:title" content="Copen Haus – Arrival guide">
 <meta name="description" content="Welcome! Easy arrival to your Namsan stay.">
 <meta property="og:description" content="Welcome! Easy arrival to your Namsan stay.">
 <meta name="twitter:description" content="Welcome! Easy arrival to your Namsan stay.">
@@ -28,375 +25,563 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Serif+KR:wght@700&amp;display=swap">
+<script>
+/* 언어: 가이드북과 같은 규칙이에요. 1) 주소의 ?lang= 2) 한/ENG로 직접 고른 언어(이 휴대폰에 기억, 가이드북과 함께 써요) 3) 휴대폰 언어가 한국어면 한국어, 아니면 영어 */
+(function(){var m=location.search.match(/[?&]lang=(ko|en)/),l=(m||[])[1],s;
+  if(!l){try{s=localStorage.getItem('ch-lang')}catch(e){}if(s==='ko'||s==='en')l=s}
+  if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'';l=/^ko\b/i.test(n)?'ko':'en'}
+  document.documentElement.lang=l;document.documentElement.dataset.lang=l})();
+</script>
 <style>
-:root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#a54d33;--paper:#fff;--white:#fff;--serif:"Noto Serif KR","Noto Serif CJK KR","AppleMyungjo","Batang",Georgia,serif;--sans:"Noto Sans KR","Noto Sans CJK KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif}
-@media (prefers-color-scheme:dark){:root{--bg:#121a11;--card:#1d2a1b;--card2:#1a2418;--field:#26331f;--line:#3b4434;--ink:#eef2e6;--mute:#a9b79c;--green:#9db683;--brick:#e08a68;--paper:#1d2a1b;--white:#2a3126}}
+:root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#a54d33;--paper:#fff;--sep:#c9cdb8;--ctl:#7f8d73;--ctl-bg:#fff;--lift:0 1px 0 rgba(38,51,31,.1),0 3px 8px rgba(38,51,31,.14);--serif:"Noto Serif KR","Noto Serif CJK KR","AppleMyungjo","Batang",Georgia,serif;--sans:"Noto Sans KR","Noto Sans CJK KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#121a11;--card:#1d2a1b;--card2:#1a2418;--field:#26331f;--line:#3b4434;--ink:#eef2e6;--mute:#a9b79c;--green:#9db683;--brick:#e08a68;--paper:#1d2a1b;--sep:#4a5642;--ctl:#7d8c70;--ctl-bg:#2a3126;--lift:0 1px 0 rgba(0,0,0,.4),0 3px 8px rgba(0,0,0,.35)}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-text-size-adjust:100%}
-main{max-width:480px;margin:0 auto;padding:16px 16px 56px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:break-word;text-wrap:pretty}
+/* 줄바꿈: 한글은 어절 단위, 짧은 제목·버튼은 줄 길이를 고르게, .u는 뜻 단위 묶음(필요할 때만 그 앞에서 줄이 바뀜) */
+h1,h2,h3,h4,summary,button,.chip,.btn,figcaption,.d,th,dt,.tabs a{text-wrap:balance}
+.u{display:inline-block}
+.nw{white-space:nowrap}
+html{scroll-padding-bottom:84px}
+main{max-width:520px;margin:0 auto;padding:16px 16px 64px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+p{margin:0}
+::selection{background:var(--green);color:var(--bg)}
+html{accent-color:var(--green);scrollbar-color:var(--ctl) var(--bg)}
+.price td b,.facts dd b{font-variant-numeric:tabular-nums}
+a{color:inherit}
+a:focus-visible,button:focus-visible,summary:focus-visible,label:focus-within{outline:3px solid var(--green);outline-offset:2px}
+[hidden]{display:none!important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
 /* 언어 전환: .ko / .en 요소 중 현재 언어만 보여요 */
 html[data-lang=ko] .en,html[data-lang=en] .ko{display:none!important}
-body{word-break:keep-all;overflow-wrap:anywhere}
-.lang{position:absolute;top:14px;right:14px;z-index:2;display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:3px;border:1px solid rgba(255,255,255,.34);border-radius:99px;background:rgba(14,20,10,.74);color:#fff;font:700 14px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
-.lang i{display:grid;place-items:center;min-width:40px;height:36px;padding:0 9px;border-radius:99px;font-style:normal;transition:background .15s,color .15s}
-html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{background:#fff;color:#1c2a19}
-.lang:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.lang:active{transform:translateY(1px) scale(.985)}
-::selection{background:var(--green);color:var(--bg)}
+.ic{flex:none;width:18px;height:18px}
 
-/* hero */
-.photo{position:relative;border-radius:26px;overflow:hidden;background:var(--card);aspect-ratio:4/5;max-height:80svh}
-.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block;animation:kb 1.8s cubic-bezier(.16,1,.3,1) backwards}
-.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,10,0) 12%,rgba(14,20,10,.74) 42%,rgba(14,20,10,.95) 100%)}
-.photo .g{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 1.2s cubic-bezier(.16,1,.3,1)}
-.g-dawn{background:linear-gradient(180deg,rgba(150,120,205,.34),rgba(255,176,140,.2) 70%,rgba(255,176,140,0))}
-.g-dusk{background:linear-gradient(180deg,rgba(255,150,90,.3),rgba(190,70,95,.26) 70%,rgba(190,70,95,0))}
-.g-night{background:linear-gradient(180deg,rgba(8,18,52,.62),rgba(8,18,52,.5))}
-.photo[data-phase=dawn] .g-dawn,.photo[data-phase=dusk] .g-dusk,.photo[data-phase=night] .g-night{opacity:1}
-.photo::after{z-index:0}
-.clock{position:absolute;top:14px;left:14px;z-index:2;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px 6px 10px;border:1px solid rgba(255,255,255,.34);border-radius:99px;background:rgba(14,20,10,.74);color:#fff;font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.clock svg{flex:none;width:22px;height:22px}
-.clock .ct{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15;text-align:left}
-.clock b{font-size:15px;font-variant-numeric:tabular-nums}
-.clock small{font-size:12px;opacity:.95}
-.clock:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.photo-txt{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:22px 20px 52px;color:#fff}
-.photo-txt>*{animation:rise .9s cubic-bezier(.16,1,.3,1) backwards}
-.photo-txt>:nth-child(2){animation-delay:.08s}.photo-txt>:nth-child(3){animation-delay:.16s}.photo-txt>:nth-child(4){animation-delay:.24s}
-@keyframes kb{from{transform:scale(1.09)}}
-@keyframes rise{from{opacity:0;transform:translateY(14px)}}
-h1{margin:0 0 10px;font:600 clamp(40px,12.5vw,56px)/1.02 var(--serif);letter-spacing:-.015em;color:#fff;text-wrap:balance}
-.addr{margin:0;font-weight:700;font-size:15px;line-height:1.4}
-.nb{white-space:nowrap}
-.addr-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0;border:0;background:none;color:#fff;font:inherit;font-weight:700;font-size:15px;line-height:1.4;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.addr-btn .t{min-width:0}
-.addr-btn svg{flex:none;opacity:.9}
-.addr-btn:focus-visible{outline:3px solid #fff;outline-offset:3px;border-radius:6px}
-.addr-ko{margin:10px 0 0;font-size:13px;color:#fff;word-break:keep-all}
+/* 머리말 */
+.top{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:0 0 14px}
+.back{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px 0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);font-size:14px;font-weight:700;text-decoration:none;color:var(--ink)}
+.lang{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:3px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--mute);font:700 14px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lang i{display:grid;place-items:center;min-width:44px;height:36px;padding:0 10px;border-radius:99px;font-style:normal;color:var(--ink);transition:background .15s,color .15s}
+html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{background:var(--green);color:var(--bg)}
+.lang:active{transform:translateY(1px) scale(.985);box-shadow:none}
+.hero{position:relative;border-radius:26px;overflow:hidden;background:var(--card);aspect-ratio:4/4;max-height:62vh;max-height:62svh;min-height:320px;max-width:100%}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,10,0) 6%,rgba(14,20,10,.68) 32%,rgba(14,20,10,.86) 66%,rgba(14,20,10,.95))}
+.hero .t{text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 12px rgba(0,0,0,.35)}
+.hero .t{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:18px 20px 56px;color:#fff}
+h1{margin:0 0 6px;font:700 clamp(30px,8.6vw,44px)/1.12 var(--serif);letter-spacing:-.02em;text-wrap:balance}
+.hero p.d{font-size:15px;line-height:1.45;max-width:34ch}
+.hero .loc{position:absolute;top:14px;left:14px;z-index:1;display:inline-flex;align-items:center;gap:6px;padding:8px 12px 8px 9px;border-radius:99px;background:rgba(14,20,10,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font:700 12.5px/1 var(--sans);letter-spacing:.04em}
+.hero .loc .ic{width:15px;height:15px}
+.hero .eb{display:block;margin:0 0 8px;font:700 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#ffd9c2}
 
-/* quick jump */
-.jump{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
-.jump a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:99px;background:var(--field);color:var(--ink);font-size:14px;font-weight:600;text-decoration:none;-webkit-tap-highlight-color:transparent}
-.jump a:active{background:var(--card)}
-a:focus-visible,button:focus-visible{outline:3px solid var(--green);outline-offset:2px}
 
-/* sections: open layout, hairline rhythm */
-section.s{padding:38px 0 6px;scroll-margin-top:8px}
-section.s+section.s{border-top:1px solid var(--sep);margin-top:30px}
-h2{position:relative;margin:0 0 20px;padding-bottom:14px;font:700 33px/1.1 var(--serif);letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+/* 탭 내비 */
+.tabs{position:sticky;top:0;z-index:9;margin:14px -16px 0;padding:10px 16px;background:var(--bg);background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.tabs.stuck{border-bottom-color:var(--sep)}
+.tabs{display:flex;align-items:center;gap:8px}
+.tabs ul{flex:1;min-width:0}
+.tabs-scroll{position:relative;flex:1;min-width:0;display:flex}
+.tabs-arr{position:absolute;top:50%;z-index:2;display:grid;place-items:center;width:30px;height:30px;margin-top:-15px;padding:0;border:1.5px solid var(--ctl);border-radius:50%;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--green);cursor:pointer;transition:opacity .15s}
+.tabs-arr::before{content:"";position:absolute;inset:-8px}
+.tabs-arr svg{width:16px;height:16px}
+.tabs-arr.prev{left:-4px}.tabs-arr.next{right:-4px}
+.tabs:not(.mid) .tabs-arr.prev,.tabs.end .tabs-arr.next{opacity:0;pointer-events:none}
+.lang-mini{flex:none;display:none;place-items:center;min-width:44px;min-height:44px;padding:0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font:700 13px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tabs.stuck .lang-mini{display:grid}
+html[data-lang=ko] .lang-mini::after{content:"ENG"}html[data-lang=en] .lang-mini::after{content:"한"}
+.tabs ul{list-style:none;margin:0;padding:0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scroll-padding-inline:24px}
+.tabs ul::-webkit-scrollbar{display:none}
+.tabs a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font-size:14px;font-weight:700;white-space:nowrap;text-decoration:none;scroll-snap-align:center;-webkit-tap-highlight-color:transparent}
+.tabs a[aria-current=location]{background:var(--green);border-color:var(--green);color:var(--bg)}
+
+/* 섹션 */
+section.s{padding:34px 0 4px;scroll-margin-top:66px}
+section.s+section.s{border-top:1px solid var(--sep);margin-top:28px}
+h2{position:relative;margin:0 0 6px;padding-bottom:12px;font:700 30px/1.15 var(--serif);letter-spacing:-.012em;text-wrap:balance}
 h2::after{content:"";position:absolute;left:0;bottom:0;width:44px;height:3px;border-radius:3px;background:var(--brick)}
-p{margin:0}
-.lead{font-size:18px;line-height:1.5;max-width:34ch}
+.intro{margin:14px 0 18px;font-size:16px;color:var(--ink)}
+h3{margin:26px 0 10px;font:700 13px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
 .small{font-size:13px;color:var(--mute)}
-.panel{background:var(--card2);border-radius:22px;padding:18px}
+.note{margin-top:12px;font-size:13px;color:var(--mute)}
+.warn{margin-top:12px;padding:10px 14px;border-radius:14px;background:var(--card);background:color-mix(in srgb,var(--brick) 12%,transparent);color:var(--ink);font-size:14px}
+.warn b{color:#8c3c25}
+@media (prefers-color-scheme:dark){.warn b{color:#f2a283}}
 
-/* getting here */
-.route-map{margin:0 0 12px;border-radius:18px;overflow:hidden;background:var(--card)}
-.route-map img{display:block;width:100%;height:auto}
-.btns{display:grid;gap:8px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 16px;border:1px solid var(--line);border-radius:14px;background:var(--field);color:var(--ink);font-family:inherit;font-size:15px;font-weight:700;line-height:1;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+/* 정보 표(항목 · 내용) */
+.facts{margin:0;padding:4px 16px;border-radius:20px;background:var(--card2)}
+.facts>div{display:grid;grid-template-columns:7.2em 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--sep)}
+.facts>div:first-child{border-top:0}
+.facts dt{font-size:14px;font-weight:700;color:var(--mute)}
+.facts dd{margin:0;font-size:15px}
+.facts dd b{font-size:17px}
+
+/* 버튼 */
+.btns{display:grid;gap:8px;margin-top:12px}
+.btn{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 44px;border:1.5px solid var(--ctl);border-radius:14px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font-weight:700;font-size:15px;line-height:1.2;font-family:inherit;text-align:center;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s cubic-bezier(.16,1,.3,1),box-shadow .12s}
 .btn.primary{background:var(--green);border-color:var(--green);color:var(--bg)}
-.btn:active{filter:brightness(.94)}
-.tip{margin:14px 0 6px}
-.links{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
-.links a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:99px;background:var(--field);color:var(--ink);font-size:14px;font-weight:600;text-decoration:none}
+.btn .trail{position:absolute;right:16px}
+.btn:active,.back:active,.chip:active,.tabs a:active,.place a:active{transform:translateY(1px) scale(.985);box-shadow:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font-weight:700;font-size:14px;line-height:1;font-family:inherit;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.chip .ic{width:16px;height:16px;color:var(--green)}
+.wifi{display:flex;flex-wrap:wrap;gap:10px 10px}
+.wifi .wl{display:block;margin:0 0 4px 6px;font-size:12px;font-weight:700;color:var(--mute);line-height:1.3}
+.facts .qr{display:block;width:132px;height:132px;margin-top:10px;border-radius:11%}
 
-/* copy fields */
-.field{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--field);color:var(--ink);border-radius:14px;padding:8px 14px;font:inherit;cursor:pointer;min-height:56px;-webkit-tap-highlight-color:transparent}
-.field .fx>span{display:block;font-size:12px;color:var(--mute)}
-.field b{display:block;font-size:18px;overflow-wrap:anywhere}
-.field.kr b{font-size:16px}
-.wifi-grid{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
-.fields{display:grid;gap:10px;min-width:0}
-.qr{width:132px;height:132px;border-radius:11%;display:block}
-.cap{margin:14px 0 0;text-align:center;font-size:13px;color:var(--mute)}
 
-/* host */
-.who{margin:0 0 10px;font:600 26px/1.1 var(--serif)}
-a.tel{display:inline-flex;align-items:center;min-height:44px;padding:0;color:var(--ink);font-size:17px;font-weight:600;text-decoration:none}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 12px}
-.chip{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:99px;font-family:inherit;font-size:14px;font-weight:600;line-height:1;background:var(--field);color:var(--ink);text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.chip:active{background:var(--card)}
-.hints{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px;font-size:13px;line-height:1.5;color:var(--mute)}
-.hints b{color:var(--ink)}
+/* 단계 목록 */
+.steps{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:16px}
+.steps li{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
+.steps .n{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--green);color:var(--bg);font:700 15px/1 var(--sans)}
+.steps b{display:block;font-size:16px}
+.steps p{font-size:14px;color:var(--mute)}
 
-/* rules */
-ol{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-li{display:flex;gap:12px;align-items:flex-start}
-li i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);font:700 14px/28px var(--sans);text-align:center;font-style:normal}
-li span{padding-top:2px}
-.hints li{display:block}
+/* 그림 */
+figure{margin:0}
+.fig{border-radius:20px;overflow:hidden;background:#f3ecdc;border:1px solid var(--line)}
+.fig img{display:block;width:100%;height:auto}
+.fig.tall{max-width:300px;margin:0 auto}
+.zoom{display:block;padding:0;border:0;background:none;width:100%;cursor:zoom-in}
+figcaption{margin-top:8px;font-size:12px;color:var(--mute);text-align:center}
 
-#top{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:10;width:48px;height:48px;padding:0;border:0;border-radius:50%;background:var(--green);color:var(--bg);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(14,20,10,.28);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1),visibility 0s .25s;-webkit-tap-highlight-color:transparent}
+
+
+/* 규칙 */
+ol.rules{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+ol.rules li{display:flex;gap:12px;align-items:flex-start}
+ol.rules li i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);font:700 14px/28px var(--sans);text-align:center;font-style:normal}
+ol.rules li span{padding-top:2px}
+
+/* 체크리스트 */
+.check{display:grid;gap:8px}
+.check label{display:flex;align-items:center;gap:12px;min-height:54px;padding:10px 14px;border:1.5px solid var(--ctl);border-radius:14px;background:var(--ctl-bg);box-shadow:var(--lift);font-size:15px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.check input{flex:none;width:22px;height:22px;margin:0;accent-color:var(--green)}
+.check input:checked+span{color:var(--mute);text-decoration:line-through}
+
+.taxi{display:block;width:100%;padding:14px 16px;border:1.5px solid var(--ctl);border-radius:16px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.taxi small{display:block;font-size:13px;font-weight:600;color:var(--mute)}
+.taxi b{display:block;margin:4px 0 6px;font-size:22px;line-height:1.35;word-break:keep-all}
+.taxi .hint{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--green)}
+.taxi .hint .ic{width:16px;height:16px}
+.taxi:active{transform:translateY(1px) scale(.985);box-shadow:none}
+
+
+/* 비상 */
+.sos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.call{display:flex;align-items:center;gap:12px;min-height:62px;padding:8px 14px;border:1.5px solid var(--ctl);border-radius:16px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);text-decoration:none}
+.call .ic{width:22px;height:22px;color:var(--brick)}
+.call b{display:block;font:700 22px/1.1 var(--serif)}
+.call small{display:block;font-size:12px;color:var(--mute);line-height:1.3}
+.host{scroll-margin-top:70px;margin-top:30px;padding:20px;border-radius:22px;background:var(--card);text-align:center}
+.host p.w{font:600 22px/1.25 var(--serif)}
+.host .chips{justify-content:center}
+/* 연락: 전화는 위 가운데 큰 버튼, 메신저 3개는 아래에 같은 폭으로 */
+.host-tel{display:flex;justify-content:center;margin-top:14px}
+.chip.tel{min-height:56px;padding:0 24px;font-size:18px;font-variant-numeric:tabular-nums}
+.chip.tel .ic{width:20px;height:20px}
+.msgr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.msgr .chip .ic{width:16px;height:16px}
+.msgr .chip{flex-direction:column;justify-content:center;gap:4px;min-height:64px;padding:8px 4px;border-radius:16px;font-size:13px;line-height:1.2;text-align:center}
+
+.foot{margin-top:22px;font-size:12px;color:var(--mute);text-align:center}
+
+/* 크게 보기 */
+dialog{max-width:min(96vw,900px);max-height:92vh;padding:0;border:0;border-radius:18px;background:#f3ecdc;overflow:auto}
+dialog::backdrop{background:rgba(10,14,8,.78)}
+dialog img{display:block;width:100%;height:auto;min-width:0;touch-action:pinch-zoom pan-x pan-y}
+dialog form{position:sticky;top:0;display:flex;justify-content:flex-end;padding:8px;background:#f3ecdc}
+dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;background:#3a5533;color:#fff;font-weight:700;font-size:14px;line-height:1;font-family:inherit}
+
+
+/* 히어로 아래 카드: 체크인·아웃 + 자주 찾는 것 */
+.arrive{position:relative;z-index:3;margin:-38px 0 0;padding:14px;border-radius:22px;background:var(--paper);box-shadow:0 2px 0 rgba(28,42,25,.06),0 14px 30px rgba(28,42,25,.22)}
+.welcome .wh{margin:2px 4px 0;font-size:24px;line-height:1.2}
+.welcome .wi{margin:8px 4px 14px;font-size:15px;line-height:1.6;color:var(--ink)}
+.welcome .facts{background:var(--card2)}
+.welcome .facts>div{grid-template-columns:1fr;gap:4px}
+#basics .slots{margin-top:4px}
+.slots{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-bottom:12px}
+.slot{display:flex;align-items:center;gap:8px;min-width:0;padding:2px 13.5px}
+.slot>div{min-width:0}
+.slot .ic{flex:none;width:20px;height:20px;color:var(--brick)}
+.slot small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);line-height:1.2}
+.slot b{display:block;font-size:clamp(14px,3.9vw,17px);line-height:1.25;text-wrap:balance}
+
+
+/* 처음 오셨다면: 도착 순서 */
+.first-t{margin:4px 4px 8px;font-size:13px;font-weight:700;color:var(--mute)}
+.first-t+.go{margin-bottom:12px}
+.go{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.go a,.go button{display:grid;grid-template-columns:30px minmax(0,1fr) 18px;align-items:center;gap:12px;width:100%;min-height:58px;padding:8px 12px;border:1.5px solid var(--ctl);border-radius:14px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font:inherit;text-align:left;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.go a:active,.go button:active{transform:translateY(1px) scale(.985);box-shadow:none}
+.go .n{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);font:700 14px/1 var(--sans)}
+.go .n .ic{width:16px;height:16px}
+.go .leave .n{background:var(--brick)}
+.go b{display:block;font-size:15px;line-height:1.3}
+.go small{display:block;font-size:13px;color:var(--mute);line-height:1.35}
+.go .end{width:18px;height:18px;color:var(--mute)}
+
+/* 지금 필동: 서울 시간 기준으로 지금 알아 두면 좋은 것 */
+.now{--dot-ok:#cfe8b8;--dot-no:#f6ad8f;margin-top:12px;padding:16px;border-radius:22px;background:var(--green);color:var(--bg)}
+@media (prefers-color-scheme:dark){.now{--dot-ok:#2c4a22;--dot-no:#8c3c25}}
+.now-h{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px;row-gap:2px;padding:0 4px}
+.now-h .clock{font:700 30px/1.1 var(--serif);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.now-h small{font-size:13px;opacity:.88}
+.now ul{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.now li a{display:flex;align-items:center;gap:10px;min-height:46px;padding:9px 12px;border-radius:14px;background:rgba(255,255,255,.12);color:inherit;font-size:14px;line-height:1.4;text-decoration:none;-webkit-tap-highlight-color:transparent}
+@media (prefers-color-scheme:dark){.now li a{background:rgba(0,0,0,.12)}}
+.now li a:active{transform:translateY(1px)}
+.now a:focus-visible{outline-color:var(--bg)}
+.now .dot{flex:none;width:10px;height:10px;border-radius:50%;border:2px solid currentColor;opacity:.75}
+.now .ok .dot{background:var(--dot-ok);border-color:var(--dot-ok);opacity:1}
+.now .no .dot{background:var(--dot-no);border-color:var(--dot-no);opacity:1}
+.now li span{flex:1;min-width:0}
+
+
+
+/* 카카오톡·LINE 등 앱 안 브라우저 안내 */
+.inapp{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0 0 12px;padding:12px 14px;border-radius:16px;background:var(--card);font-size:14px;line-height:1.45}
+.inapp[hidden]{display:none}
+.inapp p{flex:1 1 200px}
+.inapp .chip{box-shadow:none}
+
+
+/* 이 가이드 사용법 */
+/* 상단 왼쪽: 접힌 상태는 알약 버튼, 펼치면 전체 폭 카드(아래 내용을 밀어내며 가리지 않음). 한/ENG는 오른쪽 위에 고정 */
+.top{position:relative;min-height:50px;justify-content:flex-start;align-items:flex-start}
+.top .side{position:absolute;top:0;right:0;z-index:1;display:flex;gap:6px}
+.reach{display:grid;place-items:center;width:44px;height:44px;border:1.5px solid var(--ctl);border-radius:50%;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--green);-webkit-tap-highlight-color:transparent}
+.reach .ic{width:19px;height:19px}
+.reach:active{transform:translateY(1px) scale(.97);box-shadow:none}
+details.howto{width:fit-content;max-width:calc(100% - 226px);border:1.5px solid var(--ctl);border-radius:24px;background:var(--ctl-bg);box-shadow:var(--lift);overflow:hidden}
+details.howto[open]{width:100%;max-width:none;border-color:transparent;border-radius:20px;background:var(--card);box-shadow:none}
+details.howto summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px;cursor:pointer;list-style:none;font-weight:700;font-size:14px;line-height:1.25;-webkit-tap-highlight-color:transparent}
+details.howto summary::-webkit-details-marker{display:none}
+details.howto summary .ic{flex:none;width:18px;height:18px;color:var(--green)}
+details.howto summary .chev{flex:none;width:14px;height:14px;margin-left:-2px;color:var(--green);stroke-width:2.4;transition:transform .2s}
+details.howto[open] summary .chev{transform:rotate(180deg)}
+details.howto[open] summary{width:fit-content;max-width:calc(100% - 226px)}
+.howto .close{display:flex;justify-content:flex-end;padding:0 16px 14px}
+.howto .sh{display:none}
+@media (max-width:429px){.howto .lg{display:none}.howto .sh{display:inline}}
+@media (max-width:359px){.howto .hl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
+.howto ul{list-style:none;margin:0;padding:8px 16px 16px;display:grid;gap:12px}
+.howto li{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:center;font-size:14px;line-height:1.5}
+.howto li b{display:block;font-size:15px}
+.demo{display:flex;align-items:center;justify-content:center;gap:4px;height:40px;border:0;border-radius:12px;background:var(--card2);color:var(--ink);font:700 12px/1 var(--sans);pointer-events:none}
+.demo .ic{width:18px;height:18px;color:var(--green)}
+.demo.pill{border-radius:99px}
+.demo i{font-style:normal;padding:4px 5px;border-radius:99px;white-space:nowrap}
+.demo{white-space:nowrap}
+.demo i.on{background:var(--green);color:var(--bg)}
+
+/* 그림 위 "누르면 크게" 표시 */
+.zoom{position:relative}
+.zh{display:flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:8px 14px;background:rgba(28,42,25,.86);color:#fff;font:700 12px/1 var(--sans);pointer-events:none}
+.zh .ic{width:15px;height:15px}
+.chip .cpy,.btn .cpy{width:16px;height:16px;color:var(--green)}
+
+/* 탭이 옆으로 더 있다는 표시 */
+/* 옆에 더 있음을 보여 주는 가장자리 흐림: 처음엔 오른쪽만, 밀면 양쪽, 끝에선 왼쪽만 */
+.tabs ul{-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+.tabs.mid ul{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 82%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 82%,transparent)}
+.tabs.mid.end ul{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%);mask-image:linear-gradient(90deg,transparent,#000 12%)}
+.tabs ul::after{content:"";flex:none;width:40px}
+.tabs.end ul{-webkit-mask-image:none;mask-image:none}
+@media (max-width:359px){.slots{grid-template-columns:1fr}.howto li{grid-template-columns:1fr}}
+#top{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:calc(20px + env(safe-area-inset-bottom));z-index:10;width:48px;height:48px;border:0;border-radius:50%;background:var(--green);color:var(--bg);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(14,20,10,.28);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s,transform .25s,visibility 0s .25s}
 #top.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
-#top:active{filter:brightness(.94)}
 #top svg{width:22px;height:22px}
 #toast{z-index:20;position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:min(92vw,360px);text-align:center;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
 #toast.on{opacity:1}
-@media (max-width:420px){.wifi-grid{grid-template-columns:1fr}.qr{width:156px;height:156px;margin:0 auto}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.photo .g{transition:none}#top{transition:none}.photo img,.photo-txt>*{animation:none}#toast{transition:none}}
+#toast.on.stay{pointer-events:auto;cursor:pointer}
+#toast .big{display:block;margin-top:6px;font:700 24px/1.2 var(--sans);letter-spacing:.02em;user-select:all;-webkit-user-select:all}
+@media (hover:hover){.btn:hover,.chip:hover,.back:hover,.place a:hover,.call:hover,details.dev summary:hover{filter:brightness(1.04)}}
+@media (max-width:380px){.bins,.vans,.flow{grid-template-columns:1fr}.facts>div{grid-template-columns:1fr;gap:2px}h2{font-size:27px}.place{grid-template-columns:1fr}.place a{justify-self:start}}
+/* '이 가이드 사용법' 은은한 깜빡임: 테두리 둘레의 옅은 빛만 천천히 밝아졌다 어두워짐(글자는 그대로) */
+@keyframes howto-glow{0%,100%{box-shadow:var(--lift),0 0 0 0 color-mix(in srgb,var(--green) 0%,transparent)}50%{box-shadow:var(--lift),0 0 0 5px color-mix(in srgb,var(--green) 28%,transparent)}}
+details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}details.howto{animation:none!important}}
+@media (min-width:600px){.tabs{margin-left:calc(50% - min(50vw - 16px,480px));margin-right:calc(50% - min(50vw - 16px,480px))}.tabs ul{flex-wrap:wrap;justify-content:center;overflow:visible;-webkit-mask-image:none;mask-image:none}.tabs ul::after{display:none}.tabs-arr{display:none}section.s,details.dev,.host,#checkout,#trash{scroll-margin-top:var(--tabs-h,128px)!important}}
+@media print{.tabs,#top,.lang,.back,.now,.inapp{display:none}details.dev .body{display:block}}
 
-/* ── 누르는 것처럼 보이게: 진한 테두리(3:1↑)·아이콘·부드러운 그림자·눌림 반응 ── */
-:root{--sep:#c9cdb8;--ctl:#7f8d73;--ctl-bg:#fff;--lift:0 1px 0 rgba(38,51,31,.1),0 3px 8px rgba(38,51,31,.14)}
-@media (prefers-color-scheme:dark){:root{--sep:#4a5642;--ctl:#7d8c70;--ctl-bg:#2a3126;--lift:0 1px 0 rgba(0,0,0,.4),0 3px 8px rgba(0,0,0,.35)}}
-.ic{flex:none;width:18px;height:18px}
-.btn,.jump a,.links a,.chip,.field,a.tel{border:1.5px solid var(--ctl);background:var(--ctl-bg);box-shadow:var(--lift);transition:transform .12s cubic-bezier(.16,1,.3,1),box-shadow .12s cubic-bezier(.16,1,.3,1)}
-.btn:active,.jump a:active,.links a:active,.chip:active,.field:active,a.tel:active,.addr-btn:active,.clock:active{transform:translateY(1px) scale(.985);box-shadow:0 0 0 rgba(0,0,0,0);filter:none}
-.btn.primary{border-color:var(--green);background:var(--green);color:var(--bg)}
-.btn{min-height:52px;justify-content:center;position:relative}
-.btn:has(.trail){padding-left:44px;padding-right:44px}
-.btn .lead{margin-right:2px}
-.btn .trail{position:absolute;right:16px}
-.jump{gap:8px}
-.jump a{gap:4px;padding:0 11px 0 14px;font-weight:700}
-.jump a .ic{width:15px;height:15px;margin-top:1px}
-.links a{gap:8px;padding:0 14px}
-.links a .ic{width:16px;height:16px;color:var(--green)}
-.chip{gap:8px;padding:0 14px;font-weight:700}
-.chip .ic{width:16px;height:16px;color:var(--green)}
-a.tel{gap:10px;padding:0 18px 0 14px;border-radius:99px;font-size:16px;font-weight:700}
-a.tel .ic{width:18px;height:18px;color:var(--green)}
-.field{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.field .fx{min-width:0;display:block}
-.field .fx span{display:block}
-.field .cpy{width:20px;height:20px;color:var(--green)}
-.addr-btn{width:100%;justify-content:space-between;gap:12px;padding:8px 8px 8px 14px;border:1.5px solid rgba(255,255,255,.55);border-radius:16px;background:rgba(14,20,10,.62)}
-.addr-btn .cp{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 12px;border-radius:99px;background:#fff;color:#26331f;font-size:13px;font-weight:700}
-.addr-btn .cp .ic{width:15px;height:15px}
-.clock .hint{width:16px;height:16px;opacity:.95;margin-left:2px}
-@media (hover:hover){.btn:hover,.jump a:hover,.links a:hover,.chip:hover,.field:hover,a.tel:hover{box-shadow:0 1px 0 rgba(38,51,31,.12),0 5px 14px rgba(38,51,31,.2);transform:translateY(-1px)}.btn.primary:hover{filter:brightness(1.06)}}
-@media (max-width:359px){.photo{aspect-ratio:3/4}h2{font-size:29px}.slot .ic{display:none}}
-@media (max-height:520px){.photo{aspect-ratio:auto;max-height:none;display:flex;align-items:flex-end;min-height:340px}.photo::after{background:linear-gradient(180deg,rgba(14,20,10,.25) 0,rgba(14,20,10,.8) 34%,rgba(14,20,10,.95) 100%)}.photo-txt{position:relative;width:100%;padding-top:78px}}
-@media (max-width:420px){.jump{display:grid;grid-template-columns:repeat(3,1fr)}.jump a{justify-content:center;padding:0 6px;font-size:14px;white-space:nowrap}.jump a .ic{display:none}}
-@media (max-width:339px){.jump a{font-size:13px;padding:0 4px}}
-@media (prefers-reduced-motion:reduce){.btn,.jump a,.links a,.chip,.field,a.tel{transition:none}.btn:active,.jump a:active,.links a:active,.chip:active,.field:active,a.tel:active,.addr-btn:active,.clock:active{transform:none}}
-
-/* ── 도착 카드·3단계·서울 정보 ── */
-.tag{margin:-2px 0 12px;font-size:15px;line-height:1.35;color:#fff}
-.arrive{position:relative;z-index:3;margin:-34px 12px 0;padding:14px;border-radius:22px;background:var(--paper);box-shadow:0 2px 0 rgba(28,42,25,.06),0 14px 30px rgba(28,42,25,.22)}
-.slots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.slot{display:flex;align-items:center;gap:10px;min-width:0;padding:4px 4px 4px 2px}
-.slot .ic{width:26px;height:26px;color:var(--brick)}
-.slot small{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);line-height:1.2}
-.slot b{display:block;font-size:17px;line-height:1.25;white-space:nowrap}
-.go{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 42px 0 16px;border-radius:16px;background:var(--green);color:var(--bg);font-size:17px;font-weight:700;text-decoration:none;box-shadow:0 1px 0 rgba(28,42,25,.12),0 6px 14px rgba(28,42,25,.22);-webkit-tap-highlight-color:transparent}
-.go .trail{position:absolute;right:18px}
-.go:active{transform:translateY(1px) scale(.985)}
-.jump{margin-top:18px}
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:22px}
-.steps li{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
-.steps .n{font:700 40px/1 var(--serif);color:var(--brick);text-align:center}
-.steps b{display:block;margin:2px 0 4px;font-size:18px}
-.steps p{max-width:36ch;color:var(--ink)}
-.steps .links{margin:10px 0 0}
-h3.sub{margin:22px 0 10px;font:700 13px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
-h3.sub:first-of-type{margin-top:4px}
-.field .fx em{display:block;margin-top:2px;font-style:normal;font-size:13px;color:var(--mute)}
-.field .fx em i{font-style:italic}
-.sos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.call{display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 14px;border:1.5px solid var(--ctl);border-radius:16px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);text-decoration:none;-webkit-tap-highlight-color:transparent}
-.call.wide{grid-column:1/-1}
-.call .ic{width:22px;height:22px;color:var(--brick)}
-.call b{display:block;font:700 22px/1.1 var(--serif)}
-.call small{display:block;font-size:13px;color:var(--mute);line-height:1.25}
-.call:active{transform:translateY(1px) scale(.985);box-shadow:none}
-.words{margin:0;display:grid;gap:0}
-.words div{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--sep)}
-.words div:first-child{border-top:0}
-.words dt{font-size:20px;font-weight:700}
-.words dd{margin:0;text-align:right;color:var(--ink)}
-.words i{display:block;font-size:13px;color:var(--mute)}
-@media (hover:hover){.go:hover,.call:hover{filter:brightness(1.07)}}
-@media (max-width:359px){.slots{grid-template-columns:1fr}.sos{grid-template-columns:1fr}.arrive{margin-inline:8px}}
-@media (prefers-reduced-motion:reduce){.go:active,.call:active{transform:none}}
-.jump a.gb{background:var(--green);border-color:var(--green);color:var(--bg)}
+/* ── 도착 안내(브로셔) 전용 ── */
+.welcome .btns{margin-top:12px}
+.btn .lead{position:absolute;left:16px;width:20px;height:20px}
+.btn.primary .lead,.btn.primary .trail{color:var(--bg)}
+.more{margin-top:30px;padding:20px;border-radius:22px;background:var(--card2);text-align:center}
+.more p.w{font:600 22px/1.25 var(--serif)}
+.more .small{margin-top:6px}
+.more .btns{margin-top:14px}
+.more+.host{margin-top:14px}
+.link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:700;color:var(--green);text-decoration:none}
+.link .ic{width:16px;height:16px}
 </style>
 </head>
 <body>
 <main>
-  <header class="photo">
-    <img src="../hero.jpg" width="960" height="1200" alt="Copen Haus: a three-storey brick house with white terraces and a pine garden, seen from the street under a clear blue sky" data-alt-ko="Copen Haus: 하얀 테라스와 소나무 정원이 있는 3층 벽돌집. 맑은 하늘 아래 길에서 본 모습" data-alt-en="Copen Haus: a three-storey brick house with white terraces and a pine garden, seen from the street under a clear blue sky" fetchpriority="high">
-    <i class="g g-dawn" aria-hidden="true"></i><i class="g g-dusk" aria-hidden="true"></i><i class="g g-night" aria-hidden="true"></i>
-    <button id="clock" class="clock" type="button" aria-label="Seoul time">
-      <svg id="clkIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
-      <span class="ct"><b id="clkT">--:--</b><small id="clkP">Seoul</small></span><svg class="ic hint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0113.5-5.8L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 01-13.5 5.8L4 15.5M4 20v-4.5h4.5"/></svg>
-    </button>
-    <button class="lang" type="button" id="lang" aria-label="Language: English. Tap to switch to Korean"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
-    <div class="photo-txt">
-      <h1><span class="sr"><span class="ko">환영합니다, </span><span class="en">Welcome to </span></span>Copen Haus</h1>
-      <p class="tag"><span class="en"><span lang="ko">환영합니다</span> · Your stay in Pildong, Seoul</span><span class="ko">환영합니다 · 서울 필동에서 편히 머무세요</span></p>
-      <button class="addr addr-btn en" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-en="Address copied" data-toast-ko="영문 주소 복사됨" aria-label="Copy address: 32-14, Pildong-ro 8-gil, Jung-gu, Seoul"><span class="t">32-14, <span class="nb">Pildong-ro 8-gil</span>, <span class="nb">Jung-gu</span>, Seoul</span><span class="cp"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>Copy</span></button>
-      <button class="addr addr-btn ko" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨" data-toast-en="Address copied" aria-label="주소 복사: 서울특별시 중구 필동로8길 32-14"><span class="t" lang="ko">서울특별시 중구 <span class="nb">필동로8길 32-14</span></span><span class="cp"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>복사</span></button>
-      <p class="addr-ko en" lang="ko">서울특별시 중구 필동로8길 32-14</p>
-      <p class="addr-ko ko">32-14, Pildong-ro 8-gil, Jung-gu, Seoul</p>
+  <div class="inapp" id="inapp" hidden>
+    <p><span class="ko"><b id="inapp-name">앱</b> 안에서 열려 있어요. 복사나 전화가 잘 안 되면 휴대폰 브라우저로 열어 주세요.</span><span class="en">You’re viewing this inside <b id="inapp-name-en">an app</b>. If copying or calling doesn’t work, open it in your phone’s browser.</span></p>
+    <button class="chip" type="button" id="inapp-open"><span class="ko">브라우저로 열기</span><span class="en">Open in browser</span></button>
+  </div>
+  <div class="top">
+    <details class="howto" id="howto">
+      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17h.01"/></svg><span class="hl"><span class="ko"><span class="lg">이 안내 </span>사용법</span><span class="en"><span class="lg">How to use this page</span><span class="sh">Help</span></span></span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <ul>
+        <li><span class="demo pill"><i class="on">한</i>/<i>ENG</i></span><span class="ko"><b>언어 바꾸기</b>오른쪽 위 ‘한/ENG’ 버튼을 누를 때마다 한국어와 영어가 바뀌어요.</span><span class="en"><b>Switch language</b>Tap the “한/ENG” button at the top right to switch between Korean and English.</span></li>
+        <li><span class="demo pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M16 8l4 4-4 4M8 8l-4 4 4 4"/></svg></span><span class="ko"><b>메뉴로 이동</b>화면 위 메뉴를 누르면 그 내용으로 바로 가요. 메뉴는 옆으로 밀면 더 있어요.</span><span class="en"><b>Jump with the menu</b>Tap a menu item at the top to jump there. Swipe the menu sideways to see more.</span></li>
+        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg></span><span class="ko"><b>그림 크게 보기</b>약도를 누르면 크게 열려요. 두 손가락으로 확대하고, 다 보면 ‘닫기’를 눌러요.</span><span class="en"><b>Zoom the map</b>Tap the walking map to open it full size. Pinch to zoom, then tap “Close”.</span></li>
+        <li><span class="demo pill"><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></span><span class="ko"><b>눌러서 복사</b>복사 아이콘이 있는 버튼은 누르면 바로 복사돼요. 화면 아래에 ‘복사됨’이 잠깐 떠요.</span><span class="en"><b>Tap to copy</b>Buttons with a copy icon copy their text. You’ll see a short “copied” note at the bottom.</span></li>
+        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="ko"><b>지도 열기</b>‘네이버지도 길찾기’ 버튼은 네이버지도에서 숙소 위치를 열어요.</span><span class="en"><b>Open the map</b>“Naver Map” and “Google Maps” buttons open the house in that app. Naver Map gives the best directions in Korea.</span></li>
+        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4.5A1.5 1.5 0 016.5 3H19v15H6.5A1.5 1.5 0 005 19.5zM5 19.5A1.5 1.5 0 006.5 21H19M9 7h6M9 10.5h4"/></svg></span><span class="ko"><b>전체 가이드북</b>집 사용법, 맛집, 공항 픽업 같은 더 많은 안내는 ‘전체 가이드북 보기’에 있어요.</span><span class="en"><b>Full guidebook</b>Appliances, food nearby, airport pick-up and more are in the full guidebook.</span></li>
+      </ul>
+      <div class="close"><button class="chip" type="button" data-howto-close><span class="ko">닫기</span><span class="en">Close</span></button></div>
+    </details>
+    <div class="side">
+      <a class="reach" href="tel:+821093280969" data-label-ko="호스트 Lisa에게 전화" data-label-en="Call your host Lisa" aria-label="호스트 Lisa에게 전화"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></a>
+      <a class="reach" href="#host" data-label-ko="호스트에게 메시지 (카카오톡 · LINE · WhatsApp)" data-label-en="Message your host (KakaoTalk, LINE, WhatsApp)" aria-label="호스트에게 메시지 (카카오톡 · LINE · WhatsApp)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg></a>
+      <button class="lang" type="button" id="lang" data-lang-toggle aria-label="한 ENG, 언어 바꾸기. 지금 한국어"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <img src="../hero.jpg" width="960" height="1200" alt="" fetchpriority="high">
+    <p class="loc"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">서울 · 남산 자락 필동</span><span class="en">Seoul · Pildong, by Namsan</span></p>
+    <div class="t">
+      <p class="eb"><span class="ko">Welcome</span><span class="en" lang="ko">환영합니다 · <span lang="en">Welcome</span></span></p>
+      <h1><span class="ko">도착 안내</span><span class="en">Arrival guide</span></h1>
+      <p class="d ko"><span class="u">도착하자마자 필요한 것만</span> <span class="u">한 장에 담았어요.</span></p>
+      <p class="d en"><span class="u">Everything you need</span> <span class="u">when you arrive,</span> <span class="u">on one page.</span></p>
     </div>
   </header>
 
-  <section class="arrive" aria-label="Check-in, check-out and directions" data-label-ko="체크인·체크아웃과 길찾기" data-label-en="Check-in, check-out and directions">
-    <div class="slots">
-      <div class="slot"><svg class="ic big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small><span class="ko">체크인</span><span class="en">Check-in</span></small><b><span class="ko">오후 3시 이후</span><span class="en">After 3 PM</span></b></div></div>
-      <div class="slot"><svg class="ic big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small><span class="ko">체크아웃</span><span class="en">Check-out</span></small><b><span class="ko">오전 11시 이전</span><span class="en">Before 11 AM</span></b></div></div>
+  <section class="arrive welcome" id="welcome" aria-labelledby="h-welcome">
+    <h2 class="wh" id="h-welcome"><span class="ko">환영합니다</span><span class="en">Welcome</span></h2>
+    <p class="intro wi ko">명동까지 걸어서 <span class="nw">약 10분</span>. 남산골한옥마을과 충무로역이 가깝고, 서울역·광화문까지 대중교통으로 쉽게 다닐 수 있어요.</p>
+    <p class="intro wi en">Myeongdong is about a <span class="nw">10-minute walk</span> away. Namsangol Hanok Village and Chungmuro Station are close by, and Seoul Station and Gwanghwamun are an easy ride away.</p>
+    <dl class="facts">
+      <div><dt><span class="ko">주소</span><span class="en">Address</span></dt><dd><span class="ko">서울특별시 중구 필동로8길 32-14</span><span class="en">32-14, <span class="nw">Pildong-ro 8-gil,</span> <span class="nw">Jung-gu,</span> Seoul</span><div class="chips" style="margin-top:8px"><button class="chip" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">한글 주소 복사</span><span class="en">Copy Korean address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-ko="영문 주소 복사됨" data-toast-en="Address copied"><span class="ko">영문 주소 복사</span><span class="en">Copy English address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></dd></div>
+      <div><dt><span class="ko">호스트</span><span class="en">Host</span></dt><dd>Lisa · +82-10-9328-0969<br><span class="ko">카카오톡 · LINE · WhatsApp (ID: free01270)</span><span class="en">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><div class="chips" style="margin-top:8px"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">연락하기</span><span class="en">Contact Lisa</span></a></div></dd></div>
+    </dl>
+    <div class="btns">
+      <a class="btn" href="../" data-keep-lang><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4.5A1.5 1.5 0 016.5 3H19v15H6.5A1.5 1.5 0 005 19.5zM5 19.5A1.5 1.5 0 006.5 21H19M9 7h6M9 10.5h4"/></svg><span class="ko">전체 가이드북 보기</span><span class="en">Open the guidebook</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
-    <a class="go" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.5" r="1.8"/><path d="M9 21l2-6-2-2 1-5 3 1 2 4 3 1M11 15l4 2 1 4M9.5 8L7 11"/></svg><span class="ko">네이버지도 길찾기</span><span class="en">Directions in Naver Map</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </section>
 
-  <nav class="jump" aria-label="Jump to a section" data-label-ko="바로가기" data-label-en="Jump to a section">
-    <a href="#directions"><span class="ko">오는 길</span><span class="en">Directions</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#wifi">Wi-Fi<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#host"><span class="ko">호스트</span><span class="en">Host</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#seoul"><span class="ko">서울 팁</span><span class="en">Seoul</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a href="#rules"><span class="ko">규칙</span><span class="en">Rules</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a><a class="gb" href="../?lang=en" data-keep-lang><span class="ko">가이드북</span><span class="en">Guidebook</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <nav class="tabs" aria-label="섹션 메뉴" data-label-ko="섹션 메뉴" data-label-en="Sections">
+    <div class="tabs-scroll">
+    <button class="tabs-arr prev" type="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <ul>
+      <li><a href="#getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></a></li>
+      <li><a href="#basics"><span class="ko">체크인 · 체크아웃</span><span class="en">Check-in &amp; check-out</span></a></li>
+      <li><a href="#wifi"><span class="ko">와이파이</span><span class="en">Wi-Fi</span></a></li>
+      <li><a href="#rules"><span class="ko">하우스 룰</span><span class="en">House rules</span></a></li>
+      <li><a href="#contact"><span class="ko">연락처</span><span class="en">Contact</span></a></li>
+    </ul>
+    <button class="tabs-arr next" type="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+    <button class="lang-mini" type="button" data-lang-toggle aria-label="ENG, 영어로 바꾸기"></button>
   </nav>
 
-  <section class="s" id="arrive" aria-labelledby="h-enter">
-    <h2 id="h-enter"><span class="ko">세 단계로 도착하기</span><span class="en">Arrive in three steps</span></h2>
-    <ol class="steps">
-      <li><span class="n" aria-hidden="true">1</span><div><b><span class="ko">찾아오기</span><span class="en">Find us</span></b><p><span class="ko">충무로역 3번 출구에서 걷는 길을 따라오세요.</span><span class="en">Follow the walking route from Chungmuro Station Exit 3.</span></p><p class="links"><a href="#directions"><span class="ko">오는 길 보기</span><span class="en">See directions</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p></div></li>
-      <li><span class="n" aria-hidden="true">2</span><div><b><span class="ko">들어가기</span><span class="en">Get in</span></b><p><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내 드려요.</span><span class="en">We’ll send the door lock code by Airbnb message on check-in day.</span></p></div></li>
-      <li><span class="n" aria-hidden="true">3</span><div><b><span class="ko">자리 잡기</span><span class="en">Settle in</span></b><p><span class="ko">Wi-Fi에 연결하고 하우스 룰을 한번 훑어봐 주세요.</span><span class="en">Join the Wi-Fi, and take a quick look at the house rules.</span></p><p class="links"><a href="#wifi"><span class="ko">Wi-Fi 정보</span><span class="en">Wi-Fi details</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a href="#rules"><span class="ko">하우스 룰</span><span class="en">House rules</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a href="../?lang=en" data-keep-lang><span class="ko">가이드북</span><span class="en">Guidebook</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p></div></li>
+  <!-- 1. 찾아오기 -->
+  <section class="s" id="getting" aria-labelledby="h-getting">
+    <h2 id="h-getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></h2>
+    <p class="intro ko">가장 가까운 역은 지하철 3·4호선 <b>충무로역</b>이에요. 남산 쪽 오르막이라 큰 캐리어가 있다면 택시를 권해요.</p>
+    <p class="intro en">The nearest station is <b>Chungmuro</b> (Lines 3 &amp; 4). It’s uphill toward Namsan, so take a taxi if you have big suitcases.</p>
+    <div class="btns" style="margin:0 0 18px">
+      <a class="btn primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14"><span class="ko">네이버지도 길찾기</span><span class="en">Directions in Naver Map</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      <a class="btn en" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14">Google Maps<svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      <button class="btn ko" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">택시용 한글 주소 복사</span><span class="en">Copy Korean address for taxi</span><svg class="ic cpy trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+      <button class="taxi en" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver" data-label-ko="택시 기사님께 보여 줄 한글 주소, 누르면 복사" data-label-en="Korean address for your taxi driver. Tap to copy" aria-label="택시 기사님께 보여 줄 한글 주소, 누르면 복사"><small>Show this to your taxi driver<br><span lang="ko">택시 기사님께 보여 주세요</span></small><b lang="ko">서울특별시 중구 필동로8길 32-14</b><span class="hint"><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>Tap to copy</span></button>
+    </div>
+
+    <h3><span class="ko">충무로역 3번 출구 → Copen Haus</span><span class="en">Walking route from Exit 3</span></h3>
+    <figure class="fig"><button class="zoom" type="button" data-zoom="../img/route.png" data-zoom-ko="../img/route.png" data-zoom-en="../img/en/route.png"><img src="../img/route.png" data-src-ko="../img/route.png" data-src-en="../img/en/route.png" width="1000" height="995" loading="lazy" alt="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-ko="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-en="Walking route map from Chungmuro Station exit 3 through Namsangol Hanok Village to Copen Haus"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+    <p class="small" style="margin-top:8px"><span class="ko">약도이며 실제 축척과 달라요. 정확한 길찾기는 위 네이버지도 버튼을 이용하세요.</span><span class="en">Sketch map, not to scale. For exact directions, use the Naver Map button above.</span></p>
+    <ol class="steps ko">
+      <li><span class="n">1</span><div><b>3번 출구로 나오기</b><p>극동빌딩 맞은편, 퇴계로34길로 진입</p></div></li>
+      <li><span class="n">2</span><div><b>남산골한옥마을 정문</b><p>출구에서 도보 3~4분, 입장 무료</p></div></li>
+      <li><span class="n">3</span><div><b>한옥 · 천우각 연못 지나기</b><p>한옥은 월요일 휴관, 정원 길은 매일 열려 있어요</p></div></li>
+      <li><span class="n">4</span><div><b>전통정원 지나 필동 쪽으로</b><p>정원을 빠져나와 필동로로</p></div></li>
+      <li><span class="n">5</span><div><b>필동로8길로 들어서면 Copen Haus</b><p>서울특별시 중구 필동로8길 32-14</p></div></li>
     </ol>
+    <ol class="steps en">
+      <li><span class="n">1</span><div><b>Leave by Exit 3</b><p>Across from the Kukdong Building, turn into <span class="nw">Toegye-ro 34-gil</span></p></div></li>
+      <li><span class="n">2</span><div><b>Namsangol Hanok Village main gate</b><p>3–4 minutes from the exit, free entry</p></div></li>
+      <li><span class="n">3</span><div><b>Pass the hanok houses and Cheonugak pond</b><p>The hanok houses close on Mondays, but the garden path is open every day</p></div></li>
+      <li><span class="n">4</span><div><b>Through the traditional garden toward Pildong</b><p>Exit the garden onto Pildong-ro</p></div></li>
+      <li><span class="n">5</span><div><b>Turn into Pildong-ro 8-gil, and you’re here</b><p>32-14, <span class="nw">Pildong-ro 8-gil,</span> <span class="nw">Jung-gu,</span> Seoul</p></div></li>
+    </ol>
+    <p class="note"><a class="link" href="../#getting" data-keep-lang><span class="ko">공항·서울역에서 오는 방법은 가이드북에서</span><span class="en">Coming from the airport or Seoul Station? See the guidebook</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </section>
 
-  <section class="s" id="directions" aria-labelledby="h-dir">
-    <h2 id="h-dir"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></h2>
-    <figure class="route-map"><img class="ko" src="../img/route.png" width="1000" height="995" loading="lazy" alt="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도"><img class="en" src="../img/en/route.png" width="1000" height="995" loading="lazy" alt="Walking map from Chungmuro Station Exit 3 through Namsangol Hanok Village to Copen Haus"></figure>
-    <div class="btns">
-      <a class="btn primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.5" r="1.8"/><path d="M9 21l2-6-2-2 1-5 3 1 2 4 3 1M11 15l4 2 1 4M9.5 8L7 11"/></svg><span class="ko">네이버지도 길찾기</span><span class="en">Directions in Naver Map</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <button class="btn en" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-en="Address copied" data-toast-ko="영문 주소 복사됨"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>Copy address</button>
-      <button class="btn ko" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨" data-toast-en="Address copied"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>주소 복사</button>
+  <!-- 2. 체크인·체크아웃 -->
+  <section class="s" id="basics" aria-labelledby="h-basics">
+    <h2 id="h-basics"><span class="ko">체크인 · 체크아웃</span><span class="en">Check-in &amp; check-out</span></h2>
+    <div class="slots">
+      <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크인</small><small class="en">Check-in</small><b class="ko">오후 3시 이후</b><b class="en">After 3 PM</b></div></div>
+      <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크아웃</small><small class="en">Check-out</small><b class="ko">오전 11시 이전</b><b class="en">Before 11 AM</b></div></div>
     </div>
-    <p class="small tip"><span class="ko">가장 가까운 역은 지하철 3·4호선 <b>충무로역</b>이에요. 3번 출구로 나와 남산골한옥마을을 지나 걸어오세요. 남산 쪽 오르막이라 큰 캐리어가 있다면 택시를 권해요.</span><span class="en">The nearest station is <b>Chungmuro</b> (Lines 3 &amp; 4). Leave by Exit 3 and walk through Namsangol Hanok Village. It’s uphill toward Namsan, so take a taxi if you have big suitcases.</span></p>
-    <p class="small"><span class="ko">한국에서는 구글지도보다 네이버지도의 길찾기가 훨씬 정확해요.</span><span class="en">In Korea, Naver Map gives far better directions than Google Maps.</span></p>
-    <button class="field kr" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-en="Korean address copied · show it to a taxi driver" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여 주세요" aria-label="Copy Korean address for taxi, 서울특별시 중구 필동로8길 32-14" data-label-ko="택시용 한글 주소 복사, 서울특별시 중구 필동로8길 32-14" data-label-en="Copy Korean address for taxi, 서울특별시 중구 필동로8길 32-14"><span class="fx"><span><span class="ko">택시용 한글 주소 · 눌러서 복사</span><span class="en">Korean address · tap to copy for taxi</span></span><b lang="ko">서울특별시 중구 필동로8길 32-14</b></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+    <p class="first-t"><span class="ko">처음 오셨다면 이 순서로</span><span class="en">Just arrived? Start here</span></p>
+    <ol class="go">
+      <li><a href="#host"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내 드려요. 못 받으셨다면 눌러서 Lisa에게 연락하세요</small><small class="en">The door code comes by Airbnb message on check-in day. Didn’t get it? Tap to contact Lisa</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+      <li><button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><span class="n">2</span><span><b class="ko">Wi-Fi 연결</b><b class="en">Join the Wi-Fi</b><small class="ko">네트워크 Copen_Green · <span class="nw">누르면 비밀번호 복사</span></small><small class="en">Network Copen_Green · <span class="nw">tap to copy the password</span></small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></li>
+      <li><a href="../#heating" data-keep-lang><span class="n">3</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기 · 가이드북에서 사용법 보기</small><small class="en">Thermostat on the wall, right of the entrance · see how in the guidebook</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+      <li><a href="#rules"><span class="n">4</span><span><b class="ko">하우스 룰 보기</b><b class="en">Read the house rules</b><small class="ko">실내 금연 · 밤 10시~아침 8시는 조용히</small><small class="en">No smoking indoors · quiet hours 10 PM – 8 AM</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    </ol>
+    <dl class="facts" style="margin-top:16px">
+      <div><dt><span class="ko">출입 방법</span><span class="en">Getting in</span></dt><dd><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내 드려요.</span><span class="en">We send the door lock code by Airbnb message on check-in day.</span></dd></div>
+      <div><dt><span class="ko">입구·층</span><span class="en">Entrance</span></dt><dd><span class="ko">건물 1층</span><span class="en">Ground floor (1F)</span></dd></div>
+      <div><dt><span class="ko">짐 보관</span><span class="en">Luggage</span></dt><dd><span class="ko">미리 알려 주시면 안내해 드려요.</span><span class="en">Let us know in advance and we’ll help you arrange it.</span></dd></div>
+    </dl>
+    <h3 id="checkout" style="scroll-margin-top:70px"><span class="ko">체크아웃 전에 부탁드려요</span><span class="en">Before you check out</span></h3>
+    <div class="check" data-store="ch-checkout">
+      <label><input type="checkbox"><span><span class="ko">쓰레기는 분리해 집에 두시면 정리해 드립니다</span><span class="en">Sort your trash and leave it inside; we’ll take care of it</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">에어컨 · 난방 · 조명 끄기</span><span class="en">Turn off the AC, heating and lights</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">창문 닫고 문이 잠겼는지 확인</span><span class="en">Close the windows and check the door is locked</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">에어비앤비 메시지로 체크아웃 알려 주기</span><span class="en">Let us know by Airbnb message that you’ve left</span></span></label>
+    </div>
+    <p class="note"><span class="ko">체크 표시는 이 휴대폰에 기억되고, 가이드북의 체크리스트와 함께 바뀌어요.</span><span class="en">Your ticks are saved on this phone and match the checklist in the guidebook.</span></p>
   </section>
 
+  <!-- 3. 와이파이 -->
   <section class="s" id="wifi" aria-labelledby="h-wifi">
-    <h2 id="h-wifi">Wi-Fi</h2>
-    <div class="panel">
-      <div class="wifi-grid">
-        <div class="fields">
-          <button class="field" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied" aria-label="Network Copen_Green, tap to copy" data-label-ko="네트워크 Copen_Green, 눌러서 복사" data-label-en="Network Copen_Green, tap to copy"><span class="fx"><span><span class="ko">네트워크</span><span class="en">Network</span></span><b>Copen_Green</b></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-          <button class="field" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied" aria-label="Password Copen_0077, tap to copy" data-label-ko="비밀번호 Copen_0077, 눌러서 복사" data-label-en="Password Copen_0077, tap to copy"><span class="fx"><span><span class="ko">비밀번호</span><span class="en">Password</span></span><b>Copen_0077</b></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-        </div>
-        <img class="qr" src="../qr.png" width="560" height="560" alt="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network." loading="lazy" decoding="async">
-      </div>
-      <p class="cap"><span class="ko">카메라로 QR 코드를 찍으면 연결돼요<br>또는 칸을 눌러 복사하세요</span><span class="en">Scan the QR code with your camera to connect<br>or tap a field to copy it</span></p>
-    </div>
-  </section>
-
-  <section class="s" id="host" aria-labelledby="h-host">
-    <h2 id="h-host"><span class="ko">호스트</span><span class="en">Your host</span></h2>
-    <p class="who">Lisa</p>
-    <a class="tel" href="tel:+821093280969" aria-label="Call Lisa +82 10 9328 0969" data-label-ko="Lisa에게 전화 010 9328 0969" data-label-en="Call Lisa +82 10 9328 0969"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="en">+82-10-9328-0969</span><span class="ko">010-9328-0969</span></a>
-    <div class="chips">
-      <button class="chip" type="button" data-copy="free01270" data-toast-en="ID copied · KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste" data-toast-ko="ID 복사됨 · 카카오톡 ▸ 친구 추가 ▸ ID로 추가 ▸ 붙여넣기" aria-label="KakaoTalk: copy ID free01270, then add friend by ID in the app" data-label-ko="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가" data-label-en="KakaoTalk: copy ID free01270, then add friend by ID in the app"><span class="ko">카카오톡</span><span class="en">KakaoTalk</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-      <a class="chip" href="https://line.me/R/ti/p/~free01270" data-copy="free01270" data-toast-en="LINE ID copied · if LINE doesn’t open, search this ID under Add friend" data-toast-ko="LINE ID 복사됨 · LINE이 안 열리면 친구 추가에서 이 ID를 검색하세요" aria-label="Add Lisa on LINE (opens LINE in the app or on the web, and copies the ID)" data-label-ko="LINE으로 Lisa 친구 추가 (앱이나 웹에서 열리고 ID도 복사돼요)" data-label-en="Add Lisa on LINE (opens LINE in the app or on the web, and copies the ID)">LINE<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-      <a class="chip" href="https://api.whatsapp.com/send?phone=821093280969" data-copy="+821093280969" data-toast-en="Number copied · if WhatsApp doesn’t open, add +82 10 9328 0969 as a new contact" data-toast-ko="번호 복사됨 · WhatsApp이 안 열리면 +82 10 9328 0969를 새 연락처로 추가하세요" aria-label="Chat with Lisa on WhatsApp (opens WhatsApp in the app or on the web, and copies the number)" data-label-ko="WhatsApp으로 Lisa와 대화 (앱이나 웹에서 열리고 번호도 복사돼요)" data-label-en="Chat with Lisa on WhatsApp (opens WhatsApp in the app or on the web, and copies the number)">WhatsApp<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-    </div>
-    <p class="small">ID: free01270</p>
-    <ul class="hints">
-      <li class="en"><b>KakaoTalk</b> – tap to copy the ID, then open KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste.</li>
-      <li class="ko"><b>카카오톡</b> – 눌러서 ID를 복사한 뒤, 카카오톡 ▸ 친구 추가 ▸ ID로 추가 ▸ 붙여넣기.</li>
-      <li class="en"><b>LINE</b> – tap to add Lisa as a friend. It opens in the LINE app, or on the web page if you don’t have the app (the ID is copied too).</li>
-      <li class="ko"><b>LINE</b> – 누르면 Lisa를 친구로 추가해요. LINE 앱이 없으면 웹 페이지로 열려요 (ID도 복사돼요).</li>
-      <li class="en"><b>WhatsApp</b> – tap to start a chat with Lisa. It opens in the WhatsApp app or WhatsApp Web (the number is copied too).</li>
-      <li class="ko"><b>WhatsApp</b> – 누르면 Lisa와 대화가 열려요. WhatsApp 앱이나 WhatsApp 웹으로 열려요 (번호도 복사돼요).</li>
-    </ul>
-    <p class="small" style="margin-top:12px"><span class="ko">버튼을 눌러도 앱이 안 열리나요? 카카오톡·인스타그램 같은 앱 안 브라우저 대신 Safari나 Chrome에서 이 페이지를 열거나, 복사한 ID·번호를 앱에 붙여넣으세요.</span><span class="en">Buttons not opening an app? Open this page in Safari or Chrome instead of an in-app browser (KakaoTalk, Instagram, etc.), or paste the copied ID/number into the app.</span></p>
-  </section>
-
-  <section class="s" id="seoul" aria-labelledby="h-seoul">
-    <h2 id="h-seoul"><span class="ko">서울에서 알아 두면 좋아요</span><span class="en">Handy in Seoul</span></h2>
-    <h3 class="sub"><span class="ko">택시 탈 때</span><span class="en">Taking a taxi</span></h3>
-    <button class="field kr" type="button" data-copy="이 주소로 가 주세요. 서울특별시 중구 필동로8길 32-14" data-toast-en="Copied · show it to your driver" data-toast-ko="복사됨 · 기사님께 보여 주세요" aria-label="Copy taxi phrase: Please take me to this address, with the Korean address" data-label-ko="택시 문장 복사: 이 주소로 가 주세요, 한글 주소 포함" data-label-en="Copy taxi phrase: Please take me to this address, with the Korean address"><span class="fx"><span><span class="ko">기사님께 보여 주세요</span><span class="en">Show this to your driver</span></span><b lang="ko">이 주소로 가 주세요</b><em class="en">“Please take me to this address” · <i>i juso-ro ga juseyo</i></em><em class="ko">서울특별시 중구 필동로8길 32-14</em></span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-    <h3 class="sub"><span class="ko">긴급 상황</span><span class="en">In an emergency</span></h3>
-    <div class="sos">
-      <a class="call" href="tel:112"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>112</b><small class="ko">경찰</small><small class="en">Police</small></span></a>
-      <a class="call" href="tel:119"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>119</b><small class="ko">화재 · 구급차</small><small class="en">Fire &amp; ambulance</small></span></a>
-      <a class="call" href="tel:1330"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>1330</b><small class="ko">관광 통역·안내 (24시간)</small><small class="en">Travel helpline, 24 h, English</small></span></a>
-      <a class="call" href="tel:120"><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>120</b><small class="ko">서울시 생활 문의</small><small class="en">Seoul city helpline</small></span></a>
-    </div>
-    <h3 class="sub en">A few Korean words</h3>
-    <dl class="words en">
-      <div><dt lang="ko">안녕하세요</dt><dd>Hello <i>annyeonghaseyo</i></dd></div>
-      <div><dt lang="ko">감사합니다</dt><dd>Thank you <i>gamsahamnida</i></dd></div>
-      <div><dt lang="ko">저기요</dt><dd>Excuse me <i>jeogiyo</i></dd></div>
+    <h2 id="h-wifi"><span class="ko">와이파이</span><span class="en">Wi-Fi</span></h2>
+    <dl class="facts" style="margin-top:14px">
+      <div><dt><span class="ko">연결하기</span><span class="en">Join</span></dt><dd><div class="wifi"><div><span class="wl"><span class="ko">네트워크</span><span class="en">Network</span></span><button class="chip" type="button" data-label-ko="네트워크 이름 Copen_Green 복사" data-label-en="Copy network name Copen_Green" aria-label="네트워크 이름 Copen_Green 복사" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div><div><span class="wl"><span class="ko">비밀번호</span><span class="en">Password</span></span><button class="chip" type="button" data-label-ko="비밀번호 Copen_0077 복사" data-label-en="Copy password Copen_0077" aria-label="비밀번호 Copen_0077 복사" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></div><p class="small" style="margin-top:8px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="../qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
     </dl>
   </section>
 
+  <!-- 4. 하우스 룰 -->
   <section class="s" id="rules" aria-labelledby="h-rules">
     <h2 id="h-rules"><span class="ko">하우스 룰</span><span class="en">House rules</span></h2>
-    <ol>
-      <li><i>1</i><span><span class="ko">실내 금연입니다. 건물 앞·계단에서도 흡연하지 말아 주세요.</span><span class="en">No smoking indoors, and please don’t smoke in front of the building or on the stairs either.</span></span></li>
-      <li><i>2</i><span><span class="ko">밤 10시~아침 8시는 조용히 해 주세요. 골목과 계단의 대화도 잘 울립니다.</span><span class="en">Quiet hours are 10 PM – 8 AM. Voices carry in the alley and stairwell.</span></span></li>
-      <li><i>3</i><span><span class="ko">파티·행사는 불가합니다.</span><span class="en">No parties or events.</span></span></li>
-      <li><i>4</i><span><span class="ko">예약 인원 외 방문객은 미리 문의해 주세요.</span><span class="en">Please ask us before inviting anyone who isn’t on the booking.</span></span></li>
-      <li><i>5</i><span><span class="ko">실내에서는 신발을 벗어 주세요.</span><span class="en">Please take off your shoes indoors.</span></span></li>
-      <li><i>6</i><span><span class="ko">반려동물은 데려올 수 없어요.</span><span class="en">Please don’t bring pets.</span></span></li>
-      <li><i>7</i><span><span class="ko">파손된 물건이 있으면 바로 알려 주세요. 솔직하게 말씀해 주시면 됩니다.</span><span class="en">If anything is broken, tell us right away. Being honest is all we ask.</span></span></li>
+    <p class="intro ko">모두가 편히 쉴 수 있도록 일곱 가지만 지켜 주세요.</p>
+    <p class="intro en">Seven small things so everyone can rest well.</p>
+    <ol class="rules ko">
+      <li><i>1</i><span>실내 금연입니다. 건물 앞·계단에서도 흡연하지 말아 주세요.</span></li>
+      <li><i>2</i><span>밤 10시~아침 8시는 조용히 해 주세요. 골목과 계단의 대화도 잘 울립니다.</span></li>
+      <li><i>3</i><span>파티·행사는 불가합니다.</span></li>
+      <li><i>4</i><span>예약 인원 외 방문객은 미리 문의해 주세요.</span></li>
+      <li><i>5</i><span>실내에서는 신발을 벗어 주세요.</span></li>
+      <li><i>6</i><span>반려동물은 데려올 수 없어요.</span></li>
+      <li><i>7</i><span>파손된 물건이 있으면 바로 알려 주세요. 솔직하게 말씀해 주시면 됩니다.</span></li>
     </ol>
+    <ol class="rules en">
+      <li><i>1</i><span>No smoking indoors, and please don’t smoke in front of the building or on the stairs either.</span></li>
+      <li><i>2</i><span>Quiet hours are 10 PM – 8 AM. Voices carry in the alley and stairwell.</span></li>
+      <li><i>3</i><span>No parties or events.</span></li>
+      <li><i>4</i><span>Please ask us before inviting anyone who isn’t on the booking.</span></li>
+      <li><i>5</i><span>Please take off your shoes indoors.</span></li>
+      <li><i>6</i><span>Please don’t bring pets.</span></li>
+      <li><i>7</i><span>If anything is broken, tell us right away. Being honest is all we ask.</span></li>
+    </ol>
+    <p class="note"><a class="link" href="../#trash" data-keep-lang><span class="ko">쓰레기 버리는 법은 가이드북에서</span><span class="en">How to sort and put out trash: see the guidebook</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+  </section>
+
+  <!-- 5. 연락처 -->
+  <section class="s" id="contact" aria-labelledby="h-contact">
+    <h2 id="h-contact"><span class="ko">연락처</span><span class="en">Contact</span></h2>
+    <div class="host" id="host" style="margin-top:16px">
+      <p class="w ko">어렵거나 궁금하면 언제든 연락 주세요</p>
+      <p class="w en">Stuck or curious? Message us anytime</p>
+      <p class="small" style="margin-top:6px"><span class="ko">호스트 Lisa · 카카오톡 · LINE · WhatsApp 어디로 보내셔도 괜찮아요</span><span class="en">Your host Lisa · KakaoTalk, LINE or WhatsApp, whichever you like</span></p>
+      <div class="host-tel">
+        <a class="chip tel" href="tel:+821093280969" data-label-ko="Lisa에게 전화 010 9328 0969" data-label-en="Call Lisa +82 10 9328 0969" aria-label="Lisa에게 전화 010 9328 0969"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="ko">010-9328-0969</span><span class="en">+82-10-9328-0969</span></a>
+      </div>
+      <div class="msgr">
+        <button class="chip" type="button" data-copy="free01270" data-toast-ko="ID 복사됨 · 카카오톡 ▸ 친구 추가 ▸ ID로 추가 ▸ 붙여넣기" data-toast-en="ID copied · KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste" data-label-ko="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가" data-label-en="KakaoTalk: copy ID free01270, then add friend by ID in the app" aria-label="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가"><span class="ko">카카오톡</span><span class="en">KakaoTalk</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+        <a class="chip" href="https://line.me/R/ti/p/~free01270" data-copy="free01270" data-toast-ko="LINE ID 복사됨 · LINE이 안 열리면 친구 추가에서 이 ID를 검색하세요" data-toast-en="LINE ID copied · if LINE doesn’t open, search this ID under Add friend" data-label-ko="LINE으로 Lisa 친구 추가 (ID도 복사돼요)" data-label-en="Add Lisa on LINE (the ID is copied too)" aria-label="LINE으로 Lisa 친구 추가 (ID도 복사돼요)">LINE<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+        <a class="chip" href="https://api.whatsapp.com/send?phone=821093280969" data-copy="+821093280969" data-toast-ko="번호 복사됨 · WhatsApp이 안 열리면 +82 10 9328 0969를 새 연락처로 추가하세요" data-toast-en="Number copied · if WhatsApp doesn’t open, add +82 10 9328 0969 as a new contact" data-label-ko="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)" data-label-en="Chat with Lisa on WhatsApp (the number is copied too)" aria-label="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)">WhatsApp<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      </div>
+      <p class="small" style="margin-top:10px">ID: free01270 · <span class="ko">앱이 안 열리면 Safari나 Chrome에서 이 페이지를 열어 주세요</span><span class="en">If an app doesn’t open, open this page in Safari or Chrome</span></p>
+    </div>
+    <h3><span class="ko">비상 연락처</span><span class="en">Emergency numbers</span></h3>
+    <div class="sos">
+      <a class="call" href="tel:112"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>112</b><small class="ko">경찰</small><small class="en">Police</small></span></a>
+      <a class="call" href="tel:119"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>119</b><small class="ko">화재 · 구급차</small><small class="en">Fire &amp; ambulance</small></span></a>
+      <a class="call" href="tel:1330"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>1330</b><small class="ko"><span class="nw">관광 통역·안내</span> <span class="nw">(24시간)</span></small><small class="en">Travel helpline, 24 h, English</small></span></a>
+      <a class="call" href="tel:120"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>120</b><small class="ko">서울시 생활 문의</small><small class="en">Seoul city helpline</small></span></a>
+    </div>
+
+    <div class="more">
+      <p class="w ko">더 궁금한 건 가이드북에 있어요</p>
+      <p class="w en">More in the full guidebook</p>
+      <p class="small"><span class="ko"><span class="nw">집 사용법 ·</span> <span class="nw">쓰레기 ·</span> <span class="nw">주변 맛집 ·</span> <span class="nw">둘러보기 ·</span> <span class="nw">공항 픽업 ·</span> <span class="nw">유용한 앱</span></span><span class="en"><span class="nw">Appliances ·</span> <span class="nw">trash ·</span> <span class="nw">food nearby ·</span> <span class="nw">things to see ·</span> <span class="nw">airport pick-up ·</span> <span class="nw">handy apps</span></span></p>
+      <div class="btns"><a class="btn primary" href="../" data-keep-lang><svg class="ic lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4.5A1.5 1.5 0 016.5 3H19v15H6.5A1.5 1.5 0 005 19.5zM5 19.5A1.5 1.5 0 006.5 21H19M9 7h6M9 10.5h4"/></svg><span class="ko">전체 가이드북 보기</span><span class="en">Open the guidebook</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <p class="foot ko">즐거운 여행 하세요! · 2026년 11월 기준</p>
+    <p class="foot en">Enjoy your trip! · Information as of November 2026</p>
   </section>
 </main>
-<button id="top" type="button" aria-label="Back to top" data-label-ko="맨 위로" data-label-en="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<dialog id="zoom" aria-label="그림 크게 보기" data-label-ko="그림 크게 보기" data-label-en="Map, full size"><form method="dialog"><button type="submit"><span class="ko">닫기</span><span class="en">Close</span></button></form><img alt=""></dialog>
+<button id="top" type="button" aria-label="맨 위로" data-label-ko="맨 위로" data-label-en="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
-document.addEventListener('click',async e=>{
-  const b=e.target.closest('[data-copy]');if(!b)return;
-  const v=b.dataset.copy;
-  try{await navigator.clipboard.writeText(v)}catch(_){const t=document.createElement('textarea');t.value=v;t.setAttribute('readonly','');t.style.cssText='position:fixed;opacity:0';document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(__){}t.remove()}
-  const ko=document.documentElement.dataset.lang==='ko',msg=b.dataset[ko?'toastKo':'toastEn'];
-  say(msg||((ko?'복사됨: ':'Copied: ')+v),msg?3600:1600);
-});
-function say(t,ms){const o=document.getElementById('toast');o.textContent=t;o.classList.add('on');clearTimeout(o._t);o._t=setTimeout(()=>o.classList.remove('on'),ms||2400)}
-
-// 언어 전환: 화면 글자 + 화면 낭독기용 이름·그림 설명·탭 제목·주소(?lang=)·가이드북 링크까지 함께 바꿔요
 (function(){
-  const root=document.documentElement;
-  function applyLang(l){root.lang=l;root.dataset.lang=l;const ko=l==='ko';
-    document.title=ko?'Copen Haus 도착 안내':'Copen Haus';
-    document.querySelectorAll('[data-label-ko]').forEach(e=>{const v=e.dataset[ko?'labelKo':'labelEn'];e.tagName==='IFRAME'?e.title=v:e.setAttribute('aria-label',v)});
-    document.querySelectorAll('[data-alt-ko]').forEach(e=>e.alt=e.dataset[ko?'altKo':'altEn']);
-    document.getElementById('lang').setAttribute('aria-label',ko?'언어: 한국어. 눌러서 영어로 바꾸기':'Language: English. Tap to switch to Korean');
-    document.querySelectorAll('a[data-keep-lang]').forEach(a=>{const u=new URL(a.getAttribute('href'),location.href);u.searchParams.set('lang',l);a.href=u.pathname+u.search+u.hash});
-    try{const u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}
-    document.dispatchEvent(new Event('langchange'))}
+  var root=document.documentElement,toast=document.getElementById('toast');
+  // 언어 전환: 화면 글자 + 화면 낭독기용 이름(aria-label)·그림 설명(alt)·탭 제목·주소(?lang=)·가이드북 링크까지 함께 바꿔요
+  function applyLang(l){root.lang=l;root.dataset.lang=l;var ko=l==='ko';
+    document.title=ko?'Copen Haus 도착 안내':'Copen Haus Arrival guide';
+    document.querySelectorAll('[data-label-ko]').forEach(function(e){e.setAttribute('aria-label',e.dataset['label'+(ko?'Ko':'En')])});
+    document.querySelectorAll('[data-alt-ko]').forEach(function(e){e.alt=e.dataset['alt'+(ko?'Ko':'En')]});
+    // 그림: 영어 화면에서는 글자를 영어로 다시 그린 그림(img/en/)을 써요
+    document.querySelectorAll('[data-src-ko]').forEach(function(e){var v=e.dataset['src'+(ko?'Ko':'En')];if(e.getAttribute('src')!==v)e.setAttribute('src',v)});
+    document.querySelectorAll('[data-zoom-ko]').forEach(function(e){e.dataset.zoom=e.dataset['zoom'+(ko?'Ko':'En')]});
+    document.querySelectorAll('[data-lang-toggle]').forEach(function(b){b.setAttribute('aria-label',b.id==='lang'?(ko?'한 ENG, 언어 바꾸기. 지금 한국어':'한 ENG, switch language. Now English'):(ko?'ENG, 영어로 바꾸기':'한, switch to Korean'))});
+    document.querySelectorAll('a[data-keep-lang]').forEach(function(a){var u=new URL(a.getAttribute('href'),location.href);u.searchParams.set('lang',l);a.href=u.pathname+u.search+u.hash});
+    try{var u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}}
   applyLang(root.dataset.lang);
-  document.getElementById('lang').addEventListener('click',()=>{const l=root.dataset.lang==='ko'?'en':'ko';applyLang(l);say(l==='ko'?'한국어로 바꿨어요':'Switched to English',1400)});
-})();
+  document.querySelectorAll('[data-lang-toggle]').forEach(function(btn){btn.addEventListener('click',function(){var l=root.dataset.lang==='ko'?'en':'ko';applyLang(l);try{localStorage.setItem('ch-lang',l)}catch(e){}
+    say(l==='ko'?'한국어로 바꿨어요':'Switched to English',1400)})});
+  // 복사
+  function say(t,ms){toast.textContent=t;toast.classList.remove('stay');toast.onclick=null;toast.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on')},ms||2400)}
+  document.addEventListener('click',function(e){var b=e.target.closest('[data-copy]');if(!b)return;var v=b.dataset.copy;
+    var ok=function(){say(b.dataset['toast'+(root.dataset.lang==='ko'?'Ko':'En')]||v,3200)};
+    // 복사가 안 되면(카카오톡·LINE 안 브라우저 등) '복사됨' 대신 글자를 크게 보여 줘요
+    var fail=function(){toast.textContent='';var m=document.createElement('span');m.textContent=root.dataset.lang==='ko'?'복사가 안 됐어요. 직접 입력해 주세요':'Couldn’t copy. Please type it in';var big=document.createElement('b');big.className='big';big.textContent=v;toast.appendChild(m);toast.appendChild(big);toast.classList.add('on','stay');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on','stay')},15000);toast.onclick=function(){clearTimeout(toast._t);toast.classList.remove('on','stay');toast.onclick=null}};
+    var legacy=function(){var t=document.createElement('textarea'),r=false;t.value=v;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,v.length);try{r=document.execCommand('copy')}catch(_){}t.remove();b.focus&&b.focus({preventScroll:true});r?ok():fail()};
+    if(navigator.clipboard&&window.isSecureContext!==false){navigator.clipboard.writeText(v).then(ok,legacy)}else legacy()});
+  // iOS Safari에서 버튼 눌림(:active) 반응이 보이게
+  document.addEventListener('touchstart',function(){},{passive:true});
+  // '이 안내 사용법': 처음엔 접혀 있고, 한 번 눌러 보기 전까지만 은은하게 깜빡여요 (가이드북에서 이미 봤다면 깜빡이지 않아요)
+  var how=document.getElementById('howto');try{if(localStorage.getItem('ch-howto-seen'))how.classList.add('seen')}catch(e){}
+  document.querySelectorAll('[data-howto-close]').forEach(function(b){b.addEventListener('click',function(){how.open=false;how.querySelector('summary').focus()})});
+  how.addEventListener('toggle',function(){if(how.open){how.classList.add('seen');try{localStorage.setItem('ch-howto-seen','1')}catch(e){}}});
+  // 약도 크게 보기
+  var dlg=document.getElementById('zoom'),dimg=dlg.querySelector('img');
+  document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){if(!dlg.showModal){location.href=b.dataset.zoom;return}dimg.src=b.dataset.zoom;dimg.alt=b.querySelector('img').alt;dlg.showModal()})});
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+  // 체크아웃 체크리스트 기억(이 기기에만, 가이드북과 같은 칸을 써요)
+  document.querySelectorAll('[data-store]').forEach(function(box){var k=box.dataset.store,ins=box.querySelectorAll('input'),s=[];
+    try{s=JSON.parse(localStorage.getItem(k)||'[]')}catch(e){}
+    ins.forEach(function(i,n){i.checked=!!s[n];i.addEventListener('change',function(){try{localStorage.setItem(k,JSON.stringify([].map.call(ins,function(x){return x.checked})))}catch(e){}})})});
+  // 탭: 현재 섹션 표시 + 옆으로 더 있음(화살표·가장자리 흐림)
+  var tabs=document.querySelector('.tabs'),links=[].slice.call(tabs.querySelectorAll('a')),secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  var tul=tabs.querySelector('ul');function tend(){tabs.classList.toggle('end',tul.scrollLeft+tul.clientWidth>=tul.scrollWidth-4);tabs.classList.toggle('mid',tul.scrollLeft>4)}tul.addEventListener('scroll',tend,{passive:true});tend();if(window.ResizeObserver)new ResizeObserver(tend).observe(tul);
+  tabs.querySelectorAll('.tabs-arr').forEach(function(b){b.addEventListener('click',function(){var d=tul.clientWidth*.7*(b.classList.contains('prev')?-1:1);tul.scrollBy({left:d,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})})});
+  var cur=null;function mark(id){if(id===cur)return;cur=id;links.forEach(function(a){var on=a.getAttribute('href')==='#'+id;if(on)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');if(on){var ul=a.closest('ul');var ar=a.getBoundingClientRect(),ur=ul.getBoundingClientRect();ul.scrollTo({left:ul.scrollLeft+ar.left-ur.left-(ul.clientWidth-ar.width)/2,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}})}
+  function onScroll(){tabs.classList.toggle('stuck',tabs.getBoundingClientRect().top<=0);var y=innerHeight*.3,id=null;secs.forEach(function(s){if(s&&s.getBoundingClientRect().top<y)id=s.id});
+    // 맨 아래까지 내리면 마지막 메뉴(연락처)를 표시해요
+    if(innerHeight+scrollY>=document.documentElement.scrollHeight-4&&secs.length)id=secs[secs.length-1].id;mark(id);
+    document.getElementById('top').classList.toggle('on',scrollY>innerHeight*.8)}
+  // 넓은 화면에서 메뉴가 여러 줄이 되면, 메뉴로 이동했을 때 제목이 가리지 않게 그 높이만큼 띄워요
+  function tabsH(){root.style.setProperty('--tabs-h',(tabs.offsetHeight+12)+'px')}tabsH();if(window.ResizeObserver)new ResizeObserver(tabsH).observe(tabs);else addEventListener('resize',tabsH);
+  var tk=0;addEventListener('scroll',function(){if(!tk)tk=requestAnimationFrame(function(){tk=0;onScroll()})},{passive:true});onScroll();
+  document.getElementById('top').addEventListener('click',function(){scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    var h1=document.querySelector('h1');h1.setAttribute('tabindex','-1');h1.focus({preventScroll:true})});   // 키보드 사용자의 포커스가 사라지지 않게 맨 위 제목으로 옮겨요
 
-(function(){
-  // 서울 시각에 맞춰 사진 분위기가 바뀌어요(새벽·낮·노을·밤). 시각 칩을 누르면 다른 시간대를 미리 볼 수 있어요
-  const photo=document.querySelector('.photo'),clk=document.getElementById('clock'),T=document.getElementById('clkT'),P=document.getElementById('clkP'),I=document.getElementById('clkIcon');
-  const NAMES={en:{dawn:'Dawn',day:'Daytime',dusk:'Sunset',night:'Night'},ko:{dawn:'새벽',day:'낮',dusk:'노을',night:'밤'}},ORDER=['dawn','day','dusk','night'];
-  const SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/>',MOON='<path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/>',RISE='<path d="M5 17a7 7 0 0114 0M12 5v4M7.5 8.5L9 10M16.5 8.5L15 10M2 20h20"/>',SET='<path d="M5 17a7 7 0 0114 0M12 9V5M9 7l3 3 3-3M2 20h20"/>';
-  const ICON={dawn:RISE,day:SUN,dusk:SET,night:MOON};
-  function sunMin(y,m,d){const lat=37.5665,lon=126.978,rad=Math.PI/180,N=Math.round((Date.UTC(y,m-1,d)-Date.UTC(y,0,0))/864e5),g=2*Math.PI/365*(N-1),
-    eq=229.18*(.000075+.001868*Math.cos(g)-.032077*Math.sin(g)-.014615*Math.cos(2*g)-.040849*Math.sin(2*g)),
-    dc=.006918-.399912*Math.cos(g)+.070257*Math.sin(g)-.006758*Math.cos(2*g)+.000907*Math.sin(2*g)-.002697*Math.cos(3*g)+.00148*Math.sin(3*g),
-    ha=Math.acos(Math.cos(90.833*rad)/(Math.cos(lat*rad)*Math.cos(dc))-Math.tan(lat*rad)*Math.tan(dc))/rad,k=x=>((x+540)%1440+1440)%1440;
-    return{rise:k(720-4*(lon+ha)-eq),set:k(720-4*(lon-ha)-eq)}}
-  function seoul(){const f=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Seoul',year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()),o={};f.forEach(x=>o[x.type]=x.value);
-    return{y:+o.year,m:+o.month,d:+o.day,min:(+o.hour%24)*60+ +o.minute,hh:String(+o.hour%24).padStart(2,'0'),mm:o.minute}}
-  function phaseOf(s){const {rise,set}=sunMin(s.y,s.m,s.d),x=s.min;
-    if(x>=rise-30&&x<rise+60)return'dawn';if(x>=rise+60&&x<set-60)return'day';if(x>=set-60&&x<set+45)return'dusk';return'night'}
-  let pv=-1,cur='';   // pv: -1이면 실시간, 0~3이면 미리보기
-  function paint(){const s=seoul(),live=phaseOf(s),ph=pv<0?live:ORDER[pv],ko=document.documentElement.dataset.lang==='ko',NAME=NAMES[ko?'ko':'en'];
-    if(ph!==cur){cur=ph;photo.dataset.phase=ph;I.innerHTML=ICON[ph]}
-    T.textContent=s.hh+':'+s.mm;
-    if(ko){P.textContent='서울 · '+NAME[ph]+(pv<0?'':' (미리보기)');
-      clk.setAttribute('aria-label','서울 시각 '+s.hh+':'+s.mm+', '+NAME[ph]+(pv<0?'':', 미리보기')+'. 누르면 다른 시간대의 집 모습을 볼 수 있어요.')}
-    else{P.textContent='Seoul · '+NAME[ph]+(pv<0?'':' (preview)');
-      clk.setAttribute('aria-label','Seoul time '+s.hh+':'+s.mm+', '+NAME[ph].toLowerCase()+(pv<0?'':', preview')+'. Tap to preview the house at another time of day.')}}
-  document.addEventListener('langchange',paint);
-  clk.addEventListener('click',()=>{const live=ORDER.indexOf(phaseOf(seoul()));pv=pv<0?(live+1)%4:(pv+1)%4;if(pv===live)pv=-1;paint()});
-  paint();setInterval(paint,30000);
-})();
-(function(){
-  const btn=document.getElementById('top'),rm=matchMedia('(prefers-reduced-motion: reduce)');let tick=0;
-  const upd=()=>{tick=0;btn.classList.toggle('on',scrollY>innerHeight*.6)};
-  addEventListener('scroll',()=>{if(!tick)tick=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',upd);upd();
-  btn.addEventListener('click',()=>{
-    scrollTo({top:0,behavior:rm.matches?'auto':'smooth'});
-    const h1=document.querySelector('h1');h1.setAttribute('tabindex','-1');h1.focus({preventScroll:true});   // 키보드 사용자의 포커스가 사라지지 않게 맨 위 제목으로 옮겨요
-  });
+  // ── 카카오톡·LINE·인스타그램 등 앱 안 브라우저면 바깥 브라우저로 여는 버튼 ──
+  var ua=navigator.userAgent||'',isAnd=/Android/i.test(ua);
+  var inapp=/KAKAOTALK/i.test(ua)?'KakaoTalk':/ Line\//i.test(ua)?'LINE':/Instagram/i.test(ua)?'Instagram':/FBAN|FBAV/i.test(ua)?'Facebook':/NAVER\(inapp/i.test(ua)?'NAVER':/whatsapp/i.test(ua)?'WhatsApp':'';
+  if(inapp){var bar=document.getElementById('inapp');bar.hidden=false;
+    var kn={KakaoTalk:'카카오톡',LINE:'LINE',Instagram:'인스타그램',Facebook:'페이스북',NAVER:'네이버 앱',WhatsApp:'WhatsApp'}[inapp];
+    document.getElementById('inapp-name').textContent=kn;document.getElementById('inapp-name-en').textContent=inapp;
+    document.getElementById('inapp-open').addEventListener('click',function(){var here=location.href;
+      if(inapp==='KakaoTalk'){location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(here);return}
+      if(inapp==='LINE'){var u=new URL(here);u.searchParams.set('openExternalBrowser','1');location.href=u.href;return}
+      if(isAnd){location.href='intent://'+here.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;end';return}
+      say(root.dataset.lang==='ko'?'오른쪽 위(또는 아래) ⋯ 메뉴에서 ‘브라우저로 열기’를 눌러 주세요':'Tap the ⋯ menu, then “Open in browser”',4200)})}
 })();
 </script>
 </body>
