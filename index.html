@@ -993,9 +993,19 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   var dlg=document.getElementById('zoom'),dimg=dlg.querySelector('img');
   document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){if(!dlg.showModal){location.href=b.dataset.zoom;return}dimg.src=b.dataset.zoom;dimg.alt=b.querySelector('img').alt;dlg.showModal()})});
   dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
-  // 주소 해시(#washer 등)로 들어오면 해당 카드 펼치기
-  function openHash(){var t=location.hash&&document.querySelector(location.hash);if(t&&t.tagName==='DETAILS'){t.open=true}}
-  addEventListener('hashchange',openHash);openHash();
+  // 기기 카드: 처음엔 모두 접힘. 누른 카드 하나만 펼치고 그 위치로 이동해요
+  var devs=[].slice.call(document.querySelectorAll('details.dev'));
+  function goDev(t){var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    requestAnimationFrame(function(){t.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'})})}
+  devs.forEach(function(d){d.addEventListener('toggle',function(){if(!d.open)return;
+    devs.forEach(function(o){if(o!==d&&o.open)o.open=false});goDev(d)})});
+  function q(h){try{return h&&h.length>1?document.querySelector(h):null}catch(e){return null}}
+  function openDev(t){if(!t||t.tagName!=='DETAILS'||!t.classList.contains('dev'))return false;if(t.open)goDev(t);else t.open=true;return true}
+  // 새로 고침하면 모두 접힌 상태로, 기기 주소(#washer 등)로 직접 들어오면 그 카드만 펼쳐요
+  var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};
+  if(nav.type==='reload'){if(location.hash&&devs.some(function(d){return '#'+d.id===location.hash}))history.replaceState(null,'',location.pathname+location.search+'#house')}
+  else if(location.hash){openDev(q(location.hash))}
+  addEventListener('hashchange',function(){openDev(q(location.hash))});
   // 체크아웃 체크리스트 기억(이 기기에만)
   document.querySelectorAll('[data-store]').forEach(function(box){var k=box.dataset.store,ins=box.querySelectorAll('input'),s=[];
     try{s=JSON.parse(localStorage.getItem(k)||'[]')}catch(e){}
@@ -1050,7 +1060,8 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
   document.addEventListener('visibilitychange',function(){if(!document.hidden)renderNow()});
 
   // 메뉴·바로가기로 기기 카드에 갈 때는 카드를 펼쳐요 (같은 주소를 다시 눌러도)
-  document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var t=document.querySelector(a.getAttribute('href'));if(t&&t.tagName==='DETAILS')t.open=true});
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var h=a.getAttribute('href'),t=q(h);
+    if(t&&t.tagName==='DETAILS'&&t.classList.contains('dev')){e.preventDefault();history.replaceState(null,'',h);openDev(t)}});
 
 })();
 </script>
