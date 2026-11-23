@@ -259,6 +259,11 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 
 /* 히어로 아래 카드: 체크인·아웃 + 자주 찾는 것 */
 .arrive{position:relative;z-index:3;margin:-38px 0 0;padding:14px;border-radius:22px;background:var(--paper);box-shadow:0 2px 0 rgba(28,42,25,.06),0 14px 30px rgba(28,42,25,.22)}
+.welcome .wh{margin:2px 4px 0;font-size:24px;line-height:1.2}
+.welcome .wi{margin:8px 4px 14px;font-size:15px;line-height:1.6;color:var(--ink)}
+.welcome .facts{background:var(--card2)}
+.welcome .facts>div{grid-template-columns:1fr;gap:4px}
+#basics .slots{margin-top:4px}
 .slots{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-bottom:12px}
 .slot{display:flex;align-items:center;gap:8px;min-width:0;padding:2px 13.5px}
 .slot>div{min-width:0}
@@ -409,7 +414,141 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     </div>
   </header>
 
-  <section class="arrive" aria-label="체크인·체크아웃과 바로가기" data-label-ko="체크인·체크아웃과 바로가기" data-label-en="Check-in, check-out and shortcuts">
+  <section class="arrive welcome" id="welcome" aria-labelledby="h-welcome">
+    <h2 class="wh" id="h-welcome"><span class="ko">환영합니다</span><span class="en">Welcome</span></h2>
+    <p class="intro wi ko">명동까지 걸어서 <span class="nw">약 10분</span>. 남산골한옥마을과 충무로역이 가깝고, 서울역·광화문까지 대중교통으로 쉽게 다닐 수 있어요.</p>
+    <p class="intro wi en">Myeongdong is about a <span class="nw">10-minute walk</span> away. Namsangol Hanok Village and Chungmuro Station are close by, and Seoul Station and Gwanghwamun are an easy ride.</p>
+    <dl class="facts">
+      <div><dt><span class="ko">주소</span><span class="en">Address</span></dt><dd><span class="ko">서울특별시 중구 필동로8길 32-14</span><span class="en">32-14, Pildong-ro 8-gil, Jung-gu, Seoul</span><div class="chips" style="margin-top:8px"><button class="chip" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">한글 주소 복사</span><span class="en">Copy Korean address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-ko="영문 주소 복사됨" data-toast-en="Address copied"><span class="ko">영문 주소 복사</span><span class="en">Copy English address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></dd></div>
+      <div><dt><span class="ko">호스트</span><span class="en">Host</span></dt><dd>Lisa · +82-10-9328-0969<br><span class="ko">카카오톡 · LINE · WhatsApp (ID: free01270)</span><span class="en">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><div class="chips" style="margin-top:8px"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">연락하기</span><span class="en">Contact Lisa</span></a></div></dd></div>
+    </dl>
+  </section>
+
+  <nav class="tabs" aria-label="섹션 메뉴" data-label-ko="섹션 메뉴" data-label-en="Sections">
+    <ul>
+      <li><a href="#getting"><span class="ko">찾아오기</span><span class="en">Getting here</span></a></li>
+      <li><a href="#services"><span class="ko">픽업·투어</span><span class="en">Pick-up &amp; tours</span></a></li>
+      <li><a href="#basics"><span class="ko">체크인</span><span class="en">Check-in</span></a></li>
+      <li><a href="#rules"><span class="ko">와이파이·생활</span><span class="en">Wi-Fi &amp; house</span></a></li>
+      <li><a href="#house"><span class="ko">집 사용법</span><span class="en">House manual</span></a></li>
+      <li><a href="#eat"><span class="ko">맛집·카페</span><span class="en">Eat &amp; drink</span></a></li>
+      <li><a href="#explore"><span class="ko">둘러보기</span><span class="en">Explore</span></a></li>
+      <li><a href="#help"><span class="ko">앱·비상</span><span class="en">Apps &amp; help</span></a></li>
+    </ul>
+    <button class="lang-mini" type="button" data-lang-toggle aria-label="눌러서 영어로 바꾸기"></button>
+  </nav>
+
+
+  <!-- 1. 찾아오기 -->
+  <section class="s" id="getting" aria-labelledby="h-getting">
+    <h2 id="h-getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></h2>
+    <p class="intro ko">가장 가까운 역은 지하철 3·4호선 <b>충무로역</b>이에요. 남산 쪽 오르막이라 큰 캐리어가 있다면 택시를 권해요.</p>
+    <p class="intro en">The nearest station is <b>Chungmuro</b> (Lines 3 &amp; 4). It's uphill toward Namsan, so take a taxi if you have big suitcases.</p>
+    <div class="btns" style="margin:0 0 18px">
+      <a class="btn primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14"><span class="ko">네이버지도 길찾기</span><span class="en">Directions in Naver Map</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      <button class="btn" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">택시용 한글 주소 복사</span><span class="en">Copy Korean address for taxi</span><svg class="ic cpy trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+    </div>
+    <div class="routes ko">
+      <div class="route"><small>인천공항</small><b>공항버스 6015 → <span class="nw">‘충무로역·호텔피제이’ 하차</span></b><span>성인 17,000원 · T1 1층 5B / T2 B1 28번</span></div>
+      <div class="route"><small>인천공항</small><b>공항철도 → 서울역 → 4호선 충무로역</b><span>서울역에서 진접·당고개 방면 3정거장</span></div>
+      <div class="route"><small>김포공항</small><b>5호선 → 동대문역사문화공원 → 4호선 충무로역</b><span>환승 1회</span></div>
+      <div class="route"><small>서울역</small><b>4호선 → 충무로역</b><span>진접·당고개 방면 3정거장 · 택시 <span class="nw">약 10분</span></span></div>
+      <div class="route"><small>충무로역</small><b>3번 출구에서 도보 <span class="nw">약 10~15분</span></b><span>아래 도보 경로를 따라오세요</span></div>
+    </div>
+    <div class="routes en">
+      <div class="route"><small>Incheon Airport</small><b>Airport bus 6015 → get off at “Chungmuro Stn · Hotel PJ”</b><span>Adults ₩17,000 · T1 1F stop 5B / T2 B1 stop 28</span></div>
+      <div class="route"><small>Incheon Airport</small><b>AREX → Seoul Station → <span class="nw">Line 4 to Chungmuro</span></b><span>3 stops from Seoul Station toward Jinjeop / Danggogae</span></div>
+      <div class="route"><small>Gimpo Airport</small><b>Line 5 → <span class="nw">Dongdaemun History &amp; Culture Park</span> → <span class="nw">Line 4 to Chungmuro</span></b><span>One transfer</span></div>
+      <div class="route"><small>Seoul Station</small><b>Line 4 → Chungmuro</b><span>3 stops toward Jinjeop / Danggogae · <span class="nw">about 10 min</span> by taxi</span></div>
+      <div class="route"><small>Chungmuro Station</small><b>Exit 3, then about a 10–15 minute walk</b><span>Follow the walking route below</span></div>
+    </div>
+
+    <figure class="fig" style="margin-top:14px"><button class="zoom" type="button" data-zoom="img/overview.jpg" data-zoom-ko="img/overview.jpg" data-zoom-en="img/en/overview.jpg"><img src="img/overview.jpg" data-src-ko="img/overview.jpg" data-src-en="img/en/overview.jpg" width="962" height="524" loading="lazy" alt="인천공항·김포공항·서울역에서 Copen Haus까지 지도. 인천공항 차로 약 60~80분, 김포공항 약 40~50분, 서울역 약 10~15분" data-alt-ko="인천공항·김포공항·서울역에서 Copen Haus까지 지도. 인천공항 차로 약 60~80분, 김포공항 약 40~50분, 서울역 약 10~15분" data-alt-en="Map from Incheon Airport, Gimpo Airport and Seoul Station to Copen Haus: about 60–80, 40–50 and 10–15 minutes by car"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+    <p class="small" style="margin-top:8px"><span class="ko">차로 인천공항 <span class="nw">약 60~80분</span> · 김포공항 <span class="nw">약 40~50분</span> · 서울역 <span class="nw">약 10~15분</span></span><span class="en">By car: Incheon Airport <span class="nw">about 60–80 min</span> · Gimpo Airport <span class="nw">about 40–50 min</span> · Seoul Station <span class="nw">about 10–15 min</span></span></p>
+
+    <h3><span class="ko">충무로역 3번 출구 → Copen Haus</span><span class="en">Walking route from Exit 3</span></h3>
+    <figure class="fig"><button class="zoom" type="button" data-zoom="img/route.png" data-zoom-ko="img/route.png" data-zoom-en="img/en/route.png"><img src="img/route.png" data-src-ko="img/route.png" data-src-en="img/en/route.png" width="1000" height="995" loading="lazy" alt="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-ko="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-en="Walking route map from Chungmuro Station exit 3 through Namsangol Hanok Village to Copen Haus"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+    <p class="small" style="margin-top:8px"><span class="ko">약도이며 실제 축척과 달라요. 정확한 길찾기는 위 네이버지도 버튼을 이용하세요. 큰 캐리어가 있다면 오르막이 적은 택시를 권해요.</span><span class="en">Sketch map, not to scale. For exact directions, use the Naver Map button above. With big suitcases, a taxi saves you the uphill walk.</span></p>
+    <ol class="steps ko">
+      <li><span class="n">1</span><div><b>3번 출구로 나오기</b><p>극동빌딩 맞은편, 퇴계로34길로 진입</p></div></li>
+      <li><span class="n">2</span><div><b>남산골한옥마을 정문</b><p>출구에서 도보 3~4분, 입장 무료</p></div></li>
+      <li><span class="n">3</span><div><b>한옥 · 천우각 연못 지나기</b><p>한옥은 월요일 휴관, 정원 길은 매일 열려 있어요</p></div></li>
+      <li><span class="n">4</span><div><b>전통정원 지나 필동 쪽으로</b><p>정원을 빠져나와 필동로로</p></div></li>
+      <li><span class="n">5</span><div><b>필동로8길로 들어서면 Copen Haus</b><p>서울특별시 중구 필동로8길 32-14</p></div></li>
+    </ol>
+    <ol class="steps en">
+      <li><span class="n">1</span><div><b>Leave by Exit 3</b><p>Across from the Kukdong Building, turn into <span class="nw">Toegye-ro 34-gil</span></p></div></li>
+      <li><span class="n">2</span><div><b>Namsangol Hanok Village main gate</b><p>3–4 minutes from the exit, free entry</p></div></li>
+      <li><span class="n">3</span><div><b>Pass the hanok houses and Cheonugak pond</b><p>The hanok close on Mondays, but the garden path is open every day</p></div></li>
+      <li><span class="n">4</span><div><b>Through the traditional garden toward Pildong</b><p>Exit the garden onto Pildong-ro</p></div></li>
+      <li><span class="n">5</span><div><b>Turn into Pildong-ro 8-gil, and you're here</b><p>32-14, Pildong-ro 8-gil, Jung-gu, Seoul</p></div></li>
+    </ol>
+  </section>
+
+  <!-- 2. 픽업·투어 -->
+  <section class="s" id="services" aria-labelledby="h-services">
+    <h2 id="h-services"><span class="ko">공항 픽업 · 밴 투어</span><span class="en">Pick-up &amp; van tours</span></h2>
+    <p class="intro ko">무거운 캐리어와 오르막 골목 걱정 없이, 공항에서 Copen Haus 문 앞까지 전용 차량으로 모셔다 드려요. 유료 서비스예요.</p>
+    <p class="intro en">Skip the heavy bags and uphill lanes: a private van takes you from the airport to our door. This is a paid service.</p>
+    <div class="vans">
+      <div class="van"><small class="ko">미니밴</small><small class="en">Minivan</small><b class="ko">현대 스타리아</b><b class="en">Hyundai Staria</b><span class="ko">최대 6명 · 캐리어 5~6개</span><span class="en">Up to 6 people · <span class="nw">5–6 suitcases</span></span></div>
+      <div class="van"><small class="ko">대형 밴</small><small class="en">Large van</small><b class="ko">현대 쏠라티</b><b class="en">Hyundai Solati</b><span class="ko">최대 10명 · 대형 짐 가능</span><span class="en">Up to 10 people · big luggage OK</span></div>
+    </div>
+    <h3><span class="ko">공항 픽업 (편도)</span><span class="en">Airport pick-up (one way)</span></h3>
+    <div class="tbl">
+      <table class="price">
+        <thead><tr><th scope="col"><span class="ko">구간</span><span class="en">From</span></th><th scope="col"><span class="ko">스타리아</span><span class="en">Staria</span></th><th scope="col"><span class="ko">쏠라티</span><span class="en">Solati</span></th></tr></thead>
+        <tbody>
+          <tr><td><span class="ko">인천공항</span><span class="en">Incheon Airport</span><small><span class="ko"><span class="nw">약 60~80분</span></span><span class="en"><span class="nw">about 60–80 min</span></span></small></td><td><b>₩90,000</b></td><td><b>₩180,000</b></td></tr>
+          <tr><td><span class="ko">김포공항</span><span class="en">Gimpo Airport</span><small><span class="ko"><span class="nw">약 40~50분</span></span><span class="en"><span class="nw">about 40–50 min</span></span></small></td><td><b>₩70,000</b></td><td>—</td></tr>
+          <tr><td><span class="ko">서울역</span><span class="en">Seoul Station</span><small><span class="ko"><span class="nw">약 10~15분</span></span><span class="en"><span class="nw">about 10–15 min</span></span></small></td><td><b>₩60,000</b></td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note ko">원화 기준 · 추가 인원(스타리아만) 1인당 +10,000원 · 카시트 +20,000원</p>
+    <p class="note en">Prices in KRW · extra passenger (Staria only) +₩10,000 each · child seat +₩20,000</p>
+
+    <h3><span class="ko">원데이 밴 투어 (10시간)</span><span class="en">One-day van tour (10 hours)</span></h3>
+    <p class="ko" style="margin-bottom:12px">기사님과 함께 하루 10시간 동안 전용 차량으로 다녀오는 투어예요. 서울 시내부터 근교 여행지까지 편하게 다녀오세요.</p>
+    <p class="en" style="margin-bottom:12px">A private van and driver for 10 hours, from Seoul's sights to day trips out of the city.</p>
+    <div class="tbl">
+      <table class="price">
+        <thead><tr><th scope="col"><span class="ko">투어</span><span class="en">Tour</span></th><th scope="col"><span class="ko">스타리아</span><span class="en">Staria</span><small><span class="ko">최대 6명</span><span class="en">up to 6</span></small></th><th scope="col"><span class="ko">쏠라티</span><span class="en">Solati</span><small><span class="ko">최대 10명</span><span class="en">up to 10</span></small></th></tr></thead>
+        <tbody>
+          <tr><td><span class="ko">서울 시티투어</span><span class="en">Seoul city tour</span><small><span class="ko">원하는 서울 명소를 하루 코스로</span><span class="en">Your pick of Seoul sights</span></small></td><td><b>₩300,000</b></td><td><b>₩450,000</b></td></tr>
+          <tr><td><span class="ko">남이섬</span><span class="en">Nami Island</span><small><span class="ko"><span class="nw">강원 춘천 ·</span> 메타세쿼이아 길</span><span class="en"><span class="nw">Chuncheon ·</span> metasequoia lane</span></small></td><td><b>₩330,000</b></td><td><b>₩550,000</b></td></tr>
+          <tr><td><span class="ko">알파카월드</span><span class="en">Alpaca World</span><small><span class="ko"><span class="nw">강원 홍천 ·</span> 알파카 산책 체험</span><span class="en"><span class="nw">Hongcheon ·</span> walk with alpacas</span></small></td><td><b>₩350,000</b></td><td><b>₩600,000</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note ko">경로·목적지·전체 일정에 따라 요금이 달라질 수 있어요.</p>
+    <p class="note en">Prices may change depending on route, destinations and schedule.</p>
+
+    <h3><span class="ko">예약 방법</span><span class="en">How to book</span></h3>
+    <ol class="flow ko">
+      <li><i>1</i><b>예약 요청</b>도착 48시간 전까지 에어비앤비 메시지로</li>
+      <li><i>2</i><b>예약 확정</b>매니저(Mr. Cho)가 WhatsApp으로 안내</li>
+      <li><i>3</i><b>입국장에서 만남</b>드라이버가 이름 피켓을 들고 기다려요</li>
+      <li><i>4</i><b>숙소 도착</b>요금은 도착 후 드라이버에게 현금으로</li>
+    </ol>
+    <ol class="flow en">
+      <li><i>1</i><b>Request</b>By Airbnb message, at least 48 hours before you land</li>
+      <li><i>2</i><b>Confirmed</b>Our manager, Mr. Cho, follows up on WhatsApp</li>
+      <li><i>3</i><b>Meet</b>Your driver waits in the arrival hall with a name sign</li>
+      <li><i>4</i><b>Arrive</b>Pay the driver in cash when you arrive</li>
+    </ol>
+    <div class="most" style="margin-top:12px">
+      <b class="h ko">메시지에 적어 주세요</b><b class="h en">Include in your message</b>
+      <ul class="dots ko"><li>날짜와 시간</li><li>항공편명 (공항 픽업 시)</li><li>인원</li><li>짐 개수와 크기</li><li>피켓에 적을 이름</li><li>WhatsApp 연락처</li></ul>
+      <ul class="dots en"><li>Date and time</li><li>Flight number (for airport pick-up)</li><li>Number of people</li><li>Number and size of bags</li><li>Name for the sign</li><li>Your WhatsApp number</li></ul>
+    </div>
+    <p class="note ko">드라이버가 항공편 지연도 확인하고 있어요. 드라이버가 안 보이면 공항 무료 와이파이로 WhatsApp 연락 주세요.</p>
+    <p class="note en">Your driver tracks flight delays. If you can't find them, message on WhatsApp using the free airport Wi-Fi.</p>
+  </section>
+
+  <!-- 3. 체크인·체크아웃 -->
+  <section class="s" id="basics" aria-labelledby="h-basics">
+    <h2 id="h-basics"><span class="ko">체크인 · 체크아웃</span><span class="en">Check-in &amp; check-out</span></h2>
     <div class="slots">
       <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크인</small><small class="en">Check-in</small><b class="ko">오후 3시 이후</b><b class="en">After 3 PM</b></div></div>
       <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크아웃</small><small class="en">Check-out</small><b class="ko">오전 11시 이전</b><b class="en">Before 11 AM</b></div></div>
@@ -421,53 +560,68 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
       <li><a href="#heating"><span class="n">3</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat right of the entrance</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
       <li><a href="#rules"><span class="n">4</span><span><b class="ko">쓰레기·하우스 룰 보기</b><b class="en">Read trash &amp; house rules</b><small class="ko">쓰레기는 일~금 저녁 7시~자정, 토요일은 안 돼요</small><small class="en">Trash goes out Sun–Fri 7 PM to midnight, never Saturday</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
     </ol>
-    <p class="first-t"><span class="ko">떠나는 날</span><span class="en">On your last day</span></p>
-    <ul class="go">
-      <li class="leave"><a href="#checkout"><span class="n"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h8M14 3l5 2v14l-5 2zM11.5 12h.01"/></svg></span><span><b class="ko">체크아웃 체크리스트</b><b class="en">Check-out checklist</b><small class="ko">오전 11시 전에 4가지만 확인해 주세요</small><small class="en">Four quick things before 11 AM</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
-    </ul>
-  </section>
-
-  <section class="now" id="now" aria-labelledby="now-h">
-    <p class="now-h" id="now-h"><small class="ko">지금 필동은</small><small class="en">Right now in Pildong</small><b class="clock" id="now-clock"></b><small id="now-day"></small></p>
-    <ul id="now-list"></ul>
-  </section>
-
-  <nav class="tabs" aria-label="섹션 메뉴" data-label-ko="섹션 메뉴" data-label-en="Sections">
-    <ul>
-      <li><a href="#basics"><span class="ko">기본 정보</span><span class="en">Basics</span></a></li>
-      <li><a href="#house"><span class="ko">집 사용법</span><span class="en">House manual</span></a></li>
-      <li><a href="#rules"><span class="ko">쓰레기·규칙</span><span class="en">Trash &amp; rules</span></a></li>
-      <li><a href="#getting"><span class="ko">찾아오기</span><span class="en">Getting here</span></a></li>
-      <li><a href="#eat"><span class="ko">맛집·카페</span><span class="en">Eat &amp; drink</span></a></li>
-      <li><a href="#explore"><span class="ko">둘러보기</span><span class="en">Explore</span></a></li>
-      <li><a href="#services"><span class="ko">픽업·투어</span><span class="en">Pick-up &amp; tours</span></a></li>
-      <li><a href="#help"><span class="ko">앱·비상</span><span class="en">Apps &amp; help</span></a></li>
-    </ul>
-    <button class="lang-mini" type="button" data-lang-toggle aria-label="눌러서 영어로 바꾸기"></button>
-  </nav>
-
-
-
-  <!-- 1. 기본 정보 -->
-  <section class="s" id="basics" aria-labelledby="h-basics">
-    <h2 id="h-basics"><span class="ko">기본 정보</span><span class="en">The basics</span></h2>
-    <p class="intro ko">명동까지 걸어서 <span class="nw">약 10분</span>. 남산골한옥마을과 충무로역이 가깝고, 서울역·광화문까지 대중교통으로 쉽게 다닐 수 있어요.</p>
-    <p class="intro en">Myeongdong is about a <span class="nw">10-minute walk</span> away. Namsangol Hanok Village and Chungmuro Station are close by, and Seoul Station and Gwanghwamun are an easy ride.</p>
-    <dl class="facts">
-      <div><dt><span class="ko">주소</span><span class="en">Address</span></dt><dd><span class="ko">서울특별시 중구 필동로8길 32-14</span><span class="en">32-14, Pildong-ro 8-gil, Jung-gu, Seoul</span><div class="chips" style="margin-top:8px"><button class="chip" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">한글 주소 복사</span><span class="en">Copy Korean address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-ko="영문 주소 복사됨" data-toast-en="Address copied"><span class="ko">영문 주소 복사</span><span class="en">Copy English address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></dd></div>
-      <div><dt><span class="ko">호스트</span><span class="en">Host</span></dt><dd>Lisa · +82-10-9328-0969<br><span class="ko">카카오톡 · LINE · WhatsApp (ID: free01270)</span><span class="en">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><div class="chips" style="margin-top:8px"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">연락하기</span><span class="en">Contact Lisa</span></a></div></dd></div>
+    <section class="now" id="now" aria-labelledby="now-h">
+      <p class="now-h" id="now-h"><small class="ko">지금 필동은</small><small class="en">Right now in Pildong</small><b class="clock" id="now-clock"></b><small id="now-day"></small></p>
+      <ul id="now-list"></ul>
+    </section>
+    <dl class="facts" style="margin-top:16px">
       <div><dt><span class="ko">출입 방법</span><span class="en">Getting in</span></dt><dd><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요.</span><span class="en">We send the door lock code by Airbnb message on check-in day.</span></dd></div>
       <div><dt><span class="ko">입구·층</span><span class="en">Entrance</span></dt><dd><span class="ko">건물 1층</span><span class="en">Ground floor (1F)</span></dd></div>
       <div><dt><span class="ko">짐 보관</span><span class="en">Luggage</span></dt><dd><span class="ko">미리 알려주시면 안내해 드려요.</span><span class="en">Let us know in advance and we'll help you arrange it.</span></dd></div>
-      <div><dt>Wi-Fi</dt><dd><div class="chips" style="margin-top:0"><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div><p class="small" style="margin-top:8px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
     </dl>
     <figure class="photos">
       <div><img src="img/entrance.jpg" width="600" height="900" loading="lazy" alt="건물 입구와 계단" data-alt-ko="건물 입구와 계단" data-alt-en="Copen Haus building entrance and stairs"><figcaption><span class="ko">건물 입구 · 계단</span><span class="en">Building entrance &amp; stairs</span></figcaption></div>
       <div><img src="img/alley.jpg" width="600" height="748" loading="lazy" alt="골목에서 본 Copen Haus" data-alt-ko="골목에서 본 Copen Haus" data-alt-en="Copen Haus seen from the alley"><figcaption><span class="ko">골목에서 본 Copen Haus</span><span class="en">Copen Haus from the alley</span></figcaption></div>
     </figure>
+    <h3 id="checkout" style="scroll-margin-top:70px"><span class="ko">체크아웃 전에 부탁드려요</span><span class="en">Before you check out</span></h3>
+    <div class="check" data-store="ch-checkout">
+      <label><input type="checkbox"><span><span class="ko">쓰레기는 분리해 집에 두시면 정리해 드립니다</span><span class="en">Sort your trash and leave it inside; we'll take care of it</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">에어컨 · 난방 · 조명 끄기</span><span class="en">Turn off the AC, heating and lights</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">창문 닫고 문이 잠겼는지 확인</span><span class="en">Close the windows and check the door is locked</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">에어비앤비 메시지로 체크아웃 알려주기</span><span class="en">Let us know by Airbnb message that you've left</span></span></label>
+    </div>
   </section>
 
-  <!-- 2. 집 사용법 -->
+  <!-- 4. 와이파이·생활 -->
+  <section class="s" id="rules" aria-labelledby="h-rules">
+    <h2 id="h-rules"><span class="ko">와이파이 · 생활 안내</span><span class="en">Wi-Fi &amp; house</span></h2>
+    <dl class="facts" style="margin-bottom:8px">
+      <div><dt>Wi-Fi</dt><dd><div class="chips" style="margin-top:0"><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div><p class="small" style="margin-top:8px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
+    </dl>
+    <h3 id="trash" style="scroll-margin-top:70px"><span class="ko">쓰레기 버리는 법</span><span class="en">Trash &amp; recycling</span></h3>
+    <div class="when"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><b class="ko">일~금요일 저녁 7시 ~ 자정</b><b class="en">Sun–Fri, 7 PM to midnight</b><span class="ko">집 앞에 내놓아요 · 토요일은 배출 금지</span><span class="en">Put it out in front of the house · never on Saturday</span></div></div>
+    <div class="bins">
+      <div class="bin" style="--c:#8b8b7a"><b class="ko">일반 쓰레기</b><b class="en">General waste</b><span class="ko">중구 종량제 봉투(흰색)</span><span class="en">White Jung-gu <span class="nw">pay-as-you-throw bag</span></span></div>
+      <div class="bin" style="--c:#c98a3a"><b class="ko">음식물</b><b class="en">Food waste</b><span class="ko">물기 빼고 전용 봉투·용기</span><span class="en">Drain it, then use the <span class="nw">food-waste bag</span> or bin</span></div>
+      <div class="bin" style="--c:#3a7bb0"><b class="ko">재활용</b><b class="en">Recycling</b><span class="ko">캔·병·플라스틱·비닐을 헹궈 투명 봉지에</span><span class="en">Rinse cans, bottles, plastic and vinyl, then put them in a clear bag</span></div>
+      <div class="bin" style="--c:#a0784c"><b class="ko">종이·상자</b><b class="en">Paper &amp; boxes</b><span class="ko">펼쳐서 묶어 배출</span><span class="en">Flatten and tie together</span></div>
+    </div>
+    <p class="note ko">봉투 위치와 내놓는 자리: <b>1층 현관문 옆</b>. 시간·장소를 어기면 과태료 10~30만원이 부과돼요.</p>
+    <p class="note en">Bags are kept, and trash goes out, <b>next to the <span class="nw">ground-floor front door</span></b>. Wrong day, time or place can mean a <span class="nw">₩100,000–300,000 fine</span>.</p>
+
+    <h3><span class="ko">하우스 룰</span><span class="en">House rules</span></h3>
+    <ol class="rules ko">
+      <li><i>1</i><span>실내 금연입니다. 건물 앞·계단에서도 흡연하지 말아주세요.</span></li>
+      <li><i>2</i><span>밤 10시~아침 8시는 조용히 해주세요. 골목과 계단의 대화도 잘 울립니다.</span></li>
+      <li><i>3</i><span>파티·행사는 불가합니다.</span></li>
+      <li><i>4</i><span>예약 인원 외 방문객은 미리 문의해 주세요.</span></li>
+      <li><i>5</i><span>실내에서는 신발을 벗어주세요.</span></li>
+      <li><i>6</i><span>반려동물은 허용이 불가합니다.</span></li>
+      <li><i>7</i><span>파손된 물건이 있으면 바로 알려주세요. 솔직하게 말씀해 주시면 됩니다.</span></li>
+    </ol>
+    <ol class="rules en">
+      <li><i>1</i><span>No smoking indoors, and please don't smoke in front of the building or on the stairs either.</span></li>
+      <li><i>2</i><span>Quiet hours are 10 PM – 8 AM. Voices carry in the alley and stairwell.</span></li>
+      <li><i>3</i><span>No parties or events.</span></li>
+      <li><i>4</i><span>Please ask us first before inviting anyone not on the booking.</span></li>
+      <li><i>5</i><span>Please take off your shoes indoors.</span></li>
+      <li><i>6</i><span>No pets.</span></li>
+      <li><i>7</i><span>If anything is broken, tell us right away. Being honest is all we ask.</span></li>
+    </ol>
+
+  </section>
+
+  <!-- 5. 집 사용법 -->
   <section class="s" id="house" aria-labelledby="h-house">
     <h2 id="h-house"><span class="ko">집 사용법</span><span class="en">Using the house</span></h2>
     <p class="intro ko">기기를 누르면 그림과 번호별 설명이 펼쳐져요. 그림을 누르면 크게 볼 수 있어요.</p>
@@ -686,96 +840,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     </details>
   </section>
 
-  <!-- 3. 쓰레기·규칙·체크아웃 -->
-  <section class="s" id="rules" aria-labelledby="h-rules">
-    <h2 id="h-rules"><span class="ko">쓰레기 · 하우스 룰</span><span class="en">Trash &amp; house rules</span></h2>
-    <h3 id="trash" style="scroll-margin-top:70px"><span class="ko">쓰레기 버리는 법</span><span class="en">Trash &amp; recycling</span></h3>
-    <div class="when"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><b class="ko">일~금요일 저녁 7시 ~ 자정</b><b class="en">Sun–Fri, 7 PM to midnight</b><span class="ko">집 앞에 내놓아요 · 토요일은 배출 금지</span><span class="en">Put it out in front of the house · never on Saturday</span></div></div>
-    <div class="bins">
-      <div class="bin" style="--c:#8b8b7a"><b class="ko">일반 쓰레기</b><b class="en">General waste</b><span class="ko">중구 종량제 봉투(흰색)</span><span class="en">White Jung-gu <span class="nw">pay-as-you-throw bag</span></span></div>
-      <div class="bin" style="--c:#c98a3a"><b class="ko">음식물</b><b class="en">Food waste</b><span class="ko">물기 빼고 전용 봉투·용기</span><span class="en">Drain it, then use the <span class="nw">food-waste bag</span> or bin</span></div>
-      <div class="bin" style="--c:#3a7bb0"><b class="ko">재활용</b><b class="en">Recycling</b><span class="ko">캔·병·플라스틱·비닐을 헹궈 투명 봉지에</span><span class="en">Rinse cans, bottles, plastic and vinyl, then put them in a clear bag</span></div>
-      <div class="bin" style="--c:#a0784c"><b class="ko">종이·상자</b><b class="en">Paper &amp; boxes</b><span class="ko">펼쳐서 묶어 배출</span><span class="en">Flatten and tie together</span></div>
-    </div>
-    <p class="note ko">봉투 위치와 내놓는 자리: <b>1층 현관문 옆</b>. 시간·장소를 어기면 과태료 10~30만원이 부과돼요.</p>
-    <p class="note en">Bags are kept, and trash goes out, <b>next to the <span class="nw">ground-floor front door</span></b>. Wrong day, time or place can mean a <span class="nw">₩100,000–300,000 fine</span>.</p>
-
-    <h3><span class="ko">하우스 룰</span><span class="en">House rules</span></h3>
-    <ol class="rules ko">
-      <li><i>1</i><span>실내 금연입니다. 건물 앞·계단에서도 흡연하지 말아주세요.</span></li>
-      <li><i>2</i><span>밤 10시~아침 8시는 조용히 해주세요. 골목과 계단의 대화도 잘 울립니다.</span></li>
-      <li><i>3</i><span>파티·행사는 불가합니다.</span></li>
-      <li><i>4</i><span>예약 인원 외 방문객은 미리 문의해 주세요.</span></li>
-      <li><i>5</i><span>실내에서는 신발을 벗어주세요.</span></li>
-      <li><i>6</i><span>반려동물은 허용이 불가합니다.</span></li>
-      <li><i>7</i><span>파손된 물건이 있으면 바로 알려주세요. 솔직하게 말씀해 주시면 됩니다.</span></li>
-    </ol>
-    <ol class="rules en">
-      <li><i>1</i><span>No smoking indoors, and please don't smoke in front of the building or on the stairs either.</span></li>
-      <li><i>2</i><span>Quiet hours are 10 PM – 8 AM. Voices carry in the alley and stairwell.</span></li>
-      <li><i>3</i><span>No parties or events.</span></li>
-      <li><i>4</i><span>Please ask us first before inviting anyone not on the booking.</span></li>
-      <li><i>5</i><span>Please take off your shoes indoors.</span></li>
-      <li><i>6</i><span>No pets.</span></li>
-      <li><i>7</i><span>If anything is broken, tell us right away. Being honest is all we ask.</span></li>
-    </ol>
-
-    <h3 id="checkout" style="scroll-margin-top:70px"><span class="ko">체크아웃 전에 부탁드려요</span><span class="en">Before you check out</span></h3>
-    <div class="check" data-store="ch-checkout">
-      <label><input type="checkbox"><span><span class="ko">쓰레기는 분리해 집에 두시면 정리해 드립니다</span><span class="en">Sort your trash and leave it inside; we'll take care of it</span></span></label>
-      <label><input type="checkbox"><span><span class="ko">에어컨 · 난방 · 조명 끄기</span><span class="en">Turn off the AC, heating and lights</span></span></label>
-      <label><input type="checkbox"><span><span class="ko">창문 닫고 문이 잠겼는지 확인</span><span class="en">Close the windows and check the door is locked</span></span></label>
-      <label><input type="checkbox"><span><span class="ko">에어비앤비 메시지로 체크아웃 알려주기</span><span class="en">Let us know by Airbnb message that you've left</span></span></label>
-    </div>
-  </section>
-
-  <!-- 4. 찾아오기 -->
-  <section class="s" id="getting" aria-labelledby="h-getting">
-    <h2 id="h-getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></h2>
-    <p class="intro ko">가장 가까운 역은 지하철 3·4호선 <b>충무로역</b>이에요. 남산 쪽 오르막이라 큰 캐리어가 있다면 택시를 권해요.</p>
-    <p class="intro en">The nearest station is <b>Chungmuro</b> (Lines 3 &amp; 4). It's uphill toward Namsan, so take a taxi if you have big suitcases.</p>
-    <div class="btns" style="margin:0 0 18px">
-      <a class="btn primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14"><span class="ko">네이버지도 길찾기</span><span class="en">Directions in Naver Map</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-      <button class="btn" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">택시용 한글 주소 복사</span><span class="en">Copy Korean address for taxi</span><svg class="ic cpy trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-    </div>
-    <div class="routes ko">
-      <div class="route"><small>인천공항</small><b>공항버스 6015 → <span class="nw">‘충무로역·호텔피제이’ 하차</span></b><span>성인 17,000원 · T1 1층 5B / T2 B1 28번</span></div>
-      <div class="route"><small>인천공항</small><b>공항철도 → 서울역 → 4호선 충무로역</b><span>서울역에서 진접·당고개 방면 3정거장</span></div>
-      <div class="route"><small>김포공항</small><b>5호선 → 동대문역사문화공원 → 4호선 충무로역</b><span>환승 1회</span></div>
-      <div class="route"><small>서울역</small><b>4호선 → 충무로역</b><span>진접·당고개 방면 3정거장 · 택시 <span class="nw">약 10분</span></span></div>
-      <div class="route"><small>충무로역</small><b>3번 출구에서 도보 <span class="nw">약 10~15분</span></b><span>아래 도보 경로를 따라오세요</span></div>
-    </div>
-    <div class="routes en">
-      <div class="route"><small>Incheon Airport</small><b>Airport bus 6015 → get off at “Chungmuro Stn · Hotel PJ”</b><span>Adults ₩17,000 · T1 1F stop 5B / T2 B1 stop 28</span></div>
-      <div class="route"><small>Incheon Airport</small><b>AREX → Seoul Station → <span class="nw">Line 4 to Chungmuro</span></b><span>3 stops from Seoul Station toward Jinjeop / Danggogae</span></div>
-      <div class="route"><small>Gimpo Airport</small><b>Line 5 → <span class="nw">Dongdaemun History &amp; Culture Park</span> → <span class="nw">Line 4 to Chungmuro</span></b><span>One transfer</span></div>
-      <div class="route"><small>Seoul Station</small><b>Line 4 → Chungmuro</b><span>3 stops toward Jinjeop / Danggogae · <span class="nw">about 10 min</span> by taxi</span></div>
-      <div class="route"><small>Chungmuro Station</small><b>Exit 3, then about a 10–15 minute walk</b><span>Follow the walking route below</span></div>
-    </div>
-
-    <figure class="fig" style="margin-top:14px"><button class="zoom" type="button" data-zoom="img/overview.jpg" data-zoom-ko="img/overview.jpg" data-zoom-en="img/en/overview.jpg"><img src="img/overview.jpg" data-src-ko="img/overview.jpg" data-src-en="img/en/overview.jpg" width="962" height="524" loading="lazy" alt="인천공항·김포공항·서울역에서 Copen Haus까지 지도. 인천공항 차로 약 60~80분, 김포공항 약 40~50분, 서울역 약 10~15분" data-alt-ko="인천공항·김포공항·서울역에서 Copen Haus까지 지도. 인천공항 차로 약 60~80분, 김포공항 약 40~50분, 서울역 약 10~15분" data-alt-en="Map from Incheon Airport, Gimpo Airport and Seoul Station to Copen Haus: about 60–80, 40–50 and 10–15 minutes by car"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-    <p class="small" style="margin-top:8px"><span class="ko">차로 인천공항 <span class="nw">약 60~80분</span> · 김포공항 <span class="nw">약 40~50분</span> · 서울역 <span class="nw">약 10~15분</span></span><span class="en">By car: Incheon Airport <span class="nw">about 60–80 min</span> · Gimpo Airport <span class="nw">about 40–50 min</span> · Seoul Station <span class="nw">about 10–15 min</span></span></p>
-
-    <h3><span class="ko">충무로역 3번 출구 → Copen Haus</span><span class="en">Walking route from Exit 3</span></h3>
-    <figure class="fig"><button class="zoom" type="button" data-zoom="img/route.png" data-zoom-ko="img/route.png" data-zoom-en="img/en/route.png"><img src="img/route.png" data-src-ko="img/route.png" data-src-en="img/en/route.png" width="1000" height="995" loading="lazy" alt="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-ko="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-en="Walking route map from Chungmuro Station exit 3 through Namsangol Hanok Village to Copen Haus"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-    <p class="small" style="margin-top:8px"><span class="ko">약도이며 실제 축척과 달라요. 정확한 길찾기는 위 네이버지도 버튼을 이용하세요. 큰 캐리어가 있다면 오르막이 적은 택시를 권해요.</span><span class="en">Sketch map, not to scale. For exact directions, use the Naver Map button above. With big suitcases, a taxi saves you the uphill walk.</span></p>
-    <ol class="steps ko">
-      <li><span class="n">1</span><div><b>3번 출구로 나오기</b><p>극동빌딩 맞은편, 퇴계로34길로 진입</p></div></li>
-      <li><span class="n">2</span><div><b>남산골한옥마을 정문</b><p>출구에서 도보 3~4분, 입장 무료</p></div></li>
-      <li><span class="n">3</span><div><b>한옥 · 천우각 연못 지나기</b><p>한옥은 월요일 휴관, 정원 길은 매일 열려 있어요</p></div></li>
-      <li><span class="n">4</span><div><b>전통정원 지나 필동 쪽으로</b><p>정원을 빠져나와 필동로로</p></div></li>
-      <li><span class="n">5</span><div><b>필동로8길로 들어서면 Copen Haus</b><p>서울특별시 중구 필동로8길 32-14</p></div></li>
-    </ol>
-    <ol class="steps en">
-      <li><span class="n">1</span><div><b>Leave by Exit 3</b><p>Across from the Kukdong Building, turn into <span class="nw">Toegye-ro 34-gil</span></p></div></li>
-      <li><span class="n">2</span><div><b>Namsangol Hanok Village main gate</b><p>3–4 minutes from the exit, free entry</p></div></li>
-      <li><span class="n">3</span><div><b>Pass the hanok houses and Cheonugak pond</b><p>The hanok close on Mondays, but the garden path is open every day</p></div></li>
-      <li><span class="n">4</span><div><b>Through the traditional garden toward Pildong</b><p>Exit the garden onto Pildong-ro</p></div></li>
-      <li><span class="n">5</span><div><b>Turn into Pildong-ro 8-gil, and you're here</b><p>32-14, Pildong-ro 8-gil, Jung-gu, Seoul</p></div></li>
-    </ol>
-  </section>
-
-  <!-- 5. 맛집·카페 -->
+  <!-- 6. 맛집·카페 -->
   <section class="s" id="eat" aria-labelledby="h-eat">
     <h2 id="h-eat"><span class="ko">주변 맛집 · 카페</span><span class="en">Food &amp; coffee nearby</span></h2>
     <div class="scene">
@@ -816,7 +881,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     <p class="note en">Opening hours change, so check the map app before you go.</p>
   </section>
 
-  <!-- 6. 둘러보기 -->
+  <!-- 7. 둘러보기 -->
   <section class="s" id="explore" aria-labelledby="h-explore">
     <h2 id="h-explore"><span class="ko">둘러보기</span><span class="en">Explore</span></h2>
     <div class="scene">
@@ -859,67 +924,6 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s in
     </div>
     <p class="note ko">남산순환버스 06:30~23:00 · 01A 6~9분 / 01B 15~18분 간격. 01A는 남산타워를 지나 경복궁·청와대·안국역까지 가서 도심 관광에도 좋아요.</p>
     <p class="note en">Namsan circular buses run 06:30–23:00, 01A every 6–9 min and 01B every 15–18 min. Bus 01A continues past the tower to Gyeongbokgung, Cheong Wa Dae and Anguk Station, handy for sightseeing.</p>
-  </section>
-
-  <!-- 7. 픽업·투어 -->
-  <section class="s" id="services" aria-labelledby="h-services">
-    <h2 id="h-services"><span class="ko">공항 픽업 · 밴 투어</span><span class="en">Pick-up &amp; van tours</span></h2>
-    <p class="intro ko">무거운 캐리어와 오르막 골목 걱정 없이, 공항에서 Copen Haus 문 앞까지 전용 차량으로 모셔다 드려요. 유료 서비스예요.</p>
-    <p class="intro en">Skip the heavy bags and uphill lanes: a private van takes you from the airport to our door. This is a paid service.</p>
-    <div class="vans">
-      <div class="van"><small class="ko">미니밴</small><small class="en">Minivan</small><b class="ko">현대 스타리아</b><b class="en">Hyundai Staria</b><span class="ko">최대 6명 · 캐리어 5~6개</span><span class="en">Up to 6 people · <span class="nw">5–6 suitcases</span></span></div>
-      <div class="van"><small class="ko">대형 밴</small><small class="en">Large van</small><b class="ko">현대 쏠라티</b><b class="en">Hyundai Solati</b><span class="ko">최대 10명 · 대형 짐 가능</span><span class="en">Up to 10 people · big luggage OK</span></div>
-    </div>
-    <h3><span class="ko">공항 픽업 (편도)</span><span class="en">Airport pick-up (one way)</span></h3>
-    <div class="tbl">
-      <table class="price">
-        <thead><tr><th scope="col"><span class="ko">구간</span><span class="en">From</span></th><th scope="col"><span class="ko">스타리아</span><span class="en">Staria</span></th><th scope="col"><span class="ko">쏠라티</span><span class="en">Solati</span></th></tr></thead>
-        <tbody>
-          <tr><td><span class="ko">인천공항</span><span class="en">Incheon Airport</span><small><span class="ko"><span class="nw">약 60~80분</span></span><span class="en"><span class="nw">about 60–80 min</span></span></small></td><td><b>₩90,000</b></td><td><b>₩180,000</b></td></tr>
-          <tr><td><span class="ko">김포공항</span><span class="en">Gimpo Airport</span><small><span class="ko"><span class="nw">약 40~50분</span></span><span class="en"><span class="nw">about 40–50 min</span></span></small></td><td><b>₩70,000</b></td><td>—</td></tr>
-          <tr><td><span class="ko">서울역</span><span class="en">Seoul Station</span><small><span class="ko"><span class="nw">약 10~15분</span></span><span class="en"><span class="nw">about 10–15 min</span></span></small></td><td><b>₩60,000</b></td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="note ko">원화 기준 · 추가 인원(스타리아만) 1인당 +10,000원 · 카시트 +20,000원</p>
-    <p class="note en">Prices in KRW · extra passenger (Staria only) +₩10,000 each · child seat +₩20,000</p>
-
-    <h3><span class="ko">원데이 밴 투어 (10시간)</span><span class="en">One-day van tour (10 hours)</span></h3>
-    <p class="ko" style="margin-bottom:12px">기사님과 함께 하루 10시간 동안 전용 차량으로 다녀오는 투어예요. 서울 시내부터 근교 여행지까지 편하게 다녀오세요.</p>
-    <p class="en" style="margin-bottom:12px">A private van and driver for 10 hours, from Seoul's sights to day trips out of the city.</p>
-    <div class="tbl">
-      <table class="price">
-        <thead><tr><th scope="col"><span class="ko">투어</span><span class="en">Tour</span></th><th scope="col"><span class="ko">스타리아</span><span class="en">Staria</span><small><span class="ko">최대 6명</span><span class="en">up to 6</span></small></th><th scope="col"><span class="ko">쏠라티</span><span class="en">Solati</span><small><span class="ko">최대 10명</span><span class="en">up to 10</span></small></th></tr></thead>
-        <tbody>
-          <tr><td><span class="ko">서울 시티투어</span><span class="en">Seoul city tour</span><small><span class="ko">원하는 서울 명소를 하루 코스로</span><span class="en">Your pick of Seoul sights</span></small></td><td><b>₩300,000</b></td><td><b>₩450,000</b></td></tr>
-          <tr><td><span class="ko">남이섬</span><span class="en">Nami Island</span><small><span class="ko"><span class="nw">강원 춘천 ·</span> 메타세쿼이아 길</span><span class="en"><span class="nw">Chuncheon ·</span> metasequoia lane</span></small></td><td><b>₩330,000</b></td><td><b>₩550,000</b></td></tr>
-          <tr><td><span class="ko">알파카월드</span><span class="en">Alpaca World</span><small><span class="ko"><span class="nw">강원 홍천 ·</span> 알파카 산책 체험</span><span class="en"><span class="nw">Hongcheon ·</span> walk with alpacas</span></small></td><td><b>₩350,000</b></td><td><b>₩600,000</b></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="note ko">경로·목적지·전체 일정에 따라 요금이 달라질 수 있어요.</p>
-    <p class="note en">Prices may change depending on route, destinations and schedule.</p>
-
-    <h3><span class="ko">예약 방법</span><span class="en">How to book</span></h3>
-    <ol class="flow ko">
-      <li><i>1</i><b>예약 요청</b>도착 48시간 전까지 에어비앤비 메시지로</li>
-      <li><i>2</i><b>예약 확정</b>매니저(Mr. Cho)가 WhatsApp으로 안내</li>
-      <li><i>3</i><b>입국장에서 만남</b>드라이버가 이름 피켓을 들고 기다려요</li>
-      <li><i>4</i><b>숙소 도착</b>요금은 도착 후 드라이버에게 현금으로</li>
-    </ol>
-    <ol class="flow en">
-      <li><i>1</i><b>Request</b>By Airbnb message, at least 48 hours before you land</li>
-      <li><i>2</i><b>Confirmed</b>Our manager, Mr. Cho, follows up on WhatsApp</li>
-      <li><i>3</i><b>Meet</b>Your driver waits in the arrival hall with a name sign</li>
-      <li><i>4</i><b>Arrive</b>Pay the driver in cash when you arrive</li>
-    </ol>
-    <div class="most" style="margin-top:12px">
-      <b class="h ko">메시지에 적어 주세요</b><b class="h en">Include in your message</b>
-      <ul class="dots ko"><li>날짜와 시간</li><li>항공편명 (공항 픽업 시)</li><li>인원</li><li>짐 개수와 크기</li><li>피켓에 적을 이름</li><li>WhatsApp 연락처</li></ul>
-      <ul class="dots en"><li>Date and time</li><li>Flight number (for airport pick-up)</li><li>Number of people</li><li>Number and size of bags</li><li>Name for the sign</li><li>Your WhatsApp number</li></ul>
-    </div>
-    <p class="note ko">드라이버가 항공편 지연도 확인하고 있어요. 드라이버가 안 보이면 공항 무료 와이파이로 WhatsApp 연락 주세요.</p>
-    <p class="note en">Your driver tracks flight delays. If you can't find them, message on WhatsApp using the free airport Wi-Fi.</p>
   </section>
 
   <!-- 8. 앱·비상 -->
