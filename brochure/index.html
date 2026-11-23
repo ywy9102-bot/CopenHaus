@@ -125,9 +125,6 @@ h3{margin:26px 0 10px;font:700 13px/1.2 var(--sans);letter-spacing:.08em;text-tr
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font-weight:700;font-size:14px;line-height:1;font-family:inherit;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .chip .ic{width:16px;height:16px;color:var(--green)}
-.wifi{display:flex;flex-wrap:wrap;gap:10px 10px}
-.wifi .wl{display:block;margin:0 0 4px 6px;font-size:12px;font-weight:700;color:var(--mute);line-height:1.3}
-.facts .qr{display:block;width:132px;height:132px;margin-top:10px;border-radius:11%}
 
 
 /* 단계 목록 */
@@ -370,7 +367,6 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
     <ul>
       <li><a href="#getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></a></li>
       <li><a href="#basics"><span class="ko">체크인 · 체크아웃</span><span class="en">Check-in &amp; check-out</span></a></li>
-      <li><a href="#wifi"><span class="ko">와이파이</span><span class="en">Wi-Fi</span></a></li>
       <li><a href="#rules"><span class="ko">하우스 룰</span><span class="en">House rules</span></a></li>
       <li><a href="#contact"><span class="ko">연락처</span><span class="en">Contact</span></a></li>
     </ul>
@@ -421,9 +417,8 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
     <p class="first-t"><span class="ko">처음 오셨다면 이 순서로</span><span class="en">Just arrived? Start here</span></p>
     <ol class="go">
       <li><a href="#host"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내 드려요. 못 받으셨다면 눌러서 Lisa에게 연락하세요</small><small class="en">The door code comes by Airbnb message on check-in day. Didn’t get it? Tap to contact Lisa</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
-      <li><button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><span class="n">2</span><span><b class="ko">Wi-Fi 연결</b><b class="en">Join the Wi-Fi</b><small class="ko">네트워크 Copen_Green · <span class="nw">누르면 비밀번호 복사</span></small><small class="en">Network Copen_Green · <span class="nw">tap to copy the password</span></small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></li>
-      <li><a href="../#heating" data-keep-lang><span class="n">3</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기 · 가이드북에서 사용법 보기</small><small class="en">Thermostat on the wall, right of the entrance · see how in the guidebook</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-      <li><a href="#rules"><span class="n">4</span><span><b class="ko">하우스 룰 보기</b><b class="en">Read the house rules</b><small class="ko">실내 금연 · 밤 10시~아침 8시는 조용히</small><small class="en">No smoking indoors · quiet hours 10 PM – 8 AM</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+      <li><a href="../#heating" data-keep-lang><span class="n">2</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기 · 가이드북에서 사용법 보기</small><small class="en">Thermostat on the wall, right of the entrance · see how in the guidebook</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+      <li><a href="#rules"><span class="n">3</span><span><b class="ko">하우스 룰 보기</b><b class="en">Read the house rules</b><small class="ko">실내 금연 · 밤 10시~아침 8시는 조용히</small><small class="en">No smoking indoors · <span class="nw">quiet hours 10 PM – 8 AM</span></small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
     </ol>
     <dl class="facts" style="margin-top:16px">
       <div><dt><span class="ko">출입 방법</span><span class="en">Getting in</span></dt><dd><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내 드려요.</span><span class="en">We send the door lock code by Airbnb message on check-in day.</span></dd></div>
@@ -432,15 +427,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
     </dl>
   </section>
 
-  <!-- 3. 와이파이 -->
-  <section class="s" id="wifi" aria-labelledby="h-wifi">
-    <h2 id="h-wifi"><span class="ko">와이파이</span><span class="en">Wi-Fi</span></h2>
-    <dl class="facts" style="margin-top:14px">
-      <div><dt><span class="ko">연결하기</span><span class="en">Join</span></dt><dd><div class="wifi"><div><span class="wl"><span class="ko">네트워크</span><span class="en">Network</span></span><button class="chip" type="button" data-label-ko="네트워크 이름 Copen_Green 복사" data-label-en="Copy network name Copen_Green" aria-label="네트워크 이름 Copen_Green 복사" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div><div><span class="wl"><span class="ko">비밀번호</span><span class="en">Password</span></span><button class="chip" type="button" data-label-ko="비밀번호 Copen_0077 복사" data-label-en="Copy password Copen_0077" aria-label="비밀번호 Copen_0077 복사" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></div><p class="small" style="margin-top:8px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="../qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
-    </dl>
-  </section>
-
-  <!-- 4. 하우스 룰 -->
+  <!-- 3. 하우스 룰 -->
   <section class="s" id="rules" aria-labelledby="h-rules">
     <h2 id="h-rules"><span class="ko">하우스 룰</span><span class="en">House rules</span></h2>
     <p class="intro ko">모두가 편히 쉴 수 있도록 일곱 가지만 지켜 주세요.</p>
@@ -466,7 +453,7 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
     <p class="note"><a class="link" href="../#trash" data-keep-lang><span class="ko">쓰레기 버리는 법은 가이드북에서</span><span class="en">How to sort and put out trash: see the guidebook</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </section>
 
-  <!-- 5. 연락처 -->
+  <!-- 4. 연락처 -->
   <section class="s" id="contact" aria-labelledby="h-contact">
     <h2 id="h-contact"><span class="ko">연락처</span><span class="en">Contact</span></h2>
     <div class="host" id="host" style="margin-top:16px">
