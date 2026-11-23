@@ -32,7 +32,11 @@
 @media (prefers-color-scheme:dark){:root{--bg:#121a11;--card:#1d2a1b;--card2:#1a2418;--field:#26331f;--line:#3b4434;--ink:#eef2e6;--mute:#a9b79c;--green:#9db683;--brick:#e08a68;--paper:#1d2a1b;--sep:#4a5642;--ctl:#7d8c70;--ctl-bg:#2a3126;--lift:0 1px 0 rgba(0,0,0,.4),0 3px 8px rgba(0,0,0,.35)}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:break-word;text-wrap:pretty}
+/* 줄바꿈: 한글은 어절 단위, 짧은 제목·버튼은 줄 길이를 고르게, .u는 뜻 단위 묶음(필요할 때만 그 앞에서 줄이 바뀜) */
+h1,h2,h3,h4,summary,button,.chip,.btn,figcaption,.d,th,dt,.tabs a{text-wrap:balance}
+.u{display:inline-block}
+.nw{white-space:nowrap}
 main{max-width:520px;margin:0 auto;padding:16px 16px 64px}
 p{margin:0}
 ::selection{background:var(--green);color:var(--bg)}
@@ -53,7 +57,7 @@ html[data-lang=ko] .en,html[data-lang=en] .ko{display:none!important}
 .lang i{display:grid;place-items:center;min-width:44px;height:36px;padding:0 10px;border-radius:99px;font-style:normal;color:var(--ink);transition:background .15s,color .15s}
 html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{background:var(--green);color:var(--bg)}
 .lang:active{transform:translateY(1px) scale(.985);box-shadow:none}
-.hero{position:relative;border-radius:26px;overflow:hidden;background:var(--card);aspect-ratio:4/4.4;max-height:72svh;min-height:340px}
+.hero{position:relative;border-radius:26px;overflow:hidden;background:var(--card);aspect-ratio:4/4.4;max-height:72svh;min-height:340px;max-width:100%}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,10,0) 20%,rgba(14,20,10,.82) 78%,rgba(14,20,10,.95))}
 .hero .t{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:18px 20px 56px;color:#fff}
@@ -68,9 +72,9 @@ h1{margin:0 0 6px;font:700 clamp(30px,8.6vw,44px)/1.12 var(--serif);letter-spaci
 .lang-mini{flex:none;display:none;place-items:center;min-width:44px;min-height:44px;padding:0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font:700 13px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .tabs.stuck .lang-mini{display:grid}
 html[data-lang=ko] .lang-mini::after{content:"EN"}html[data-lang=en] .lang-mini::after{content:"한"}
-.tabs ul{list-style:none;margin:0;padding:0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
+.tabs ul{list-style:none;margin:0;padding:0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scroll-padding-inline:24px}
 .tabs ul::-webkit-scrollbar{display:none}
-.tabs a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font-size:14px;font-weight:700;white-space:nowrap;text-decoration:none;scroll-snap-align:start;-webkit-tap-highlight-color:transparent}
+.tabs a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font-size:14px;font-weight:700;white-space:nowrap;text-decoration:none;scroll-snap-align:center;-webkit-tap-highlight-color:transparent}
 .tabs a[aria-current=location]{background:var(--green);border-color:var(--green);color:var(--bg)}
 
 /* 섹션 */
@@ -83,12 +87,13 @@ h3{margin:26px 0 10px;font:700 13px/1.2 var(--sans);letter-spacing:.08em;text-tr
 .small{font-size:13px;color:var(--mute)}
 .note{margin-top:12px;font-size:13px;color:var(--mute)}
 .warn{margin-top:12px;padding:10px 14px;border-radius:14px;background:var(--card);background:color-mix(in srgb,var(--brick) 12%,transparent);color:var(--ink);font-size:14px}
-.warn b{color:var(--brick)}
+.warn b{color:#8c3c25}
+@media (prefers-color-scheme:dark){.warn b{color:#f2a283}}
 
 /* 정보 표(항목 · 내용) */
 .facts{margin:0;padding:4px 16px;border-radius:20px;background:var(--card2)}
-.facts div{display:grid;grid-template-columns:7.2em 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--sep)}
-.facts div:first-child{border-top:0}
+.facts>div{display:grid;grid-template-columns:7.2em 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--sep)}
+.facts>div:first-child{border-top:0}
 .facts dt{font-size:14px;font-weight:700;color:var(--mute)}
 .facts dd{margin:0;font-size:15px}
 .facts dd b{font-size:17px}
@@ -140,7 +145,7 @@ details.dev summary::-webkit-details-marker{display:none}
 .dev .tt small{display:block;font-size:13px;color:var(--mute);line-height:1.35}
 .dev .chev{flex:none;width:20px;height:20px;color:var(--mute);transition:transform .2s}
 details.dev[open] .chev{transform:rotate(180deg)}
-.dev .body{padding:4px 14px 18px;border-top:1px solid var(--sep)}
+.dev .body{padding:8px 14px 18px;border-top:1px solid var(--sep)}
 .dev .lede{margin:14px 0 12px;font-size:15px}
 .keys{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
 .keys li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:14px;line-height:1.5}
@@ -195,7 +200,7 @@ ol.rules li span{padding-top:2px}
 .price th:first-child,.price td:first-child{text-align:left;padding-left:0}
 .price thead th{border-top:0;font-size:12px;color:var(--mute);font-weight:700}
 .price td b{font-size:15px;white-space:nowrap}
-.price thead th small{display:block;font-weight:600}
+.price thead th small{display:block;font-weight:600;font-size:12px}
 .price th:not(:first-child),.price td:not(:first-child){width:6.6em}
 .price td small{display:block;color:var(--mute);font-size:12px}
 .tbl{padding:6px 16px 10px;border-radius:20px;background:var(--card2)}
@@ -219,6 +224,14 @@ ul.dots{margin:8px 0 0;padding-left:20px;font-size:14px;display:grid;gap:2px}
 .host{scroll-margin-top:70px;margin-top:30px;padding:20px;border-radius:22px;background:var(--card);text-align:center}
 .host p.w{font:600 22px/1.25 var(--serif)}
 .host .chips{justify-content:center}
+/* 연락: 전화는 위 가운데 큰 버튼, 메신저 3개는 아래에 같은 폭으로 */
+.host-tel{display:flex;justify-content:center;margin-top:14px}
+.chip.tel{min-height:56px;padding:0 24px;font-size:18px;font-variant-numeric:tabular-nums}
+.chip.tel .ic{width:20px;height:20px}
+.msgr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.msgr .chip .ic{width:16px;height:16px}
+.msgr .chip{flex-direction:column;justify-content:center;gap:4px;min-height:64px;padding:8px 4px;border-radius:16px;font-size:13px;line-height:1.2;text-align:center}
+
 .foot{margin-top:22px;font-size:12px;color:var(--mute);text-align:center}
 
 /* 크게 보기 */
@@ -243,13 +256,17 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 .quick small{display:block;font-weight:500;font-size:12px;color:var(--mute)}
 
 /* 이 가이드 사용법 */
-details.howto{margin-top:18px;border-radius:20px;background:var(--card);overflow:hidden}
-details.howto summary{display:flex;align-items:center;gap:10px;min-height:56px;padding:10px 16px;cursor:pointer;list-style:none;font-weight:700;font-size:16px;-webkit-tap-highlight-color:transparent}
+/* 상단 왼쪽: 접힌 상태는 알약 버튼, 펼치면 전체 폭 카드(아래 내용을 밀어내며 가리지 않음). 한/ENG는 오른쪽 위에 고정 */
+.top{position:relative;min-height:50px;justify-content:flex-start;align-items:flex-start}
+.top .lang{position:absolute;top:0;right:0;z-index:1}
+details.howto{width:fit-content;max-width:calc(100% - 128px);border:1.5px solid var(--ctl);border-radius:24px;background:var(--ctl-bg);box-shadow:var(--lift);overflow:hidden}
+details.howto[open]{width:100%;max-width:none;border-color:transparent;border-radius:20px;background:var(--card);box-shadow:none}
+details.howto summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px;cursor:pointer;list-style:none;font-weight:700;font-size:14px;line-height:1.25;-webkit-tap-highlight-color:transparent}
 details.howto summary::-webkit-details-marker{display:none}
-details.howto summary .ic{width:20px;height:20px;color:var(--green)}
-details.howto summary .chev{margin-left:auto;color:var(--mute);transition:transform .2s}
+details.howto summary .ic{flex:none;width:18px;height:18px;color:var(--green)}
+details.howto summary .chev{flex:none;color:var(--mute);transition:transform .2s}
 details.howto[open] summary .chev{transform:rotate(180deg)}
-.howto ul{list-style:none;margin:0;padding:2px 16px 16px;display:grid;gap:12px}
+.howto ul{list-style:none;margin:0;padding:8px 16px 16px;display:grid;gap:12px}
 .howto li{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:center;font-size:14px;line-height:1.5}
 .howto li b{display:block;font-size:15px}
 .demo{display:flex;align-items:center;justify-content:center;gap:4px;height:40px;border:1.5px solid var(--ctl);border-radius:12px;background:var(--ctl-bg);color:var(--ink);font:700 12px/1 var(--sans);pointer-events:none}
@@ -261,12 +278,15 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 
 /* 그림 위 "누르면 크게" 표시 */
 .zoom{position:relative}
-.zh{display:flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:0 12px;background:rgba(28,42,25,.86);color:#fff;font:700 12px/1 var(--sans);pointer-events:none}
+.zh{display:flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:8px 14px;background:rgba(28,42,25,.86);color:#fff;font:700 12px/1 var(--sans);pointer-events:none}
 .zh .ic{width:15px;height:15px}
 .chip .cpy,.btn .cpy{width:16px;height:16px;color:var(--green)}
 
 /* 탭이 옆으로 더 있다는 표시 */
+/* 옆에 더 있음을 보여 주는 가장자리 흐림: 처음엔 오른쪽만, 밀면 양쪽, 끝에선 왼쪽만 */
 .tabs ul{-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+.tabs.mid ul{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 82%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 82%,transparent)}
+.tabs.mid.end ul{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%);mask-image:linear-gradient(90deg,transparent,#000 12%)}
 .tabs ul::after{content:"";flex:none;width:40px}
 .tabs.end ul{-webkit-mask-image:none;mask-image:none}
 @media (max-width:359px){.slots,.quick{grid-template-columns:1fr}.arrive{margin-inline:6px}.howto li{grid-template-columns:1fr}}
@@ -276,7 +296,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 #toast{z-index:20;position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:min(92vw,360px);text-align:center;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
 #toast.on{opacity:1}
 @media (hover:hover){.btn:hover,.chip:hover,.back:hover,.place a:hover,.call:hover,details.dev summary:hover{filter:brightness(1.04)}}
-@media (max-width:380px){.bins,.vans,.flow{grid-template-columns:1fr}.facts div{grid-template-columns:1fr;gap:2px}h2{font-size:27px}.place{grid-template-columns:1fr}.place a{justify-self:start}}
+@media (max-width:380px){.bins,.vans,.flow{grid-template-columns:1fr}.facts>div{grid-template-columns:1fr;gap:2px}h2{font-size:27px}.place{grid-template-columns:1fr}.place a{justify-self:start}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 @media print{.tabs,#top,.lang,.back{display:none}details.dev .body{display:block}}
 </style>
@@ -284,6 +304,18 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 <body>
 <main>
   <div class="top">
+    <details class="howto" id="howto">
+      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17h.01"/></svg><span class="ko">이 가이드 사용법</span><span class="en">How to use this guide</span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <ul>
+        <li><span class="demo pill"><i class="on">한</i>/<i>ENG</i></span><span class="ko"><b>언어 바꾸기</b>오른쪽 위 ‘한/ENG’ 버튼을 누를 때마다 한국어와 영어가 바뀌어요.</span><span class="en"><b>Switch language</b>Tap the “한/ENG” button at the top right to switch between Korean and English.</span></li>
+        <li><span class="demo pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M16 8l4 4-4 4M8 8l-4 4 4 4"/></svg></span><span class="ko"><b>메뉴로 이동</b>화면 위 메뉴를 누르면 그 내용으로 바로 가요. 메뉴는 옆으로 밀면 더 있어요.</span><span class="en"><b>Jump with the menu</b>Tap a menu item at the top to jump there. Swipe the menu sideways to see more.</span></li>
+        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span><span class="ko"><b>눌러서 펼치기</b>기기 이름을 누르면 사용법이 펼쳐지고, 다시 누르면 접혀요.</span><span class="en"><b>Tap to open</b>Tap an appliance to open its guide, and tap again to close it.</span></li>
+        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg></span><span class="ko"><b>그림 크게 보기</b>그림을 누르면 크게 열려요. 두 손가락으로 확대하고, 다 보면 ‘닫기’를 눌러요.</span><span class="en"><b>Zoom diagrams</b>Tap a diagram to open it full size. Pinch to zoom, then tap “Close”.</span></li>
+        <li><span class="demo pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></span><span class="ko"><b>눌러서 복사</b>복사 아이콘이 있는 버튼은 누르면 바로 복사돼요. 화면 아래에 ‘복사됨’이 잠깐 떠요.</span><span class="en"><b>Tap to copy</b>Buttons with a copy icon copy their text. You'll see a short “copied” note at the bottom.</span></li>
+        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="ko"><b>지도 열기</b>‘지도’ 버튼은 네이버지도에서 그 장소를 열어요.</span><span class="en"><b>Open the map</b>“Map” buttons open the place in Naver Map, the best map app in Korea.</span></li>
+        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span><span class="ko"><b>체크리스트</b>체크아웃 목록은 직접 체크할 수 있고, 이 휴대폰에 기억돼요.</span><span class="en"><b>Checklist</b>Tick off the check-out list as you go. Your ticks are saved on this phone.</span></li>
+      </ul>
+    </details>
     <button class="lang" type="button" id="lang" data-lang-toggle aria-label="언어: 한국어. 눌러서 영어로 바꾸기"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
   </div>
 
@@ -291,8 +323,8 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     <img src="hero.jpg" width="960" height="1200" alt="" fetchpriority="high">
     <div class="t">
       <h1><span class="ko">게스트 가이드북</span><span class="en">Guest guidebook</span></h1>
-      <p class="d ko">Copen Haus · 서울 필동. 머무는 동안 필요한 집 사용법과 동네 정보를 모두 모았어요.</p>
-      <p class="d en">Copen Haus · Pildong, Seoul. How the house works and what's around, all in one place.</p>
+      <p class="d ko"><span class="u">남산 자락 조용한 동네 필동,</span> <span class="u">Copen Haus에 오신 것을 환영합니다.</span></p>
+      <p class="d en"><span class="u">Welcome to Copen Haus in Pildong,</span> <span class="u">a quiet neighborhood</span> <span class="u">at the foot of Namsan.</span></p>
     </div>
   </header>
 
@@ -303,7 +335,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     </div>
     <div class="quick">
       <button type="button" data-copy="Copen_0077" data-toast-ko="Wi-Fi 비밀번호 복사됨 · 네트워크 Copen_Green" data-toast-en="Wi-Fi password copied · network Copen_Green"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9a14 14 0 0119 0M5.5 12.5a9.5 9.5 0 0113 0M8.7 16a5 5 0 016.6 0"/><circle cx="12" cy="19.2" r=".9" fill="currentColor"/></svg><span>Wi-Fi<small class="ko">비밀번호 복사</small><small class="en">Copy password</small></span></button>
-      <a href="#heating"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg><span><span class="ko">난방 · 온수</span><span class="en">Heating</span><small class="ko">온도조절기 사용법</small><small class="en">Using the thermostat</small></span></a>
+      <a href="#heating"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 6.5 6 10.5a6 6 0 01-12 0C6 10 8.5 8 9 5c1.5 1.5 2.5 3 3-2z"/></svg><span><span class="ko">난방 · 온수</span><span class="en">Heating</span><small class="ko">온도조절기 사용법</small><small class="en"><span class="nw">Using the thermostat</span></small></span></a>
       <a href="#trash"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13M10 11v5.5M14 11v5.5"/></svg><span><span class="ko">쓰레기</span><span class="en">Trash</span><small class="ko">요일·시간·종류</small><small class="en">When and how</small></span></a>
       <a href="#checkout"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h8M14 3l5 2v14l-5 2zM11.5 12h.01"/></svg><span><span class="ko">체크아웃 전</span><span class="en">Check-out</span><small class="ko">4가지 체크리스트</small><small class="en">4-step checklist</small></span></a>
     </div>
@@ -323,30 +355,20 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     <button class="lang-mini" type="button" data-lang-toggle aria-label="눌러서 영어로 바꾸기"></button>
   </nav>
 
-  <details class="howto" id="howto" open>
-    <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17h.01"/></svg><span class="ko">이 가이드 사용법</span><span class="en">How to use this guide</span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <ul>
-      <li><span class="demo pill"><i class="on">한</i>/<i>ENG</i></span><span class="ko"><b>언어 바꾸기</b>오른쪽 위 ‘한/ENG’ 버튼을 누를 때마다 한국어와 영어가 바뀌어요.</span><span class="en"><b>Switch language</b>Tap the “한/ENG” button at the top right to switch between Korean and English.</span></li>
-      <li><span class="demo pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M16 8l4 4-4 4M8 8l-4 4 4 4"/></svg></span><span class="ko"><b>메뉴로 이동</b>화면 위 메뉴를 누르면 그 내용으로 바로 가요. 메뉴는 옆으로 밀면 더 있어요.</span><span class="en"><b>Jump with the menu</b>Tap a menu item at the top to jump there. Swipe the menu sideways to see more.</span></li>
-      <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span><span class="ko"><b>눌러서 펼치기</b>기기 이름을 누르면 사용법이 펼쳐지고, 다시 누르면 접혀요.</span><span class="en"><b>Tap to open</b>Tap an appliance to open its guide, and tap again to close it.</span></li>
-      <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg></span><span class="ko"><b>그림 크게 보기</b>그림을 누르면 크게 열려요. 두 손가락으로 확대하고, 다 보면 ‘닫기’를 눌러요.</span><span class="en"><b>Zoom diagrams</b>Tap a diagram to open it full size. Pinch to zoom, then tap “Close”.</span></li>
-      <li><span class="demo pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></span><span class="ko"><b>눌러서 복사</b>복사 아이콘이 있는 버튼은 누르면 바로 복사돼요. 화면 아래에 ‘복사됨’이 잠깐 떠요.</span><span class="en"><b>Tap to copy</b>Buttons with a copy icon copy their text. You'll see a short “copied” note at the bottom.</span></li>
-      <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="ko"><b>지도 열기</b>‘지도’ 버튼은 네이버지도에서 그 장소를 열어요.</span><span class="en"><b>Open the map</b>“Map” buttons open the place in Naver Map, the best map app in Korea.</span></li>
-      <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span><span class="ko"><b>체크리스트</b>체크아웃 목록은 직접 체크할 수 있고, 이 휴대폰에 기억돼요.</span><span class="en"><b>Checklist</b>Tick off the check-out list as you go. Your ticks are saved on this phone.</span></li>
-    </ul>
-  </details>
 
 
   <!-- 1. 기본 정보 -->
   <section class="s" id="basics" aria-labelledby="h-basics">
     <h2 id="h-basics"><span class="ko">기본 정보</span><span class="en">The basics</span></h2>
-    <p class="intro ko">명동까지 걸어서 약 10분. 남산골한옥마을과 충무로역이 가깝고, 서울역·광화문까지 대중교통으로 쉽게 다닐 수 있어요.</p>
-    <p class="intro en">Myeongdong is about a 10-minute walk away. Namsangol Hanok Village and Chungmuro Station are close by, and Seoul Station and Gwanghwamun are an easy ride.</p>
+    <p class="intro ko">명동까지 걸어서 <span class="nw">약 10분</span>. 남산골한옥마을과 충무로역이 가깝고, 서울역·광화문까지 대중교통으로 쉽게 다닐 수 있어요.</p>
+    <p class="intro en">Myeongdong is about a <span class="nw">10-minute walk</span> away. Namsangol Hanok Village and Chungmuro Station are close by, and Seoul Station and Gwanghwamun are an easy ride.</p>
     <dl class="facts">
+      <div><dt><span class="ko">주소</span><span class="en">Address</span></dt><dd><span class="ko">서울특별시 중구 필동로8길 32-14</span><span class="en">32-14, Pildong-ro 8-gil, Jung-gu, Seoul</span><div class="chips" style="margin-top:8px"><button class="chip" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">한글 주소 복사</span><span class="en">Copy Korean address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-ko="영문 주소 복사됨" data-toast-en="Address copied"><span class="ko">영문 주소 복사</span><span class="en">Copy English address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></dd></div>
+      <div><dt><span class="ko">호스트</span><span class="en">Host</span></dt><dd>Lisa · +82-10-9328-0969<br><span class="ko">카카오톡 · LINE · WhatsApp (ID: free01270)</span><span class="en">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><div class="chips" style="margin-top:8px"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">연락하기</span><span class="en">Contact Lisa</span></a></div></dd></div>
       <div><dt><span class="ko">출입 방법</span><span class="en">Getting in</span></dt><dd><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내드려요.</span><span class="en">We send the door lock code by Airbnb message on check-in day.</span></dd></div>
       <div><dt><span class="ko">입구·층</span><span class="en">Entrance</span></dt><dd><span class="ko">건물 1층</span><span class="en">Ground floor (1F)</span></dd></div>
       <div><dt><span class="ko">짐 보관</span><span class="en">Luggage</span></dt><dd><span class="ko">미리 알려주시면 안내해 드려요.</span><span class="en">Let us know in advance and we'll help you arrange it.</span></dd></div>
-      <div><dt>Wi-Fi</dt><dd><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button> <button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><p class="small" style="margin-top:6px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
+      <div><dt>Wi-Fi</dt><dd><div class="chips" style="margin-top:0"><button class="chip" type="button" data-copy="Copen_Green" data-toast-ko="네트워크 이름 복사됨" data-toast-en="Network name copied">Copen_Green<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="Copen_0077" data-toast-ko="비밀번호 복사됨" data-toast-en="Password copied">Copen_0077<svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div><p class="small" style="margin-top:8px"><span class="ko">눌러서 복사 · 또는 카메라로 QR 코드를 찍으세요</span><span class="en">Tap to copy · or scan the QR code with your camera</span></p><img class="qr" src="qr.png" width="560" height="560" loading="lazy" decoding="async" alt="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-ko="Copen_Green Wi-Fi QR 코드. 카메라로 찍으면 바로 연결돼요." data-alt-en="Wi-Fi QR code for Copen_Green. Scan it with your camera to join the network."></dd></div>
     </dl>
     <figure class="photos">
       <div><img src="img/entrance.jpg" width="600" height="900" loading="lazy" alt="건물 입구와 계단" data-alt-ko="건물 입구와 계단" data-alt-en="Copen Haus building entrance and stairs"><figcaption><span class="ko">건물 입구 · 계단</span><span class="en">Building entrance &amp; stairs</span></figcaption></div>
@@ -372,14 +394,14 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
           <ol class="en"><li><b>전원 · Power</b>: turns the boiler on and off.</li><li><b>외출 · Away</b>: press when you go out.</li><li><b>난방 · Heating</b>: press it, then turn the dial right to warm up or left to cool down.</li></ol>
         </div>
         <ul class="keys ko">
-          <li><i>화면</i><span>왼쪽 숫자는 실내온도, 오른쪽 숫자는 온수온도예요.</span></li>
+          <li><i>화면</i><span>왼쪽 숫자는 실내온도, <span class="nw">오른쪽 숫자는 온수온도예요</span>.</span></li>
           <li><i>온수</i><span>온수 버튼을 누르고 다이얼로 온수 온도를 맞춰요.</span></li>
           <li><i>예약</i><span>시간 예약을 설정해요.</span></li>
           <li><i>온돌</i><span>바닥 난방(온돌) 기능을 설정해요.</span></li>
         </ul>
         <ul class="keys en">
-          <li><i>Screen</i><span>Left number is the room temperature, right number is the hot-water temperature.</span></li>
-          <li><i>온수</i><span>Hot water: press it, then turn the dial to set the water temperature.</span></li>
+          <li><i>Screen</i><span>Left number is the room temperature, right number is the <span class="nw">hot-water temperature</span>.</span></li>
+          <li><i>온수</i><span>Hot water: press it, then turn the dial to set the <span class="nw">water temperature</span>.</span></li>
           <li><i>예약</i><span>Timer: set a schedule.</span></li>
           <li><i>온돌</i><span>Ondol: underfloor heating mode.</span></li>
         </ul>
@@ -400,7 +422,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     <details class="dev" id="washer">
       <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M7.5 6.5h2"/></svg></span><span class="tt"><b class="ko">세탁기</b><b class="en">Washing machine</b><small class="ko">코스 선택 → 동작 버튼 길게</small><small class="en">Pick a course, then hold Start</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
       <div class="body">
-        <p class="lede ko">전원을 켜고 <b>코스를 고른 뒤 동작 버튼을 길게</b> 누르면 시작돼요.</p>
+        <p class="lede ko">전원을 켜고 <b>코스를 고른 뒤 동작 <span class="nw">버튼을 길게</span></b> 누르면 시작돼요.</p>
         <p class="lede en">Turn it on, <b>choose a course, then press and hold Start</b>.</p>
         <figure class="fig"><button class="zoom" type="button" data-zoom="img/washer.png"><img src="img/washer.png" width="1000" height="665" loading="lazy" alt="세탁기 조작부 그림" data-alt-ko="세탁기 조작부 그림" data-alt-en="Washing machine control panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
         <ul class="keys ko">
@@ -412,7 +434,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
           <li><i>6</i><span><b>종료예약</b>: 세탁이 끝나는 시간을 예약해요</span></li>
           <li><i>7</i><span><b>버블불림</b>: 거품으로 찌든 때를 불려서 세탁해요</span></li>
           <li><i>8</i><span><b>세탁물추가</b>: 작동 중 빨래를 더 넣고 싶을 때 눌러요</span></li>
-          <li><i>9</i><span><b>스마트컨트롤</b>: 스마트폰 앱(SmartThings)으로 조작해요</span></li>
+          <li><i>9</i><span><b>스마트컨트롤</b>: 스마트폰 <span class="nw">앱(SmartThings)으로</span> 조작해요</span></li>
           <li><i>10</i><span><b>전원</b>: 세탁기를 켜고 꺼요</span></li>
           <li><i>11</i><span><b>동작/일시정지</b>: 길게 눌러 시작, 누르면 잠시 멈춰요</span></li>
           <li><i>12</i><span><b>어린이보호</b>: 세탁온도 + 헹굼횟수를 함께 3초 누르면 잠겨요</span></li>
@@ -425,7 +447,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
           <li><i>5</i><span><b>Soil level</b>: low, normal or high</span></li>
           <li><i>6</i><span><b>Finish timer</b>: set when the wash should end</span></li>
           <li><i>7</i><span><b>Bubble soak</b>: soaks tough dirt with foam</span></li>
-          <li><i>8</i><span><b>Add laundry</b>: press to add items mid-cycle</span></li>
+          <li><i>8</i><span><b>Add laundry</b>: press to add items <span class="nw">mid-cycle</span></span></li>
           <li><i>9</i><span><b>Smart control</b>: control it with the SmartThings app</span></li>
           <li><i>10</i><span><b>Power</b>: on and off</span></li>
           <li><i>11</i><span><b>Start / Pause</b>: hold to start, press to pause</span></li>
@@ -437,7 +459,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     <details class="dev" id="dryer">
       <summary><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="13" r="4.5"/><path d="M10 11.5c1 .8 3 .8 4 0M10 14.5c1 .8 3 .8 4 0"/></svg></span><span class="tt"><b class="ko">건조기</b><b class="en">Dryer</b><small class="ko">코스 선택 → 동작 버튼 길게</small><small class="en">Pick a course, then hold Start</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
       <div class="body">
-        <p class="lede ko">전원을 켜고 <b>코스를 고른 뒤 동작 버튼을 길게</b> 누르면 시작돼요.</p>
+        <p class="lede ko">전원을 켜고 <b>코스를 고른 뒤 동작 <span class="nw">버튼을 길게</span></b> 누르면 시작돼요.</p>
         <p class="lede en">Turn it on, <b>choose a course, then press and hold Start</b>.</p>
         <figure class="fig"><button class="zoom" type="button" data-zoom="img/dryer.png"><img src="img/dryer.png" width="1000" height="696" loading="lazy" alt="건조기 조작부 그림" data-alt-ko="건조기 조작부 그림" data-alt-en="Dryer control panel diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
         <ul class="keys ko">
@@ -449,11 +471,12 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
           <li><i>6</i><span><b>열풍내부살균</b>: 열풍으로 건조기 안을 살균해요</span></li>
           <li><i>7</i><span><b>드럼라이트</b>: 건조기 안 불을 켜고 꺼요</span></li>
           <li><i>8</i><span><b>소리 끔</b>: 알림음을 꺼요</span></li>
-          <li><i>9</i><span><b>스마트컨트롤</b>: 스마트폰 앱(SmartThings)으로 조작해요</span></li>
+          <li><i>9</i><span><b>스마트컨트롤</b>: 스마트폰 <span class="nw">앱(SmartThings)으로</span> 조작해요</span></li>
           <li><i>10</i><span><b>전원</b>: 건조기를 켜고 꺼요</span></li>
           <li><i>11</i><span><b>동작/일시정지</b>: 길게 눌러 시작, 누르면 잠시 멈춰요</span></li>
           <li><i>12</i><span><b>어린이보호</b>: 건조정도 + 건조시간을 함께 3초 누르면 잠겨요</span></li>
         </ul>
+        <p class="note ko">이불털기/패딩케어 코스는 에어워시 코스예요.</p>
         <ul class="keys en">
           <li><i>1</i><span><b>Course dial</b>: turn to pick a course (표준건조 Standard is the default)</span></li>
           <li><i>2</i><span><b>Dryness</b>: levels 1 to 4 (3 is standard)</span></li>
@@ -468,6 +491,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
           <li><i>11</i><span><b>Start / Pause</b>: hold to start, press to pause</span></li>
           <li><i>12</i><span><b>Child lock</b>: hold Dryness + Dry time together for 3 seconds</span></li>
         </ul>
+        <p class="note en">The 이불털기/패딩케어 (bedding refresh / padding care) course is an Air Wash course.</p>
       </div>
     </details>
 
@@ -479,14 +503,14 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
         <figure class="fig"><button class="zoom" type="button" data-zoom="img/microwave.png"><img src="img/microwave.png" width="1000" height="534" loading="lazy" alt="전자레인지 다이얼 그림" data-alt-ko="전자레인지 다이얼 그림" data-alt-en="Microwave dials diagram"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
         <ol class="steps ko">
           <li><span class="n">1</span><div><b>음식을 넣고 문을 닫아요</b></div></li>
-          <li><span class="n">2</span><div><b>선택모드 다이얼을 돌려 모드를 맞춰요</b><p>약 · 중 · 강은 화력 세기, 데우기는 식은 음식, 해동은 얼린 음식</p></div></li>
+          <li><span class="n">2</span><div><b>선택모드 다이얼을 돌려 모드를 맞춰요</b><p>약 · 중 · 강은 화력 세기(강할수록 빨리 데워져요), 데우기는 남은 음식이나 식은 음식, 해동은 얼린 음식</p></div></li>
           <li><span class="n">3</span><div><b>분(min) 다이얼을 시계 방향으로 돌려 시간을 맞춰요</b><p>최대 30분</p></div></li>
           <li><span class="n">4</span><div><b>시간이 다 되면 문을 열고 꺼내요</b></div></li>
         </ol>
         <ol class="steps en">
           <li><span class="n">1</span><div><b>Put the food in and close the door</b></div></li>
-          <li><span class="n">2</span><div><b>Turn the mode dial (선택모드)</b><p>약 · 중 · 강 = low · medium · high power. 데우기 = reheat. 해동 = defrost.</p></div></li>
-          <li><span class="n">3</span><div><b>Turn the time dial (분 min) clockwise</b><p>Up to 30 minutes</p></div></li>
+          <li><span class="n">2</span><div><b>Turn the <span class="nw">mode dial (선택모드)</span></b><p>약 · 중 · 강 = low · medium · high power (higher heats faster). 데우기 = reheat leftovers. 해동 = defrost.</p></div></li>
+          <li><span class="n">3</span><div><b>Turn the time dial <span class="nw">(분 min) clockwise</span></b><p>Up to 30 minutes</p></div></li>
           <li><span class="n">4</span><div><b>When it stops, open the door and take it out</b></div></li>
         </ol>
         <p class="warn ko"><b>주의</b> · 금속 그릇, 알루미늄 호일, 밀폐 용기는 넣지 마세요.</p>
@@ -537,8 +561,8 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
           <li><i>5</i><span><b>이전</b>: 이전 화면으로 가요</span></li>
           <li><i>6</i><span><b>홈</b>: 홈 화면으로 가요</span></li>
           <li><i>7</i><span><b>Live TV</b>: TV 방송을 봐요</span></li>
-          <li><i>8</i><span><b>음량 + / −</b></span></li>
-          <li><i>9</i><span><b>채널 + / −</b></span></li>
+          <li><i>8</i><span><b>음량 + / −</b>: 소리를 키우고 줄여요</span></li>
+          <li><i>9</i><span><b>채널 + / −</b>: 채널을 바꿔요</span></li>
           <li><i>10</i><span><b>외부입력</b>: 연결한 기기 화면으로 바꿔요</span></li>
           <li><i>11</i><span><b>앱 버튼</b>: 넷플릭스 · 유튜브 · 프라임 · 디즈니+ 바로 열기</span></li>
           <li><i>12</i><span><b>재생 버튼</b>: 되감기 · 재생/멈춤 · 빨리감기</span></li>
@@ -551,11 +575,11 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
           <li><i>5</i><span><b>Back</b></span></li>
           <li><i>6</i><span><b>Home</b></span></li>
           <li><i>7</i><span><b>Live TV</b>: watch broadcast TV</span></li>
-          <li><i>8</i><span><b>Volume + / −</b></span></li>
-          <li><i>9</i><span><b>Channel + / −</b></span></li>
+          <li><i>8</i><span><b>Volume + / −</b>: sound up or down</span></li>
+          <li><i>9</i><span><b>Channel + / −</b>: change channels</span></li>
           <li><i>10</i><span><b>Input</b>: switch to a connected device</span></li>
           <li><i>11</i><span><b>App buttons</b>: Netflix, YouTube, Prime Video, Disney+</span></li>
-          <li><i>12</i><span><b>Playback</b>: rewind, play/pause, fast-forward</span></li>
+          <li><i>12</i><span><b>Playback</b>: rewind, play/pause, <span class="nw">fast-forward</span></span></li>
         </ul>
         <p class="note ko">넷플릭스, 디즈니+ 등은 개인 계정으로 로그인해 이용하실 수 있어요.</p>
         <p class="note en">Sign in with your own account for Netflix, Disney+ and others.</p>
@@ -569,13 +593,13 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     <h3 id="trash" style="scroll-margin-top:70px"><span class="ko">쓰레기 버리는 법</span><span class="en">Trash &amp; recycling</span></h3>
     <div class="when"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><b class="ko">일~금요일 저녁 7시 ~ 자정</b><b class="en">Sun–Fri, 7 PM to midnight</b><span class="ko">집 앞에 내놓아요 · 토요일은 배출 금지</span><span class="en">Put it out in front of the house · never on Saturday</span></div></div>
     <div class="bins">
-      <div class="bin" style="--c:#8b8b7a"><b class="ko">일반 쓰레기</b><b class="en">General waste</b><span class="ko">중구 종량제 봉투(흰색)</span><span class="en">White Jung-gu pay-as-you-throw bag</span></div>
-      <div class="bin" style="--c:#c98a3a"><b class="ko">음식물</b><b class="en">Food waste</b><span class="ko">물기 빼고 전용 봉투·용기</span><span class="en">Drain it, then use the food-waste bag or bin</span></div>
+      <div class="bin" style="--c:#8b8b7a"><b class="ko">일반 쓰레기</b><b class="en">General waste</b><span class="ko">중구 종량제 봉투(흰색)</span><span class="en">White Jung-gu <span class="nw">pay-as-you-throw bag</span></span></div>
+      <div class="bin" style="--c:#c98a3a"><b class="ko">음식물</b><b class="en">Food waste</b><span class="ko">물기 빼고 전용 봉투·용기</span><span class="en">Drain it, then use the <span class="nw">food-waste bag</span> or bin</span></div>
       <div class="bin" style="--c:#3a7bb0"><b class="ko">재활용</b><b class="en">Recycling</b><span class="ko">캔·병·플라스틱·비닐을 헹궈 투명 봉지에</span><span class="en">Rinse cans, bottles, plastic and vinyl, then put them in a clear bag</span></div>
       <div class="bin" style="--c:#a0784c"><b class="ko">종이·상자</b><b class="en">Paper &amp; boxes</b><span class="ko">펼쳐서 묶어 배출</span><span class="en">Flatten and tie together</span></div>
     </div>
     <p class="note ko">봉투 위치와 내놓는 자리: <b>1층 현관문 옆</b>. 시간·장소를 어기면 과태료 10~30만원이 부과돼요.</p>
-    <p class="note en">Bags are kept, and trash goes out, <b>next to the ground-floor front door</b>. Wrong day, time or place can mean a ₩100,000–300,000 fine.</p>
+    <p class="note en">Bags are kept, and trash goes out, <b>next to the <span class="nw">ground-floor front door</span></b>. Wrong day, time or place can mean a <span class="nw">₩100,000–300,000 fine</span>.</p>
 
     <h3><span class="ko">하우스 룰</span><span class="en">House rules</span></h3>
     <ol class="rules ko">
@@ -599,7 +623,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
 
     <h3 id="checkout" style="scroll-margin-top:70px"><span class="ko">체크아웃 전에 부탁드려요</span><span class="en">Before you check out</span></h3>
     <div class="check" data-store="ch-checkout">
-      <label><input type="checkbox"><span><span class="ko">마지막 날 쓰레기는 밖에 내놓지 말고, 분리해서 집 안에 두세요. 저희가 정리해요</span><span class="en">On your last day, don't put trash outside. Sort it and leave it inside; we'll take care of it</span></span></label>
+      <label><input type="checkbox"><span><span class="ko">쓰레기는 분리해 집에 두시면 정리해 드립니다</span><span class="en">Sort your trash and leave it inside; we'll take care of it</span></span></label>
       <label><input type="checkbox"><span><span class="ko">에어컨 · 난방 · 조명 끄기</span><span class="en">Turn off the AC, heating and lights</span></span></label>
       <label><input type="checkbox"><span><span class="ko">창문 닫고 문이 잠겼는지 확인</span><span class="en">Close the windows and check the door is locked</span></span></label>
       <label><input type="checkbox"><span><span class="ko">에어비앤비 메시지로 체크아웃 알려주기</span><span class="en">Let us know by Airbnb message that you've left</span></span></label>
@@ -612,23 +636,26 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     <p class="intro ko">가장 가까운 역은 지하철 3·4호선 <b>충무로역</b>이에요. 남산 쪽 오르막이라 큰 캐리어가 있다면 택시를 권해요.</p>
     <p class="intro en">The nearest station is <b>Chungmuro</b> (Lines 3 &amp; 4). It's uphill toward Namsan, so take a taxi if you have big suitcases.</p>
     <div class="routes ko">
-      <div class="route"><small>인천공항</small><b>공항버스 6015 → ‘충무로역·호텔피제이’ 하차</b><span>성인 17,000원 · T1 1층 5B / T2 B1 28번</span></div>
+      <div class="route"><small>인천공항</small><b>공항버스 6015 → <span class="nw">‘충무로역·호텔피제이’ 하차</span></b><span>성인 17,000원 · T1 1층 5B / T2 B1 28번</span></div>
       <div class="route"><small>인천공항</small><b>공항철도 → 서울역 → 4호선 충무로역</b><span>서울역에서 진접·당고개 방면 3정거장</span></div>
       <div class="route"><small>김포공항</small><b>5호선 → 동대문역사문화공원 → 4호선 충무로역</b><span>환승 1회</span></div>
-      <div class="route"><small>서울역</small><b>4호선 → 충무로역</b><span>진접·당고개 방면 3정거장 · 택시 약 10분</span></div>
-      <div class="route"><small>충무로역</small><b>3번 출구에서 도보 약 10~15분</b><span>아래 도보 경로를 따라오세요</span></div>
+      <div class="route"><small>서울역</small><b>4호선 → 충무로역</b><span>진접·당고개 방면 3정거장 · 택시 <span class="nw">약 10분</span></span></div>
+      <div class="route"><small>충무로역</small><b>3번 출구에서 도보 <span class="nw">약 10~15분</span></b><span>아래 도보 경로를 따라오세요</span></div>
     </div>
     <div class="routes en">
       <div class="route"><small>Incheon Airport</small><b>Airport bus 6015 → get off at “Chungmuro Stn · Hotel PJ”</b><span>Adults ₩17,000 · T1 1F stop 5B / T2 B1 stop 28</span></div>
-      <div class="route"><small>Incheon Airport</small><b>AREX → Seoul Station → Line 4 to Chungmuro</b><span>3 stops from Seoul Station toward Jinjeop / Danggogae</span></div>
-      <div class="route"><small>Gimpo Airport</small><b>Line 5 → Dongdaemun History &amp; Culture Park → Line 4 to Chungmuro</b><span>One transfer</span></div>
-      <div class="route"><small>Seoul Station</small><b>Line 4 → Chungmuro</b><span>3 stops toward Jinjeop / Danggogae · about 10 min by taxi</span></div>
+      <div class="route"><small>Incheon Airport</small><b>AREX → Seoul Station → <span class="nw">Line 4 to Chungmuro</span></b><span>3 stops from Seoul Station toward Jinjeop / Danggogae</span></div>
+      <div class="route"><small>Gimpo Airport</small><b>Line 5 → <span class="nw">Dongdaemun History &amp; Culture Park</span> → <span class="nw">Line 4 to Chungmuro</span></b><span>One transfer</span></div>
+      <div class="route"><small>Seoul Station</small><b>Line 4 → Chungmuro</b><span>3 stops toward Jinjeop / Danggogae · <span class="nw">about 10 min</span> by taxi</span></div>
       <div class="route"><small>Chungmuro Station</small><b>Exit 3, then about a 10–15 minute walk</b><span>Follow the walking route below</span></div>
     </div>
 
+    <figure class="fig" style="margin-top:14px"><button class="zoom" type="button" data-zoom="img/overview.jpg"><img src="img/overview.jpg" width="962" height="524" loading="lazy" alt="인천공항·김포공항·서울역에서 Copen Haus까지 지도. 인천공항 차로 약 60~80분, 김포공항 약 40~50분, 서울역 약 10~15분" data-alt-ko="인천공항·김포공항·서울역에서 Copen Haus까지 지도. 인천공항 차로 약 60~80분, 김포공항 약 40~50분, 서울역 약 10~15분" data-alt-en="Map from Incheon Airport, Gimpo Airport and Seoul Station to Copen Haus: about 60–80, 40–50 and 10–15 minutes by car"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
+    <p class="small" style="margin-top:8px"><span class="ko">차로 인천공항 <span class="nw">약 60~80분</span> · 김포공항 <span class="nw">약 40~50분</span> · 서울역 <span class="nw">약 10~15분</span></span><span class="en">By car: Incheon Airport <span class="nw">about 60–80 min</span> · Gimpo Airport <span class="nw">about 40–50 min</span> · Seoul Station <span class="nw">about 10–15 min</span></span></p>
+
     <h3><span class="ko">충무로역 3번 출구 → Copen Haus</span><span class="en">Walking route from Exit 3</span></h3>
     <figure class="fig"><button class="zoom" type="button" data-zoom="img/route.png"><img src="img/route.png" width="1000" height="995" loading="lazy" alt="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-ko="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-en="Walking route map from Chungmuro Station exit 3 through Namsangol Hanok Village to Copen Haus"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-    <p class="small" style="margin-top:8px"><span class="ko">약도이며 실제 축척과 달라요.</span><span class="en">Sketch map, not to scale.</span></p>
+    <p class="small" style="margin-top:8px"><span class="ko">약도이며 실제 축척과 달라요. 정확한 길찾기는 아래 네이버지도 버튼을 이용하세요. 큰 캐리어가 있다면 오르막이 적은 택시를 권해요.</span><span class="en">Sketch map, not to scale. For exact directions, use the Naver Map button below. With big suitcases, a taxi saves you the uphill walk.</span></p>
     <ol class="steps ko">
       <li><span class="n">1</span><div><b>3번 출구로 나오기</b><p>극동빌딩 맞은편, 퇴계로34길로 진입</p></div></li>
       <li><span class="n">2</span><div><b>남산골한옥마을 정문</b><p>출구에서 도보 3~4분, 입장 무료</p></div></li>
@@ -637,7 +664,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <li><span class="n">5</span><div><b>필동로8길로 들어서면 Copen Haus</b><p>서울특별시 중구 필동로8길 32-14</p></div></li>
     </ol>
     <ol class="steps en">
-      <li><span class="n">1</span><div><b>Leave by Exit 3</b><p>Across from the Kukdong Building, turn into Toegye-ro 34-gil</p></div></li>
+      <li><span class="n">1</span><div><b>Leave by Exit 3</b><p>Across from the Kukdong Building, turn into <span class="nw">Toegye-ro 34-gil</span></p></div></li>
       <li><span class="n">2</span><div><b>Namsangol Hanok Village main gate</b><p>3–4 minutes from the exit, free entry</p></div></li>
       <li><span class="n">3</span><div><b>Pass the hanok houses and Cheonugak pond</b><p>The hanok close on Mondays, but the garden path is open every day</p></div></li>
       <li><span class="n">4</span><div><b>Through the traditional garden toward Pildong</b><p>Exit the garden onto Pildong-ro</p></div></li>
@@ -656,15 +683,15 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     <p class="intro en">The local star is <b>Pildong Myeonok</b>, a Michelin Bib Gourmand spot for Pyongyang-style cold noodles. Go a little early at lunch to beat the queue.</p>
     <h3><span class="ko">맛집</span><span class="en">Restaurants</span></h3>
     <div class="places">
-      <div class="place"><div><b>필동면옥<em class="en">Pildong Myeonok</em></b><span class="what ko">평양냉면 · 수육 · 만두 · 미쉐린 빕구르망</span><span class="what en">Cold noodles, boiled pork, dumplings · Bib Gourmand</span><span class="meta"><span class="ko">중구 서애로 26 · 월~토 11:00~20:00 · 일 휴무</span><span class="en">26 Seoae-ro · Mon–Sat 11:00–20:00 · closed Sun</span></span></div><a href="https://map.naver.com/p/search/%ED%95%84%EB%8F%99%EB%A9%B4%EC%98%A5%20%EC%84%9C%EC%95%A0%EB%A1%9C%2026"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
-      <div class="place"><div><b>필동닭칼국수<em class="en">Pildong Dak-kalguksu</em></b><span class="what ko">닭칼국수 · 얼큰닭칼국수</span><span class="what en">Chicken noodle soup, mild or spicy</span><span class="meta"><span class="ko">중구 필동로 15-9 · 평일 09:00~21:00 · 토 09:00~14:30</span><span class="en">15-9 Pildong-ro · Weekdays 09:00–21:00 · Sat 09:00–14:30</span></span></div><a href="https://map.naver.com/p/search/%ED%95%84%EB%8F%99%EB%8B%AD%EC%B9%BC%EA%B5%AD%EC%88%98%20%ED%95%84%EB%8F%99%EB%A1%9C%2015-9"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
-      <div class="place"><div><b>필동함박 본점<em class="en">Pildong Hambak</em></b><span class="what ko">함박스테이크</span><span class="what en">Hamburg steak</span><span class="meta"><span class="ko">충무로역 약 500m · 매일 10:30~21:00 · 공휴일 휴무</span><span class="en">About 500 m from Chungmuro Stn · Daily 10:30–21:00 · closed public holidays</span></span></div><a href="https://map.naver.com/p/search/%ED%95%84%EB%8F%99%ED%95%A8%EB%B0%95%20%EB%B3%B8%EC%A0%90"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
+      <div class="place"><div><b>필동면옥<em class="en">Pildong Myeonok</em></b><span class="what ko">평양냉면 · 수육 · 만두 · 미쉐린 빕구르망</span><span class="what en">Cold noodles, boiled pork, dumplings · Bib Gourmand</span><span class="meta"><span class="ko">중구 서애로 26 · 월~토 11:00~20:00 · 일 휴무</span><span class="en">26 Seoae-ro · Mon–<span class="nw">Sat 11:00–20:00</span> · closed Sun</span></span></div><a href="https://map.naver.com/p/search/%ED%95%84%EB%8F%99%EB%A9%B4%EC%98%A5%20%EC%84%9C%EC%95%A0%EB%A1%9C%2026"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
+      <div class="place"><div><b>필동닭칼국수<em class="en">Pildong Dak-kalguksu</em></b><span class="what ko">닭칼국수 · 얼큰닭칼국수</span><span class="what en">Chicken noodle soup, mild or spicy</span><span class="meta"><span class="ko">중구 필동로 15-9 · 평일 09:00~21:00 · 토 09:00~14:30</span><span class="en">15-9 Pildong-ro · <span class="nw">Weekdays 09:00–21:00</span> · <span class="nw">Sat 09:00–14:30</span></span></span></div><a href="https://map.naver.com/p/search/%ED%95%84%EB%8F%99%EB%8B%AD%EC%B9%BC%EA%B5%AD%EC%88%98%20%ED%95%84%EB%8F%99%EB%A1%9C%2015-9"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
+      <div class="place"><div><b>필동함박 본점<em class="en">Pildong Hambak</em></b><span class="what ko">함박스테이크</span><span class="what en">Hamburg steak</span><span class="meta"><span class="ko">충무로역 약 500m · 매일 10:30~21:00 · 공휴일 휴무</span><span class="en">About 500 m from Chungmuro Stn · <span class="nw">Daily 10:30–21:00</span> · closed public holidays</span></span></div><a href="https://map.naver.com/p/search/%ED%95%84%EB%8F%99%ED%95%A8%EB%B0%95%20%EB%B3%B8%EC%A0%90"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
       <div class="place"><div><b>필동해물<em class="en">Pildong Haemul</em></b><span class="what ko">해산물 노포 술집</span><span class="what en">Old-school seafood pub</span><span class="meta"><span class="ko">중구 필동로 30 · 영업시간 현장 확인</span><span class="en">30 Pildong-ro · check hours on the map</span></span></div><a href="https://map.naver.com/p/search/%ED%95%84%EB%8F%99%ED%95%B4%EB%AC%BC%20%ED%95%84%EB%8F%99%EB%A1%9C%2030"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
     </div>
     <h3><span class="ko">카페</span><span class="en">Coffee &amp; tea</span></h3>
     <div class="places">
       <div class="place"><div><b>헤베 커피<em class="en">Hebe Coffee</em></b><span class="what ko">핸드드립 카페</span><span class="what en">Hand-drip coffee</span><span class="meta"><span class="ko">중구 필동로 32 · 영업시간 현장 확인</span><span class="en">32 Pildong-ro · check hours on the map</span></span></div><a href="https://map.naver.com/p/search/%ED%97%A4%EB%B2%A0%20%EC%BB%A4%ED%94%BC%20%ED%95%84%EB%8F%99%EB%A1%9C%2032"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
-      <div class="place"><div><b>로이터 커피 셸터<em class="en">Loiter Coffee Shelter</em></b><span class="what ko">남산 루프탑 카페</span><span class="what en">Rooftop café facing Namsan</span><span class="meta"><span class="ko">중구 필동로 53 · 평일 11:00~19:30 · 주말 11:00~20:00</span><span class="en">53 Pildong-ro · Weekdays 11:00–19:30 · Weekends 11:00–20:00</span></span></div><a href="https://map.naver.com/p/search/%EB%A1%9C%EC%9D%B4%ED%84%B0%20%EC%BB%A4%ED%94%BC%20%EC%85%B8%ED%84%B0%20%ED%95%84%EB%8F%99%EB%A1%9C%2053"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
+      <div class="place"><div><b>로이터 커피 셸터<em class="en">Loiter Coffee Shelter</em></b><span class="what ko">남산 루프탑 카페</span><span class="what en">Rooftop café facing Namsan</span><span class="meta"><span class="ko">중구 필동로 53 · 평일 11:00~19:30 · 주말 11:00~20:00</span><span class="en">53 Pildong-ro · <span class="nw">Weekdays 11:00–19:30</span> · <span class="nw">Weekends 11:00–20:00</span></span></span></div><a href="https://map.naver.com/p/search/%EB%A1%9C%EC%9D%B4%ED%84%B0%20%EC%BB%A4%ED%94%BC%20%EC%85%B8%ED%84%B0%20%ED%95%84%EB%8F%99%EB%A1%9C%2053"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
       <div class="place"><div><b>학다방<em class="en">Hak Dabang</em></b><span class="what ko">옛날 다방 · 쌍화차</span><span class="what en">Retro tearoom, try the ssanghwa herbal tea</span><span class="meta"><span class="ko">중구 퇴계로37길 19 · 영업시간 현장 확인</span><span class="en">19 Toegye-ro 37-gil · check hours on the map</span></span></div><a href="https://map.naver.com/p/search/%ED%95%99%EB%8B%A4%EB%B0%A9%20%ED%87%B4%EA%B3%84%EB%A1%9C37%EA%B8%B8%2019"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
       <div class="place"><div><b>섹터 커피바<em class="en">Sector Coffee Bar</em></b><span class="what ko">넓은 카페 · 바나나푸딩</span><span class="what en">Roomy café known for banana pudding</span><span class="meta"><span class="ko">중구 퇴계로 198 (충무로역 앞) · 영업시간 현장 확인</span><span class="en">198 Toegye-ro, by Chungmuro Stn · check hours on the map</span></span></div><a href="https://map.naver.com/p/search/%EC%84%B9%ED%84%B0%20%EC%BB%A4%ED%94%BC%EB%B0%94%20%ED%87%B4%EA%B3%84%EB%A1%9C%20198"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
     </div>
@@ -675,20 +702,21 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
   <!-- 6. 둘러보기 -->
   <section class="s" id="explore" aria-labelledby="h-explore">
     <h2 id="h-explore"><span class="ko">둘러보기</span><span class="en">Explore</span></h2>
-    <p class="intro ko" style="margin-top:14px"><b>명동까지 걸어서 약 10분.</b> 쇼핑 · 길거리 음식 · 카페. 지하철 탈 필요 없이 산책하듯 다녀오세요. 밤늦게 돌아올 때도 가까워요.</p>
-    <p class="intro en" style="margin-top:14px"><b>Myeongdong is about a 10-minute walk.</b> Shopping, street food and cafés, no subway needed, and an easy walk back late at night.</p>
+    <p class="intro ko" style="margin-top:14px"><b>명동까지 걸어서 <span class="nw">약 10분</span>.</b> 쇼핑 · 길거리 음식 · 카페. 지하철 탈 필요 없이 산책하듯 다녀오세요. 밤늦게 돌아올 때도 가까워요.</p>
+    <p class="intro en" style="margin-top:14px"><b>Myeongdong is about a <span class="nw">10-minute walk</span>.</b> Shopping, street food and cafés, no subway needed, and an easy walk back late at night.</p>
     <a class="btn" href="https://map.naver.com/p/search/%EB%AA%85%EB%8F%99"><span class="ko">명동 길찾기</span><span class="en">Directions to Myeongdong</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
     <h3><span class="ko">걸어서 가는 곳</span><span class="en">On foot</span></h3>
+    <p class="small" style="margin:-4px 0 10px"><span class="ko">남산골한옥마을과 필동 예술통도 집 앞 산책 코스예요.</span><span class="en">Namsangol Hanok Village and Pildong Art Street make an easy walk from the door.</span></p>
     <div class="places">
-      <div class="place"><div><b>남산골한옥마을<em class="en">Namsangol Hanok Village</em></b><span class="what ko">무료 · 정원 24시간</span><span class="what en">Free · garden open 24 hours</span><span class="meta"><span class="ko">한옥 화~일 09~20시(11~3월) / 09~21시(4~10월) · 월 휴관</span><span class="en">Hanok Tue–Sun 9–20 (Nov–Mar) / 9–21 (Apr–Oct) · closed Mon</span></span></div><a href="https://map.naver.com/p/search/%EB%82%A8%EC%82%B0%EA%B3%A8%ED%95%9C%EC%98%A5%EB%A7%88%EC%9D%84"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
-      <div class="place"><div><b>서울남산국악당<em class="en">Namsan Gugakdang</em></b><span class="what ko">국악 공연장 · 한옥마을 안</span><span class="what en">Traditional music hall, inside the village</span><span class="meta"><span class="ko">화~일 09:00~21:00 · 월 휴관 · 공연 일정은 누리집</span><span class="en">Tue–Sun 09:00–21:00 · closed Mon · see website for shows</span></span></div><a href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%EB%82%A8%EC%82%B0%EA%B5%AD%EC%95%85%EB%8B%B9"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
+      <div class="place"><div><b>남산골한옥마을<em class="en">Namsangol Hanok Village</em></b><span class="what ko">충무로역 3·4번 출구 인근 · 무료 · 정원 24시간</span><span class="what en">Near Chungmuro Exits 3 &amp; 4 · free · garden open 24 hours</span><span class="meta"><span class="ko">한옥 화~일 <span class="nw">09~20시(11~3월)</span> / <span class="nw">09~21시(4~10월)</span> · 월 휴관</span><span class="en">Hanok Tue–Sun <span class="nw">9–20 (Nov–Mar)</span> / <span class="nw">9–21 (Apr–Oct)</span> · closed Mon</span></span></div><a href="https://map.naver.com/p/search/%EB%82%A8%EC%82%B0%EA%B3%A8%ED%95%9C%EC%98%A5%EB%A7%88%EC%9D%84"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
+      <div class="place"><div><b>서울남산국악당<em class="en">Namsan Gugakdang</em></b><span class="what ko">국악 공연장 · 한옥마을 안</span><span class="what en">Traditional music hall, inside the village</span><span class="meta"><span class="ko">화~일 09:00~21:00 · 월 휴관 · 공연 일정은 누리집</span><span class="en"><span class="nw">Tue–Sun 09:00–21:00</span> · closed Mon · see website for shows</span></span></div><a href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%EB%82%A8%EC%82%B0%EA%B5%AD%EC%95%85%EB%8B%B9"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
       <div class="place"><div><b>필동 예술통<em class="en">Pildong Art Street</em></b><span class="what ko">동네 골목 · 스트리트 뮤지엄 8곳</span><span class="what en">8 tiny street museums in the lanes</span><span class="meta"><span class="ko">스탬프 투어</span><span class="en">Collect stamps as you go</span></span></div><a href="https://map.naver.com/p/search/%ED%95%84%EB%8F%99%20%EC%98%88%EC%88%A0%ED%86%B5"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
     </div>
     <h3><span class="ko">조금 더 멀리</span><span class="en">A little further</span></h3>
     <div class="places">
-      <div class="place"><div><b>남산서울타워<em class="en">N Seoul Tower</em></b><span class="what ko">충무로역 2번 출구 → 남산순환버스 01A · 01B</span><span class="what en">Chungmuro Exit 2 → Namsan circular bus 01A / 01B</span><span class="meta"><span class="ko">월~금 10:00~22:30 · 토일 10:00~23:00 · 매표 마감 30분 전</span><span class="en">Mon–Fri 10:00–22:30 · Sat–Sun 10:00–23:00 · tickets until 30 min before</span></span></div><a href="https://map.naver.com/p/search/%EB%82%A8%EC%82%B0%EC%84%9C%EC%9A%B8%ED%83%80%EC%9B%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
+      <div class="place"><div><b>남산서울타워<em class="en">N Seoul Tower</em></b><span class="what ko">충무로역 2번 출구 → 남산순환버스 01A · 01B</span><span class="what en">Chungmuro Exit 2 → Namsan circular bus 01A / 01B</span><span class="meta"><span class="ko">월~금 10:00~22:30 · 토일 10:00~23:00 · 매표 마감 30분 전</span><span class="en"><span class="nw">Mon–Fri 10:00–22:30</span> · <span class="nw">Sat–Sun 10:00–23:00</span> · tickets until 30 min before</span></span></div><a href="https://map.naver.com/p/search/%EB%82%A8%EC%82%B0%EC%84%9C%EC%9A%B8%ED%83%80%EC%9B%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
       <div class="place"><div><b>을지로<em class="en">Euljiro</em></b><span class="what ko">3호선 을지로3가역, 한 정거장</span><span class="what en">Euljiro 3-ga Stn, one stop on Line 3</span><span class="meta"><span class="ko">노포 술집 · 카페 골목</span><span class="en">Old-school pubs and café alleys</span></span></div><a href="https://map.naver.com/p/search/%EC%9D%84%EC%A7%80%EB%A1%9C3%EA%B0%80%EC%97%AD"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
-      <div class="place"><div><b>동대문디자인플라자<em class="en">DDP</em></b><span class="what ko">4호선 동대문역사문화공원역, 두 정거장</span><span class="what en">Dongdaemun History &amp; Culture Park Stn, two stops on Line 4</span><span class="meta"><span class="ko">전시 · 야경</span><span class="en">Exhibitions and night views</span></span></div><a href="https://map.naver.com/p/search/%EB%8F%99%EB%8C%80%EB%AC%B8%EB%94%94%EC%9E%90%EC%9D%B8%ED%94%8C%EB%9D%BC%EC%9E%90"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
+      <div class="place"><div><b>동대문디자인플라자<em class="en">DDP</em></b><span class="what ko">4호선 동대문역사문화공원역, 두 정거장</span><span class="what en"><span class="nw">Dongdaemun History &amp; Culture Park</span> Stn, two stops on Line 4</span><span class="meta"><span class="ko">전시 · 야경</span><span class="en">Exhibitions and night views</span></span></div><a href="https://map.naver.com/p/search/%EB%8F%99%EB%8C%80%EB%AC%B8%EB%94%94%EC%9E%90%EC%9D%B8%ED%94%8C%EB%9D%BC%EC%9E%90"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="ko">지도</span><span class="en">Map</span></a></div>
     </div>
     <p class="note ko">남산순환버스 06:30~23:00 · 01A 6~9분 / 01B 15~18분 간격. 01A는 남산타워를 지나 경복궁·청와대·안국역까지 가서 도심 관광에도 좋아요.</p>
     <p class="note en">Namsan circular buses run 06:30–23:00, 01A every 6–9 min and 01B every 15–18 min. Bus 01A continues past the tower to Gyeongbokgung, Cheong Wa Dae and Anguk Station, handy for sightseeing.</p>
@@ -700,7 +728,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     <p class="intro ko">무거운 캐리어와 오르막 골목 걱정 없이, 공항에서 Copen Haus 문 앞까지 전용 차량으로 모셔다 드려요. 유료 서비스예요.</p>
     <p class="intro en">Skip the heavy bags and uphill lanes: a private van takes you from the airport to our door. This is a paid service.</p>
     <div class="vans">
-      <div class="van"><small class="ko">미니밴</small><small class="en">Minivan</small><b class="ko">현대 스타리아</b><b class="en">Hyundai Staria</b><span class="ko">최대 6명 · 캐리어 5~6개</span><span class="en">Up to 6 people · 5–6 suitcases</span></div>
+      <div class="van"><small class="ko">미니밴</small><small class="en">Minivan</small><b class="ko">현대 스타리아</b><b class="en">Hyundai Staria</b><span class="ko">최대 6명 · 캐리어 5~6개</span><span class="en">Up to 6 people · <span class="nw">5–6 suitcases</span></span></div>
       <div class="van"><small class="ko">대형 밴</small><small class="en">Large van</small><b class="ko">현대 쏠라티</b><b class="en">Hyundai Solati</b><span class="ko">최대 10명 · 대형 짐 가능</span><span class="en">Up to 10 people · big luggage OK</span></div>
     </div>
     <h3><span class="ko">공항 픽업 (편도)</span><span class="en">Airport pick-up (one way)</span></h3>
@@ -708,9 +736,9 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <table class="price">
         <thead><tr><th scope="col"><span class="ko">구간</span><span class="en">From</span></th><th scope="col"><span class="ko">스타리아</span><span class="en">Staria</span></th><th scope="col"><span class="ko">쏠라티</span><span class="en">Solati</span></th></tr></thead>
         <tbody>
-          <tr><td><span class="ko">인천공항</span><span class="en">Incheon Airport</span><small><span class="ko">약 60~80분</span><span class="en">about 60–80 min</span></small></td><td><b>₩90,000</b></td><td><b>₩180,000</b></td></tr>
-          <tr><td><span class="ko">김포공항</span><span class="en">Gimpo Airport</span><small><span class="ko">약 40~50분</span><span class="en">about 40–50 min</span></small></td><td><b>₩70,000</b></td><td>—</td></tr>
-          <tr><td><span class="ko">서울역</span><span class="en">Seoul Station</span><small><span class="ko">약 10~15분</span><span class="en">about 10–15 min</span></small></td><td><b>₩60,000</b></td><td>—</td></tr>
+          <tr><td><span class="ko">인천공항</span><span class="en">Incheon Airport</span><small><span class="ko"><span class="nw">약 60~80분</span></span><span class="en"><span class="nw">about 60–80 min</span></span></small></td><td><b>₩90,000</b></td><td><b>₩180,000</b></td></tr>
+          <tr><td><span class="ko">김포공항</span><span class="en">Gimpo Airport</span><small><span class="ko"><span class="nw">약 40~50분</span></span><span class="en"><span class="nw">about 40–50 min</span></span></small></td><td><b>₩70,000</b></td><td>—</td></tr>
+          <tr><td><span class="ko">서울역</span><span class="en">Seoul Station</span><small><span class="ko"><span class="nw">약 10~15분</span></span><span class="en"><span class="nw">about 10–15 min</span></span></small></td><td><b>₩60,000</b></td><td>—</td></tr>
         </tbody>
       </table>
     </div>
@@ -725,8 +753,8 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
         <thead><tr><th scope="col"><span class="ko">투어</span><span class="en">Tour</span></th><th scope="col"><span class="ko">스타리아</span><span class="en">Staria</span><small><span class="ko">최대 6명</span><span class="en">up to 6</span></small></th><th scope="col"><span class="ko">쏠라티</span><span class="en">Solati</span><small><span class="ko">최대 10명</span><span class="en">up to 10</span></small></th></tr></thead>
         <tbody>
           <tr><td><span class="ko">서울 시티투어</span><span class="en">Seoul city tour</span><small><span class="ko">원하는 서울 명소를 하루 코스로</span><span class="en">Your pick of Seoul sights</span></small></td><td><b>₩300,000</b></td><td><b>₩450,000</b></td></tr>
-          <tr><td><span class="ko">남이섬</span><span class="en">Nami Island</span><small><span class="ko">강원 춘천 · 메타세쿼이아 길</span><span class="en">Chuncheon · metasequoia lane</span></small></td><td><b>₩330,000</b></td><td><b>₩550,000</b></td></tr>
-          <tr><td><span class="ko">알파카월드</span><span class="en">Alpaca World</span><small><span class="ko">강원 홍천 · 알파카 산책 체험</span><span class="en">Hongcheon · walk with alpacas</span></small></td><td><b>₩350,000</b></td><td><b>₩600,000</b></td></tr>
+          <tr><td><span class="ko">남이섬</span><span class="en">Nami Island</span><small><span class="ko"><span class="nw">강원 춘천 ·</span> 메타세쿼이아 길</span><span class="en"><span class="nw">Chuncheon ·</span> metasequoia lane</span></small></td><td><b>₩330,000</b></td><td><b>₩550,000</b></td></tr>
+          <tr><td><span class="ko">알파카월드</span><span class="en">Alpaca World</span><small><span class="ko"><span class="nw">강원 홍천 ·</span> 알파카 산책 체험</span><span class="en"><span class="nw">Hongcheon ·</span> walk with alpacas</span></small></td><td><b>₩350,000</b></td><td><b>₩600,000</b></td></tr>
         </tbody>
       </table>
     </div>
@@ -764,7 +792,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div><dt>네이버지도 / 카카오맵</dt><dd>길찾기, 대중교통, 영업시간</dd></div>
       <div><dt>카카오 T</dt><dd>택시 호출</dd></div>
       <div><dt>파파고</dt><dd>번역 (메뉴판 사진 번역 가능)</dd></div>
-      <div><dt>티머니 카드</dt><dd>지하철·버스 요금, 편의점에서 구입·충전</dd></div>
+      <div><dt>티머니 카드</dt><dd>지하철·버스 요금, 편의점에서 <span class="nw">구입·충전</span></dd></div>
     </dl>
     <dl class="apps en">
       <div><dt>Naver Map / KakaoMap</dt><dd>Directions, transit, opening hours</dd></div>
@@ -776,7 +804,7 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     <div class="sos">
       <a class="call" href="tel:112"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>112</b><small class="ko">경찰</small><small class="en">Police</small></span></a>
       <a class="call" href="tel:119"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>119</b><small class="ko">화재 · 구급차</small><small class="en">Fire &amp; ambulance</small></span></a>
-      <a class="call" href="tel:1330"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>1330</b><small class="ko">관광 통역·안내 (24시간)</small><small class="en">Travel helpline, 24 h, English</small></span></a>
+      <a class="call" href="tel:1330"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>1330</b><small class="ko">관광 <span class="nw">통역·안내 (24시간)</span></small><small class="en">Travel helpline, 24 h, English</small></span></a>
       <a class="call" href="tel:120"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>120</b><small class="ko">서울시 생활 문의</small><small class="en">Seoul city help line</small></span></a>
     </div>
     <h3><span class="ko">가까운 시설</span><span class="en">Nearby essentials</span></h3>
@@ -784,15 +812,17 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
       <div class="place"><div><b><span class="ko">편의점</span><span class="en">Convenience stores</span></b><span class="meta">CU · <span class="ko">중구 필동로 56</span><span class="en">56 Pildong-ro</span><br>GS25 · <span class="ko">중구 필동로 52</span><span class="en">52 Pildong-ro</span></span></div><span class="small"><span class="ko">도보 2분</span><span class="en">2 min walk</span></span></div>
       <div class="place"><div><b><span class="ko">약국</span><span class="en">Pharmacy</span></b><span class="meta"><span class="ko">셀메드필 · 중구 필동로 14</span><span class="en">Cellmed Pil · 14 Pildong-ro</span></span></div><span class="small"><span class="ko">도보 7분</span><span class="en">7 min walk</span></span></div>
       <div class="place"><div><b><span class="ko">마트</span><span class="en">Grocery</span></b><span class="meta"><span class="ko">선미네마트 · 필동로 31-1 (도보 5분)<br>가자마트 · 중구 서애로 15 (도보 9분)</span><span class="en">Sunmine Mart · 31-1 Pildong-ro (5 min)<br>Gaja Mart · 15 Seoae-ro (9 min)</span></span></div></div>
-      <div class="place"><div><b><span class="ko">응급실</span><span class="en">Emergency room</span></b><span class="meta"><span class="ko">국립중앙의료원 · 중구 을지로 245</span><span class="en">National Medical Center · 245 Eulji-ro</span></span></div><span class="small"><span class="ko">택시 약 10분</span><span class="en">10 min by taxi</span></span></div>
+      <div class="place"><div><b><span class="ko">응급실</span><span class="en">Emergency room</span></b><span class="meta"><span class="ko">국립중앙의료원 · 중구 을지로 245</span><span class="en">National Medical Center · 245 Eulji-ro</span></span></div><span class="small"><span class="ko">택시 <span class="nw">약 10분</span></span><span class="en">10 min by taxi</span></span></div>
     </div>
 
     <div class="host" id="host">
       <p class="w ko">어렵거나 궁금하면 언제든 연락 주세요</p>
       <p class="w en">Stuck or curious? Message us anytime</p>
       <p class="small" style="margin-top:6px"><span class="ko">호스트 Lisa · 카카오톡 · LINE · WhatsApp 어디로 보내셔도 괜찮아요</span><span class="en">Your host Lisa · KakaoTalk, LINE or WhatsApp, whichever you like</span></p>
-      <div class="chips">
-        <a class="chip" href="tel:+821093280969" data-label-ko="Lisa에게 전화 010 9328 0969" data-label-en="Call Lisa +82 10 9328 0969" aria-label="Lisa에게 전화 010 9328 0969"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="ko">010-9328-0969</span><span class="en">+82-10-9328-0969</span></a>
+      <div class="host-tel">
+        <a class="chip tel" href="tel:+821093280969" data-label-ko="Lisa에게 전화 010 9328 0969" data-label-en="Call Lisa +82 10 9328 0969" aria-label="Lisa에게 전화 010 9328 0969"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="ko">010-9328-0969</span><span class="en">+82-10-9328-0969</span></a>
+      </div>
+      <div class="msgr">
         <button class="chip" type="button" data-copy="free01270" data-toast-ko="ID 복사됨 · 카카오톡 ▸ 친구 추가 ▸ ID로 추가 ▸ 붙여넣기" data-toast-en="ID copied · KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste" data-label-ko="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가" data-label-en="KakaoTalk: copy ID free01270, then add friend by ID in the app" aria-label="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가"><span class="ko">카카오톡</span><span class="en">KakaoTalk</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
         <a class="chip" href="https://line.me/R/ti/p/~free01270" data-copy="free01270" data-toast-ko="LINE ID 복사됨 · LINE이 안 열리면 친구 추가에서 이 ID를 검색하세요" data-toast-en="LINE ID copied · if LINE doesn't open, search this ID under Add friend" data-label-ko="LINE으로 Lisa 친구 추가 (ID도 복사돼요)" data-label-en="Add Lisa on LINE (the ID is copied too)" aria-label="LINE으로 Lisa 친구 추가 (ID도 복사돼요)">LINE<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
         <a class="chip" href="https://api.whatsapp.com/send?phone=821093280969" data-copy="+821093280969" data-toast-ko="번호 복사됨 · WhatsApp이 안 열리면 +82 10 9328 0969를 새 연락처로 추가하세요" data-toast-en="Number copied · if WhatsApp doesn't open, add +82 10 9328 0969 as a new contact" data-label-ko="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)" data-label-en="Chat with Lisa on WhatsApp (the number is copied too)" aria-label="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)">WhatsApp<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
@@ -801,6 +831,8 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     </div>
     <p class="foot ko">즐거운 여행 되세요! · 2026년 11월 기준</p>
     <p class="foot en">Enjoy your stay! · Information as of November 2026</p>
+    <p class="foot ko" style="margin-top:6px">출처: 서울시 문화분야 누리집(남산골한옥마을·남산국악당), 내 손안에 서울(남산서울타워·순환버스), 공항리무진 6015 노선 정보, 서울 중구청 쓰레기 배출안내, 미쉐린 가이드</p>
+    <p class="foot en" style="margin-top:6px">Sources: Seoul Metropolitan Government culture site (Namsangol Hanok Village, Namsan Gugakdang), Seoul city news (N Seoul Tower, Namsan circular bus), airport limousine 6015 route info, Jung-gu Office waste guide, Michelin Guide</p>
   </section>
 </main>
 <dialog id="zoom" aria-label="그림 크게 보기" data-label-ko="그림 크게 보기" data-label-en="Diagram, full size"><form method="dialog"><button type="submit"><span class="ko">닫기</span><span class="en">Close</span></button></form><img alt=""></dialog>
@@ -829,8 +861,8 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     say(b.dataset['toast'+(root.dataset.lang==='ko'?'Ko':'En')]||v,3200)});
   // iOS Safari에서 버튼 눌림(:active) 반응이 보이게
   document.addEventListener('touchstart',function(){},{passive:true});
-  // '이 가이드 사용법'을 접으면 다음에도 접힌 채로
-  var how=document.getElementById('howto');try{if(localStorage.getItem('ch-howto')==='closed')how.open=false}catch(e){}
+  // '이 가이드 사용법'은 처음엔 접혀 있고, 펼쳐 두면 다음에도 펼친 채로
+  var how=document.getElementById('howto');try{if(localStorage.getItem('ch-howto')==='open')how.open=true}catch(e){}
   how.addEventListener('toggle',function(){try{localStorage.setItem('ch-howto',how.open?'open':'closed')}catch(e){}});
   // 그림 크게 보기
   var dlg=document.getElementById('zoom'),dimg=dlg.querySelector('img');
@@ -845,8 +877,8 @@ details.howto[open] summary .chev{transform:rotate(180deg)}
     ins.forEach(function(i,n){i.checked=!!s[n];i.addEventListener('change',function(){try{localStorage.setItem(k,JSON.stringify([].map.call(ins,function(x){return x.checked})))}catch(e){}})})});
   // 탭: 현재 섹션 표시
   var tabs=document.querySelector('.tabs'),links=[].slice.call(tabs.querySelectorAll('a')),secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
-  var tul=tabs.querySelector('ul');function tend(){tabs.classList.toggle('end',tul.scrollLeft+tul.clientWidth>=tul.scrollWidth-4)}tul.addEventListener('scroll',tend,{passive:true});tend();
-  var cur=null;function mark(id){if(id===cur)return;cur=id;links.forEach(function(a){var on=a.getAttribute('href')==='#'+id;if(on)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');if(on){var ul=a.closest('ul');ul.scrollTo({left:a.offsetLeft-16,behavior:'smooth'})}})}
+  var tul=tabs.querySelector('ul');function tend(){tabs.classList.toggle('end',tul.scrollLeft+tul.clientWidth>=tul.scrollWidth-4);tabs.classList.toggle('mid',tul.scrollLeft>4)}tul.addEventListener('scroll',tend,{passive:true});tend();
+  var cur=null;function mark(id){if(id===cur)return;cur=id;links.forEach(function(a){var on=a.getAttribute('href')==='#'+id;if(on)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');if(on){var ul=a.closest('ul');var ar=a.getBoundingClientRect(),ur=ul.getBoundingClientRect();ul.scrollTo({left:ul.scrollLeft+ar.left-ur.left-(ul.clientWidth-ar.width)/2,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}})}
   function onScroll(){tabs.classList.toggle('stuck',tabs.getBoundingClientRect().top<=0);var y=innerHeight*.3,id=null;secs.forEach(function(s){if(s.getBoundingClientRect().top<y)id=s.id});mark(id);
     document.getElementById('top').classList.toggle('on',scrollY>innerHeight*.8)}
   var tk=0;addEventListener('scroll',function(){if(!tk)tk=requestAnimationFrame(function(){tk=0;onScroll()})},{passive:true});onScroll();
