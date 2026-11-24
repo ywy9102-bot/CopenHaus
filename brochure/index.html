@@ -26,11 +26,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Serif+KR:wght@700&amp;display=swap">
 <script>
-/* 언어: 1) 주소의 ?lang= 2) 한/ENG로 직접 고른 언어(이 휴대폰에 기억) 3) 휴대폰 언어가 한국어면 한국어, 아니면 영어 */
-(function(){var m=location.search.match(/[?&]lang=(ko|en)/),l=(m||[])[1],s;
-  if(!l){try{s=localStorage.getItem('ch-lang')}catch(e){}if(s==='ko'||s==='en')l=s}
-  if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'';l=/^ko\b/i.test(n)?'ko':'en'}
-  document.documentElement.lang=l;document.documentElement.dataset.lang=l})();
+/* 언어: ?lang= → 언어 버튼으로 고른 언어 → 휴대폰 언어 순서로 정해요.
+   새 언어를 넣을 때는 이 목록(CH_LANGS)과 아래 본문 스크립트의 LANG 표, CSS의 숨김 규칙, 언어 메뉴 한 줄을 추가하면 돼요.
+   중국어는 안에서 zh-hans(간체)·zh-hant(번체)로 부르고, 주소에는 ?lang=zh-CN · ?lang=zh-TW로 보여요 */
+// 첫 언어: 1) 주소의 ?lang= 2) 언어 버튼으로 직접 고른 언어(이 휴대폰에 기억) 3) 휴대폰·브라우저 언어(한국어·일본어·중국어는 그 언어, 그 밖엔 영어)
+(function(){var L=window.CH_LANGS=['ko','en','ja','zh-hans','zh-hant'],d=document.documentElement,m=location.search.match(/[?&]lang=([a-zA-Z-]+)/),l=m&&m[1].toLowerCase(),s;
+  // 중국어 주소 별칭: zh-CN·zh-SG·zh-Hans·zh → 간체, zh-TW·zh-HK·zh-MO·zh-Hant → 번체
+  window.CH_ZH=function(n){return /^zh\b/.test(n)?(/hant|-(tw|hk|mo)\b/.test(n)?'zh-hant':'zh-hans'):n};
+  window.CH_URL={'zh-hans':'zh-CN','zh-hant':'zh-TW'};
+  if(l)l=CH_ZH(l);
+  if(L.indexOf(l)<0)l=null;
+  if(!l){try{s=localStorage.getItem('ch-lang')}catch(e){}if(L.indexOf(s)>=0)l=s}
+  if(!l){var n=((navigator.languages&&navigator.languages[0])||navigator.language||'').toLowerCase();
+    l=/^ko\b/.test(n)?'ko':/^ja\b/.test(n)?'ja':/^zh\b/.test(n)?(/hant|-(tw|hk|mo)\b/.test(n)?'zh-hant':'zh-hans'):'en';if(L.indexOf(l)<0)l='en'}
+  // 언어별 글꼴: 한국어 글꼴은 늘 받고, 일본어·중국어 글꼴은 그 언어를 고를 때만 받아요
+  window.CH_FONT=function(l){var f={ja:'family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@700','zh-hans':'family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@700','zh-hant':'family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700'}[l];if(!f||document.getElementById('font-'+l))return;
+    var k=document.createElement('link');k.id='font-'+l;k.rel='stylesheet';k.href='https://fonts.googleapis.com/css2?'+f+'&display=swap';document.head.appendChild(k)};
+  d.lang={'zh-hans':'zh-Hans','zh-hant':'zh-Hant'}[l]||l;d.dataset.lang=l;CH_FONT(l)})();
 </script>
 <style>
 :root{--bg:#fbf6ee;--card:#f3ecdc;--card2:#eef2e8;--field:#fbf8f0;--line:#dcdbc9;--ink:#1c2a19;--mute:#52604a;--green:#3a5533;--brick:#a54d33;--paper:#fff;--sep:#c9cdb8;--ctl:#7f8d73;--ctl-bg:#fff;--lift:0 1px 0 rgba(38,51,31,.1),0 3px 8px rgba(38,51,31,.14);--serif:"Noto Serif KR","Noto Serif CJK KR","AppleMyungjo","Batang",Georgia,serif;--sans:"Noto Sans KR","Noto Sans CJK KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif}
@@ -53,23 +65,46 @@ a:focus-visible,button:focus-visible,summary:focus-visible,label:focus-within{ou
 [hidden]{display:none!important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* 언어 전환: .ko / .en 요소 중 현재 언어만 보여요 */
-html[data-lang=ko] .en,html[data-lang=en] .ko{display:none!important}
+/* 언어 전환: .ko / .en / .ja 요소 중 현재 언어만 보여요 (새 언어는 같은 모양으로 한 줄 추가) */
+html:not([data-lang=ko]) .ko,html:not([data-lang=en]) .en,html:not([data-lang=ja]) .ja,html:not([data-lang=zh-hans]) .zh-hans,html:not([data-lang=zh-hant]) .zh-hant{display:none!important}
+/* 일본어: 일본어 글꼴, 그리고 띄어쓰기가 없으니 글자 단위로 줄바꿈(되는 브라우저는 뜻 단위로) */
+html[lang=ja]{--serif:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho","Noto Serif KR",serif;--sans:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif}
+html[lang=ja] body{word-break:normal;line-break:strict}
+@supports (word-break:auto-phrase){html[lang=ja] body{word-break:auto-phrase}}
+html[lang=ja] [lang=ko]{word-break:keep-all}
+/* 중국어: 간체는 중국 본토 글꼴, 번체는 대만 글꼴. 한자는 글자 사이에서 줄이 바뀌어야 해서 keep-all을 풀고, 문장부호가 줄 맨 앞에 오지 않게(strict) */
+html[lang=zh-Hans]{--serif:"Noto Serif SC","Songti SC","STSong","SimSun","Noto Serif KR",serif;--sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif}
+html[lang=zh-Hant]{--serif:"Noto Serif TC","Songti TC","PMingLiU","Noto Serif KR",serif;--sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif}
+html[lang|=zh] body{word-break:normal;line-break:strict}
+html[lang|=zh] [lang=ko]{word-break:keep-all}
 .ic{flex:none;width:18px;height:18px}
 
 /* 머리말 */
 .top{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:0 0 14px}
 .back{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px 0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);font-size:14px;font-weight:700;text-decoration:none;color:var(--ink)}
-.lang{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:3px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--mute);font:700 14px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
-.lang i{display:grid;place-items:center;min-width:44px;height:36px;padding:0 10px;border-radius:99px;font-style:normal;color:var(--ink);transition:background .15s,color .15s}
-html[data-lang=ko] .lang i[data-l=ko],html[data-lang=en] .lang i[data-l=en]{background:var(--green);color:var(--bg)}
+/* 언어 버튼: 지구본 + 지금 언어 이름 + ▾. 누르면 언어 목록이 열려요(언어가 늘어도 버튼 크기는 그대로) */
+.lang{display:inline-flex;align-items:center;gap:5px;min-height:44px;padding:0 9px 0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--ink);font:700 14px/1 var(--sans);white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lang .ic{width:18px;height:18px;color:var(--green)}
+.lang .chev,.lang-mini .chev{width:13px;height:13px;stroke-width:2.6;color:var(--green);transition:transform .2s}
+.lang[aria-expanded=true] .chev,.lang-mini[aria-expanded=true] .chev{transform:rotate(180deg)}
+.lang .lc{display:none}
+@media (max-width:374px){.lang .ln{display:none}.lang .lc{display:inline}}
 .lang:active{transform:translateY(1px) scale(.985);box-shadow:none}
+.langmenu{position:fixed;z-index:40;min-width:208px;margin:0;padding:6px;border:1.5px solid var(--ctl);border-radius:18px;background:var(--ctl-bg);box-shadow:0 12px 32px rgba(20,30,15,.22),var(--lift)}
+.langmenu button{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:0 12px;border:0;border-radius:12px;background:none;color:var(--ink);font:700 16px/1.2 var(--sans);text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.langmenu button small{font-weight:400;font-size:13px;color:var(--mute)}
+.langmenu button .ic{margin-left:auto;color:var(--green);visibility:hidden}
+.langmenu button[aria-checked=true]{background:var(--card2)}
+.langmenu button[aria-checked=true] .ic{visibility:visible}
+@media (hover:hover){.langmenu button:hover{background:var(--card)}}
+.langmenu button:focus-visible{outline-offset:-2px}
 .hero{position:relative;border-radius:26px;overflow:hidden;background:var(--card);aspect-ratio:4/4;max-height:62vh;max-height:62svh;min-height:320px;max-width:100%}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,10,0) 6%,rgba(14,20,10,.68) 32%,rgba(14,20,10,.86) 66%,rgba(14,20,10,.95))}
 .hero .t{text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 12px rgba(0,0,0,.35)}
 .hero .t{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:18px 20px 56px;color:#fff}
 h1{margin:0 0 6px;font:700 clamp(30px,8.6vw,44px)/1.12 var(--serif);letter-spacing:-.02em;text-wrap:balance}
+html[lang=ja] h1,html[lang|=zh] h1{font-size:clamp(26px,7.8vw,44px);letter-spacing:0}
 .hero p.d{font-size:15px;line-height:1.45;max-width:34ch}
 .hero .eb{display:block;margin:0 0 8px;font:700 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#ffd9c2}
 
@@ -85,9 +120,9 @@ h1{margin:0 0 6px;font:700 clamp(30px,8.6vw,44px)/1.12 var(--serif);letter-spaci
 .tabs-arr svg{width:16px;height:16px}
 .tabs-arr.prev{left:-4px}.tabs-arr.next{right:-4px}
 .tabs:not(.mid) .tabs-arr.prev,.tabs.end .tabs-arr.next{opacity:0;pointer-events:none}
-.lang-mini{flex:none;display:none;place-items:center;min-width:44px;min-height:44px;padding:0 10px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font:700 13px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
-.tabs.stuck .lang-mini{display:grid}
-html[data-lang=ko] .lang-mini::after{content:"ENG"}html[data-lang=en] .lang-mini::after{content:"한"}
+.lang-mini{flex:none;display:none;align-items:center;justify-content:center;gap:4px;min-width:44px;min-height:44px;padding:0 9px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font:700 13px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tabs.stuck .lang-mini{display:inline-flex}
+.lang-mini .ic{width:16px;height:16px;color:var(--green)}
 .tabs ul{list-style:none;margin:0;padding:0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scroll-padding-inline:24px}
 .tabs ul::-webkit-scrollbar{display:none}
 .tabs a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font-size:14px;font-weight:700;white-space:nowrap;text-decoration:none;scroll-snap-align:center;-webkit-tap-highlight-color:transparent}
@@ -178,6 +213,7 @@ ol.rules li span{padding-top:2px}
 .msgr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
 .msgr .chip .ic{width:16px;height:16px}
 .msgr .chip{flex-direction:column;justify-content:center;gap:4px;min-height:64px;padding:8px 4px;border-radius:16px;font-size:13px;line-height:1.2;text-align:center}
+@media (max-width:374px){html[lang=ja] .msgr .chip{font-size:12px;letter-spacing:-.04em;white-space:nowrap}}
 
 .foot{margin-top:22px;font-size:12px;color:var(--mute);text-align:center}
 
@@ -249,14 +285,14 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 .reach{display:grid;place-items:center;width:44px;height:44px;border:1.5px solid var(--ctl);border-radius:50%;background:var(--ctl-bg);box-shadow:var(--lift);color:var(--green);-webkit-tap-highlight-color:transparent}
 .reach .ic{width:19px;height:19px}
 .reach:active{transform:translateY(1px) scale(.97);box-shadow:none}
-details.howto{width:fit-content;max-width:calc(100% - 226px);border:1.5px solid var(--ctl);border-radius:24px;background:var(--ctl-bg);box-shadow:var(--lift);overflow:hidden}
+details.howto{width:fit-content;max-width:calc(100% - var(--side-w,226px) - 16px);border:1.5px solid var(--ctl);border-radius:24px;background:var(--ctl-bg);box-shadow:var(--lift);overflow:hidden}
 details.howto[open]{width:100%;max-width:none;border-color:transparent;border-radius:20px;background:var(--card);box-shadow:none}
 details.howto summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px;cursor:pointer;list-style:none;font-weight:700;font-size:14px;line-height:1.25;-webkit-tap-highlight-color:transparent}
 details.howto summary::-webkit-details-marker{display:none}
 details.howto summary .ic{flex:none;width:18px;height:18px;color:var(--green)}
 details.howto summary .chev{flex:none;width:14px;height:14px;margin-left:-2px;color:var(--green);stroke-width:2.4;transition:transform .2s}
 details.howto[open] summary .chev{transform:rotate(180deg)}
-details.howto[open] summary{width:fit-content;max-width:calc(100% - 226px)}
+details.howto[open] summary{width:fit-content;max-width:calc(100% - var(--side-w,226px) - 16px)}
 .howto .close{display:flex;justify-content:flex-end;padding:0 16px 14px}
 .howto .sh{display:none}
 @media (max-width:429px){.howto .lg{display:none}.howto .sh{display:inline}}
@@ -310,77 +346,77 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
 <body>
 <main>
   <div class="inapp" id="inapp" hidden>
-    <p><span class="ko"><b id="inapp-name">앱</b> 안에서 열려 있어요. 복사나 전화가 잘 안 되면 휴대폰 브라우저로 열어 주세요.</span><span class="en">You’re viewing this inside <b id="inapp-name-en">an app</b>. If copying or calling doesn’t work, open it in your phone’s browser.</span></p>
-    <button class="chip" type="button" id="inapp-open"><span class="ko">브라우저로 열기</span><span class="en">Open in browser</span></button>
+    <p><span class="ko"><b id="inapp-name">앱</b> 안에서 열려 있어요. 복사나 전화가 잘 안 되면 휴대폰 브라우저로 열어 주세요.</span><span class="en">You’re viewing this inside <b id="inapp-name-en">an app</b>. If copying or calling doesn’t work, open it in your phone’s browser.</span><span class="ja">いま<b id="inapp-name-ja">アプリ</b>の中でこのページを開いています。コピーや電話がうまくいかないときは、スマートフォンのブラウザで開いてください。</span><span class="zh-hans">您现在是在<b id="inapp-name-zh-hans">应用</b>内打开本页面。如果无法复制或拨打电话，请用手机浏览器打开。</span><span class="zh-hant">您現在是在<b id="inapp-name-zh-hant">App</b>內開啟本頁面。如果無法複製或撥打電話，請用手機瀏覽器開啟。</span></p>
+    <button class="chip" type="button" id="inapp-open"><span class="ko">브라우저로 열기</span><span class="en">Open in browser</span><span class="ja">ブラウザで開く</span><span class="zh-hans">用浏览器打开</span><span class="zh-hant">用瀏覽器開啟</span></button>
   </div>
   <div class="top">
     <details class="howto" id="howto">
-      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17h.01"/></svg><span class="hl"><span class="ko"><span class="lg">이 안내 </span>사용법</span><span class="en"><span class="lg">How to use this page</span><span class="sh">Help</span></span></span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17h.01"/></svg><span class="hl"><span class="ko"><span class="lg">이 안내 </span>사용법</span><span class="en"><span class="lg">How to use this page</span><span class="sh">Help</span></span><span class="ja"><span class="lg">このページの使い方</span><span class="sh">使い方</span></span><span class="zh-hans"><span class="lg">本页使用方法</span><span class="sh">使用方法</span></span><span class="zh-hant"><span class="lg">本頁使用方法</span><span class="sh">使用方法</span></span></span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
       <ul>
-        <li><span class="demo pill"><i class="on">한</i>/<i>ENG</i></span><span class="ko"><b>언어 바꾸기</b>오른쪽 위 ‘한/ENG’ 버튼을 누를 때마다 한국어와 영어가 바뀌어요.</span><span class="en"><b>Switch language</b>Tap the “한/ENG” button at the top right to switch between Korean and English.</span></li>
-        <li><span class="demo pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M16 8l4 4-4 4M8 8l-4 4 4 4"/></svg></span><span class="ko"><b>메뉴로 이동</b>화면 위 메뉴를 누르면 그 내용으로 바로 가요. 메뉴는 옆으로 밀면 더 있어요.</span><span class="en"><b>Jump with the menu</b>Tap a menu item at the top to jump there. Swipe the menu sideways to see more.</span></li>
-        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg></span><span class="ko"><b>그림 크게 보기</b>약도를 누르면 크게 열려요. 두 손가락으로 확대하고, 다 보면 ‘닫기’를 눌러요.</span><span class="en"><b>Zoom the map</b>Tap the walking map to open it full size. Pinch to zoom, then tap “Close”.</span></li>
-        <li><span class="demo pill"><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></span><span class="ko"><b>눌러서 복사</b>복사 아이콘이 있는 버튼은 누르면 바로 복사돼요. 화면 아래에 ‘복사됨’이 잠깐 떠요.</span><span class="en"><b>Tap to copy</b>Buttons with a copy icon copy their text. You’ll see a short “copied” note at the bottom.</span></li>
-        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="ko"><b>지도 열기</b>‘네이버지도 길찾기’ 버튼은 네이버지도에서 숙소 위치를 열어요.</span><span class="en"><b>Open the map</b>“Naver Map” and “Google Maps” buttons open the house in that app. Naver Map gives the best directions in Korea.</span></li>
+        <li><span class="demo pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span><span class="ko"><b>언어 바꾸기</b>오른쪽 위 언어 버튼을 누르면 한국어·English·日本語·简体中文·繁體中文 중에서 고를 수 있어요.</span><span class="en"><b>Switch language</b>Tap the language button at the top right to choose 한국어, English, 日本語, 简体中文 or 繁體中文.</span><span class="ja"><b>言語を切り替える</b>右上の言語ボタンを押すと、한국어・English・日本語・简体中文・繁體中文から選べます。</span><span class="zh-hans"><b>切换语言</b>点右上角的语言按钮，可选择 한국어、English、日本語、简体中文、繁體中文。</span><span class="zh-hant"><b>切換語言</b>點右上角的語言按鈕，可選擇 한국어、English、日本語、简体中文、繁體中文。</span></li>
+        <li><span class="demo pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M16 8l4 4-4 4M8 8l-4 4 4 4"/></svg></span><span class="ko"><b>메뉴로 이동</b>화면 위 메뉴를 누르면 그 내용으로 바로 가요. 메뉴는 옆으로 밀면 더 있어요.</span><span class="en"><b>Jump with the menu</b>Tap a menu item at the top to jump there. Swipe the menu sideways to see more.</span><span class="ja"><b>メニューで移動</b>上のメニューを押すと、その内容まですぐに移動します。メニューは横にスライドすると、ほかの項目も表示されます。</span><span class="zh-hans"><b>用菜单跳转</b>点上方菜单，就能直接跳到对应内容。左右滑动菜单，可看到更多项目。</span><span class="zh-hant"><b>用選單跳轉</b>點上方選單，就能直接跳到對應內容。左右滑動選單，可看到更多項目。</span></li>
+        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg></span><span class="ko"><b>그림 크게 보기</b>약도를 누르면 크게 열려요. 두 손가락으로 확대하고, 다 보면 ‘닫기’를 눌러요.</span><span class="en"><b>Zoom the map</b>Tap the walking map to open it full size. Pinch to zoom, then tap “Close”.</span><span class="ja"><b>地図を大きく見る</b>徒歩ルートの地図を押すと大きく表示されます。二本指で拡大でき、見終わったら「閉じる」を押してください。</span><span class="zh-hans"><b>放大地图</b>点步行路线图可放大查看，也可以用双指缩放。看完请点“关闭”。</span><span class="zh-hant"><b>放大地圖</b>點步行路線圖可放大查看，也可以用雙指縮放。看完請點「關閉」。</span></li>
+        <li><span class="demo pill"><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></span><span class="ko"><b>눌러서 복사</b>복사 아이콘이 있는 버튼은 누르면 바로 복사돼요. 화면 아래에 ‘복사됨’이 잠깐 떠요.</span><span class="en"><b>Tap to copy</b>Buttons with a copy icon copy their text. You’ll see a short “copied” note at the bottom.</span><span class="ja"><b>押してコピー</b>コピーのアイコンがあるボタンは、押すとすぐにコピーされます。画面の下に「コピーしました」と少し表示されます。</span><span class="zh-hans"><b>点一下复制</b>带复制图标的按钮，点一下即可复制，屏幕下方会短暂显示“已复制”。</span><span class="zh-hant"><b>點一下複製</b>帶複製圖示的按鈕，點一下即可複製，螢幕下方會短暫顯示「已複製」。</span></li>
+        <li><span class="demo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0118.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="ko"><b>지도 열기</b>‘네이버지도 길찾기’ 버튼은 네이버지도에서 숙소 위치를 열어요.</span><span class="en"><b>Open the map</b>“Naver Map” and “Google Maps” buttons open the house in that app. Naver Map gives the best directions in Korea.</span><span class="ja"><b>地図を開く</b>「NAVER Map」と「Googleマップ」のボタンで、宿の場所をアプリで開けます。韓国での道案内はNAVER Mapがいちばん正確です。</span><span class="zh-hans"><b>打开地图</b>点“NAVER地图”或“谷歌地图”按钮，即可在对应应用中打开住处位置。在韩国，NAVER地图的路线导航最准确。</span><span class="zh-hant"><b>開啟地圖</b>點「NAVER地圖」或「Google地圖」按鈕，即可在對應App中開啟住處位置。在韓國，NAVER地圖的路線導航最準確。</span></li>
       </ul>
-      <div class="close"><button class="chip" type="button" data-howto-close><span class="ko">닫기</span><span class="en">Close</span></button></div>
+      <div class="close"><button class="chip" type="button" data-howto-close><span class="ko">닫기</span><span class="en">Close</span><span class="ja">閉じる</span><span class="zh-hans">关闭</span><span class="zh-hant">關閉</span></button></div>
     </details>
     <div class="side">
-      <a class="reach" href="tel:+821093280969" data-label-ko="호스트 Lisa에게 전화" data-label-en="Call your host Lisa" aria-label="호스트 Lisa에게 전화"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></a>
-      <a class="reach" href="#host" data-label-ko="호스트에게 메시지 (카카오톡 · LINE · WhatsApp)" data-label-en="Message your host (KakaoTalk, LINE, WhatsApp)" aria-label="호스트에게 메시지 (카카오톡 · LINE · WhatsApp)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg></a>
-      <button class="lang" type="button" id="lang" data-lang-toggle aria-label="한 ENG, 언어 바꾸기. 지금 한국어"><i data-l="ko" lang="ko">한</i><span aria-hidden="true">/</span><i data-l="en" lang="en">ENG</i></button>
+      <a class="reach" href="tel:+821093280969" data-label-ko="호스트 Lisa에게 전화" data-label-en="Call your host Lisa" data-label-ja="ホストのLisaに電話" data-label-zh-hans="给房东Lisa打电话" data-label-zh-hant="給房東Lisa打電話" aria-label="호스트 Lisa에게 전화"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></a>
+      <a class="reach" href="#host" data-label-ko="호스트에게 메시지 (카카오톡 · LINE · WhatsApp)" data-label-en="Message your host (KakaoTalk, LINE, WhatsApp)" data-label-ja="ホストにメッセージ(LINE・カカオトーク・WhatsApp)" data-label-zh-hans="给房东发消息(KakaoTalk、LINE、WhatsApp)" data-label-zh-hant="給房東發訊息(KakaoTalk、LINE、WhatsApp)" aria-label="호스트에게 메시지 (카카오톡 · LINE · WhatsApp)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg></a>
+      <button class="lang" type="button" id="lang" data-lang-menu aria-haspopup="menu" aria-expanded="false" aria-controls="langmenu" aria-label="언어 선택. 지금 한국어"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg><span class="ln" aria-hidden="true"><span class="ko">한국어</span><span class="en">English</span><span class="ja">日本語</span><span class="zh-hans" lang="zh-Hans">简体中文</span><span class="zh-hant" lang="zh-Hant">繁體中文</span></span><span class="lc" aria-hidden="true"><span class="ko">한</span><span class="en">EN</span><span class="ja">日</span><span class="zh-hans">简</span><span class="zh-hant">繁</span></span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
     </div>
   </div>
 
   <header class="hero">
     <img src="../hero.jpg" width="960" height="1200" alt="" fetchpriority="high">
     <div class="t">
-      <p class="eb"><span class="ko">Welcome</span><span class="en" lang="ko">환영합니다 · <span lang="en">Welcome</span></span></p>
-      <h1><span class="ko">도착 안내</span><span class="en">Arrival guide</span></h1>
+      <p class="eb"><span class="ko">Welcome</span><span class="en" lang="ko">환영합니다 · <span lang="en">Welcome</span></span><span class="ja" lang="ko">환영합니다 · <span lang="ja">ようこそ</span></span><span class="zh-hans" lang="ko">환영합니다 · <span lang="zh-Hans">欢迎</span></span><span class="zh-hant" lang="ko">환영합니다 · <span lang="zh-Hant">歡迎</span></span></p>
+      <h1><span class="ko">도착 안내</span><span class="en">Arrival guide</span><span class="ja">到着ガイド</span><span class="zh-hans">抵达指南</span><span class="zh-hant">抵達指南</span></h1>
       <p class="d ko"><span class="u">도착하자마자 필요한 것만</span> <span class="u">한 장에 담았어요.</span></p>
-      <p class="d en"><span class="u">Everything you need</span> <span class="u">when you arrive,</span> <span class="u">on one page.</span></p>
+      <p class="d en"><span class="u">Everything you need</span> <span class="u">when you arrive,</span> <span class="u">on one page.</span></p><p class="d ja"><span class="u">到着してすぐ必要なことを、</span><span class="u">1ページにまとめました。</span></p><p class="d zh-hans"><span class="u">抵达时需要的信息，</span><span class="u">都在这一页。</span></p><p class="d zh-hant"><span class="u">抵達時需要的資訊，</span><span class="u">都在這一頁。</span></p>
     </div>
   </header>
 
   <section class="arrive welcome" id="welcome" aria-labelledby="h-welcome">
-    <h2 class="wh" id="h-welcome"><span class="ko">환영합니다</span><span class="en">Welcome</span></h2>
+    <h2 class="wh" id="h-welcome"><span class="ko">환영합니다</span><span class="en">Welcome</span><span class="ja">ようこそ</span><span class="zh-hans">欢迎</span><span class="zh-hant">歡迎</span></h2>
     <p class="intro wi ko">명동까지 걸어서 <span class="nw">약 10분</span>. 남산골한옥마을과 충무로역이 가깝고, 서울역·광화문까지 대중교통으로 쉽게 다닐 수 있어요.</p>
-    <p class="intro wi en">Myeongdong is about a <span class="nw">10-minute walk</span> away. Namsangol Hanok Village and Chungmuro Station are close by, and Seoul Station and Gwanghwamun are an easy ride away.</p>
+    <p class="intro wi en">Myeongdong is about a <span class="nw">10-minute walk</span> away. Namsangol Hanok Village and Chungmuro Station are close by, and Seoul Station and Gwanghwamun are an easy ride away.</p><p class="intro wi ja">明洞(ミョンドン)まで歩いて<span class="nw">約10分</span>。南山コル韓屋村と<span class="nw">忠武路(チュンムロ)駅</span>がすぐ近くで、ソウル駅や光化門(クァンファムン)へも公共交通機関で気軽に行けます。</p><p class="intro wi zh-hans">步行<span class="nw">约10分钟</span>即可到明洞。南山谷韩屋村和<span class="nw">忠武路站</span>就在附近，乘公共交通去首尔站、光化门也很方便。</p><p class="intro wi zh-hant">步行<span class="nw">約10分鐘</span>即可到明洞。南山谷韓屋村和<span class="nw">忠武路站</span>就在附近，搭大眾運輸去首爾站、光化門也很方便。</p>
     <dl class="facts">
-      <div><dt><span class="ko">주소</span><span class="en">Address</span></dt><dd><span class="ko">서울특별시 중구 필동로8길 32-14</span><span class="en">32-14, <span class="nw">Pildong-ro 8-gil,</span> <span class="nw">Jung-gu,</span> Seoul</span><div class="chips" style="margin-top:8px"><button class="chip" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">한글 주소 복사</span><span class="en">Copy Korean address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-ko="영문 주소 복사됨" data-toast-en="Address copied"><span class="ko">영문 주소 복사</span><span class="en">Copy English address</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></dd></div>
-      <div><dt><span class="ko">호스트</span><span class="en">Host</span></dt><dd>Lisa · +82-10-9328-0969<br><span class="ko">카카오톡 · LINE · WhatsApp (ID: free01270)</span><span class="en">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><div class="chips" style="margin-top:8px"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">연락하기</span><span class="en">Contact Lisa</span></a></div></dd></div>
+      <div><dt><span class="ko">주소</span><span class="en">Address</span><span class="ja">住所</span><span class="zh-hans">地址</span><span class="zh-hant">地址</span></dt><dd><span class="ko">서울특별시 중구 필동로8길 32-14</span><span class="en">32-14, <span class="nw">Pildong-ro 8-gil,</span> <span class="nw">Jung-gu,</span> Seoul</span><span class="ja"><span class="nw">ソウル特別市 中区</span> <span class="nw">筆洞路8ギル 32-14</span></span><span class="zh-hans"><span class="nw">首尔特别市 中区</span> <span class="nw">笔洞路8街 32-14</span></span><span class="zh-hant"><span class="nw">首爾特別市 中區</span> <span class="nw">筆洞路8街 32-14</span></span><div class="chips" style="margin-top:8px"><button class="chip" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="한글 주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver" data-toast-ja="韓国語の住所をコピーしました · タクシーの運転手さんに見せてください" data-toast-zh-hans="已复制韩文地址 · 请出示给出租车司机" data-toast-zh-hant="已複製韓文地址 · 請出示給計程車司機"><span class="ko">한글 주소 복사</span><span class="en">Copy Korean address</span><span class="ja">韓国語の住所をコピー</span><span class="zh-hans">复制韩文地址</span><span class="zh-hant">複製韓文地址</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button><button class="chip" type="button" data-copy="32-14, Pildong-ro 8-gil, Jung-gu, Seoul" data-toast-ko="영문 주소 복사됨" data-toast-en="Address copied" data-toast-ja="住所をコピーしました" data-toast-zh-hans="已复制地址" data-toast-zh-hant="已複製地址"><span class="ko">영문 주소 복사</span><span class="en">Copy English address</span><span class="ja">英語の住所をコピー</span><span class="zh-hans">复制英文地址</span><span class="zh-hant">複製英文地址</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></div></dd></div>
+      <div><dt><span class="ko">호스트</span><span class="en">Host</span><span class="ja">ホスト</span><span class="zh-hans">房东</span><span class="zh-hant">房東</span></dt><dd>Lisa · +82-10-9328-0969<br><span class="ko">카카오톡 · LINE · WhatsApp (ID: free01270)</span><span class="en">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><span class="ja">LINE・カカオトーク・WhatsApp (ID: free01270)</span><span class="zh-hans">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><span class="zh-hant">KakaoTalk · LINE · WhatsApp (ID: free01270)</span><div class="chips" style="margin-top:8px"><a class="chip" href="#host"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="ko">연락하기</span><span class="en">Contact Lisa</span><span class="ja">Lisaに連絡する</span><span class="zh-hans">联系 Lisa</span><span class="zh-hant">聯絡 Lisa</span></a></div></dd></div>
     </dl>
   </section>
 
-  <nav class="tabs" aria-label="섹션 메뉴" data-label-ko="섹션 메뉴" data-label-en="Sections">
+  <nav class="tabs" aria-label="섹션 메뉴" data-label-ko="섹션 메뉴" data-label-en="Sections" data-label-ja="セクションメニュー" data-label-zh-hans="目录菜单" data-label-zh-hant="目錄選單">
     <div class="tabs-scroll">
     <button class="tabs-arr prev" type="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
     <ul>
-      <li><a href="#getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></a></li>
-      <li><a href="#basics"><span class="ko">체크인 · 체크아웃</span><span class="en">Check-in &amp; check-out</span></a></li>
-      <li><a href="#rules"><span class="ko">하우스 룰</span><span class="en">House rules</span></a></li>
-      <li><a href="#contact"><span class="ko">연락처</span><span class="en">Contact</span></a></li>
+      <li><a href="#getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span><span class="ja">アクセス</span><span class="zh-hans">交通指南</span><span class="zh-hant">交通指南</span></a></li>
+      <li><a href="#basics"><span class="ko">체크인 · 체크아웃</span><span class="en">Check-in &amp; check-out</span><span class="ja">チェックイン・アウト</span><span class="zh-hans">入住与退房</span><span class="zh-hant">入住與退房</span></a></li>
+      <li><a href="#rules"><span class="ko">하우스 룰</span><span class="en">House rules</span><span class="ja">ハウスルール</span><span class="zh-hans">入住守则</span><span class="zh-hant">入住守則</span></a></li>
+      <li><a href="#contact"><span class="ko">연락처</span><span class="en">Contact</span><span class="ja">連絡先</span><span class="zh-hans">联系方式</span><span class="zh-hant">聯絡方式</span></a></li>
     </ul>
     <button class="tabs-arr next" type="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
-    <button class="lang-mini" type="button" data-lang-toggle aria-label="ENG, 영어로 바꾸기"></button>
+    <button class="lang-mini" type="button" data-lang-menu aria-haspopup="menu" aria-expanded="false" aria-controls="langmenu" aria-label="언어 선택. 지금 한국어"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg><span aria-hidden="true"><span class="ko">한</span><span class="en">EN</span><span class="ja">日</span><span class="zh-hans">简</span><span class="zh-hant">繁</span></span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
   </nav>
 
   <!-- 1. 찾아오기 -->
   <section class="s" id="getting" aria-labelledby="h-getting">
-    <h2 id="h-getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span></h2>
+    <h2 id="h-getting"><span class="ko">찾아오는 길</span><span class="en">Getting here</span><span class="ja">アクセス</span><span class="zh-hans">交通指南</span><span class="zh-hant">交通指南</span></h2>
     <p class="intro ko">가장 가까운 역은 지하철 3·4호선 <b>충무로역</b>이에요. 남산 쪽 오르막이라 큰 캐리어가 있다면 택시를 권해요.</p>
-    <p class="intro en">The nearest station is <b>Chungmuro</b> (Lines 3 &amp; 4). It’s uphill toward Namsan, so take a taxi if you have big suitcases.</p>
+    <p class="intro en">The nearest station is <b>Chungmuro</b> (Lines 3 &amp; 4). It’s uphill toward Namsan, so take a taxi if you have big suitcases.</p><p class="intro ja">最寄り駅は地下鉄3・4号線の<b class="nw">忠武路(チュンムロ)駅</b>です。南山へ向かう上り坂なので、大きなスーツケースをお持ちの場合はタクシーをおすすめします。</p><p class="intro zh-hans">最近的车站是地铁3号线、4号线<b class="nw">忠武路站</b>。前往南山方向是上坡路，如果带着大行李箱，建议打车。</p><p class="intro zh-hant">最近的車站是地鐵3號線、4號線<b class="nw">忠武路站</b>。前往南山方向是上坡路，如果帶著大行李箱，建議搭計程車。</p>
     <div class="btns" style="margin:0 0 18px">
-      <a class="btn primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14"><span class="ko">네이버지도 길찾기</span><span class="en">Directions in Naver Map</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-      <a class="btn en" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14">Google Maps<svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-      <button class="btn ko" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver"><span class="ko">택시용 한글 주소 복사</span><span class="en">Copy Korean address for taxi</span><svg class="ic cpy trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-      <button class="taxi en" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver" data-label-ko="택시 기사님께 보여 줄 한글 주소, 누르면 복사" data-label-en="Korean address for your taxi driver. Tap to copy" aria-label="택시 기사님께 보여 줄 한글 주소, 누르면 복사"><small>Show this to your taxi driver<br><span lang="ko">택시 기사님께 보여 주세요</span></small><b lang="ko">서울특별시 중구 필동로8길 32-14</b><span class="hint"><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>Tap to copy</span></button>
+      <a class="btn primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14"><span class="ko">네이버지도 길찾기</span><span class="en">Directions in Naver Map</span><span class="ja">NAVER Mapで道案内</span><span class="zh-hans">用NAVER地图导航</span><span class="zh-hant">用NAVER地圖導航</span><svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      <a class="btn en" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14">Google Maps<svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><a class="btn ja" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14">Googleマップ<svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><a class="btn zh-hans" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14">谷歌地图<svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><a class="btn zh-hant" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%ED%95%84%EB%8F%99%EB%A1%9C8%EA%B8%B8%2032-14">Google地圖<svg class="ic trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      <button class="btn ko" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver" data-toast-ja="韓国語の住所をコピーしました · タクシーの運転手さんに見せてください" data-toast-zh-hans="已复制韩文地址 · 请出示给出租车司机" data-toast-zh-hant="已複製韓文地址 · 請出示給計程車司機"><span class="ko">택시용 한글 주소 복사</span><span class="en">Copy Korean address for taxi</span><svg class="ic cpy trail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+      <button class="taxi en" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver" data-toast-ja="韓国語の住所をコピーしました · タクシーの運転手さんに見せてください" data-toast-zh-hans="已复制韩文地址 · 请出示给出租车司机" data-toast-zh-hant="已複製韓文地址 · 請出示給計程車司機" data-label-ko="택시 기사님께 보여 줄 한글 주소, 누르면 복사" data-label-en="Korean address for your taxi driver. Tap to copy" data-label-ja="タクシーの運転手さんに見せる韓国語の住所。押すとコピー" data-label-zh-hans="出示给出租车司机的韩文地址，点一下即可复制" data-label-zh-hant="出示給計程車司機的韓文地址，點一下即可複製" aria-label="택시 기사님께 보여 줄 한글 주소, 누르면 복사"><small>Show this to your taxi driver<br><span lang="ko">택시 기사님께 보여 주세요</span></small><b lang="ko">서울특별시 중구 필동로8길 32-14</b><span class="hint"><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>Tap to copy</span></button><button class="taxi ja" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver" data-toast-ja="韓国語の住所をコピーしました · タクシーの運転手さんに見せてください" data-toast-zh-hans="已复制韩文地址 · 请出示给出租车司机" data-toast-zh-hant="已複製韓文地址 · 請出示給計程車司機" data-label-ko="택시 기사님께 보여 줄 한글 주소, 누르면 복사" data-label-en="Korean address for your taxi driver. Tap to copy" data-label-ja="タクシーの運転手さんに見せる韓国語の住所。押すとコピー" data-label-zh-hans="出示给出租车司机的韩文地址，点一下即可复制" data-label-zh-hant="出示給計程車司機的韓文地址，點一下即可複製" aria-label="택시 기사님께 보여 줄 한글 주소, 누르면 복사"><small>タクシーの運転手さんに見せてください<br><span lang="ko">택시 기사님께 보여 주세요</span></small><b lang="ko">서울특별시 중구 필동로8길 32-14</b><span class="hint"><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>押してコピー</span></button><button class="taxi zh-hans" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver" data-toast-ja="韓国語の住所をコピーしました · タクシーの運転手さんに見せてください" data-toast-zh-hans="已复制韩文地址 · 请出示给出租车司机" data-toast-zh-hant="已複製韓文地址 · 請出示給計程車司機" data-label-ko="택시 기사님께 보여 줄 한글 주소, 누르면 복사" data-label-en="Korean address for your taxi driver. Tap to copy" data-label-ja="タクシーの運転手さんに見せる韓国語の住所。押すとコピー" data-label-zh-hans="出示给出租车司机的韩文地址，点一下即可复制" data-label-zh-hant="出示給計程車司機的韓文地址，點一下即可複製" aria-label="택시 기사님께 보여 줄 한글 주소, 누르면 복사"><small>请出示给出租车司机<br><span lang="ko">택시 기사님께 보여 주세요</span></small><b lang="ko">서울특별시 중구 필동로8길 32-14</b><span class="hint"><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>点一下复制</span></button><button class="taxi zh-hant" type="button" data-copy="서울특별시 중구 필동로8길 32-14" data-toast-ko="주소 복사됨 · 택시 기사님께 보여 주세요" data-toast-en="Korean address copied · show it to your taxi driver" data-toast-ja="韓国語の住所をコピーしました · タクシーの運転手さんに見せてください" data-toast-zh-hans="已复制韩文地址 · 请出示给出租车司机" data-toast-zh-hant="已複製韓文地址 · 請出示給計程車司機" data-label-ko="택시 기사님께 보여 줄 한글 주소, 누르면 복사" data-label-en="Korean address for your taxi driver. Tap to copy" data-label-ja="タクシーの運転手さんに見せる韓国語の住所。押すとコピー" data-label-zh-hans="出示给出租车司机的韩文地址，点一下即可复制" data-label-zh-hant="出示給計程車司機的韓文地址，點一下即可複製" aria-label="택시 기사님께 보여 줄 한글 주소, 누르면 복사"><small>請出示給計程車司機<br><span lang="ko">택시 기사님께 보여 주세요</span></small><b lang="ko">서울특별시 중구 필동로8길 32-14</b><span class="hint"><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg>點一下複製</span></button>
     </div>
 
-    <h3><span class="ko">충무로역 3번 출구 → Copen Haus</span><span class="en">Walking route from Exit 3</span></h3>
-    <figure class="fig"><button class="zoom" type="button" data-zoom="../img/route.png" data-zoom-ko="../img/route.png" data-zoom-en="../img/en/route.png"><img src="../img/route.png" data-src-ko="../img/route.png" data-src-en="../img/en/route.png" width="1000" height="995" loading="lazy" alt="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-ko="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-en="Walking route map from Chungmuro Station exit 3 through Namsangol Hanok Village to Copen Haus"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span></span></button></figure>
-    <p class="small" style="margin-top:8px"><span class="ko">약도이며 실제 축척과 달라요. 정확한 길찾기는 위 네이버지도 버튼을 이용하세요.</span><span class="en">Sketch map, not to scale. For exact directions, use the Naver Map button above.</span></p>
+    <h3><span class="ko">충무로역 3번 출구 → Copen Haus</span><span class="en">Walking route from Exit 3</span><span class="ja">3番出口からの徒歩ルート</span><span class="zh-hans">从3号出口出发的步行路线</span><span class="zh-hant">從3號出口出發的步行路線</span></h3>
+    <figure class="fig"><button class="zoom" type="button" data-zoom="../img/route.png" data-zoom-ko="../img/route.png" data-zoom-en="../img/en/route.png" data-zoom-ja="../img/ja/route.png" data-zoom-zh-hans="../img/zh-hans/route.png" data-zoom-zh-hant="../img/zh-hant/route.png"><img src="../img/route.png" data-src-ko="../img/route.png" data-src-en="../img/en/route.png" data-src-ja="../img/ja/route.png" data-src-zh-hans="../img/zh-hans/route.png" data-src-zh-hant="../img/zh-hant/route.png" width="1000" height="995" loading="lazy" alt="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-ko="충무로역 3번 출구에서 남산골한옥마을을 지나 Copen Haus까지 약도" data-alt-en="Walking route map from Chungmuro Station exit 3 through Namsangol Hanok Village to Copen Haus" data-alt-ja="忠武路駅3番出口から南山コル韓屋村を通ってCopen Hausまでの徒歩ルート図" data-alt-zh-hans="从忠武路站3号出口经南山谷韩屋村到Copen Haus的步行路线图" data-alt-zh-hant="從忠武路站3號出口經南山谷韓屋村到Copen Haus的步行路線圖"><span class="zh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg><span class="ko">누르면 크게</span><span class="en">Tap to zoom</span><span class="ja">押して拡大</span><span class="zh-hans">点击放大</span><span class="zh-hant">點選放大</span></span></button></figure>
+    <p class="small" style="margin-top:8px"><span class="ko">약도이며 실제 축척과 달라요. 정확한 길찾기는 위 네이버지도 버튼을 이용하세요.</span><span class="en">Sketch map, not to scale. For exact directions, use the Naver Map button above.</span><span class="ja">略図のため縮尺は正確ではありません。詳しい道順は上のNAVER Mapのボタンをお使いください。</span><span class="zh-hans">此为示意图，比例不准确。详细路线请用上方的NAVER地图按钮。</span><span class="zh-hant">此為示意圖，比例不準確。詳細路線請用上方的NAVER地圖按鈕。</span></p>
     <ol class="steps ko">
       <li><span class="n">1</span><div><b>3번 출구로 나오기</b><p>극동빌딩 맞은편, 퇴계로34길로 진입</p></div></li>
       <li><span class="n">2</span><div><b>남산골한옥마을 정문</b><p>출구에서 도보 3~4분, 입장 무료</p></div></li>
@@ -394,34 +430,52 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
       <li><span class="n">3</span><div><b>Pass the hanok houses and Cheonugak pond</b><p>The hanok houses close on Mondays, but the garden path is open every day</p></div></li>
       <li><span class="n">4</span><div><b>Through the traditional garden toward Pildong</b><p>Exit the garden onto Pildong-ro</p></div></li>
       <li><span class="n">5</span><div><b>Turn into Pildong-ro 8-gil, and you’re here</b><p>32-14, <span class="nw">Pildong-ro 8-gil,</span> <span class="nw">Jung-gu,</span> Seoul</p></div></li>
+    </ol><ol class="steps ja">
+      <li><span class="n">1</span><div><b>3番出口を出る</b><p>極東ビルの向かいから<span class="nw">退渓路34ギル</span>に入ります</p></div></li>
+      <li><span class="n">2</span><div><b>南山コル韓屋村の正門</b><p>出口から3〜4分、入場無料です</p></div></li>
+      <li><span class="n">3</span><div><b>韓屋と泉雨閣(チョヌガク)の池を通り過ぎる</b><p>韓屋は月曜休みですが、庭園の道は毎日通れます</p></div></li>
+      <li><span class="n">4</span><div><b>伝統庭園を抜けて筆洞方面へ</b><p>庭園を出ると筆洞路(ピルドンロ)です</p></div></li>
+      <li><span class="n">5</span><div><b>筆洞路8ギルに入れば到着です</b><p><span class="nw">ソウル特別市 中区</span> <span class="nw">筆洞路8ギル 32-14</span></p></div></li>
+    </ol><ol class="steps zh-hans">
+      <li><span class="n">1</span><div><b>从3号出口出来</b><p>在极东大厦对面拐进<span class="nw">退溪路34街</span></p></div></li>
+      <li><span class="n">2</span><div><b>南山谷韩屋村正门</b><p>出站后3–4分钟，免费入场</p></div></li>
+      <li><span class="n">3</span><div><b>经过韩屋和泉雨阁池塘</b><p>韩屋周一休息，但庭园小路每天都能通行</p></div></li>
+      <li><span class="n">4</span><div><b>穿过传统庭园，往笔洞方向走</b><p>出了庭园就是笔洞路</p></div></li>
+      <li><span class="n">5</span><div><b>拐进笔洞路8街就到了</b><p><span class="nw">首尔特别市 中区</span> <span class="nw">笔洞路8街 32-14</span></p></div></li>
+    </ol><ol class="steps zh-hant">
+      <li><span class="n">1</span><div><b>從3號出口出來</b><p>在極東大樓對面轉進<span class="nw">退溪路34街</span></p></div></li>
+      <li><span class="n">2</span><div><b>南山谷韓屋村正門</b><p>出站後3–4分鐘，免費入場</p></div></li>
+      <li><span class="n">3</span><div><b>經過韓屋和泉雨閣池塘</b><p>韓屋週一休息，但庭園小路每天都能通行</p></div></li>
+      <li><span class="n">4</span><div><b>穿過傳統庭園，往筆洞方向走</b><p>出了庭園就是筆洞路</p></div></li>
+      <li><span class="n">5</span><div><b>轉進筆洞路8街就到了</b><p><span class="nw">首爾特別市 中區</span> <span class="nw">筆洞路8街 32-14</span></p></div></li>
     </ol>
   </section>
 
   <!-- 2. 체크인·체크아웃 -->
   <section class="s" id="basics" aria-labelledby="h-basics">
-    <h2 id="h-basics"><span class="ko">체크인 · 체크아웃</span><span class="en">Check-in &amp; check-out</span></h2>
+    <h2 id="h-basics"><span class="ko">체크인 · 체크아웃</span><span class="en">Check-in &amp; check-out</span><span class="ja">チェックイン・アウト</span><span class="zh-hans">入住与退房</span><span class="zh-hant">入住與退房</span></h2>
     <div class="slots">
-      <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크인</small><small class="en">Check-in</small><b class="ko">오후 3시 이후</b><b class="en">After 3 PM</b></div></div>
-      <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크아웃</small><small class="en">Check-out</small><b class="ko">오전 11시 이전</b><b class="en">Before 11 AM</b></div></div>
+      <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크인</small><small class="en">Check-in</small><small class="ja">チェックイン</small><small class="zh-hans">入住</small><small class="zh-hant">入住</small><b class="ko">오후 3시 이후</b><b class="en">After 3 PM</b><b class="ja">15:00以降</b><b class="zh-hans">15:00以后</b><b class="zh-hant">15:00以後</b></div></div>
+      <div class="slot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><small class="ko">체크아웃</small><small class="en">Check-out</small><small class="ja">チェックアウト</small><small class="zh-hans">退房</small><small class="zh-hant">退房</small><b class="ko">오전 11시 이전</b><b class="en">Before 11 AM</b><b class="ja">11:00まで</b><b class="zh-hans">11:00之前</b><b class="zh-hant">11:00之前</b></div></div>
     </div>
-    <p class="first-t"><span class="ko">처음 오셨다면 이 순서로</span><span class="en">Just arrived? Start here</span></p>
+    <p class="first-t"><span class="ko">처음 오셨다면 이 순서로</span><span class="en">Just arrived? Start here</span><span class="ja">はじめての方は、この順番で</span><span class="zh-hans">第一次来？请按这个顺序</span><span class="zh-hant">第一次來？請按這個順序</span></p>
     <ol class="go">
-      <li><a href="#host"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내 드려요. 못 받으셨다면 눌러서 Lisa에게 연락하세요</small><small class="en">The door code comes by Airbnb message on check-in day. Didn’t get it? Tap to contact Lisa</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
-      <li><div class="g"><span class="n">2</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat on the wall, right of the entrance</small></span><span aria-hidden="true"></span></div></li>
-      <li><a href="#rules"><span class="n">3</span><span><b class="ko">하우스 룰 보기</b><b class="en">Read the house rules</b><small class="ko">실내 금연 · 밤 10시~아침 8시는 조용히</small><small class="en">No smoking indoors · <span class="nw">quiet hours 10 PM – 8 AM</span></small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+      <li><a href="#host"><span class="n">1</span><span><b class="ko">문 열기</b><b class="en">Get in</b><b class="ja">お部屋に入る</b><b class="zh-hans">进入房间</b><b class="zh-hant">進入房間</b><small class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내 드려요. 못 받으셨다면 눌러서 Lisa에게 연락하세요</small><small class="en">The door code comes by Airbnb message on check-in day. Didn’t get it? Tap to contact Lisa</small><small class="ja">ドアの暗証番号はチェックイン当日にAirbnbのメッセージでお送りします。届いていなければ、押してLisaにご連絡ください</small><small class="zh-hans">门锁密码会在入住当天通过Airbnb消息发送给您。如果没收到，请点这里联系Lisa</small><small class="zh-hant">門鎖密碼會在入住當天透過Airbnb訊息傳送給您。如果沒收到，請點這裡聯絡Lisa</small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+      <li><div class="g"><span class="n">2</span><span><b class="ko">난방·온수 켜기</b><b class="en">Turn on heat &amp; hot water</b><b class="ja">暖房とお湯をつける</b><b class="zh-hans">打开暖气和热水</b><b class="zh-hant">開啟暖氣和熱水</b><small class="ko">현관 오른쪽 벽 온도조절기</small><small class="en">Thermostat on the wall, right of the entrance</small><small class="ja">玄関を入って右の壁にある温度調節器です</small><small class="zh-hans">温控器在进门右手边的墙上</small><small class="zh-hant">溫控器在進門右手邊的牆上</small></span><span aria-hidden="true"></span></div></li>
+      <li><a href="#rules"><span class="n">3</span><span><b class="ko">하우스 룰 보기</b><b class="en">Read the house rules</b><b class="ja">ハウスルールを確認</b><b class="zh-hans">查看入住守则</b><b class="zh-hant">查看入住守則</b><small class="ko">실내 금연 · 밤 10시~아침 8시는 조용히</small><small class="en">No smoking indoors · <span class="nw">quiet hours 10 PM – 8 AM</span></small><small class="ja">室内禁煙 · <span class="nw">22時〜8時はお静かに</span></small><small class="zh-hans">室内禁烟 · <span class="nw">22:00–8:00请保持安静</span></small><small class="zh-hant">室內禁菸 · <span class="nw">22:00–8:00請保持安靜</span></small></span><svg class="ic end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
     </ol>
     <dl class="facts" style="margin-top:16px">
-      <div><dt><span class="ko">출입 방법</span><span class="en">Getting in</span></dt><dd><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내 드려요.</span><span class="en">We send the door lock code by Airbnb message on check-in day.</span></dd></div>
-      <div><dt><span class="ko">입구·층</span><span class="en">Entrance</span></dt><dd><span class="ko">건물 1층</span><span class="en">Ground floor (1F)</span></dd></div>
-      <div><dt><span class="ko">짐 보관</span><span class="en">Luggage</span></dt><dd><span class="ko">미리 알려 주시면 안내해 드려요.</span><span class="en">Let us know in advance and we’ll help you arrange it.</span></dd></div>
+      <div><dt><span class="ko">출입 방법</span><span class="en">Getting in</span><span class="ja">入室方法</span><span class="zh-hans">入住方式</span><span class="zh-hant">入住方式</span></dt><dd><span class="ko">도어락 비밀번호는 체크인 당일 에어비앤비 메시지로 보내 드려요.</span><span class="en">We send the door lock code by Airbnb message on check-in day.</span><span class="ja">ドアロックの暗証番号は、チェックイン当日にAirbnbのメッセージでお送りします。</span><span class="zh-hans">门锁密码会在入住当天通过Airbnb消息发送给您。</span><span class="zh-hant">門鎖密碼會在入住當天透過Airbnb訊息傳送給您。</span></dd></div>
+      <div><dt><span class="ko">입구·층</span><span class="en">Entrance</span><span class="ja">入口</span><span class="zh-hans">入口</span><span class="zh-hant">入口</span></dt><dd><span class="ko">건물 1층</span><span class="en">Ground floor (1F)</span><span class="ja">1階</span><span class="zh-hans">1楼</span><span class="zh-hant">1樓</span></dd></div>
+      <div><dt><span class="ko">짐 보관</span><span class="en">Luggage</span><span class="ja">荷物の預かり</span><span class="zh-hans">行李寄存</span><span class="zh-hant">行李寄放</span></dt><dd><span class="ko">미리 알려 주시면 안내해 드려요.</span><span class="en">Let us know in advance and we’ll help you arrange it.</span><span class="ja">事前にご連絡いただければ、ご相談に応じます。</span><span class="zh-hans">请提前联系我们，我们会尽量帮您安排。</span><span class="zh-hant">請提前聯絡我們，我們會盡量幫您安排。</span></dd></div>
     </dl>
   </section>
 
   <!-- 3. 하우스 룰 -->
   <section class="s" id="rules" aria-labelledby="h-rules">
-    <h2 id="h-rules"><span class="ko">하우스 룰</span><span class="en">House rules</span></h2>
+    <h2 id="h-rules"><span class="ko">하우스 룰</span><span class="en">House rules</span><span class="ja">ハウスルール</span><span class="zh-hans">入住守则</span><span class="zh-hant">入住守則</span></h2>
     <p class="intro ko">모두가 편히 쉴 수 있도록 일곱 가지만 지켜 주세요.</p>
-    <p class="intro en">Seven small things so everyone can rest well.</p>
+    <p class="intro en">Seven small things so everyone can rest well.</p><p class="intro ja">みなさんが気持ちよく過ごせるよう、7つのことだけお守りください。</p><p class="intro zh-hans">为了让大家都能好好休息，请遵守以下七条。</p><p class="intro zh-hant">為了讓大家都能好好休息，請遵守以下七條。</p>
     <ol class="rules ko">
       <li><i>1</i><span>실내 금연입니다. 건물 앞·계단에서도 흡연하지 말아 주세요.</span></li>
       <li><i>2</i><span>밤 10시~아침 8시는 조용히 해 주세요. 골목과 계단의 대화도 잘 울립니다.</span></li>
@@ -439,64 +493,129 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
       <li><i>5</i><span>Please take off your shoes indoors.</span></li>
       <li><i>6</i><span>Please don’t bring pets.</span></li>
       <li><i>7</i><span>If anything is broken, tell us right away. Being honest is all we ask.</span></li>
+    </ol><ol class="rules ja">
+      <li><i>1</i><span>室内は禁煙です。建物の前や階段での喫煙もご遠慮ください。</span></li>
+      <li><i>2</i><span>22時〜8時はお静かにお願いします。路地や階段では声がよく響きます。</span></li>
+      <li><i>3</i><span>パーティーやイベントはご遠慮ください。</span></li>
+      <li><i>4</i><span>予約に含まれていない方を招く場合は、事前にご相談ください。</span></li>
+      <li><i>5</i><span>室内では靴を脱いでください。</span></li>
+      <li><i>6</i><span>ペットの同伴はご遠慮ください。</span></li>
+      <li><i>7</i><span>何か壊れてしまったら、すぐにお知らせください。正直に教えていただければ大丈夫です。</span></li>
+    </ol><ol class="rules zh-hans">
+      <li><i>1</i><span>室内禁烟。也请不要在楼门口或楼梯上吸烟。</span></li>
+      <li><i>2</i><span>22:00至次日8:00请保持安静。小巷和楼梯间的声音传得很远。</span></li>
+      <li><i>3</i><span>请勿举办派对或活动。</span></li>
+      <li><i>4</i><span>如需邀请预订名单以外的人，请事先与我们商量。</span></li>
+      <li><i>5</i><span>进屋请脱鞋。</span></li>
+      <li><i>6</i><span>请勿携带宠物。</span></li>
+      <li><i>7</i><span>如果有东西损坏，请马上告诉我们。如实告知就好，不用担心。</span></li>
+    </ol><ol class="rules zh-hant">
+      <li><i>1</i><span>室內禁菸。也請不要在建築物前或樓梯間吸菸。</span></li>
+      <li><i>2</i><span>22:00至次日8:00請保持安靜。小巷和樓梯間的聲音傳得很遠。</span></li>
+      <li><i>3</i><span>請勿舉辦派對或活動。</span></li>
+      <li><i>4</i><span>如需邀請預訂名單以外的人，請事先與我們商量。</span></li>
+      <li><i>5</i><span>進屋請脫鞋。</span></li>
+      <li><i>6</i><span>請勿攜帶寵物。</span></li>
+      <li><i>7</i><span>如果有東西損壞，請馬上告訴我們。如實告知就好，不用擔心。</span></li>
     </ol>
     <p class="note ko">쓰레기는 <b>일~금요일 저녁 7시~자정</b>에 <span class="nw">1층 현관문 옆에</span> 내놓아 주세요. 토요일에는 내놓을 수 없어요.</p>
-    <p class="note en">Trash goes out <b>Sun–Fri, 7 PM to midnight</b>, next to the <span class="nw">ground-floor front door</span>. Never on Saturday.</p>
+    <p class="note en">Trash goes out <b>Sun–Fri, 7 PM to midnight</b>, next to the <span class="nw">ground-floor front door</span>. Never on Saturday.</p><p class="note ja">ゴミは<b>日〜金の<span class="nw">19時〜24時</span></b>に<span class="nw">1階の玄関横</span>へ出してください。土曜日は出せません。</p><p class="note zh-hans">垃圾请在<b>周日至周五<span class="nw">19:00–24:00</span></b>放到<span class="nw">1楼大门旁边</span>。周六不能扔。</p><p class="note zh-hant">垃圾請在<b>週日至週五<span class="nw">19:00–24:00</span></b>放到<span class="nw">1樓大門旁邊</span>。週六不能丟。</p>
   </section>
 
   <!-- 4. 연락처 -->
   <section class="s" id="contact" aria-labelledby="h-contact">
-    <h2 id="h-contact"><span class="ko">연락처</span><span class="en">Contact</span></h2>
+    <h2 id="h-contact"><span class="ko">연락처</span><span class="en">Contact</span><span class="ja">連絡先</span><span class="zh-hans">联系方式</span><span class="zh-hant">聯絡方式</span></h2>
     <div class="host" id="host" style="margin-top:16px">
       <p class="w ko">어렵거나 궁금하면 언제든 연락 주세요</p>
-      <p class="w en">Stuck or curious? Message us anytime</p>
-      <p class="small" style="margin-top:6px"><span class="ko">호스트 Lisa · 카카오톡 · LINE · WhatsApp 어디로 보내셔도 괜찮아요</span><span class="en">Your host Lisa · KakaoTalk, LINE or WhatsApp, whichever you like</span></p>
+      <p class="w en">Stuck or curious? Message us anytime</p><p class="w ja"><span class="nw">困ったことや</span><span class="nw">気になることがあれば、</span><span class="nw">いつでも</span><span class="nw">ご連絡ください</span></p><p class="w zh-hans"><span class="nw">遇到困难或有任何疑问，</span><span class="nw">欢迎随时联系我们</span></p><p class="w zh-hant"><span class="nw">遇到困難或有任何疑問，</span><span class="nw">歡迎隨時聯絡我們</span></p>
+      <p class="small" style="margin-top:6px"><span class="ko">호스트 Lisa · 카카오톡 · LINE · WhatsApp 어디로 보내셔도 괜찮아요</span><span class="en">Your host Lisa · KakaoTalk, LINE or WhatsApp, whichever you like</span><span class="ja">ホストのLisa · LINE・カカオトーク・WhatsApp、お好きな方法で</span><span class="zh-hans">房东Lisa · KakaoTalk、LINE、WhatsApp，用哪个都可以</span><span class="zh-hant">房東Lisa · KakaoTalk、LINE、WhatsApp，用哪個都可以</span></p>
       <div class="host-tel">
-        <a class="chip tel" href="tel:+821093280969" data-label-ko="Lisa에게 전화 010 9328 0969" data-label-en="Call Lisa +82 10 9328 0969" aria-label="Lisa에게 전화 010 9328 0969"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="ko">010-9328-0969</span><span class="en">+82-10-9328-0969</span></a>
+        <a class="chip tel" href="tel:+821093280969" data-label-ko="Lisa에게 전화 010 9328 0969" data-label-en="Call Lisa +82 10 9328 0969" data-label-ja="Lisaに電話 +82 10 9328 0969" data-label-zh-hans="给Lisa打电话 +82 10 9328 0969" data-label-zh-hant="給Lisa打電話 +82 10 9328 0969" aria-label="Lisa에게 전화 010 9328 0969"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="ko">010-9328-0969</span><span class="en">+82-10-9328-0969</span><span class="ja">+82-10-9328-0969</span><span class="zh-hans">+82-10-9328-0969</span><span class="zh-hant">+82-10-9328-0969</span></a>
       </div>
       <div class="msgr">
-        <button class="chip" type="button" data-copy="free01270" data-toast-ko="ID 복사됨 · 카카오톡 ▸ 친구 추가 ▸ ID로 추가 ▸ 붙여넣기" data-toast-en="ID copied · KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste" data-label-ko="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가" data-label-en="KakaoTalk: copy ID free01270, then add friend by ID in the app" aria-label="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가"><span class="ko">카카오톡</span><span class="en">KakaoTalk</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
-        <a class="chip" href="https://line.me/R/ti/p/~free01270" data-copy="free01270" data-toast-ko="LINE ID 복사됨 · LINE이 안 열리면 친구 추가에서 이 ID를 검색하세요" data-toast-en="LINE ID copied · if LINE doesn’t open, search this ID under Add friend" data-label-ko="LINE으로 Lisa 친구 추가 (ID도 복사돼요)" data-label-en="Add Lisa on LINE (the ID is copied too)" aria-label="LINE으로 Lisa 친구 추가 (ID도 복사돼요)">LINE<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-        <a class="chip" href="https://api.whatsapp.com/send?phone=821093280969" data-copy="+821093280969" data-toast-ko="번호 복사됨 · WhatsApp이 안 열리면 +82 10 9328 0969를 새 연락처로 추가하세요" data-toast-en="Number copied · if WhatsApp doesn’t open, add +82 10 9328 0969 as a new contact" data-label-ko="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)" data-label-en="Chat with Lisa on WhatsApp (the number is copied too)" aria-label="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)">WhatsApp<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+        <button class="chip" type="button" data-copy="free01270" data-toast-ko="ID 복사됨 · 카카오톡 ▸ 친구 추가 ▸ ID로 추가 ▸ 붙여넣기" data-toast-en="ID copied · KakaoTalk ▸ Add friend ▸ Search by ID ▸ paste" data-toast-ja="IDをコピーしました · カカオトーク ▸ 友だち追加 ▸ ID検索 ▸ 貼り付け" data-toast-zh-hans="已复制ID · KakaoTalk ▸ 添加好友 ▸ 通过ID添加 ▸ 粘贴" data-toast-zh-hant="已複製ID · KakaoTalk ▸ 新增好友 ▸ 透過ID新增 ▸ 貼上" data-label-ko="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가" data-label-en="KakaoTalk: copy ID free01270, then add friend by ID in the app" data-label-ja="カカオトーク：ID free01270 をコピーして、アプリでID検索から友だち追加" data-label-zh-hans="KakaoTalk: 复制ID free01270，然后在应用中通过ID添加好友" data-label-zh-hant="KakaoTalk: 複製ID free01270，然後在App中透過ID新增好友" aria-label="카카오톡: ID free01270 복사 후 앱에서 ID로 친구 추가"><span class="ko">카카오톡</span><span class="en">KakaoTalk</span><span class="ja">カカオトーク</span><span class="zh-hans">KakaoTalk</span><span class="zh-hant">KakaoTalk</span><svg class="ic cpy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+        <a class="chip" href="https://line.me/R/ti/p/~free01270" data-copy="free01270" data-toast-ko="LINE ID 복사됨 · LINE이 안 열리면 친구 추가에서 이 ID를 검색하세요" data-toast-en="LINE ID copied · if LINE doesn’t open, search this ID under Add friend" data-toast-ja="LINEのIDをコピーしました · LINEが開かないときは、友だち追加でこのIDを検索してください" data-toast-zh-hans="已复制LINE ID · 如果LINE打不开，请在添加好友中搜索此ID" data-toast-zh-hant="已複製LINE ID · 如果LINE打不開，請在新增好友中搜尋此ID" data-label-ko="LINE으로 Lisa 친구 추가 (ID도 복사돼요)" data-label-en="Add Lisa on LINE (the ID is copied too)" data-label-ja="LINEでLisaを友だち追加(IDもコピーされます)" data-label-zh-hans="在LINE上添加Lisa为好友(ID也会一并复制)" data-label-zh-hant="在LINE上新增Lisa為好友(ID也會一併複製)" aria-label="LINE으로 Lisa 친구 추가 (ID도 복사돼요)">LINE<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+        <a class="chip" href="https://api.whatsapp.com/send?phone=821093280969" data-copy="+821093280969" data-toast-ko="번호 복사됨 · WhatsApp이 안 열리면 +82 10 9328 0969를 새 연락처로 추가하세요" data-toast-en="Number copied · if WhatsApp doesn’t open, add +82 10 9328 0969 as a new contact" data-toast-ja="番号をコピーしました · WhatsAppが開かないときは、+82 10 9328 0969 を新しい連絡先に追加してください" data-toast-zh-hans="已复制号码 · 如果WhatsApp打不开，请把 +82 10 9328 0969 添加为新联系人" data-toast-zh-hant="已複製號碼 · 如果WhatsApp打不開，請把 +82 10 9328 0969 新增為新聯絡人" data-label-ko="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)" data-label-en="Chat with Lisa on WhatsApp (the number is copied too)" data-label-ja="WhatsAppでLisaとチャット(番号もコピーされます)" data-label-zh-hans="通过WhatsApp和Lisa聊天(号码也会一并复制)" data-label-zh-hant="透過WhatsApp和Lisa聊天(號碼也會一併複製)" aria-label="WhatsApp으로 Lisa와 대화 (번호도 복사돼요)">WhatsApp<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
       </div>
-      <p class="small" style="margin-top:10px">ID: free01270 · <span class="ko">앱이 안 열리면 Safari나 Chrome에서 이 페이지를 열어 주세요</span><span class="en">If an app doesn’t open, open this page in Safari or Chrome</span></p>
+      <p class="small" style="margin-top:10px">ID: free01270 · <span class="ko">앱이 안 열리면 Safari나 Chrome에서 이 페이지를 열어 주세요</span><span class="en">If an app doesn’t open, open this page in Safari or Chrome</span><span class="ja">アプリが開かないときは、このページをSafariかChromeで開いてください</span><span class="zh-hans">如果应用打不开，请用Safari或Chrome打开本页面</span><span class="zh-hant">如果App打不開，請用Safari或Chrome開啟本頁面</span></p>
     </div>
-    <h3><span class="ko">비상 연락처</span><span class="en">Emergency numbers</span></h3>
+    <h3><span class="ko">비상 연락처</span><span class="en">Emergency numbers</span><span class="ja">緊急連絡先</span><span class="zh-hans">紧急联系电话</span><span class="zh-hant">緊急聯絡電話</span></h3>
     <div class="sos">
-      <a class="call" href="tel:112"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>112</b><small class="ko">경찰</small><small class="en">Police</small></span></a>
-      <a class="call" href="tel:119"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>119</b><small class="ko">화재 · 구급차</small><small class="en">Fire &amp; ambulance</small></span></a>
-      <a class="call" href="tel:1330"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>1330</b><small class="ko"><span class="nw">관광 통역·안내</span> <span class="nw">(24시간)</span></small><small class="en">Travel helpline, 24 h, English</small></span></a>
-      <a class="call" href="tel:120"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>120</b><small class="ko">서울시 생활 문의</small><small class="en">Seoul city helpline</small></span></a>
+      <a class="call" href="tel:112"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>112</b><small class="ko">경찰</small><small class="en">Police</small><small class="ja">警察</small><small class="zh-hans">报警</small><small class="zh-hant">警察</small></span></a>
+      <a class="call" href="tel:119"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>119</b><small class="ko">화재 · 구급차</small><small class="en">Fire &amp; ambulance</small><small class="ja">消防・救急</small><small class="zh-hans">消防·急救</small><small class="zh-hant">消防·急救</small></span></a>
+      <a class="call" href="tel:1330"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>1330</b><small class="ko"><span class="nw">관광 통역·안내</span> <span class="nw">(24시간)</span></small><small class="en">Travel helpline, 24 h, English</small><small class="ja"><span class="nw">観光通訳・案内</span> <span class="nw">24時間・</span><span class="nw">日本語可</span></small><small class="zh-hans"><span class="nw">旅游咨询热线</span> <span class="nw">24小时·</span><span class="nw">可用中文</span></small><small class="zh-hant"><span class="nw">旅遊諮詢專線</span> <span class="nw">24小時·</span><span class="nw">可用中文</span></small></span></a>
+      <a class="call" href="tel:120"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span><b>120</b><small class="ko">서울시 생활 문의</small><small class="en">Seoul city helpline</small><small class="ja">ソウル市 生活案内</small><small class="zh-hans">首尔市生活咨询</small><small class="zh-hant">首爾市生活諮詢</small></span></a>
     </div>
     <p class="foot ko">즐거운 여행 하세요! · 2026년 11월 기준</p>
-    <p class="foot en">Enjoy your trip! · Information as of November 2026</p>
+    <p class="foot en">Enjoy your trip! · Information as of November 2026</p><p class="foot ja">よい旅を！· 2026年11月時点の情報です</p><p class="foot zh-hans">祝您旅途愉快！· 信息截至2026年11月</p><p class="foot zh-hant">祝您旅途愉快！· 資訊截至2026年11月</p>
   </section>
 </main>
-<dialog id="zoom" aria-label="그림 크게 보기" data-label-ko="그림 크게 보기" data-label-en="Map, full size"><form method="dialog"><button type="submit"><span class="ko">닫기</span><span class="en">Close</span></button></form><img alt=""></dialog>
-<button id="top" type="button" aria-label="맨 위로" data-label-ko="맨 위로" data-label-en="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<dialog id="zoom" aria-label="그림 크게 보기" data-label-ko="그림 크게 보기" data-label-en="Map, full size" data-label-ja="地図を大きく表示" data-label-zh-hans="放大查看地图" data-label-zh-hant="放大查看地圖"><form method="dialog"><button type="submit"><span class="ko">닫기</span><span class="en">Close</span><span class="ja">閉じる</span><span class="zh-hans">关闭</span><span class="zh-hant">關閉</span></button></form><img alt=""></dialog>
+<button id="top" type="button" aria-label="맨 위로" data-label-ko="맨 위로" data-label-en="Back to top" data-label-ja="ページの先頭へ" data-label-zh-hans="回到顶部" data-label-zh-hant="回到頂部"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <div id="toast" role="status" aria-live="polite"></div>
+<div class="langmenu" id="langmenu" role="menu" hidden aria-label="언어 선택" data-label-ko="언어 선택" data-label-en="Choose language" data-label-ja="言語を選択" data-label-zh-hans="选择语言" data-label-zh-hant="選擇語言">
+  <button type="button" role="menuitemradio" aria-checked="false" data-set-lang="ko" lang="ko"><b>한국어</b><small lang="en">Korean</small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+  <button type="button" role="menuitemradio" aria-checked="false" data-set-lang="en" lang="en"><b>English</b><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+  <button type="button" role="menuitemradio" aria-checked="false" data-set-lang="ja" lang="ja"><b>日本語</b><small lang="en">Japanese</small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+  <button type="button" role="menuitemradio" aria-checked="false" data-set-lang="zh-hans" lang="zh-Hans"><b>简体中文</b><small lang="en">Chinese (Simplified)</small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+  <button type="button" role="menuitemradio" aria-checked="false" data-set-lang="zh-hant" lang="zh-Hant"><b>繁體中文</b><small lang="en">Chinese (Traditional)</small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+</div>
 <script>
 (function(){
   var root=document.documentElement,toast=document.getElementById('toast');
+  // 언어 표: 언어마다 탭 제목·안내 문구를 둬요(가이드북과 같은 구조). 새 언어는 여기에 한 줄 + 머리말의 CH_LANGS에 추가
+  var LANG={
+    ko:{title:'Copen Haus 도착 안내',now:'한국어',sw:'한국어로 바꿨어요',pick:'언어 선택. 지금 '},
+    en:{title:'Copen Haus Arrival guide',now:'English',sw:'Switched to English',pick:'Choose language. Now '},
+    ja:{title:'Copen Haus 到着ガイド',now:'日本語',sw:'日本語に切り替えました',pick:'言語を選択。現在は'},
+    'zh-hans':{title:'Copen Haus 抵达指南',now:'简体中文',sw:'已切换为简体中文',pick:'选择语言。当前为'},
+    'zh-hant':{title:'Copen Haus 抵達指南',now:'繁體中文',sw:'已切換為繁體中文',pick:'選擇語言。目前為'}};
+  function curLang(){return root.dataset.lang}
+  // 문구 고르기: 지금 언어 → 없으면 영어(외국어 화면 공통) → 한국어
+  function tr(o){var l=curLang();return o[l]!=null?o[l]:l!=='ko'&&o.en!=null?o.en:o.ko}
+  // data-label-ko / data-label-en / data-label-ja … 중 지금 언어 값을 골라요 (zh-hans → data-label-zh-hans)
+  function dk(p,l){return p+l.replace(/(^|-)([a-z])/g,function(_,x,c){return c.toUpperCase()})}
+  function pick(e,p){var l=curLang(),v=e.dataset[dk(p,l)];if(v==null&&l!=='ko')v=e.dataset[dk(p,'en')];return v!=null?v:e.dataset[dk(p,'ko')]}
   // 언어 전환: 화면 글자 + 화면 낭독기용 이름(aria-label)·그림 설명(alt)·탭 제목·주소(?lang=)까지 함께 바꿔요
-  function applyLang(l){root.lang=l;root.dataset.lang=l;var ko=l==='ko';
-    document.title=ko?'Copen Haus 도착 안내':'Copen Haus Arrival guide';
-    document.querySelectorAll('[data-label-ko]').forEach(function(e){e.setAttribute('aria-label',e.dataset['label'+(ko?'Ko':'En')])});
-    document.querySelectorAll('[data-alt-ko]').forEach(function(e){e.alt=e.dataset['alt'+(ko?'Ko':'En')]});
-    // 그림: 영어 화면에서는 글자를 영어로 다시 그린 그림(img/en/)을 써요
-    document.querySelectorAll('[data-src-ko]').forEach(function(e){var v=e.dataset['src'+(ko?'Ko':'En')];if(e.getAttribute('src')!==v)e.setAttribute('src',v)});
-    document.querySelectorAll('[data-zoom-ko]').forEach(function(e){e.dataset.zoom=e.dataset['zoom'+(ko?'Ko':'En')]});
-    document.querySelectorAll('[data-lang-toggle]').forEach(function(b){b.setAttribute('aria-label',b.id==='lang'?(ko?'한 ENG, 언어 바꾸기. 지금 한국어':'한 ENG, switch language. Now English'):(ko?'ENG, 영어로 바꾸기':'한, switch to Korean'))});
-    try{var u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}}
-  applyLang(root.dataset.lang);
-  document.querySelectorAll('[data-lang-toggle]').forEach(function(btn){btn.addEventListener('click',function(){var l=root.dataset.lang==='ko'?'en':'ko';applyLang(l);try{localStorage.setItem('ch-lang',l)}catch(e){}
-    say(l==='ko'?'한국어로 바꿨어요':'Switched to English',1400)})});
+  function applyLang(l){if(!LANG[l])l='en';root.lang={'zh-hans':'zh-Hans','zh-hant':'zh-Hant'}[l]||l;root.dataset.lang=l;var L=LANG[l];
+    if(window.CH_FONT)CH_FONT(l);
+    document.title=L.title;
+    document.querySelectorAll('[data-label-ko]').forEach(function(e){e.setAttribute('aria-label',pick(e,'label'))});
+    document.querySelectorAll('[data-alt-ko]').forEach(function(e){e.alt=pick(e,'alt')});
+    // 그림: 외국어 화면에서는 글자를 그 언어로 다시 그린 약도(영어 img/en/, 일본어 img/ja/, 중국어 img/zh-hans/·img/zh-hant/)를 써요
+    document.querySelectorAll('[data-src-ko]').forEach(function(e){var v=pick(e,'src');if(e.getAttribute('src')!==v)e.setAttribute('src',v)});
+    document.querySelectorAll('[data-zoom-ko]').forEach(function(e){e.dataset.zoom=pick(e,'zoom')});
+    document.querySelectorAll('[data-lang-menu]').forEach(function(b){b.setAttribute('aria-label',L.pick+L.now)});
+    document.querySelectorAll('[data-set-lang]').forEach(function(b){b.setAttribute('aria-checked',b.dataset.setLang===l?'true':'false')});
+    try{var u=new URL(location.href);u.searchParams.set('lang',(window.CH_URL||{})[l]||l);history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}}
+  applyLang(curLang());
+  // 언어 목록: 언어 버튼(맨 위·메뉴줄) 아래에 열리고, 고르거나 바깥을 누르거나 Esc·스크롤이면 닫혀요
+  var lm=document.getElementById('langmenu'),lmFrom=null,lmItems=[].slice.call(lm.querySelectorAll('[data-set-lang]'));
+  function lmPlace(){var r=lmFrom.getBoundingClientRect(),w=lm.offsetWidth,vw=document.documentElement.clientWidth;
+    lm.style.top=Math.round(r.bottom+8)+'px';lm.style.left=Math.round(Math.max(8,Math.min(r.right-w,vw-w-8)))+'px'}
+  function lmOpen(b,focusFirst){lmFrom=b;lm._y=scrollY;lm.hidden=false;lmPlace();b.setAttribute('aria-expanded','true');
+    var on=lm.querySelector('[aria-checked=true]')||lmItems[0];if(focusFirst)on.focus({preventScroll:true})}
+  function lmClose(back){if(lm.hidden)return;lm.hidden=true;if(lmFrom){lmFrom.setAttribute('aria-expanded','false');if(back)lmFrom.focus({preventScroll:true})}}
+  document.querySelectorAll('[data-lang-menu]').forEach(function(b){
+    b.addEventListener('click',function(e){e.stopPropagation();if(!lm.hidden&&lmFrom===b){lmClose();return}lmClose();lmOpen(b,e.detail===0)});
+    b.addEventListener('keydown',function(e){if(e.key==='ArrowDown'){e.preventDefault();lmOpen(b,true)}})});
+  lmItems.forEach(function(it,i){it.addEventListener('click',function(){var l=it.dataset.setLang,ch=l!==curLang();lmClose(true);if(!ch)return;
+      applyLang(l);try{localStorage.setItem('ch-lang',l)}catch(e){}say(LANG[l].sw,1400)});
+    it.addEventListener('keydown',function(e){var n=e.key==='ArrowDown'?1:e.key==='ArrowUp'?-1:0;if(n){e.preventDefault();lmItems[(i+n+lmItems.length)%lmItems.length].focus()}
+      else if(e.key==='Tab')lmClose()})});
+  document.addEventListener('click',function(e){if(!lm.hidden&&!lm.contains(e.target))lmClose()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!lm.hidden)lmClose(true)});
+  addEventListener('scroll',function(){if(lm.hidden)return;if(Math.abs(scrollY-lm._y)>48)lmClose();else lmPlace()},{passive:true});
+  addEventListener('resize',function(){if(!lm.hidden)lmPlace()});
+  // 머리말 오른쪽 버튼 묶음 폭만큼 '사용법' 버튼이 비켜 서요 (언어 이름 길이가 달라도 겹치지 않게)
+  var side=document.querySelector('.top .side');function sideW(){side.parentNode.style.setProperty('--side-w',side.offsetWidth+'px')}sideW();
+  if(window.ResizeObserver)new ResizeObserver(sideW).observe(side);else addEventListener('resize',sideW);
   // 복사
   function say(t,ms){toast.textContent=t;toast.classList.remove('stay');toast.onclick=null;toast.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on')},ms||2400)}
   document.addEventListener('click',function(e){var b=e.target.closest('[data-copy]');if(!b)return;var v=b.dataset.copy;
-    var ok=function(){say(b.dataset['toast'+(root.dataset.lang==='ko'?'Ko':'En')]||v,3200)};
+    var ok=function(){say(pick(b,'toast')||v,3200)};
     // 복사가 안 되면(카카오톡·LINE 안 브라우저 등) '복사됨' 대신 글자를 크게 보여 줘요
-    var fail=function(){toast.textContent='';var m=document.createElement('span');m.textContent=root.dataset.lang==='ko'?'복사가 안 됐어요. 직접 입력해 주세요':'Couldn’t copy. Please type it in';var big=document.createElement('b');big.className='big';big.textContent=v;toast.appendChild(m);toast.appendChild(big);toast.classList.add('on','stay');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on','stay')},15000);toast.onclick=function(){clearTimeout(toast._t);toast.classList.remove('on','stay');toast.onclick=null}};
+    var fail=function(){toast.textContent='';var m=document.createElement('span');m.textContent=tr({ko:'복사가 안 됐어요. 직접 입력해 주세요',en:'Couldn\u2019t copy. Please type it in',ja:'コピーできませんでした。直接入力してください','zh-hans':'无法复制，请手动输入','zh-hant':'無法複製，請手動輸入'});var big=document.createElement('b');big.className='big';big.textContent=v;toast.appendChild(m);toast.appendChild(big);toast.classList.add('on','stay');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on','stay')},15000);toast.onclick=function(){clearTimeout(toast._t);toast.classList.remove('on','stay');toast.onclick=null}};
     var legacy=function(){var t=document.createElement('textarea'),r=false;t.value=v;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,v.length);try{r=document.execCommand('copy')}catch(_){}t.remove();b.focus&&b.focus({preventScroll:true});r?ok():fail()};
     if(navigator.clipboard&&window.isSecureContext!==false){navigator.clipboard.writeText(v).then(ok,legacy)}else legacy()});
   // iOS Safari에서 버튼 눌림(:active) 반응이 보이게
@@ -530,11 +649,14 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
   if(inapp){var bar=document.getElementById('inapp');bar.hidden=false;
     var kn={KakaoTalk:'카카오톡',LINE:'LINE',Instagram:'인스타그램',Facebook:'페이스북',NAVER:'네이버 앱',WhatsApp:'WhatsApp'}[inapp];
     document.getElementById('inapp-name').textContent=kn;document.getElementById('inapp-name-en').textContent=inapp;
+    document.getElementById('inapp-name-ja').textContent={KakaoTalk:'カカオトーク',NAVER:'NAVERアプリ'}[inapp]||inapp;
+    document.getElementById('inapp-name-zh-hans').textContent={NAVER:'NAVER应用'}[inapp]||inapp;
+    document.getElementById('inapp-name-zh-hant').textContent={NAVER:'NAVER App'}[inapp]||inapp;
     document.getElementById('inapp-open').addEventListener('click',function(){var here=location.href;
       if(inapp==='KakaoTalk'){location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(here);return}
       if(inapp==='LINE'){var u=new URL(here);u.searchParams.set('openExternalBrowser','1');location.href=u.href;return}
       if(isAnd){location.href='intent://'+here.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;end';return}
-      say(root.dataset.lang==='ko'?'오른쪽 위(또는 아래) ⋯ 메뉴에서 ‘브라우저로 열기’를 눌러 주세요':'Tap the ⋯ menu, then “Open in browser”',4200)})}
+      say(tr({ko:'오른쪽 위(또는 아래) ⋯ 메뉴에서 ‘브라우저로 열기’를 눌러 주세요',en:'Tap the ⋯ menu, then “Open in browser”',ja:'右上(または下)の ⋯ メニューから「ブラウザで開く」を選んでください','zh-hans':'请点右上角(或下方)的 ⋯ 菜单，选择“用浏览器打开”','zh-hant':'請點右上角(或下方)的 ⋯ 選單，選擇「用瀏覽器開啟」'}),4200)})}
 })();
 </script>
 </body>
