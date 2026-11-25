@@ -19,11 +19,12 @@ Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#micr
 - Appliance grid at the top of the house manual; app download buttons open the App Store on iPhone and Google Play on Android.
 - KakaoTalk/LINE in-app browsers get an "Open in browser" button.
 
-## Floor picker (B1 · 1F · 2F · 3F)
-Wi-Fi and the washer/dryer differ by unit. The welcome card asks "몇 층에 묵으세요?" once; the Wi-Fi card and the washer/dryer cards have the same B1·1F·2F·3F buttons, and all of them stay in sync. The pick is remembered on that phone (`ch-floor`) and can be changed anytime. `?floor=b1|1|2|3` opens the page on that floor (handy for per-unit links).
+## Floor picker (GF · 1F · 2F · 3F)
+Wi-Fi and the washer/dryer differ by unit. The welcome card asks "몇 층에 묵으세요?" once; the Wi-Fi card and the washer/dryer cards have the same GF·1F·2F·3F buttons, and all of them stay in sync. The pick is remembered on that phone (`ch-floor`) and can be changed anytime. `?floor=gf|1|2|3` opens the page on that floor (handy for per-unit links). Old `?floor=b1` links and a saved `b1` pick are read as GF.
 - Before a floor is picked, floor-specific info is hidden: no Wi-Fi password or QR, and the laundry cards ask the guest to pick a floor.
-- Markup: anything with `data-fl` shows only for the listed floors (`0` = not picked yet, e.g. `data-fl="b1 2 3"`). `<span data-floor-name>` is filled with the floor name in the current language.
-- Current content (Copen_Green Wi-Fi, QR, Samsung washer/dryer) is 1F. B1, 2F and 3F show "ask your host" for Wi-Fi and "guide coming soon" for the washer/dryer. To add a floor's info, copy the `data-fl="1"` block next to it, set its `data-fl`, and drop that floor from the `data-fl="b1 2 3"` placeholder.
+- Markup: anything with `data-fl` shows only for the listed floors (`0` = not picked yet, e.g. `data-fl="gf 2 3"`). `<span data-floor-name>` is filled with the floor name in the current language.
+- Wi-Fi (password `Copen_0077` on every floor; the copy button copies only the password): GF `Copen_Beige` (`qr-gf.png`), 1F `Copen_Green` (`qr.png`), 2F `Copen_Blue` (`qr-2f.png`), 3F `Copen_Pink` (`qr-3f.png`).
+- Washer/dryer: only 1F (Samsung) has a guide. GF, 2F and 3F show "guide coming soon" + contact the host. To add a floor's guide, copy the `data-fl="1"` block next to it, set its `data-fl`, and drop that floor from the `data-fl="gf 2 3"` placeholder.
 
 ## Files
 | File | Used for |
@@ -32,7 +33,7 @@ Wi-Fi and the washer/dryer differ by unit. The welcome card asks "몇 층에 묵
 | `brochure/index.html` | Arrival brochure page (all CSS/JS inline) |
 | `img/` | Guidebook diagrams and building photos (from the printed 1F guidebook); `img/en/`, `img/ja/`, `img/zh-hans/` and `img/zh-hant/` hold the same diagrams relettered in English, Japanese, Simplified and Traditional Chinese |
 | `hero.jpg` | Hero photo |
-| `qr.png` | Wi-Fi QR code (guidebook) |
+| `qr.png`, `qr-gf.png`, `qr-2f.png`, `qr-3f.png` | Wi-Fi QR codes per floor (1F, GF, 2F, 3F) |
 | `og.jpg` | Link preview image (KakaoTalk, LINE, etc.) |
 | `favicon.png`, `apple-touch-icon.png` | Browser tab / home-screen icons |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is |
