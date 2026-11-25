@@ -6,12 +6,12 @@ Static site (no build step). Open `index.html` in a browser to preview.
 | URL | Page |
 |---|---|
 | `/` (`index.html`) | Guest guidebook (the main page guests get): house manual, trash & rules, getting here, food, pick-up & tours, apps & emergency, Wi-Fi QR and host contacts. Korean, English, Japanese, Simplified Chinese and Traditional Chinese (`?lang=ko|en|ja|zh-CN|zh-TW`). Opens in `?lang=` if present; otherwise the language last picked with the language button on that phone; otherwise the phone's language (Korean → Korean, Japanese → Japanese, zh-CN/zh-SG/zh-Hans → Simplified, zh-TW/zh-HK/zh-MO/zh-Hant → Traditional, everything else → English). |
-| `/brochure/` (`brochure/index.html`) | Short arrival guide in the same design as the guidebook: check-in & check-out, getting here, the 7 house rules, host contacts and emergency numbers. No links to the guidebook. Meant as quick info for guests before check-in. Korean, English, Japanese, Simplified and Traditional Chinese, with the same language button, `?lang=` codes, phone-language detection and remembered choice as the guidebook (the choice is shared between the two pages). Japanese/Chinese text reuses the guidebook's reviewed translations, and the walking map uses the same per-language images. Not linked from the guidebook. |
+| `/brochure/` (`brochure/index.html`) | Short arrival guide in the same design as the guidebook: check-in & check-out (incl. 220V / plug type), getting here, the 7 house rules, host contacts and emergency numbers. No links to the guidebook. Meant as quick info for guests before check-in. Korean, English, Japanese, Simplified and Traditional Chinese, with the same language button, `?lang=` codes, phone-language detection and remembered choice as the guidebook (the choice is shared between the two pages). Japanese/Chinese text reuses the guidebook's reviewed translations, and the walking map uses the same per-language images. Not linked from the guidebook. |
 
 The language button on either page updates `?lang=` in the address, so a shared link or a reload keeps the language.
 The guidebook's language button (globe icon, top right and in the sticky menu bar) opens a list: 한국어 / English / 日本語 / 简体中文 / 繁體中文. Simplified Chinese uses mainland wording, Traditional Chinese uses Taiwan wording. `?lang=zh-hans` / `zh-hant` / `zh-HK` also work; the address always shows `zh-CN` or `zh-TW`.
 
-Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`.
+Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`, `#power` (220V / plug type).
 
 ## First-time guest features
 - "처음 오셨다면 이 순서로" steps under the hero: door, Wi-Fi, heating, trash & rules, and the check-out checklist.
