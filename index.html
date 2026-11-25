@@ -378,8 +378,8 @@ dialog button{min-height:44px;padding:0 16px;border:0;border-radius:99px;backgro
 /* 집 사용법: 기기 한눈에 보기 */
 
 /* 앱 설치 링크 */
-.apps dd .get{display:inline-flex;align-items:center;gap:4px;min-height:44px;margin-top:6px;padding:0 12px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font-size:13px;font-weight:700;text-decoration:none}
-.apps dd .get .ic{width:14px;height:14px;color:var(--green)}
+.apps dd .get,.apps dd .out{display:inline-flex;align-items:center;gap:4px;min-height:44px;margin-top:6px;padding:0 12px;border:1.5px solid var(--ctl);border-radius:99px;background:var(--ctl-bg);color:var(--ink);font-size:13px;font-weight:700;text-decoration:none}
+.apps dd .get .ic,.apps dd .out .ic{width:14px;height:14px;color:var(--green)}
 
 
 /* 카카오톡·LINE 등 앱 안 브라우저 안내 */
@@ -1372,27 +1372,32 @@ details.howto:not([open]):not(.seen){animation:howto-glow 2.6s ease-in-out 1s 3}
       <div><dt>카카오 T / Uber</dt><dd>택시 호출. 해외에서 쓰던 Uber 계정으로 그대로 부를 수 있어요.<br><a class="get" data-ios="id981110422" data-and="com.kakao.taxi">카카오 T 받기</a> <a class="get" data-ios="id368677368" data-and="com.ubercab">Uber 받기</a></dd></div>
       <div><dt>파파고</dt><dd>번역 (메뉴판 사진 번역 가능)<br><a class="get" data-ios="id1147874819" data-and="com.naver.labs.translator">파파고 받기</a></dd></div>
       <div><dt>티머니 카드</dt><dd>지하철·버스 요금. 공항이나 집 근처 편의점(CU·GS25, <span class="nw">도보 2분</span>)에서 카드를 사고 충전할 수 있어요. 충전은 <b>현금만</b> 되고, 지하철역 충전기에서도 할 수 있어요.</dd></div>
+      <div><dt>택스 리펀드</dt><dd>외국인 관광객은 Tax Free 표시 매장에서 여권을 보여 주면 부가세를 돌려받을 수 있어요.<br><a class="out" href="https://english.visitkorea.or.kr/svc/contents/infoBscView.do?vcontsId=248765">한국관광공사 안내 (영문)<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a></dd></div>
     </dl>
     <dl class="apps en">
       <div><dt>Naver Map / KakaoMap</dt><dd>Directions, transit, opening hours<br><a class="get" data-ios="id311867728" data-and="com.nhn.android.nmap">Get Naver Map</a> <a class="get" data-ios="id304608425" data-and="net.daum.android.map">Get KakaoMap</a></dd></div>
       <div><dt>Kakao T / Uber</dt><dd>Call a taxi. Your Uber account from home works here too.<br><a class="get" data-ios="id981110422" data-and="com.kakao.taxi">Get Kakao T</a> <a class="get" data-ios="id368677368" data-and="com.ubercab">Get Uber</a></dd></div>
       <div><dt>Papago</dt><dd>Translation, including photos of menus<br><a class="get" data-ios="id1147874819" data-and="com.naver.labs.translator">Get Papago</a></dd></div>
       <div><dt>T-money card</dt><dd>For subway and bus fares. Buy and top up at convenience stores: at the airport, or CU and GS25 <span class="nw">2 min walk</span> from the house. Top-ups are <b>cash only</b>. Subway station machines work too.</dd></div>
+      <div><dt>Tax refund</dt><dd>Show your passport at stores with a Tax Free sign to get the VAT back.<br><a class="out" href="https://english.visitkorea.or.kr/svc/contents/infoBscView.do?vcontsId=248765">Official guide (Visit Korea)<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a></dd></div>
     </dl><dl class="apps ja">
       <div><dt>NAVER Map / カカオマップ</dt><dd>道案内・乗り換え・営業時間<br><a class="get" data-ios="id311867728" data-and="com.nhn.android.nmap">NAVER Mapを入手</a> <a class="get" data-ios="id304608425" data-and="net.daum.android.map">カカオマップを入手</a></dd></div>
       <div><dt>カカオT / Uber</dt><dd>タクシーを呼べます。日本で使っているUberのアカウントもそのまま使えます。<br><a class="get" data-ios="id981110422" data-and="com.kakao.taxi">カカオTを入手</a> <a class="get" data-ios="id368677368" data-and="com.ubercab">Uberを入手</a></dd></div>
       <div><dt>Papago</dt><dd>翻訳アプリ。メニューの写真も翻訳できます<br><a class="get" data-ios="id1147874819" data-and="com.naver.labs.translator">Papagoを入手</a></dd></div>
       <div><dt><span class="nw">T-money</span>（交通カード）</dt><dd>地下鉄やバスの運賃に。空港や近くのコンビニ（CU・GS25、<span class="nw">徒歩2分</span>）でカードを買ってチャージできます。チャージは<b>現金のみ</b>で、地下鉄駅のチャージ機でもできます。</dd></div>
+      <div><dt>免税・税金還付</dt><dd>Tax Freeの表示があるお店でパスポートを見せると、付加価値税が戻ってきます。<br><a class="out" href="https://english.visitkorea.or.kr/svc/contents/infoBscView.do?vcontsId=248765">韓国観光公社の案内（英語）<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a></dd></div>
     </dl><dl class="apps zh-hans">
       <div><dt>NAVER地图 / Kakao地图</dt><dd>路线导航·换乘·营业时间<br><a class="get" data-ios="id311867728" data-and="com.nhn.android.nmap">下载NAVER地图</a> <a class="get" data-ios="id304608425" data-and="net.daum.android.map">下载Kakao地图</a></dd></div>
       <div><dt>Kakao T / Uber</dt><dd>可以叫出租车。您原来的Uber账号在这里也能直接用。<br><a class="get" data-ios="id981110422" data-and="com.kakao.taxi">下载Kakao T</a> <a class="get" data-ios="id368677368" data-and="com.ubercab">下载Uber</a></dd></div>
       <div><dt>Papago</dt><dd>翻译应用，菜单拍照也能翻译<br><a class="get" data-ios="id1147874819" data-and="com.naver.labs.translator">下载Papago</a></dd></div>
       <div><dt><span class="nw">T-money</span>（交通卡）</dt><dd>坐地铁、公交都能用。可在机场或附近的便利店（CU·GS25，<span class="nw">步行2分钟</span>）购买和充值。充值<b>只收现金</b>，地铁站的充值机也可以充。</dd></div>
+      <div><dt>退税</dt><dd>在有Tax Free标志的商店出示护照，即可退还增值税。<br><a class="out" href="https://english.visitkorea.or.kr/svc/contents/infoBscView.do?vcontsId=248765">韩国旅游发展局指南（英文）<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a></dd></div>
     </dl><dl class="apps zh-hant">
       <div><dt>NAVER地圖 / Kakao地圖</dt><dd>路線導航·轉乘·營業時間<br><a class="get" data-ios="id311867728" data-and="com.nhn.android.nmap">下載NAVER地圖</a> <a class="get" data-ios="id304608425" data-and="net.daum.android.map">下載Kakao地圖</a></dd></div>
       <div><dt>Kakao T / Uber</dt><dd>可以叫計程車。您原來的Uber帳號在這裡也能直接用。<br><a class="get" data-ios="id981110422" data-and="com.kakao.taxi">下載Kakao T</a> <a class="get" data-ios="id368677368" data-and="com.ubercab">下載Uber</a></dd></div>
       <div><dt>Papago</dt><dd>翻譯App，菜單拍照也能翻譯<br><a class="get" data-ios="id1147874819" data-and="com.naver.labs.translator">下載Papago</a></dd></div>
       <div><dt><span class="nw">T-money</span>（交通卡）</dt><dd>搭地鐵、公車都能用。可在機場或附近的便利商店（CU·GS25，<span class="nw">步行2分鐘</span>）購買和儲值。儲值<b>只收現金</b>，地鐵站的儲值機也可以加值。</dd></div>
+      <div><dt>退稅</dt><dd>在有Tax Free標誌的商店出示護照，即可退還營業稅。<br><a class="out" href="https://english.visitkorea.or.kr/svc/contents/infoBscView.do?vcontsId=248765">韓國觀光公社指南（英文）<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a></dd></div>
     </dl>
     <h3><span class="ko">비상 연락처</span><span class="en">Emergency numbers</span><span class="ja">緊急連絡先</span><span class="zh-hans">紧急联系电话</span><span class="zh-hant">緊急聯絡電話</span></h3>
     <div class="sos">
