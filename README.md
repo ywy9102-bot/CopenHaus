@@ -11,7 +11,7 @@ Static site (no build step). Open `index.html` in a browser to preview.
 The language button on either page updates `?lang=` in the address, so a shared link or a reload keeps the language.
 The guidebook's language button (globe icon, top right and in the sticky menu bar) opens a list: 한국어 / English / 日本語 / 简体中文 / 繁體中文. Simplified Chinese uses mainland wording, Traditional Chinese uses Taiwan wording. `?lang=zh-hans` / `zh-hant` / `zh-HK` also work; the address always shows `zh-CN` or `zh-TW`.
 
-Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`, `#power` (220V / plug type).
+Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`, `#power` (220V / plug type), `#trouble` (if something’s not working). Safety info (fire extinguisher, breaker, first aid) is under emergency numbers at `#safety`.
 
 ## First-time guest features
 - "처음 오셨다면 이 순서로" steps under the hero: door, Wi-Fi, heating, trash & rules, and the check-out checklist.
