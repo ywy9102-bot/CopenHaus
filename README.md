@@ -43,6 +43,11 @@ Wi-Fi and the washer/dryer differ by unit. The welcome card asks "몇 층에 묵
 2. Settings → Pages → Source: *Deploy from a branch* → Branch `main` / `(root)` → Save.
 3. Link previews use `https://ywy9102-bot.github.io/CopenHaus/og.jpg` (set in the `og:image` line of both pages).
 
+## Fonts (self-hosted)
+Fonts live in `fonts/` (Noto Sans/Serif KR·JP·SC·TC, OFL license) so the page opens right away even where Google Fonts is blocked
+(e.g. China roaming). Each file keeps only the characters used on the two pages. After adding text with **new characters**, run
+`pip install fonttools brotli && python3 tools/build_fonts.py` and commit `fonts/`. If you forget, nothing breaks: only the new characters show in the phone's default font.
+
 ## Before sharing publicly
 The page contains the host's phone number, Wi-Fi password and the house address.
 Both pages have `<meta name="robots" content="noindex,nofollow,noarchive">` so search engines skip them,
@@ -50,7 +55,7 @@ but anyone with the link can read them. Remove that meta tag if you want the pag
 
 ## Adding a language
 The guidebook is built so a new language is mostly translation work (Chinese was added this way, as `zh-hans` / `zh-hant`):
-1. `index.html` head script: add the code to `CH_LANGS` and its Google Fonts family to `CH_FONT`.
+1. `index.html` head script: add the code to `CH_LANGS`. For the font, add the family to `FAMILIES` in `tools/build_fonts.py`, run it, and add matching `@font-face` lines at the top of both pages.
 2. CSS: add `html:not([data-lang=xx]) .xx` to the hide rule, plus a font/line-break block like the `html[lang=ja]` / `html[lang|=zh]` ones.
 3. Text: next to every `class="ja"` element add a `class="xx"` one; next to every `data-label-ja` / `data-toast-ja` / `data-alt-ja` add `data-label-xx` etc. Anything missing falls back to English.
 4. Script: add a row to the `LANG` table (tab title, "switched" message, screen-reader text), and the strings in the "지금 필동" card, copy-failed and in-app messages.
