@@ -11,7 +11,7 @@ Static site (no build step). Open `index.html` in a browser to preview.
 The language button on either page updates `?lang=` in the address, so a shared link or a reload keeps the language.
 The guidebook's language button (globe icon, top right and in the sticky menu bar) opens a list: 한국어 / English / 日本語 / 简体中文 / 繁體中文. Simplified Chinese uses mainland wording, Traditional Chinese uses Taiwan wording. `?lang=zh-hans` / `zh-hant` / `zh-HK` also work; the address always shows `zh-CN` or `zh-TW`.
 
-Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`, `#power` (220V / plug type), `#amenities` (what’s in the house), `#trouble` (if something’s not working). Safety info (fire extinguisher, breaker, first aid) is under emergency numbers at `#safety`.
+Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#microwave`, `#induction`, `#tv`, `#power` (220V / plug type), `#amenities` (what’s in the house), `#trouble` (if something’s not working). Safety info (fire extinguisher, carbon monoxide alarm, breaker, first aid) is under emergency numbers at `#safety`. Frequently asked questions (11 short answers that jump to the right spot) are at `#faq`, right above the menu.
 
 ## First-time guest features
 - "처음 오셨다면 이 순서로" steps under the hero: door, Wi-Fi, heating, trash & rules, and the check-out checklist.
@@ -20,7 +20,7 @@ Appliance guides can be linked directly: `#heating`, `#washer`, `#dryer`, `#micr
 - KakaoTalk/LINE in-app browsers get an "Open in browser" button.
 
 ## Floor picker (GF · 1F · 2F · 3F)
-Wi-Fi and the washer/dryer differ by unit. The welcome card asks "몇 층에 묵으세요?" once; the Wi-Fi card and the washer/dryer cards have the same GF·1F·2F·3F buttons, and all of them stay in sync. The pick is remembered on that phone (`ch-floor`) and can be changed anytime. `?floor=gf|1|2|3` opens the page on that floor (handy for per-unit links). Old `?floor=b1` links and a saved `b1` pick are read as GF.
+Wi-Fi and the washer/dryer differ by unit. The welcome card asks "몇 층에 묵으세요?" once; the Wi-Fi card and the washer/dryer cards have the same GF·1F·2F·3F buttons, and all of them stay in sync. The pick is remembered on that phone (`ch-floor`, with the time it was saved in `ch-floor-t`) and can be changed anytime. After 14 days the saved pick is dropped and the page asks again, so a returning guest on another floor doesn't see the old Wi-Fi. `?floor=gf|1|2|3` opens the page on that floor (handy for per-unit links); `1F`, `2F`, `3F` work too, in any letter case. Old `?floor=b1` links and a saved `b1` pick are read as GF.
 - Before a floor is picked, floor-specific info is hidden: no Wi-Fi password or QR, and the laundry cards ask the guest to pick a floor.
 - Markup: anything with `data-fl` shows only for the listed floors (`0` = not picked yet, e.g. `data-fl="gf 2 3"`). `<span data-floor-name>` is filled with the floor name in the current language.
 - Wi-Fi (password `Copen_0077` on every floor; the copy button copies only the password): GF `Copen_Beige` (`qr-gf.png`), 1F `Copen_Green` (`qr.png`), 2F `Copen_Blue` (`qr-2f.png`), 3F `Copen_Pink` (`qr-3f.png`).
